@@ -1,8 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Light.woff2') format('woff2'),
+      url('/fonts/rubik/Rubik-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-LightItalic.woff2') format('woff2'),
+      url('/fonts/rubik/Rubik-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Regular.woff2') format('woff2'),
+      url('/fonts/rubik/Rubik-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Italic.woff2') format('woff2'),
+      url('/fonts/rubik/Italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Medium.woff2') format('woff2'),
+      url('/fonts/rubik/Rubik-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-MediumItalic.woff2') format('woff2'),
+      url('/fonts/rubik/Rubik-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Bold.woff2') format('woff2'),
+      url('/fonts/rubik/Rubik-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-BoldItalic.woff2') format('woff2'),
+      url('/fonts/rubik/Rubik-BoldItalic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
 }
 
 @theme inline {
@@ -10,17 +81,310 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+@theme {
+  --breakpoint-sm: 500px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-1400: 1400px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-3xl: 1700px;
+
+  --color-dark: #141414;
+  --color-gray-66: #666666;
+  --color-gray-f2: #F2F2F2;
+  --color-gray-b3: #B3B3B3;
+  --color-gray-40: #404040;
+
+  --font-rubik: 'Rubik', sans-serif;
+  --font-roboto: 'Roboto Mono', monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply text-[16px] scroll-smooth;
+  }
+  body {
+    @apply min-h-screen w-full bg-white font-rubik text-[0.75rem] leading-[1.2] tracking-[0.05em] break-words text-wrap text-dark;
+  }
+  .pinpoint-container {
+    @apply w-[85.8vw] max-w-[495px] md:max-w-none md:w-[595px] lg:w-[828px] xl:w-[1024px] 2xl:w-[1200px] 3xl:w-[1300px] mx-auto;
+  }
+  .pinpoint-container-mobile-w-full {
+    @apply w-full max-w-full md:max-w-none md:w-[595px] lg:w-[828px] xl:w-[1024px] 2xl:w-[1200px] 3xl:w-[1300px] mx-auto;
+  }
+  .menu-container {
+    @apply w-[85.8vw] max-w-[495px] lg:max-w-none lg:w-full mx-auto;
+  }
+  .wide-pinpoint-container {
+    @apply w-full px-[5vw] md:px-[2.27vw];
+  }
+  .section-block-padding {
+    @apply py-[3.375rem] md:py-20 lg:py-[6.5rem];
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    @apply scale-50 md:scale-75 lg:scale-100;
+  }
+
+  /* Typography */
+  .typo-h1 { /* Home hero */
+    @apply font-rubik text-[calc(10vw_+_3px)] sm:text-[3.3125rem] md:text-[calc(7.7821011673vw_-_19.6887159533px)] lg:text-[clamp(calc(5.5vw_-_10px),_50%,_calc(7.5vw_-_10px))] leading-[1.2] -tracking-[0.25px] font-bold;
+  }
+  .typo-h2 { /* Section title */
+    @apply font-rubik text-[1.375rem] md:text-[calc(3.5019455253vw_+_8.140077821px)] lg:text-[calc(1.8181818182vw_+_25.3818181818px)] xl:text-[clamp(50px,_3.731vw,_62px)] leading-[1.2] font-bold xl:font-semibold;
+  }
+  .typo-h2-cta { /* CTA title */
+    @apply font-rubik text-[calc(8.1888888889vw_+_3.5555555556px)] md:text-[calc(1.5564202335vw_+_14.0622568093px)] lg:text-[calc(0vw_+_37px)] xl:text-[clamp(37px,_2.761vw,_46px)] leading-[1.2] tracking-[0] font-semibold;
+  }
+  .typo-h3 { /* Home case study title */
+    @apply font-rubik text-[1.5625rem] md:text-[1.4125rem] lg:text-[1.875rem] xl:text-[clamp(1.875rem,_2.985vw,_2.3125rem)] leading-[1.2] md:leading-[1.15] font-semibold xl:font-medium;
+  }
+  .typo-h4 { /* Service card title */
+    @apply font-rubik text-[1.375rem] md:text-[1.6875rem] xl:text-[clamp(1.6875rem,_3.134vw,_2rem)] leading-[1.2] md:leading-[1.25] tracking-[0] font-bold;
+  }
+  .typo-h5 {
+    @apply font-rubik text-[1rem] sm:text-[1.5rem] leading-[1.4] font-medium;
+  }
+  .typo-h6 {
+    @apply font-rubik text-[1rem] sm:text-[1.25rem] leading-[1.4] font-medium;
+  }
+  .typo-subtitle { /* Home hero subtitle above title */
+    @apply font-rubik text-[1.25rem] md:text-[0.75rem] lg:text-[0.9375rem] leading-[1.5] tracking-[0.08em] font-light;
+  }
+  .typo-body-1 { /* Home get-to-know-us text */
+    @apply font-rubik text-[calc(2.2222222222vw_+_12.8888888889px)] md:text-[1.25rem] lg:text-[1.5625rem] xl:text-[clamp(25px,_1.791vw,_30px)] leading-[1.6] tracking-[0.08em] font-light;
+  }
+  .typo-body-2 { /* Home case study description */
+    @apply font-rubik text-[0.875rem] md:text-[0.9375rem] xl:text-[clamp(15px,_1.119vw,_19px)] leading-[1.6] md:leading-[2] tracking-[0.025em] md:tracking-[0.08em] font-light;
+  }
+  .typo-body-3 { /* CTA body text */
+    @apply font-rubik text-[calc(0.4474272931vw_+_16.5682326622px)] md:text-[0.75rem] xl:text-[clamp(0.875rem,_1.343vw,_1.0625rem)] leading-[1.6] md:leading-[2] tracking-[0] font-light;
+  }
+  .typo-body-4 { /* Services breakdown text */
+    @apply font-rubik text-[0.6875rem] xl:text-[clamp(0.6875rem,_1.119vw,_0.875rem)] leading-[1.7] md:leading-[1.8] tracking-[0.05em] md:tracking-[0.08em] font-light;
+  }
+  .typo-quote {
+    @apply font-roboto text-[2.25rem] sm:text-[3rem] leading-none;
+  }
+  .typo-caption-small { /* Section caption above title */
+    @apply font-rubik text-[0.625rem] xl:text-[clamp(0.625rem,_0.97vw,_0.75rem)] leading-[1.2] tracking-[0.3em] xl:tracking-[clamp(.3em,_0.97vw,_.4em)] font-light opacity-90;
+  }
+  .typo-caption-large { /* Home bottom caption */
+    @apply font-rubik text-[calc(4.4444444444vw_+_3.7777777778px)] md:text-[calc(0.7782101167vw_+_8.0311284047px)] lg:text-[calc(1.1612903226vw_+_12.1083870968px)] leading-[1.5] md:leading-[2] lg:leading-[1.2] font-light;
+  }
+  .typo-menu { /* Menu btn text */
+    @apply text-[0.625rem] md:text-[0.75rem] leading-[2rem] font-bold uppercase;
+  }
+  .typo-button { /* Button texts */
+    @apply font-rubik text-[1.0625rem] md:text-[0.9375rem] xl:text-[clamp(15px,_1.119vw,_19px)] leading-[1.125rem] font-bold md:font-medium lg:font-normal tracking-[0];
+  }
+  .typo-display {
+    @apply font-roboto text-[8rem] leading-[1.2];
+  }
+
+  /* MACARON */
+  .macaron {
+    @apply w-[115px] aspect-square rounded-full border-2 border-white;
+  }
+  .macaron.homepage-macaron {
+    @apply lg:w-[clamp(115px,_9vw,_14vw)];
+  }
+  .half-macaron {
+    @apply w-[calc(115px_/_2)] aspect-square rounded-full border-2 border-white;
+  }
+  .half-macaron.homepage-half-macaron {
+    @apply lg:w-[calc(clamp(115px,_9vw,_14vw)_/_2)];
+  }
+
+  /* UTILITIES */
+  .center-circle {
+    @apply rounded-full aspect-square grid place-items-center;
+  }
+  .transform-origin-top-left {
+    transform-origin: top left;
+  }
+  .transform-origin-bottom-left {
+    transform-origin: bottom left;
+  }
+  .transform-origin-center {
+    transform-origin: center center;
+  }
+
+  /* Give any select/dropdown trigger caret the .trigger-caret class to make it rotate when the dropdown is open */
+  .shadcn-trigger > i.trigger-caret {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .shadcn-trigger[data-state='open'] > i.trigger-caret {
+    @apply rotate-180;
+  }
+
+  /* Hide scrollbar for any element */
+  .scrollbar-none {
+    overflow: auto;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none; /* Hides scrollbar in WebKit browsers */
+  }
+
+  .scrollbar-none {
+    -ms-overflow-style: none; /* Hides scrollbar in IE and Edge */
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+  }
+
+  /* Remove arrows from number inputs */
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type='number'] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  /* Hide date input default calendar icon */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+  input[type="date"] {
+    appearance: none;
+    -moz-appearance: textfield;
+  }
+  input[type="date"]::-ms-clear,
+  input[type="date"]::-ms-reveal {
+    display: none;
+  }
+    
+
+  /* Stop that weird different color of inputs when auto-filled or completed */
+  /* Add a transition-delay of 1hr to delay the changing of background by the browser */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  input:-internal-autofill-selected,
+  input:-internal-autofill-selected:hover,
+  input:-internal-autofill-selected:focus,
+  input:-internal-autofill-selected:active {
+    transition-delay: 3600s !important;
+  }
+
+  video {
+    overflow-clip-margin: content-box;
+    overflow: clip;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* .dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+} */

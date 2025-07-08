@@ -1,0 +1,7 @@
+.next
+node_modules
+*.css
+*.json
+*.webmanifest
+*.md
+*.html
