@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export const CaseStudies = () => {
   return (
-    <section className="w-full section-block-padding bg-gray-f2 relative z-[5]">
+    <section className="w-full section-block-padding bg-gray-f2 relative z-[3]">
       <div className="pinpoint-container grid gap-6 md:gap-8 lg:gap-[3.75rem] xl:gap-[clamp(60px,_4.478vw,_75px)">
         <div className="grid gap-3">
           <p className="typo-caption-small uppercase">Our latest case studies</p>

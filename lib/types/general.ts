@@ -1,9 +1,9 @@
 import { LucideProps } from 'lucide-react';
-import { ForwardRefExoticComponent, ReactNode, RefAttributes, SVGProps, type JSX } from 'react';
+import { ForwardRefExoticComponent, RefAttributes, RefObject, SVGProps, type JSX } from 'react';
 
-export interface ChildrenOnly {
-  children: ReactNode;
-}
+export type PropsWithVideoDisplayRef<T = unknown> = T & {
+  videoDisplayRef: RefObject<HTMLElement | null>;
+};
 
 export interface TitleAndText {
   title: string;

@@ -3,7 +3,8 @@
 import { useMemo, useState } from 'react';
 import { GhostBtn } from '../atoms/GhostBtn';
 import { LogoAd, LogoText } from '../icons';
-import { Dialog, DialogContent, DialogTitle } from '../ui/dialog';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../ui/dialog';
 import { usePathname } from 'next/navigation';
 import { langChangeOptions, navlinks } from '@/lib/constants/routing';
 
@@ -40,11 +41,13 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
   };
 
   return (
-    <header
-      id="header"
-      className={`header w-full ${menuOpen || whiteTextStart ? 'text-white' : ''}`}>
+    <header id="header" className={`header w-full text-white`}>
       <div
-        className={`h-fit wide-pinpoint-container fixed inset-0 mix-blend-normal items-center justify-between py-6 md:py-8 z-[99] ${menuOpen ? 'flex' : 'flex'}`}>
+        id="visible-header"
+        className={`h-fit wide-pinpoint-container fixed inset-0 
+        ${
+          menuOpen || whiteTextStart ? 'mix-blend-normal' : 'mix-blend-difference'
+        } flex items-center justify-between py-6 md:py-8 z-[99]`}>
         <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
           <div className="w-fit flex items-center text-[1.8125rem] md:text-[2.0625rem] xl:text-[clamp(33px,_2.463vw,_42px)]">
             <LogoAd />
@@ -71,8 +74,17 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
       </div>
 
       <Dialog open={menuOpen}>
-        <DialogContent className="w-full max-w-full h-full text-white/25">
-          <DialogTitle className="sr-only">Navigation Menu</DialogTitle>
+        <DialogContent
+          aria-describedby="header-dialog-title"
+          className="w-full max-w-full h-full text-white/25">
+          <VisuallyHidden asChild>
+            <DialogTitle className="">Navigation Menu</DialogTitle>
+          </VisuallyHidden>
+          <VisuallyHidden asChild>
+            <DialogDescription className="">
+              View navigation menu and our contact links
+            </DialogDescription>
+          </VisuallyHidden>
           <div className="menu-container grid lg:grid-cols-2 gap-[6.75rem]">
             <div className="w-full h-full hidden lg:grid"></div>
             <div className="w-full h-full flex items-center lg:pr-[5.27vw] relative">

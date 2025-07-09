@@ -13,7 +13,7 @@ export const CTA = ({ variant = 'white' }: CTAProps) => {
   return (
     <section
       className={`w-full ${containerBgClass} flex justify-center pt-11 pb-[3.125rem] md:pt-[3.75rem] md:pb-[4.125rem] 
-      lg:pt-[7.25rem] lg:pb-[8.25rem] xl:pt-[clamp(116px,_8.657vw,_145px)] xl:pb-[clamp(132px,_9.851vw,_165px)]`}>
+      lg:pt-[7.25rem] lg:pb-[8.25rem] xl:pt-[clamp(116px,_8.657vw,_145px)] xl:pb-[clamp(132px,_9.851vw,_165px)] relative z-[3]`}>
       <div className="pinpoint-container-mobile-w-full">
         <GhostBtn
           linkProps={{ href: '#' }}

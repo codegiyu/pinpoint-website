@@ -258,16 +258,24 @@
 
   /* MACARON */
   .macaron {
-    @apply w-[115px] aspect-square rounded-full border-2 border-white;
+    @apply w-[115px] aspect-square rounded-full border-[3] border-white;
   }
   .macaron.homepage-macaron {
     @apply lg:w-[clamp(115px,_9vw,_14vw)];
   }
   .half-macaron {
-    @apply w-[calc(115px_/_2)] aspect-square rounded-full border-2 border-white;
+    @apply w-[calc(115px_/_2)] aspect-square rounded-full border-[3] border-white;
   }
   .half-macaron.homepage-half-macaron {
     @apply lg:w-[calc(clamp(115px,_9vw,_14vw)_/_2)];
+  }
+
+  .page-side-caption {
+    position: fixed;
+    left: 4vw;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
   }
 
   /* UTILITIES */

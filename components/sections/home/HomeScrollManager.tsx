@@ -1,21 +1,41 @@
 'use client';
 
-import { useEffect } from 'react';
+import { intersectionExists } from '@/lib/utils/general';
+import { RefObject, useEffect } from 'react';
 
-export const HomeScrollManager = () => {
+export interface HomeScrollManagerProps {
+  refsForObserver: RefObject<HTMLElement | null>[];
+}
+
+export const HomeScrollManager = ({ refsForObserver }: HomeScrollManagerProps) => {
+  const textArr = 'Creative Communications Agency'.split('').reverse();
+
   useEffect(() => {
-    const header = document.getElementById('header');
-    const halfHeaderHeight = (header?.getBoundingClientRect?.().height || 0) / 2;
-
     const scrollManager = () => {
-      if (!header) return;
+      const header = document.getElementById('visible-header');
+      const pageSideCaption = document.querySelector('.page-side-caption');
+      const halfInnerHeight = innerHeight / 2;
+      const whatWeDo = refsForObserver[1].current;
 
-      const { scrollY, innerHeight } = window;
+      const { top: whatWeDoTop = 0 } = whatWeDo?.getBoundingClientRect() ?? {};
 
-      if (scrollY < innerHeight - halfHeaderHeight) {
-        header.classList.replace('text-dark', 'text-white');
+      if (intersectionExists(refsForObserver, header)) {
+        header?.classList.replace('mix-blend-difference', 'mix-blend-normal');
       } else {
-        header.classList.replace('text-white', 'text-dark');
+        header?.classList.replace('mix-blend-normal', 'mix-blend-difference');
+      }
+
+      if (scrollY > halfInnerHeight) {
+        pageSideCaption?.classList.replace('opacity-0', 'opacity-100');
+      } else {
+        pageSideCaption?.classList.replace('opacity-100', 'opacity-0');
+      }
+      console.log({ whatWeDoTop, scrollY });
+
+      if (whatWeDoTop <= halfInnerHeight) {
+        pageSideCaption?.classList.replace('text-dark', 'text-white');
+      } else {
+        pageSideCaption?.classList.replace('text-white', 'text-dark');
       }
     };
 
@@ -23,7 +43,46 @@ export const HomeScrollManager = () => {
     window.addEventListener('scroll', scrollManager);
 
     return () => window.removeEventListener('scroll', scrollManager);
-  }, []);
+    // if (observerRef.current) observerRef.current.disconnect();
 
-  return null;
+    // observerRef.current = new IntersectionObserver(
+    //   entries => {
+    //     const isIntersecting = entries.some(entry => entry.isIntersecting);
+    //     blendModeHasChangedRef.current = true;
+    //     setFullscreenVideoIsIntersecting(isIntersecting);
+    //   },
+    //   {
+    //     root: null,
+    //     rootMargin: `0px 0px ${window.innerHeight - headerRef.current.clientHeight}px`,
+    //     threshold: 0,
+    //   }
+    // );
+
+    // refsForObserver?.forEach(ref => {
+    //   if (ref.current) observerRef.current?.observe(ref.current);
+    // });
+
+    // return () => {
+    //   refsForObserver?.forEach(ref => {
+    //     if (ref.current) observerRef.current?.unobserve(ref.current);
+    //   });
+    // };
+  }, [refsForObserver]);
+
+  return (
+    <div className="page-side-caption opacity-0 text-dark transition-opacity duration-700 ease-in-out">
+      <div
+        className={`typo-caption-small scale-y-[0.80] mix-blend-difference uppercase font-medium`}>
+        {textArr.map((char, idx) =>
+          char === ' ' ? (
+            <br key={idx} />
+          ) : (
+            <p key={idx} className="-rotate-90">
+              {char}
+            </p>
+          )
+        )}
+      </div>
+    </div>
+  );
 };
