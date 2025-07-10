@@ -85,7 +85,7 @@ const ServiceCard = ({ name, breakdown, href, videoUrl, isLast }: ServiceCardPro
           </div>
         </div>
       </GhostBtn>
-      <div className="video-box w-full h-full absolute inset-0 block md:hidden lg:peer-hover:block">
+      <div className="video-box w-full h-full absolute inset-0 opacity-100 md:opacity-0 lg:peer-hover:opacity-100 transition-opacity duration-300 peer-hover:duration-100 ease-linear">
         <video
           src={videoUrl}
           className="w-full h-full object-cover scale-120 relative z-[4]"

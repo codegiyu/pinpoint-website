@@ -210,6 +210,9 @@
   .typo-h2-cta { /* CTA title */
     @apply font-rubik text-[calc(8.1888888889vw_+_3.5555555556px)] md:text-[calc(1.5564202335vw_+_14.0622568093px)] lg:text-[calc(0vw_+_37px)] xl:text-[clamp(37px,_2.761vw,_46px)] leading-[1.2] tracking-[0] font-semibold;
   }
+  .typo-h2-hero { /* Common hero in most pages */
+    @apply font-rubik text-[calc(8.1888888889vw_+_3.5555555556px)] md:text-[calc(10.1556px_+_3.89105vw)] lg:text-[clamp(-5.85455px_+_5vw,_50%,_-5.85455px_+_6vw)] xl:text-[clamp(71px,_4.733vw,_88px)] leading-[1.2] md:leading-[1.1] lg:leading-[clamp(-9px_+_6.3vw,_54%,_-9px_+_8.1vw)] xl:leading-[1.25] tracking-[0] font-medium;
+  }
   .typo-h3 { /* Home case study title */
     @apply font-rubik text-[1.5625rem] md:text-[1.4125rem] lg:text-[1.875rem] xl:text-[clamp(1.875rem,_2.985vw,_2.3125rem)] leading-[1.2] md:leading-[1.15] font-semibold xl:font-medium;
   }
@@ -270,13 +273,14 @@
     @apply lg:w-[calc(clamp(115px,_9vw,_14vw)_/_2)];
   }
 
-  .page-side-caption {
+  /* .page-side-caption {
     position: fixed;
     left: 4vw;
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
-  }
+    @apply fixed top-1/2 left-[4vw] -translate-y-1/2 z-10;
+  } */
 
   /* UTILITIES */
   .center-circle {

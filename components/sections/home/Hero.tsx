@@ -1,10 +1,10 @@
 'use client';
 
 import { GhostBtn } from '@/components/atoms/GhostBtn';
+import { HeroArrow } from '@/components/general/HeroArrow';
 import { MacaronTextEn, MacaronTextePlayEn } from '@/components/icons';
 import { changingHeroTitleModifiers } from '@/lib/constants/texts';
 import { PropsWithVideoDisplayRef } from '@/lib/types/general';
-import { MoveDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
@@ -49,9 +49,9 @@ export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
           <span className="hidden lg:block">play with them.</span>
         </p>
       </div>
-      <MoveDown
+      <HeroArrow
         id="move-down-arrow"
-        className="block md:hidden lg:block size-9 lg:size-12 text-white stroke-1 absolute lg:fixed bottom-[3.75rem] lg:bottom-[5vh] right-[7.1vw] lg:right-auto lg:left-[7.1vw] xl:left-[5vw] z-[2]"
+        className="block md:hidden lg:block text-white absolute lg:fixed bottom-[3.75rem] lg:bottom-[5vh] right-[7.1vw] lg:right-auto lg:left-[7.1vw] xl:left-[5vw] z-[2]"
       />
     </section>
   );

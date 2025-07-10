@@ -28,7 +28,7 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
       ...group,
       links: group.links.map(item => ({
         ...item,
-        href: selectedLang + item.href,
+        href: `${selectedLang === 'en' ? '' : selectedLang}${item.href}`,
         isSelected: !!(restOfPath && item.href.startsWith(restOfPath)),
       })),
     }));
@@ -106,7 +106,7 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
                     <NavLinkGroup key={idx} {...item} isLast={idx === allNavLinks.length - 1} />
                   ))}
                 </nav>
-                <div className="flex lg:absolute lg:bottom-8 left-0 mt-14 lg:mt-0">
+                <div className="flex lg:absolute lg:bottom-20 left-0 mt-14 lg:mt-0">
                   <GhostBtn linkProps={{ href: '#' }}>
                     <span className="typo-caption-small uppercase text-white/50 hover:text-white">
                       Legal Notice
@@ -172,11 +172,11 @@ const NavLinkGroup = ({ name, links, isLast }: NavLinkGroupProps) => {
   );
 };
 
-const NavLink = ({ text, isSelected }: NavLinkProps) => {
+const NavLink = ({ text, href, isSelected }: NavLinkProps) => {
   return (
     <li className="">
       <GhostBtn
-        linkProps={{ href: '#' }}
+        linkProps={{ href }}
         className={`text-[1rem] md:text-[1.3125rem] xl:text-[clamp(1.5rem,_2.388vw,_1.875rem)] leading-[1] font-bold xl:font-medium py-[5px]
         ${isSelected ? 'text-white' : 'text-white/25 hover:text-white'} `}>
         <span className="">{text}</span>

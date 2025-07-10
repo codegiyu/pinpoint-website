@@ -1,5 +1,6 @@
 'use client';
 
+import { PageSideCaption } from '@/components/general/PageSideCaption';
 import { intersectionExists } from '@/lib/utils/general';
 import { RefObject, useEffect } from 'react';
 
@@ -8,8 +9,6 @@ export interface HomeScrollManagerProps {
 }
 
 export const HomeScrollManager = ({ refsForObserver }: HomeScrollManagerProps) => {
-  const textArr = 'Creative Communications Agency'.split('').reverse();
-
   useEffect(() => {
     const scrollManager = () => {
       const header = document.getElementById('visible-header');
@@ -30,7 +29,6 @@ export const HomeScrollManager = ({ refsForObserver }: HomeScrollManagerProps) =
       } else {
         pageSideCaption?.classList.replace('opacity-100', 'opacity-0');
       }
-      console.log({ whatWeDoTop, scrollY });
 
       if (whatWeDoTop <= halfInnerHeight) {
         pageSideCaption?.classList.replace('text-dark', 'text-white');
@@ -69,20 +67,5 @@ export const HomeScrollManager = ({ refsForObserver }: HomeScrollManagerProps) =
     // };
   }, [refsForObserver]);
 
-  return (
-    <div className="page-side-caption opacity-0 text-dark transition-opacity duration-700 ease-in-out">
-      <div
-        className={`typo-caption-small scale-y-[0.80] mix-blend-difference uppercase font-medium`}>
-        {textArr.map((char, idx) =>
-          char === ' ' ? (
-            <br key={idx} />
-          ) : (
-            <p key={idx} className="-rotate-90">
-              {char}
-            </p>
-          )
-        )}
-      </div>
-    </div>
-  );
+  return <PageSideCaption caption="Creative Communication Agency" />;
 };
