@@ -1,7 +1,20 @@
 import { CaseStudySummaryProps } from '@/components/sections/home/CaseStudies';
 import { ServiceCardProps } from '@/components/sections/home/WhatWeDo';
+import SvgLinkedin from '@/components/icons/Linkedin';
+import SvgInstagramIcon from '@/components/icons/InstagramIcon';
+import SvgXIcon from '@/components/icons/XIcon';
+import SvgFacebookIcon from '@/components/icons/FacebookIcon';
 
 export const changingHeroTitleModifiers: string[] = ['strategic', 'branding', 'digital', 'stories'];
+export const changingContactTitleModifiers: string[] = [
+  'Hello',
+  'Atelier',
+  'Bonjour',
+  'Bom dia',
+  'Hola',
+  'Goeiedag',
+  'Buongiorno',
+];
 
 export const homeCaseStudySamples: Omit<CaseStudySummaryProps, 'index'>[] = [
   {
@@ -59,5 +72,28 @@ export const services: ServiceCardProps[] = [
     breakdown: ['Website creation', 'E-shop', 'SEO', 'Ergonomy (UI/UX)', 'CRM API Integration'],
     href: '#',
     videoUrl: '/videos/digital-animation.webm',
+  },
+];
+
+export const socials = [
+  {
+    title: 'Instagram',
+    url: 'https://www.instagram.com/atelierdesign_bxl/',
+    Icon: SvgInstagramIcon,
+  },
+  {
+    title: 'Facebook',
+    url: '',
+    Icon: SvgFacebookIcon,
+  },
+  {
+    title: 'LinkedIn',
+    url: '',
+    Icon: SvgLinkedin,
+  },
+  {
+    title: 'X',
+    url: '',
+    Icon: SvgXIcon,
   },
 ];
