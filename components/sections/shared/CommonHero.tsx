@@ -1,37 +1,62 @@
+'use client';
 /* eslint-disable jsx-a11y/alt-text */
 import { HeroArrow } from '@/components/general/HeroArrow';
 import { PageHeroCaption } from '@/components/general/HeroCaption';
 import { cn } from '@/lib/utils';
 import { omit } from 'lodash';
 import Image, { ImageProps } from 'next/image';
+import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
+import { useMediaQuery } from '@/lib/hooks/use-media-query';
 
 export interface CommonHeroProps {
   caption: string;
   title: string;
-  imageProps: Omit<ImageProps, 'fill'>;
+  description?: string;
+  imageProps?: Omit<ImageProps, 'fill'>;
   bottomStripBackground?: string; // className
+  videoProps?: Omit<
+    DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
+    'src' | 'srcSet'
+  > & {
+    src: string;
+  };
 }
 
 export const CommonHero = ({
   caption,
   title,
+  description,
   imageProps,
   bottomStripBackground,
+  videoProps,
 }: CommonHeroProps) => {
   return (
     <section className="w-full bg-white relative">
-      <CommonHeroTextSection {...{ caption, title }} />
+      <CommonHeroTextSection {...{ caption, title, description }} />
       <div
         className="img-container w-full md:w-[calc(595px_+_((100%_-_595px)_/_2))] 
         lg:w-[calc(828px_+_((100%_-_828px)_/_2))] h-[30rem] lg:h-[clamp(500px,_65vh,_650px)] 
         xl:w-[88vw] xl:h-[75vh] xl:min-h-[40.625rem] md:ml-auto">
         <div className="w-full h-full overflow-hidden">
           <div className="w-full h-full relative z-[1]">
-            <Image
-              {...omit(imageProps, ['className'])}
-              className={cn('w-full h-full object-cover', imageProps.className)}
-              fill
-            />
+            {imageProps ? (
+              <Image
+                {...omit(imageProps, ['className'])}
+                className={cn('w-full h-full object-cover', imageProps && imageProps.className)}
+                fill
+              />
+            ) : (
+              videoProps && (
+                <video
+                  src={videoProps && videoProps.src}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              )
+            )}
           </div>
         </div>
       </div>
@@ -45,7 +70,9 @@ export const CommonHero = ({
 export const CommonHeroTextSection = ({
   caption,
   title,
-}: Pick<CommonHeroProps, 'caption' | 'title'>) => {
+  description,
+}: Pick<CommonHeroProps, 'caption' | 'title' | 'description'>) => {
+  const isTabletScreenAndAbove = useMediaQuery('(min-width: 768px)');
   return (
     <div
       className="pinpoint-container xl:w-[61.875rem] 2xl:w-[70rem] lg:h-[70vh] 
@@ -53,9 +80,27 @@ export const CommonHeroTextSection = ({
       xl:ml-[calc((100vw_-_794px)_/_2)] 2xl:ml-[calc((100vw_-_968px)_/_2)] relative">
       <div
         className="w-full max-h-[47.5rem] lg:max-h-none grid gap-[1.875rem] lg:gap-9 
-        xl:gap-[clamp(45px,_3vw,_55px)] lg:ml-[4.375rem] xl:ml-0 relative">
+        xl:gap-[clamp(45px,_3vw,_55px)] lg:ml-[4.375rem] xl:ml-0 relative ">
         <PageHeroCaption caption={caption} />
-        <h1 className=" min-h-[34vh] md:min-h-auto typo-h2-hero">{title}</h1>
+        <h1
+          className={cn(
+            'md:min-h-auto typo-h2-hero',
+            (!description || !isTabletScreenAndAbove) && 'min-h-[34vh]'
+          )}>
+          {title}
+        </h1>
+        {description && isTabletScreenAndAbove && (
+          <div className=" max-w-[900px] text-[clamp(1.25rem,_1.2vw,_2.25rem)] font-light leading-9">
+            <p>
+              Do you have tremendous creativity but don&apos;t know what to do with it? Do you still
+            </p>
+            <p>have the soul of a child and take real pleasure in transforming things into real</p>
+            <p>
+              applications? Do you drink a lot of coffee? Join the Atelier ! (we also accept
+              tea-drinkers).
+            </p>
+          </div>
+        )}
         <div className="w-full absolute -bottom-9 flex md:hidden justify-end">
           <HeroArrow className="" />
         </div>
