@@ -23,12 +23,12 @@ export const JobsCTA = ({ variant = 'white', title, description, btnText, href }
           linkProps={{ href: href }}
           className={`w-full ${bgClass} flex-none py-10 md:py-[3.125rem] lg:py-[4.25rem] xl:p-[clamp(80px,_5.97vw,_120px)]`}
           wrapClassName={`relative z-[2] before:w-full before:h-full  before:absolute before:inset-0 before:z-[1] before:transition-all before:duration-1000 before:ease-in-out md:hover:before:scale-[0.92] before:cursor-pointer`}>
-          <div className="flex-none w-[84.8vw] max-w-[495px] md:w-[28.4375rem] md:max-w-none lg:w-[45.25rem] xl:w-[48.875rem] 2xl:w-[59.375rem] grid lg:grid-cols-[1fr_auto] gap-8 md:gap-6 2xl:gap-24 items-center lg:justify-between mx-auto relative z-[3]">
-            <div className="w-full lg:w-fit  grid gap-4 md:gap-[1.625rem] xl:gap-0 text-start">
-              <h2 className="typo-h3 2xl:mb-8 font-bold tracking-normal break-words text-wrap w-full">
+          <div className="flex-none w-[78.8vw] max-w-[495px] md:w-[28.4375rem] md:max-w-none lg:w-[45.25rem] xl:w-[48.875rem] 2xl:w-[59.375rem] grid lg:grid-cols-[1fr_auto] gap-8 md:gap-6 2xl:gap-24 items-center lg:justify-between mx-auto relative z-[3]">
+            <div className="w-full lg:w-fit  grid gap-6  text-start">
+              <h2 className="typo-h3 2xl:mb-8 font-[600] md:font-bold tracking-[0.015] md:tracking-normal break-words text-wrap w-full">
                 {title}
               </h2>
-              <p className="w-full md:w-full text-sm md:text-base md:typo-body-3 md:scale-100 text-dark/85 font-thin break-words text-wrap mx-auto">
+              <p className="w-full md:w-full text-[14.5px] md:text-base md:typo-body-3 md:scale-100 text-dark/85 font-light break-words text-wrap mx-auto leading-[1.8em]">
                 {description}
               </p>
             </div>
