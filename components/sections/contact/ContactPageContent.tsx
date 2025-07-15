@@ -2,11 +2,9 @@
 
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
 import { PageSideCaption } from '@/components/general/PageSideCaption';
-import { Socials } from '@/components/general/Socials';
-
 import { changingContactTitleModifiers } from '@/lib/constants/texts';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import PinpointContacts from '../../general/PinpointContacts';
 
 export default function ContentPageContent() {
   return (
@@ -52,35 +50,7 @@ export default function ContentPageContent() {
               />
             </div>
           </div>
-
-          <div className="grid gap-2 lg:gap-4 w-full lg:w-2/7 place-items-start ">
-            <h5 className="typo-h5 pb-2">Atelier Design</h5>
-            <div className="grid gap-4 md:flex md:gap-16 lg:gap-8 lg:grid text-sm md:typo-body-3 md:text-[1.2rem] font-light lg:typo-body-2">
-              <p className="">
-                Rue de Haerne 51 <br /> 1040 Brussels
-              </p>
-              <div className="grid gap-0 lg:gap-2">
-                <p className="flex gap-1">
-                  <label htmlFor="phone-number" className="font-medium">
-                    T
-                  </label>
-                  :
-                  <Link href="tel:+32 2 494 01 28" id="phone-number">
-                    +32 2 494 01 28
-                  </Link>
-                </p>
-                <p>
-                  <Link href="mailto:info@atelierdesign.be" id="email">
-                    info@atelierdesign.be
-                  </Link>
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-3 md:pt-6">
-              <Socials />
-            </div>
-          </div>
+          <PinpointContacts />
         </div>
       </div>
 

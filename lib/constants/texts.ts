@@ -6,6 +6,7 @@ import SvgInstagramIcon from '@/components/icons/InstagramIcon';
 import SvgXIcon from '@/components/icons/XIcon';
 import SvgFacebookIcon from '@/components/icons/FacebookIcon';
 import { WorkCardProps } from '@/components/sections/works/WorksDisplay';
+import { PinpointContactsProps } from '../types/general';
 
 export const changingHeroTitleModifiers: string[] = ['strategic', 'branding', 'digital', 'stories'];
 export const changingContactTitleModifiers: string[] = [
@@ -17,6 +18,12 @@ export const changingContactTitleModifiers: string[] = [
   'Goeiedag',
   'Buongiorno',
 ];
+
+export const contactInformation: PinpointContactsProps = {
+  address: ['Rue de Haerne 51', '1040 Brussels'],
+  tel: ' +32 2 494 01 28',
+  email: ' info@atelierdesign.be',
+};
 
 export const homeCaseStudySamples: Omit<CaseStudySummaryProps, 'index'>[] = [
   {
