@@ -5,17 +5,31 @@ import { cn } from '@/lib/utils';
 import { omit } from 'lodash';
 import Image, { ImageProps } from 'next/image';
 
-export interface CommonHeroProps {
+interface BaseCommonHeroProps {
   caption: string;
   title: string;
-  imageProps: Omit<ImageProps, 'fill'>;
+  imageProps?: Omit<ImageProps, 'fill'>;
+  videoURL?: string;
   bottomStripBackground?: string; // className
 }
+
+interface CommonHeroWithImageProps extends BaseCommonHeroProps {
+  imageProps: Omit<ImageProps, 'fill'>;
+  videoURL?: never;
+}
+
+interface CommonHeroWithVideoProps extends BaseCommonHeroProps {
+  videoURL: string;
+  imageProps?: never;
+}
+
+export type CommonHeroProps = CommonHeroWithImageProps | CommonHeroWithVideoProps;
 
 export const CommonHero = ({
   caption,
   title,
   imageProps,
+  videoURL,
   bottomStripBackground,
 }: CommonHeroProps) => {
   return (
@@ -27,11 +41,23 @@ export const CommonHero = ({
         xl:w-[88vw] xl:h-[75vh] xl:min-h-[40.625rem] md:ml-auto">
         <div className="w-full h-full overflow-hidden">
           <div className="w-full h-full relative z-[1]">
-            <Image
-              {...omit(imageProps, ['className'])}
-              className={cn('w-full h-full object-cover', imageProps.className)}
-              fill
-            />
+            {imageProps && (
+              <Image
+                {...omit(imageProps, ['className'])}
+                className={cn('w-full h-full object-cover', imageProps.className)}
+                fill
+              />
+            )}
+            {videoURL && (
+              <video
+                src={videoURL}
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            )}
           </div>
         </div>
       </div>

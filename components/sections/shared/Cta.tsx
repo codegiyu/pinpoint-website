@@ -4,16 +4,20 @@ import { cn } from '@/lib/utils';
 
 export interface CTAProps {
   variant?: 'white' | 'gray';
+  className?: string;
 }
 
-export const CTA = ({ variant = 'white' }: CTAProps) => {
+export const CTA = ({ variant = 'white', className }: CTAProps) => {
   const bgClass = variant === 'white' ? 'before:bg-white' : 'before:bg-gray-f2 md:before:bg-white';
   const containerBgClass = variant === 'gray' ? 'bg-gray-f2' : 'bg-white md:bg-gray-f2';
 
   return (
     <section
-      className={`w-full ${containerBgClass} flex justify-center pt-11 pb-[3.125rem] md:pt-[3.75rem] md:pb-[4.125rem] 
-      lg:pt-[7.25rem] lg:pb-[8.25rem] xl:pt-[clamp(116px,_8.657vw,_145px)] xl:pb-[clamp(132px,_9.851vw,_165px)] relative z-[3]`}>
+      className={cn(
+        `w-full ${containerBgClass} flex justify-center pt-11 pb-[3.125rem] md:pt-[3.75rem] md:pb-[4.125rem] 
+      lg:pt-[7.25rem] lg:pb-[8.25rem] xl:pt-[clamp(116px,_8.657vw,_145px)] xl:pb-[clamp(132px,_9.851vw,_165px)] relative z-[3]`,
+        className
+      )}>
       <div className="pinpoint-container-mobile-w-full">
         <GhostBtn
           linkProps={{ href: '#' }}

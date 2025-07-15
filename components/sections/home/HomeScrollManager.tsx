@@ -31,9 +31,9 @@ export const HomeScrollManager = ({ refsForObserver }: HomeScrollManagerProps) =
       }
 
       if (whatWeDoTop <= halfInnerHeight) {
-        pageSideCaption?.classList.replace('text-dark', 'text-white');
+        pageSideCaption?.classList.replace('mix-blend-difference', 'mix-blend-normal');
       } else {
-        pageSideCaption?.classList.replace('text-white', 'text-dark');
+        pageSideCaption?.classList.replace('mix-blend-normal', 'mix-blend-difference');
       }
     };
 
@@ -67,5 +67,5 @@ export const HomeScrollManager = ({ refsForObserver }: HomeScrollManagerProps) =
     // };
   }, [refsForObserver]);
 
-  return <PageSideCaption caption="Creative Communication Agency" />;
+  return <PageSideCaption caption="Creative Communication Agency" noDefaultOpacity />;
 };

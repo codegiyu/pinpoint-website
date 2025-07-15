@@ -1,4 +1,6 @@
 import { LangChangeLinkProps, NavLinkGroupProps } from '@/components/layout/Header';
+import { ALL_SERVICES_DATA } from './texts';
+import { capitalize } from 'lodash';
 
 export const langChangeOptions: LangChangeLinkProps[] = [
   { lang: 'fr', href: '/fr' },
@@ -11,13 +13,13 @@ export const navlinks: NavLinkGroupProps[] = [
     links: [
       {
         text: 'About us',
-        href: 'about-us',
+        href: '/about-us',
         img: '',
         imgClass: '',
       },
       {
         text: 'Our works',
-        href: 'our-works',
+        href: '/our-works',
         img: '',
         imgClass: '',
       },
@@ -25,44 +27,30 @@ export const navlinks: NavLinkGroupProps[] = [
   },
   {
     name: 'Services',
-    links: [
-      {
-        text: 'Brand identity',
-        href: 'services/brand-identity',
-        img: '',
-        imgClass: '',
-      },
-      {
-        text: 'Communication strategy',
-        href: 'services/communication-strategy',
-        img: '',
-        imgClass: '',
-      },
-      {
-        text: 'Website creation',
-        href: 'services/website-creation',
-        img: '',
-        imgClass: '',
-      },
-    ],
+    links: ALL_SERVICES_DATA.map(service => ({
+      text: capitalize(service.name),
+      href: `/services/${service.id}`,
+      img: service.menu.image,
+      imgClass: service.menu.className,
+    })),
   },
   {
     links: [
       {
         text: 'Starting a new project',
-        href: 'starting-a-new-project',
+        href: '/starting-a-new-project',
         img: '',
         imgClass: '',
       },
       {
         text: 'Jobs',
-        href: 'jobs',
+        href: '/jobs',
         img: '',
         imgClass: '',
       },
       {
         text: 'Contact',
-        href: 'contact',
+        href: '/contact',
         img: '',
         imgClass: '',
       },
