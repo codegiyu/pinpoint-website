@@ -1,21 +1,34 @@
 import { GhostBtn } from '@/components/atoms/GhostBtn';
-import { services } from '@/lib/constants/texts';
+import { servicesSummary } from '@/lib/constants/texts';
+import { cn } from '@/lib/utils';
 import { splitArrayInTwo, splitTextIntoTwoWithBrTag } from '@/lib/utils/general';
 import { MoveRight } from 'lucide-react';
-import { RefObject } from 'react';
+import { ComponentPropsWithRef, RefObject } from 'react';
 
 interface WhatWeDoProps {
-  sectionVideoDisplayRef: RefObject<HTMLElement | null>;
-  listVideoDisplayRef: RefObject<HTMLElement | null>;
+  sectionVideoDisplayRef?: RefObject<HTMLElement | null>;
+  listVideoDisplayRef?: RefObject<HTMLElement | null>;
+  customProps?: {
+    sectionName: string;
+    services: ServiceCardProps[];
+  };
 }
 
-export const WhatWeDo = ({ sectionVideoDisplayRef, listVideoDisplayRef }: WhatWeDoProps) => {
+export const WhatWeDo = ({
+  sectionVideoDisplayRef,
+  listVideoDisplayRef,
+  customProps,
+}: WhatWeDoProps) => {
   return (
     <section
       ref={sectionVideoDisplayRef}
-      className="w-full bg-gray-f2 md:bg-dark grid gap-10 md:gap-5 xl:gap-[clamp(20px,_1.493vw,_30px)] py-0 md:pt-[4.375rem] xl:pt-[clamp(70px,_5.224vw,_88px)] relative z-[3] overflow-hidden">
-      <p className="pinpoint-container typo-caption-small uppercase md:text-white/85 mb-[2px] relative z-[10]">
-        What We Do
+      className={`w-full bg-gray-f2 md:bg-dark grid gap-10 md:gap-5 
+      xl:gap-[clamp(20px,_1.493vw,_30px)] py-0 md:pt-[4.375rem] overflow-hidden
+      xl:pt-[clamp(70px,_5.224vw,_88px)] ${customProps ? '' : 'relative'} z-[3]`}>
+      <p
+        className={`pinpoint-container typo-caption-small uppercase 
+        md:text-white/85 mb-[2px] relative z-[10]`}>
+        {customProps?.sectionName || 'What We Do'}
       </p>
 
       <section
@@ -24,8 +37,8 @@ export const WhatWeDo = ({ sectionVideoDisplayRef, listVideoDisplayRef }: WhatWe
         <ul
           id="services-list"
           className="w-full grid md:gap-[3.375rem] lg:gap-0 md:pt-10 md:pb-[3.125rem] lg:pt-5 xl:pt-[clamp(60px,_4.478vw,_112px)] xl:pb-[clamp(60px,_4.478vw,_112px)]">
-          {services.map((item, idx) => (
-            <ServiceCard key={idx} {...item} isLast={idx === services.length - 1} />
+          {(customProps?.services || servicesSummary).map((item, idx, arr) => (
+            <ServiceCard key={idx} {...item} isLast={idx === arr.length - 1} />
           ))}
         </ul>
       </section>
@@ -100,9 +113,12 @@ const ServiceCard = ({ name, breakdown, href, videoUrl, isLast }: ServiceCardPro
   );
 };
 
-const BreakdownSingle = ({ text }: { text: string }) => {
+export const BreakdownSingle = ({
+  text,
+  className,
+}: ComponentPropsWithRef<'li'> & { text: string }) => {
   return (
-    <li className="w-fit flex items-center gap-2 typo-body-4 text-white/85">
+    <li className={cn(`w-fit flex items-center gap-2 typo-body-4 text-white/85`, className)}>
       <span className="">-</span>
       <span className="">{text}</span>
     </li>

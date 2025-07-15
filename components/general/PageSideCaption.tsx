@@ -21,7 +21,7 @@ export const PageSideCaption = ({
   return (
     <div
       className={`page-side-caption fixed top-1/2 left-[4vw] -translate-y-1/2 z-10 
-      hidden lg:block ${noDefaultOpacity ? '' : 'opacity-100'} text-dark 
+      hidden lg:block ${noDefaultOpacity ? 'opacity-0' : 'opacity-100'} text-white mix-blend-difference 
       transition-opacity duration-700 ease-in-out ${className}`}>
       <p
         className={`page-side-caption-text w-max typo-caption-small -rotate-90 

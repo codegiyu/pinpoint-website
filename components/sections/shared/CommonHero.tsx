@@ -8,11 +8,12 @@ import Image, { ImageProps } from 'next/image';
 import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 
-export interface CommonHeroProps {
+interface BaseCommonHeroProps {
   caption: string;
   title: string;
   description?: string;
   imageProps?: Omit<ImageProps, 'fill'>;
+  videoURL?: string;
   bottomStripBackground?: string; // className
   videoProps?: Omit<
     DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
@@ -22,16 +23,29 @@ export interface CommonHeroProps {
   };
 }
 
+interface CommonHeroWithImageProps extends BaseCommonHeroProps {
+  imageProps: Omit<ImageProps, 'fill'>;
+  videoURL?: never;
+}
+
+interface CommonHeroWithVideoProps extends BaseCommonHeroProps {
+  videoURL: string;
+  imageProps?: never;
+}
+
+export type CommonHeroProps = CommonHeroWithImageProps | CommonHeroWithVideoProps;
+
 export const CommonHero = ({
   caption,
   title,
   description,
   imageProps,
+  videoURL,
   bottomStripBackground,
-  videoProps,
+  // videoProps,
 }: CommonHeroProps) => {
   return (
-    <section className="w-full bg-white relative">
+    <section className="w-full relative">
       <CommonHeroTextSection {...{ caption, title, description }} />
       <div
         className="img-container w-full md:w-[calc(595px_+_((100%_-_595px)_/_2))] 
@@ -39,23 +53,22 @@ export const CommonHero = ({
         xl:w-[88vw] xl:h-[75vh] xl:min-h-[40.625rem] md:ml-auto">
         <div className="w-full h-full overflow-hidden">
           <div className="w-full h-full relative z-[1]">
-            {imageProps ? (
+            {imageProps && (
               <Image
                 {...omit(imageProps, ['className'])}
-                className={cn('w-full h-full object-cover', imageProps && imageProps.className)}
+                className={cn('w-full h-full object-cover', imageProps.className)}
                 fill
               />
-            ) : (
-              videoProps && (
-                <video
-                  src={videoProps && videoProps.src}
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                />
-              )
+            )}
+            {videoURL && (
+              <video
+                src={videoURL}
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
             )}
           </div>
         </div>
@@ -71,17 +84,26 @@ export const CommonHeroTextSection = ({
   caption,
   title,
   description,
-}: Pick<CommonHeroProps, 'caption' | 'title' | 'description'>) => {
+  leanUI = false,
+}: Pick<CommonHeroProps, 'caption' | 'title' | 'description'> & { leanUI?: boolean }) => {
   const isTabletScreenAndAbove = useMediaQuery('(min-width: 768px)');
+  const paddingBottom = `${leanUI ? 'pb-10' : 'pb-[6.25rem] md:pb-[10rem]'}`;
+
   return (
     <div
-      className="pinpoint-container xl:w-[61.875rem] 2xl:w-[70rem] lg:h-[70vh] 
-      lg:flex items-center pt-[7.5rem] pb-[6.25rem] md:pb-[10rem] lg:py-0 
-      xl:ml-[calc((100vw_-_794px)_/_2)] 2xl:ml-[calc((100vw_-_968px)_/_2)] relative">
+      className={`pinpoint-container xl:w-[61.875rem] 2xl:w-[70rem] lg:h-[70vh] 
+      lg:flex items-center pt-[7.5rem] ${leanUI ? 'pt-[11rem]' : ''} ${paddingBottom} lg:py-0 
+      xl:ml-[calc((100vw_-_794px)_/_2)] 2xl:ml-[calc((100vw_-_968px)_/_2)] relative`}>
       <div
-        className="w-full max-h-[47.5rem] lg:max-h-none grid gap-[1.875rem] lg:gap-9 
-        xl:gap-[clamp(45px,_3vw,_55px)] lg:ml-[4.375rem] xl:ml-0 relative ">
+        className={`w-full ${leanUI ? '' : 'max-h-[47.5rem] lg:max-h-none'} grid gap-[1.875rem] 
+        lg:gap-9 xl:gap-[clamp(45px,_3vw,_55px)] lg:ml-[4.375rem] xl:ml-0 relative `}>
         <PageHeroCaption caption={caption} />
+        <h1 className={`${leanUI ? '' : 'min-h-[34vh] md:min-h-auto'} typo-h2-hero`}>{title}</h1>
+        {!leanUI && (
+          <div className="w-full absolute -bottom-9 flex md:hidden justify-end">
+            <HeroArrow className="" />
+          </div>
+        )}
         <h1
           className={cn(
             'md:min-h-auto typo-h2-hero',
