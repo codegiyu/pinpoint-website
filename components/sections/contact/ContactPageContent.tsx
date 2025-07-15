@@ -47,6 +47,7 @@ export default function ContentPageContent() {
                 variant="default"
                 className="border bg-transparent border-white text-white"
                 text="Join the team"
+                linkProps={{ href: '/jobs' }}
               />
             </div>
           </div>
