@@ -168,6 +168,8 @@
 
   --font-rubik: 'Rubik', sans-serif;
   --font-roboto: 'Roboto Mono', monospace;
+
+  --animate-marquee: marquee 100s infinite;
 }
 
 @layer base {
@@ -262,7 +264,7 @@
     @apply font-rubik text-[9px] leading-[45px] tracking-[0.01em] font-bold;
   }
   .typo-display {
-    @apply font-roboto text-[8rem] leading-[1.2];
+    @apply font-rubik text-[calc(8.9485458613vw_+_51.3646532438px)] leading-[1] font-medium;
   }
 
   /* MACARON */
@@ -398,6 +400,15 @@
     }
     to {
       max-height: none;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
     }
   }
 }
