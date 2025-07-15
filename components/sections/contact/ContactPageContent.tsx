@@ -24,7 +24,7 @@ export default function ContentPageContent() {
         <div className="w-full h-full justify-center lg:justify-between flex-col  flex gap-16 lg:gap-0  lg:flex-row place-items-center mt-12 md:mt-4 lg:mt-0 relative ">
           <div className="w-full lg:w-3/7 grid gap-2 ">
             <div className="w-full h-fit flex items-center justify-between pb-4 lg:pb-12">
-              <h1 className="typo-h2">
+              <h1 className="typo-h1">
                 <ChangingModifier />
               </h1>
             </div>

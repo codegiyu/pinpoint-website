@@ -28,6 +28,16 @@ const jobsPageCardsData = [
   },
 ];
 
+const heroDescription = (
+  <>
+    <p>Do you have tremendous creativity but don&apos;t know what to do with it? Do you still</p>
+    <p>have the soul of a child and take real pleasure in transforming things into real</p>
+    <p>
+      applications? Do you drink a lot of coffee? Join the Atelier ! (we also accept tea-drinkers.)
+    </p>
+  </>
+);
+
 export default function JobsPage() {
   return (
     <>
@@ -35,8 +45,8 @@ export default function JobsPage() {
         <CommonHero
           caption="JOBS"
           title="Join the Atelier!"
-          description="Join"
-          videoProps={{ src: '/videos/jobs-animation.webm' }}
+          description={heroDescription}
+          videoURL="/videos/jobs-animation.webm"
         />
         <div className="pt-[clamp(76px,_4.551vw,_165px)] bg-gray-f2">
           {jobsPageCardsData.map((card, index) => (

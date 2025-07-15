@@ -5,22 +5,16 @@ import { PageHeroCaption } from '@/components/general/HeroCaption';
 import { cn } from '@/lib/utils';
 import { omit } from 'lodash';
 import Image, { ImageProps } from 'next/image';
-import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
+import { ReactNode } from 'react';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 
 interface BaseCommonHeroProps {
   caption: string;
   title: string;
-  description?: string;
+  description?: ReactNode | string;
   imageProps?: Omit<ImageProps, 'fill'>;
   videoURL?: string;
   bottomStripBackground?: string; // className
-  videoProps?: Omit<
-    DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
-    'src' | 'srcSet'
-  > & {
-    src: string;
-  };
 }
 
 interface CommonHeroWithImageProps extends BaseCommonHeroProps {
@@ -42,7 +36,6 @@ export const CommonHero = ({
   imageProps,
   videoURL,
   bottomStripBackground,
-  // videoProps,
 }: CommonHeroProps) => {
   return (
     <section className="w-full relative">
@@ -104,23 +97,10 @@ export const CommonHeroTextSection = ({
             <HeroArrow className="" />
           </div>
         )}
-        <h1
-          className={cn(
-            'md:min-h-auto typo-h2-hero',
-            (!description || !isTabletScreenAndAbove) && 'min-h-[34vh]'
-          )}>
-          {title}
-        </h1>
+
         {description && isTabletScreenAndAbove && (
           <div className=" max-w-[900px] text-[clamp(1.25rem,_1.2vw,_2.25rem)] font-light leading-9">
-            <p>
-              Do you have tremendous creativity but don&apos;t know what to do with it? Do you still
-            </p>
-            <p>have the soul of a child and take real pleasure in transforming things into real</p>
-            <p>
-              applications? Do you drink a lot of coffee? Join the Atelier ! (we also accept
-              tea-drinkers).
-            </p>
+            {description}
           </div>
         )}
         <div className="w-full absolute -bottom-9 flex md:hidden justify-end">
