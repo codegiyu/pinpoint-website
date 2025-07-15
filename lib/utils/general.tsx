@@ -1,4 +1,18 @@
 import { RefObject } from 'react';
+import { SelectOption } from '../types/general';
+import capitalize from 'lodash/capitalize';
+
+/**
+ * @param ms number of milliseconds you want your process to be delayed by
+ * @returns void
+ */
+export const debounce = (ms: number): Promise<void> => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+};
 
 export function findHalfPointOfArray(arr: Array<unknown>) {
   return Math.ceil(arr.length / 2);
@@ -45,4 +59,48 @@ export const intersectionExists = (
 
     return targetIntersects;
   });
+};
+
+export const formatPlural = (num: number, word: string, plural: string = '') => {
+  if (num === 1) {
+    return `1 ${word}`;
+  }
+
+  return `${num} ${plural ? plural : word + 's'}`;
+};
+
+export const formatCamelCaseName = (name: string, joinString = ' ') => {
+  return capitalize(name.replace(/([a-z])([A-Z])/g, `$1${joinString}$2`));
+};
+
+export const formatSlugToText = (slug: string, joinerChar: string = ' ') => {
+  return (
+    slug
+      ?.split(/[- _]/)
+      .map(word => capitalize(word))
+      .join(joinerChar) || ''
+  );
+};
+
+export const generateOptionsFromArray = ({
+  arr = [],
+  capitalize = true,
+  placeholder = 'Select Option',
+}: {
+  arr: string[];
+  capitalize?: boolean;
+  placeholder?: string;
+}): SelectOption[] => {
+  return arr.length
+    ? arr.map(item => ({
+        value: item,
+        text: capitalize ? formatSlugToText(item) : item,
+      }))
+    : [
+        {
+          value: 'placeholder',
+          text: placeholder,
+          disabled: true,
+        },
+      ];
 };
