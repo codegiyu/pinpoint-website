@@ -1,4 +1,3 @@
-// import { MoveRight } from 'lucide-react';
 import { socials } from '@/lib/constants/texts';
 import Link from 'next/link';
 
