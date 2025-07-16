@@ -8,7 +8,7 @@ export const Socials = () => {
   return (
     <div className="flex gap-2">
       {socials.map((item, index) => (
-        <SoicialBtn {...item} key={index} />
+        <SocialBtn {...item} key={index} />
       ))}
     </div>
   );
@@ -20,7 +20,7 @@ interface SocialBtnProps {
   title: string;
 }
 
-export const SoicialBtn = ({ Icon, url, title }: SocialBtnProps) => {
+export const SocialBtn = ({ Icon, url, title }: SocialBtnProps) => {
   return (
     <Link
       href={url}

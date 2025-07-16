@@ -6,7 +6,7 @@ import { changingContactTitleModifiers } from '@/lib/constants/texts';
 import { useEffect, useState } from 'react';
 import PinpointContacts from '../../general/PinpointContacts';
 
-export default function ContentPageContent() {
+export default function ContactPageContent() {
   return (
     <section className="w-full h-screen bg-dark text-white relative overflow-hidden">
       <video
