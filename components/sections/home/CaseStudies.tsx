@@ -30,10 +30,10 @@ export const CaseStudies = () => {
 
 export interface CaseStudySummaryProps {
   index: number;
+  id: string;
   title: string;
   description: string;
   img: string;
-  link: string;
   imgOnRight?: boolean;
 }
 
@@ -42,7 +42,7 @@ export const CaseStudySummary = ({
   title,
   description,
   img,
-  link,
+  id,
   imgOnRight = false,
 }: CaseStudySummaryProps) => {
   return (
@@ -51,7 +51,10 @@ export const CaseStudySummary = ({
       <div
         className={`w-full md:w-[19.6875rem] lg:w-[29.25rem] xl:w-[35.75rem] 2xl:w-[42.25rem] h-[60vw] md:h-full flex-none relative overflow-hidden 
         ${imgOnRight ? 'order-1 md:order-2' : 'order-1'}`}>
-        <GhostBtn linkProps={{ href: link }} className="w-full h-full" wrapClassName="h-full">
+        <GhostBtn
+          linkProps={{ href: `/projects/${id}` }}
+          className="w-full h-full"
+          wrapClassName="h-full">
           <div className="absolute w-full h-full lg:h-[calc(100%_+_120px)] left-0 top-0 lg:-top-[60px]">
             <div className="w-full h-full relative">
               <Image src={img} alt="" className="w-full h-full object-cover" sizes="" fill />
@@ -64,11 +67,11 @@ export const CaseStudySummary = ({
         className={`w-full h-fit md:h-full flex-none bg-white md:bg-transparent flex items-center 
         pt-[1.625rem] pb-9 md:py-0 ${imgOnRight ? 'order-2 md:order-1' : 'order-2'}`}>
         <GhostBtn
-          linkProps={{ href: link }}
+          linkProps={{ href: `/projects/${id}` }}
           className="w-full h-fit"
           wrapClassName="w-[70.2vw] max-w-[405px] md:max-w-none md:w-full mx-auto">
           <div
-            className={`w-full md:w-[13.625rem] lg:w-[18.25rem] xl:w-[19.25rem] 2xl:w-[25rem] min-h-[160px] flex flex-col justify-between md:justify-start gap-[1.375rem] text-left ${imgOnRight ? 'md:text-right ml-auto' : 'md:text-left mr-auto'}`}>
+            className={`w-full md:w-[13.625rem] lg:w-[18.25rem] xl:w-[19.25rem] 2xl:w-[25rem] min-h-[160px] flex flex-col justify-between md:justify-start gap-[1.375rem] text-left ${imgOnRight ? 'md:text-right ml-auto' : 'md:text-left mr-auto'} relative`}>
             <div
               className={`w-full hidden xl:flex items-center gap-5 ${imgOnRight ? 'flex-row-reverse' : ''}`}>
               <span className="text-gray-66/80">{String(index).padStart(2, '0')}</span>
@@ -81,7 +84,7 @@ export const CaseStudySummary = ({
             <span className="hidden md:block text-[1rem] xl:text-[clamp(16px,_1.194vw,_20px)] font-medium">
               View project
             </span>
-            <div className="w-full flex md:hidden justify-end">
+            <div className="size-[3.125rem] md:hidden grid place-items-center absolute bottom-2 right-3">
               <MoveRight className="size-5 text-dark stroke-[1.5]" />
             </div>
           </div>

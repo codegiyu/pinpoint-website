@@ -1,3 +1,4 @@
+import { FullProjectData } from '@/app/projects/[projectId]/page';
 import { FullServiceData } from '@/app/services/[service]/page';
 import { CaseStudySummaryProps } from '@/components/sections/home/CaseStudies';
 import { ServiceCardProps } from '@/components/sections/home/WhatWeDo';
@@ -5,31 +6,32 @@ import { WorkCardProps } from '@/components/sections/works/WorksDisplay';
 
 export const changingHeroTitleModifiers: string[] = ['strategic', 'branding', 'digital', 'stories'];
 
-export const homeCaseStudySamples: Omit<CaseStudySummaryProps, 'index'>[] = [
-  {
-    title: 'CEFIC',
-    description: 'Celebrating 50 years of scientific excellence',
-    img: '/images/case-studies/cefic.webp',
-    link: '#',
-    imgOnRight: true,
-  },
-  {
-    title: 'Fipra',
-    description:
-      'Redefining the boundaries of strategic communication through a new visual identity and website',
-    img: '/images/case-studies/fipra.webp',
-    link: '#',
-    imgOnRight: false,
-  },
-  {
-    title: 'EORTC',
-    description:
-      'Highlighting therapeutic advances in cancer treatment through their new annual report',
-    img: '/images/case-studies/eortc.webp',
-    link: '#',
-    imgOnRight: true,
-  },
-];
+export const selectedCaseStudies: string[] = ['cefic', 'fipra', 'eortc'];
+// export const homeCaseStudySamples: Omit<CaseStudySummaryProps, 'index'>[] = [
+//   {
+//     title: 'CEFIC',
+//     description: 'Celebrating 50 years of scientific excellence',
+//     img: '/images/case-studies/cefic.webp',
+//     link: '#',
+//     imgOnRight: true,
+//   },
+//   {
+//     title: 'Fipra',
+//     description:
+//       'Redefining the boundaries of strategic communication through a new visual identity and website',
+//     img: '/images/case-studies/fipra.webp',
+//     link: '#',
+//     imgOnRight: false,
+//   },
+//   {
+//     title: 'EORTC',
+//     description:
+//       'Highlighting therapeutic advances in cancer treatment through their new annual report',
+//     img: '/images/case-studies/eortc.webp',
+//     link: '#',
+//     imgOnRight: true,
+//   },
+// ];
 
 export const ALL_SERVICES_DATA: FullServiceData[] = [
   {
@@ -313,163 +315,265 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
   },
 ];
 
-export const ourWorks: WorkCardProps[] = [
+export const ALL_PROJECTS_DATA: FullProjectData[] = [
   {
+    id: 'cefic',
     name: 'CEFIC',
-    linkParam: 'cefic',
-    image: '/images/our-works/cefic.webp',
+    pageTitle: 'Celebrating 50 years of scientific excellence',
+    descSummary: 'Celebrating 50 years of scientific excellence',
+    bannerURL: { image: '/images/our-works/cefic.webp' },
+    cardImage: '/images/our-works/cefic.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity'],
     extraServices: ['Illustration', 'Print'],
     sectors: ['Corporate', 'Health'],
   },
   {
+    id: 'sander',
     name: 'Sander',
-    linkParam: 'sander',
-    image: '/images/our-works/sander.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/sander.webp' },
+    cardImage: '/images/our-works/sander.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
     extraServices: ['Print'],
     sectors: ['Corporate'],
   },
   {
+    id: 'fipra',
     name: 'Fipra',
-    linkParam: 'fipra',
-    image: '/images/our-works/fipra.webp',
+    pageTitle: 'Redefining the boundaries of strategic communication',
+    descSummary:
+      'Redefining the boundaries of strategic communication through a new visual identity and website',
+    bannerURL: { image: '/images/our-works/fipra.webp' },
+    cardImage: '/images/our-works/fipra.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
     extraServices: ['Logo', 'Print'],
     sectors: ['Corporate'],
   },
   {
+    id: 'eortc',
     name: 'EORTC',
-    linkParam: 'eortc',
-    image: '/images/our-works/eortc.webp',
+    pageTitle: 'Highlighting therapeutic advances in cancer treatment',
+    descSummary:
+      'Highlighting therapeutic advances in cancer treatment through their new annual report',
+    bannerURL: { image: '/images/our-works/eortc.webp' },
+    cardImage: '/images/our-works/eortc.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity', 'Communication Strategy'],
     extraServices: ['Print'],
     sectors: ['Corporate'],
   },
   {
+    id: 'sothebys',
     name: "Sotheby's Realty - Belgium",
-    linkParam: 'sothebys',
-    image: '/images/our-works/sothebys.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/sothebys.webp' },
+    cardImage: '/images/our-works/sothebys.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Communication Strategy', 'Website Creation'],
     extraServices: ['Print'],
     sectors: ['Corporate', 'Real Estate'],
   },
   {
+    id: 'froidmont',
     name: 'La Ferme de Froidmont',
-    linkParam: 'froidmont',
-    image: '/images/our-works/froidmont.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/froidmont.webp' },
+    cardImage: '/images/our-works/froidmont.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
     extraServices: ['Illustration'],
     sectors: ['E-shop', 'NGO'],
   },
   {
+    id: 'febecoop',
     name: 'Febecoop',
-    linkParam: 'febecoop',
-    image: '/images/our-works/febecoop.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/febecoop.webp' },
+    cardImage: '/images/our-works/febecoop.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
     extraServices: ['Illustration'],
     sectors: ['Corporate', 'NGO'],
   },
   {
+    id: 'bluefino',
     name: 'Bluefino',
-    linkParam: 'bluefino',
-    image: '/images/our-works/bluefino.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/bluefino.webp' },
+    cardImage: '/images/our-works/bluefino.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Communication Strategy', 'Website Creation'],
     extraServices: [],
     sectors: ['Corporate', 'Marketing'],
   },
   {
+    id: 'castell',
     name: 'Castell Management',
-    linkParam: 'castell',
-    image: '/images/our-works/castell.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/castell.webp' },
+    cardImage: '/images/our-works/castell.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
     extraServices: ['Logo', 'Print'],
     sectors: ['Corporate', 'Real Estate'],
   },
   {
+    id: 'palais',
     name: "Pa'lais",
-    linkParam: 'palais',
-    image: '/images/our-works/palais.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/palais.webp' },
+    cardImage: '/images/our-works/palais.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Communication Strategy', 'Website Creation'],
     extraServices: [],
     sectors: ['Food'],
   },
   {
+    id: 'archibald',
     name: 'Archibald',
-    linkParam: 'archibald',
-    image: '/images/our-works/archibald.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/archibald.webp' },
+    cardImage: '/images/our-works/archibald.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Communication Strategy', 'Website Creation'],
     extraServices: ['Print'],
     sectors: ['Corporate', 'Real Estate'],
   },
   {
+    id: 'sanoleo',
     name: 'Sanoleo',
-    linkParam: 'sanoleo',
-    image: '/images/our-works/sanoleo.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/sanoleo.webp' },
+    cardImage: '/images/our-works/sanoleo.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
     extraServices: ['Print'],
     sectors: ['Corporate', 'Health'],
   },
   {
+    id: 'eu-traveltech',
     name: 'Eu Traveltech',
-    linkParam: 'eu-traveltech',
-    image: '/images/our-works/eu-traveltech.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/eu-traveltech.webp' },
+    cardImage: '/images/our-works/eu-traveltech.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Communication Strategy', 'Website Creation'],
     extraServices: [],
     sectors: ['Corporate'],
   },
   {
+    id: 'nove',
     name: 'Nove',
-    linkParam: 'nove',
-    image: '/images/our-works/nove.jpg',
+    cardImage: '/images/our-works/nove.jpg',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/nove.jpg' },
     services: ['Communication Strategy', 'Website Creation'],
+    descriptionBg: '',
+    description: '',
     extraServices: [],
     sectors: ['Corporate'],
   },
   {
+    id: 'speos',
     name: 'Speos',
-    linkParam: 'speos',
-    image: '/images/our-works/speos.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/speos.webp' },
+    cardImage: '/images/our-works/speos.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
     extraServices: ['Logo', 'Print'],
     sectors: ['Corporate', 'Marketing'],
   },
   {
+    id: 'acumen',
     name: 'Acumen',
-    linkParam: 'acumen',
-    image: '/images/our-works/acumen.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/acumen.webp' },
+    cardImage: '/images/our-works/acumen.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
     extraServices: ['Logo', 'Print'],
     sectors: ['Corporate'],
   },
   {
+    id: 'racine',
     name: 'Racine',
-    linkParam: 'racine',
-    image: '/images/our-works/racine.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/racine.webp' },
+    cardImage: '/images/our-works/racine.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Communication Strategy', 'Website Creation'],
     extraServices: [],
     sectors: ['Corporate', 'Legal'],
   },
   {
+    id: 'iro',
     name: 'IRO',
-    linkParam: 'iro',
-    image: '/images/our-works/iro.webp',
+    cardImage: '/images/our-works/iro.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/iro.webp' },
     services: ['Brand Identity', 'Communication Strategy'],
+    descriptionBg: '',
+    description: '',
     extraServices: ['Illustration', 'Print'],
     sectors: ['Food'],
   },
   {
+    id: 'sibelga',
     name: 'Sibelga',
-    linkParam: 'sibelga',
-    image: '/images/our-works/sibelga.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/sibelga.webp' },
+    cardImage: '/images/our-works/sibelga.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Brand Identity', 'Website Creation'],
     extraServices: ['Illustration'],
     sectors: ['Corporate', 'Energy'],
   },
   {
+    id: 'caritas',
     name: 'Caritas International',
-    linkParam: 'caritas',
-    image: '/images/our-works/caritas.webp',
+    pageTitle: '',
+    descSummary: '',
+    bannerURL: { image: '/images/our-works/caritas.webp' },
+    cardImage: '/images/our-works/caritas.webp',
+    descriptionBg: '',
+    description: '',
     services: ['Communication Strategy', 'Website Creation'],
     extraServices: [],
     sectors: ['NGO'],
@@ -486,17 +590,50 @@ export const servicesSummary: ServiceCardProps[] = (() => {
   }));
 })();
 
+export const projectsSummary: WorkCardProps[] = (() => {
+  return ALL_PROJECTS_DATA.map(project => ({
+    id: project.id,
+    name: project.name,
+    image: project.cardImage,
+    services: project.services,
+    extraServices: project.extraServices,
+    sectors: project.sectors,
+  }));
+})();
+
+export const homeCaseStudySamples = (() => {
+  const samples: Omit<CaseStudySummaryProps, 'index'>[] = [];
+  const selectedProjectsSet = new Set(selectedCaseStudies);
+
+  for (const project of ALL_PROJECTS_DATA) {
+    if (selectedProjectsSet.has(project.id)) {
+      samples.push({
+        id: project.id,
+        title: project.name,
+        description: project.descSummary,
+        img: project.cardImage,
+        imgOnRight: samples.length % 2 === 1,
+      });
+    }
+  }
+
+  return samples;
+})();
+
 export const { provenServicesList, provenSectorsList } = (() => {
   let services = new Set<string>();
   let sectors = new Set<string>();
 
-  ourWorks.forEach(work => {
-    services = new Set([...services, ...work.services, ...work.extraServices]);
-    sectors = new Set([...sectors, ...work.sectors]);
+  ALL_PROJECTS_DATA.forEach(project => {
+    services = new Set([...services, ...project.extraServices]);
+    sectors = new Set([...sectors, ...project.sectors]);
   });
 
   return {
-    provenServicesList: Array.from(services),
+    provenServicesList: [
+      ...ALL_SERVICES_DATA.map(service => service.name),
+      ...Array.from(services),
+    ],
     provenSectorsList: Array.from(sectors),
   };
 })();

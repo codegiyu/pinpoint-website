@@ -44,3 +44,18 @@ export type FormErrors<T extends object> = Partial<Record<keyof T, string[] | un
 export type ValidObjectTypeKey<T extends object, K> = {
   [X in keyof T]: T[X] extends K ? X : never;
 }[keyof T];
+
+interface BaseImageOrVideoUrl {
+  image?: string;
+  video?: string;
+}
+interface JustImageURL extends BaseImageOrVideoUrl {
+  image: string;
+  video?: never;
+}
+interface JustVideoURL extends BaseImageOrVideoUrl {
+  video: string;
+  image?: never;
+}
+
+export type ImageOrVideoURL = JustImageURL | JustVideoURL;
