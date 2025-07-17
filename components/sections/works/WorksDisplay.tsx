@@ -2,7 +2,7 @@
 
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
-import { provenSectorsList, provenServicesList, ourWorks } from '@/lib/constants/texts';
+import { provenSectorsList, provenServicesList, projectsSummary } from '@/lib/constants/texts';
 import Image from 'next/image';
 import { Dispatch, SetStateAction, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { parseAsString, useQueryStates } from 'nuqs';
@@ -21,7 +21,7 @@ const DEFAULT_WORKS_DISPLAYED = 10;
 
 export const WorksDisplay = () => {
   const [filterLoading, setFilterLoading] = useState<string[]>([]);
-  const [availableWorks, setAvailableWorks] = useState<WorkCardProps[]>(ourWorks);
+  const [availableWorks, setAvailableWorks] = useState<WorkCardProps[]>(projectsSummary);
   const [openfilter, setOpenFilter] = useState('');
   const [moreLoading, setMoreLoading] = useState(false);
   const [numberOfWorksDisplayed, setNumberOfWorksDisplayed] = useState(0);
@@ -103,7 +103,7 @@ export const WorksDisplay = () => {
 
       if (!service && !sector) {
         setFilterLoading([]);
-        setAvailableWorks(ourWorks);
+        setAvailableWorks(projectsSummary);
         setNumberOfWorksDisplayed(DEFAULT_WORKS_DISPLAYED);
         return;
       }
@@ -119,11 +119,11 @@ export const WorksDisplay = () => {
 
       setNumberOfWorksDisplayed(DEFAULT_WORKS_DISPLAYED);
       setAvailableWorks(
-        ourWorks.filter(work => {
+        projectsSummary.filter(project => {
           if (!service && !sector) return true;
 
-          const services = new Set([...work.services, ...work.extraServices]);
-          const sectors = new Set(work.sectors);
+          const services = new Set([...project.services, ...project.extraServices]);
+          const sectors = new Set(project.sectors);
 
           if (service && sector) return services.has(service) && sectors.has(sector);
 
@@ -219,15 +219,15 @@ export const WorksDisplay = () => {
 };
 
 export interface WorkCardProps {
+  id: string;
   name: string;
-  linkParam: string;
   image: string;
   services: string[];
   extraServices: string[];
   sectors: string[];
 }
 
-const WorkCard = ({ name, linkParam, image, services }: WorkCardProps) => {
+const WorkCard = ({ name, id, image, services }: WorkCardProps) => {
   const servicesList = useMemo(() => {
     let finalString = '';
 
@@ -240,7 +240,7 @@ const WorkCard = ({ name, linkParam, image, services }: WorkCardProps) => {
 
   return (
     <li className="">
-      <GhostBtn linkProps={{ href: `/works/${linkParam}` }} className="w-full">
+      <GhostBtn linkProps={{ href: `/projects/${id}` }} className="w-full">
         <div className="w-full grid">
           <div className="work-img-box w-full h-[60vw] md:h-[204px] lg:h-[350px] relative">
             <Image src={image} alt={name} className="w-full h-full object-cover" sizes="" fill />

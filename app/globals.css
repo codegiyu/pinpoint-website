@@ -161,6 +161,7 @@
   --breakpoint-3xl: 1700px;
 
   --color-dark: #141414;
+  --color-gray-59: #595959;
   --color-gray-66: #666666;
   --color-gray-f2: #F2F2F2;
   --color-gray-b3: #B3B3B3;
@@ -264,7 +265,7 @@
     @apply font-rubik text-[9px] leading-[45px] tracking-[0.01em] font-bold;
   }
   .typo-display {
-    @apply font-rubik text-[calc(8.9485458613vw_+_51.3646532438px)] leading-[1] font-medium;
+    @apply font-rubik text-[calc(8.9485458613vw_+_51.3646532438px)] xl:text-[200px] leading-[1] font-medium;
   }
 
   /* MACARON */

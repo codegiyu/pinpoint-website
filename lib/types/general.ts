@@ -52,3 +52,18 @@ export type PinpointContactsProps = {
   email: string;
   socials: SocialBtnProps[];
 };
+
+interface BaseImageOrVideoUrl {
+  image?: string;
+  video?: string;
+}
+interface JustImageURL extends BaseImageOrVideoUrl {
+  image: string;
+  video?: never;
+}
+interface JustVideoURL extends BaseImageOrVideoUrl {
+  video: string;
+  image?: never;
+}
+
+export type ImageOrVideoURL = JustImageURL | JustVideoURL;
