@@ -2,9 +2,51 @@ import { FullProjectData } from '@/app/projects/[projectId]/page';
 import { FullServiceData } from '@/app/services/[service]/page';
 import { CaseStudySummaryProps } from '@/components/sections/home/CaseStudies';
 import { ServiceCardProps } from '@/components/sections/home/WhatWeDo';
+import SvgLinkedin from '@/components/icons/Linkedin';
+import SvgInstagramIcon from '@/components/icons/InstagramIcon';
+import SvgXIcon from '@/components/icons/XIcon';
+import SvgFacebookIcon from '@/components/icons/FacebookIcon';
 import { WorkCardProps } from '@/components/sections/works/WorksDisplay';
+import { PinpointContactsProps } from '../types/general';
 
 export const changingHeroTitleModifiers: string[] = ['strategic', 'branding', 'digital', 'stories'];
+export const changingContactTitleModifiers: string[] = [
+  'Hello',
+  'Atelier',
+  'Bonjour',
+  'Bom dia',
+  'Hola',
+  'Goeiedag',
+  'Buongiorno',
+];
+
+export const contactInformation: PinpointContactsProps = {
+  address: ['Rue de Haerne 51', '1040 Brussels'],
+  tel: ' +32 2 494 01 28',
+  email: ' info@atelierdesign.be',
+  socials: [
+    {
+      title: 'Instagram',
+      url: 'https://www.instagram.com/atelierdesign_bxl/',
+      Icon: SvgInstagramIcon,
+    },
+    {
+      title: 'Facebook',
+      url: 'https://www.facebook.com///atelierdesign.be/',
+      Icon: SvgFacebookIcon,
+    },
+    {
+      title: 'LinkedIn',
+      url: 'https://be.linkedin.com/company/atelier-design',
+      Icon: SvgLinkedin,
+    },
+    {
+      title: 'X',
+      url: 'https://x.com/atelierdesign',
+      Icon: SvgXIcon,
+    },
+  ],
+};
 
 export const selectedCaseStudies: string[] = ['cefic', 'fipra', 'eortc'];
 // export const homeCaseStudySamples: Omit<CaseStudySummaryProps, 'index'>[] = [

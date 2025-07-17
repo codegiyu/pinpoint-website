@@ -1,3 +1,4 @@
+import { SocialBtnProps } from '@/components/general/Socials';
 import { LucideProps } from 'lucide-react';
 import { ForwardRefExoticComponent, RefAttributes, RefObject, SVGProps, type JSX } from 'react';
 
@@ -44,6 +45,13 @@ export type FormErrors<T extends object> = Partial<Record<keyof T, string[] | un
 export type ValidObjectTypeKey<T extends object, K> = {
   [X in keyof T]: T[X] extends K ? X : never;
 }[keyof T];
+
+export type PinpointContactsProps = {
+  address: Array<string>;
+  tel: string;
+  email: string;
+  socials: SocialBtnProps[];
+};
 
 interface BaseImageOrVideoUrl {
   image?: string;
