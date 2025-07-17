@@ -23,6 +23,28 @@ export const contactInformation: PinpointContactsProps = {
   address: ['Rue de Haerne 51', '1040 Brussels'],
   tel: ' +32 2 494 01 28',
   email: ' info@atelierdesign.be',
+  socials: [
+    {
+      title: 'Instagram',
+      url: 'https://www.instagram.com/atelierdesign_bxl/',
+      Icon: SvgInstagramIcon,
+    },
+    {
+      title: 'Facebook',
+      url: 'https://www.facebook.com///atelierdesign.be/',
+      Icon: SvgFacebookIcon,
+    },
+    {
+      title: 'LinkedIn',
+      url: 'https://be.linkedin.com/company/atelier-design',
+      Icon: SvgLinkedin,
+    },
+    {
+      title: 'X',
+      url: 'https://x.com/atelierdesign',
+      Icon: SvgXIcon,
+    },
+  ],
 };
 
 export const homeCaseStudySamples: Omit<CaseStudySummaryProps, 'index'>[] = [
@@ -330,29 +352,6 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       image: '',
       className: '',
     },
-  },
-];
-
-export const socials = [
-  {
-    title: 'Instagram',
-    url: 'https://www.instagram.com/atelierdesign_bxl/',
-    Icon: SvgInstagramIcon,
-  },
-  {
-    title: 'Facebook',
-    url: '',
-    Icon: SvgFacebookIcon,
-  },
-  {
-    title: 'LinkedIn',
-    url: '',
-    Icon: SvgLinkedin,
-  },
-  {
-    title: 'X',
-    url: '',
-    Icon: SvgXIcon,
   },
 ];
 

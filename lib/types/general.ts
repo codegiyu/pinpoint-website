@@ -1,3 +1,4 @@
+import { SocialBtnProps } from '@/components/general/Socials';
 import { LucideProps } from 'lucide-react';
 import { ForwardRefExoticComponent, RefAttributes, RefObject, SVGProps, type JSX } from 'react';
 
@@ -49,4 +50,5 @@ export type PinpointContactsProps = {
   address: Array<string>;
   tel: string;
   email: string;
+  socials: SocialBtnProps[];
 };

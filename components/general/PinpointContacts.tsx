@@ -1,4 +1,4 @@
-import { Socials } from '@/components/general/Socials';
+import { PinpointSocials } from '@/components/general/Socials';
 import Link from 'next/link';
 import { contactInformation } from '@/lib/constants/texts';
 
@@ -19,7 +19,7 @@ export default function PinpointContacts() {
               T
             </label>
             :
-            <Link href={contactInformation.tel} id="phone-number">
+            <Link href={`tel:${contactInformation.tel}`} id="phone-number">
               {contactInformation.tel}
             </Link>
           </p>
@@ -32,7 +32,7 @@ export default function PinpointContacts() {
       </div>
 
       <div className="pt-3 md:pt-6">
-        <Socials />
+        <PinpointSocials />
       </div>
     </div>
   );

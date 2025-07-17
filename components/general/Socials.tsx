@@ -1,19 +1,19 @@
-import { socials } from '@/lib/constants/texts';
+import { contactInformation } from '@/lib/constants/texts';
 import Link from 'next/link';
 
 import { ComponentType, SVGProps } from 'react';
 
-export const Socials = () => {
+export const PinpointSocials = () => {
   return (
     <div className="flex gap-2">
-      {socials.map((item, index) => (
+      {contactInformation.socials.map((item, index) => (
         <SocialBtn {...item} key={index} />
       ))}
     </div>
   );
 };
 
-interface SocialBtnProps {
+export interface SocialBtnProps {
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
   url: string;
   title: string;
