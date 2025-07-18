@@ -49,31 +49,6 @@ export const contactInformation: PinpointContactsProps = {
 };
 
 export const selectedCaseStudies: string[] = ['cefic', 'fipra', 'eortc'];
-// export const homeCaseStudySamples: Omit<CaseStudySummaryProps, 'index'>[] = [
-//   {
-//     title: 'CEFIC',
-//     description: 'Celebrating 50 years of scientific excellence',
-//     img: '/images/case-studies/cefic.webp',
-//     link: '#',
-//     imgOnRight: true,
-//   },
-//   {
-//     title: 'Fipra',
-//     description:
-//       'Redefining the boundaries of strategic communication through a new visual identity and website',
-//     img: '/images/case-studies/fipra.webp',
-//     link: '#',
-//     imgOnRight: false,
-//   },
-//   {
-//     title: 'EORTC',
-//     description:
-//       'Highlighting therapeutic advances in cancer treatment through their new annual report',
-//     img: '/images/case-studies/eortc.webp',
-//     link: '#',
-//     imgOnRight: true,
-//   },
-// ];
 
 export const ALL_SERVICES_DATA: FullServiceData[] = [
   {

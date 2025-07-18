@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+@import 'swiper/css/navigation';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -201,12 +204,10 @@
 
   /* Swiper */
   .mySwiper .swiper-wrapper {
-    @apply flex;
+    @apply !w-[85.8vw] !max-w-[495px] md:!max-w-none md:!w-[595px] lg:!w-[828px] xl:!w-[1024px] 2xl:!w-[1200px] 3xl:!w-[1300px] !mx-auto;
   }
-  .swiper-button-next,
-  .swiper-button-prev {
-    @apply scale-50 md:scale-75 lg:scale-100;
-  }
+  /* .swiper-button-next,
+  .swiper-button-prev {} */
 
   /* Typography */
   .typo-h1 { /* Home hero */
@@ -222,7 +223,7 @@
     @apply font-rubik text-[calc(8.1888888889vw_+_3.5555555556px)] md:text-[calc(10.1556px_+_3.89105vw)] lg:text-[clamp(-5.85455px_+_5vw,_50%,_-5.85455px_+_6vw)] xl:text-[clamp(71px,_4.733vw,_88px)] leading-[1.2] md:leading-[1.1] lg:leading-[clamp(-9px_+_6.3vw,_54%,_-9px_+_8.1vw)] xl:leading-[1.25] tracking-[0] font-medium;
   }
   .typo-h3 { /* Home case study title */
-    @apply font-rubik text-[1.5625rem] md:text-[1.4125rem] lg:text-[1.875rem] xl:text-[clamp(1.875rem,_2.985vw,_2.3125rem)] leading-[1.2] md:leading-[1.15] font-semibold xl:font-medium;
+    @apply font-rubik text-[1.5625rem] md:text-[1.4125rem] lg:text-[1.875rem] xl:text-[clamp(1.875rem,_2.985vw,_2.3125rem)] leading-[1.2] md:leading-[1.15] font-medium;
   }
   .typo-h4 { /* Service card title */
     @apply font-rubik text-[1.375rem] md:text-[1.6875rem] xl:text-[clamp(1.6875rem,_3.134vw,_2rem)] leading-[1.2] md:leading-[1.25] tracking-[0] font-bold;
@@ -250,6 +251,9 @@
   }
   .typo-body-5 { /* Our works page services text */
     @apply font-rubik text-[0.875rem] xl:text-[clamp(0.6875rem,_1.119vw,_0.875rem)] leading-[1.6] tracking-[0.05em] font-light;
+  }
+  .typo-body-6 { /* Discover more slide text */
+    @apply font-rubik text-[0.8125rem] md:text-[0.9375rem] lg:text-[1rem] xl:text-[clamp(1.125rem,_1.791vw,_1.375rem)] leading-[1.29] tracking-[0.05em] font-medium;
   }
   .typo-quote {
     @apply font-roboto text-[2.25rem] sm:text-[3rem] leading-none;
