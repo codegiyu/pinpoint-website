@@ -198,6 +198,11 @@
   .section-block-padding {
     @apply py-[3.375rem] md:py-20 lg:py-[6.5rem];
   }
+
+  /* Swiper */
+  .mySwiper .swiper-wrapper {
+    @apply flex;
+  }
   .swiper-button-next,
   .swiper-button-prev {
     @apply scale-50 md:scale-75 lg:scale-100;

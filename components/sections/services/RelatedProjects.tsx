@@ -2,13 +2,13 @@
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
-  Mousewheel,
+  // Mousewheel,
   Manipulation,
   A11y,
   Pagination,
-  Parallax,
+  // Parallax,
   Navigation,
-  Autoplay,
+  // Autoplay,
 } from 'swiper/modules';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { MoveRight } from 'lucide-react';
@@ -23,24 +23,24 @@ export const RelatedProjects = ({ projects }: { projects: RelatedProjectSlidePro
 
       <div className="w-full overflow-hidden">
         <Swiper
-          modules={[Mousewheel, Manipulation, A11y, Pagination, Parallax, Navigation, Autoplay]}
-          loop={true}
-          centeredSlides={true}
+          modules={[Manipulation, A11y, Pagination, Navigation]}
+          // loop={true}
+          // centeredSlides={true}
           navigation={true}
           mousewheel={true}
-          autoplay={{ delay: 4000, disableOnInteraction: false }}
+          // autoplay={{ delay: 4000, disableOnInteraction: false }}
           slidesPerView={'auto'}
-          spaceBetween={8}
+          // spaceBetween={8}
           // onSwiper={swiper => {
           //   swiperRef.current = { swiper };
           // }}
           speed={1200}
           // onSlideChange={swiper => setActiveIndex(swiper.realIndex || 0)}
-          className="mySwiper w-full h-auto flex items-center justify-center flex-nowrap">
+          className="mySwiper pinpoint-container h-auto flex items-center justify-start flex-nowrap">
           {projects.map((project, idx) => (
             <SwiperSlide
               key={idx}
-              className={`w-full transition-all duration-500 ease-in-out relative`}>
+              className={`w-[85vw] max-w-[450px] md:max-w-none md:w-[298px] lg:w-[410px] xl:w-[528px] mr-2 transition-all duration-500 ease-in-out relative`}>
               <ProjectSlide {...project} />
             </SwiperSlide>
           ))}
