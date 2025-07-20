@@ -50,7 +50,7 @@ export default function ContactPageContent() {
               />
               <PinpointBtn
                 variant="default"
-                className="border bg-transparent border-white text-white"
+                className="border bg-transparent border-white text-white transition-all duration-500 ease-in-out hover:outline-3 hover:outline-white hover:-outline-offset-3"
                 text="Join the team"
                 linkProps={{ href: '/jobs' }}
                 animate={{ axis: 'y', duration: 0.4 }}
