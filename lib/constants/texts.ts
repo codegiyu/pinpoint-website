@@ -8,6 +8,7 @@ import SvgXIcon from '@/components/icons/XIcon';
 import SvgFacebookIcon from '@/components/icons/FacebookIcon';
 import { WorkCardProps } from '@/components/sections/works/WorksDisplay';
 import { PinpointContactsProps } from '../types/general';
+import { ReferenceProps } from '@/components/sections/about/References';
 
 export const changingHeroTitleModifiers: string[] = ['strategic', 'branding', 'digital', 'stories'];
 export const changingContactTitleModifiers: string[] = [
@@ -595,6 +596,24 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     extraServices: [],
     sectors: ['NGO'],
   },
+];
+
+export const OUR_REFERENCES: ReferenceProps[] = [
+  { logo: '/images/references/Sothebys.webp', link: 'https://www.sothebysrealty.be/fr' },
+  {
+    logo: '/images/references/caritas.webp',
+    link: 'https://www.caritasinternational.be/fr',
+  },
+  { logo: '/images/references/cheeesebox.webp', link: 'https://www.cheesebox.com' },
+  { logo: '/images/references/bertone.png', link: 'https://bertone.it' },
+  { logo: '/images/references/infrabel.webp', link: 'https://infrabel.be/fr' },
+  { logo: '/images/references/iro.webp', link: 'https://www.matcha-iro.com' },
+  { logo: '/images/references/racine.webp', link: 'https://racinebrussels.eu/fr' },
+  { logo: '/images/references/senghor.webp', link: 'https://www.senghor.be' },
+  { logo: '/images/references/sibelga.webp', link: 'https://www.sibelga.be' },
+  { logo: '/images/references/vanin.png', link: 'https://www.vanin.be/fr' },
+  { logo: '/images/references/speos.png', link: 'https://www.speos.be/en' },
+  { logo: '/images/references/fipra.png', link: 'https://fipra.com' },
 ];
 
 export const servicesSummary: ServiceCardProps[] = (() => {

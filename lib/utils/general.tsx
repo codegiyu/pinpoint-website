@@ -104,3 +104,126 @@ export const generateOptionsFromArray = ({
         },
       ];
 };
+
+interface SplitNumberOptions {
+  integerAsString?: true;
+  decimalPlaces?: number;
+  decimalAsNumber?: true;
+}
+
+export function splitNumber(
+  num: number,
+  options?: { decimalPlaces?: number }
+): { integer: number; decimal: string };
+export function splitNumber(
+  num: number,
+  options: { decimalAsNumber: true; decimalPlaces?: number }
+): { integer: number; decimal: number };
+export function splitNumber(
+  num: number,
+  options: { integerAsString: true; decimalPlaces?: number }
+): { integer: string; decimal: string };
+export function splitNumber(
+  num: number,
+  options: { integerAsString: true; decimalPlaces?: number; decimalAsNumber: true }
+): { integer: string; decimal: number };
+
+export function splitNumber(num: number, options?: SplitNumberOptions) {
+  const [integer, decimal = '00'] = num.toFixed(options?.decimalPlaces ?? 2).split('.');
+  return {
+    integer: options?.integerAsString ? integer : Number(integer),
+    decimal: options?.decimalAsNumber ? Number(decimal) : decimal,
+  };
+}
+
+export type Protocol = 'http://' | 'https://';
+export const splitUrl = (url: string): { protocol: Protocol | null; path: string } => {
+  let protocol: Protocol | null = null;
+  let path = '';
+
+  switch (true) {
+    case url.startsWith('https://'):
+      protocol = 'https://';
+      path = url.split('https://')[1];
+      break;
+
+    case url.startsWith('http://'):
+      protocol = 'http://';
+      path = url.split('http://')[1];
+      break;
+
+    default:
+      path = url;
+      break;
+  }
+
+  return { protocol, path };
+};
+
+export const toFixedLocaleString = (
+  num: number,
+  options?: SplitNumberOptions & { optionalDecimal?: boolean }
+) => {
+  const { integer, decimal } = splitNumber(num, options);
+
+  return !options?.optionalDecimal || (options?.optionalDecimal && Number(decimal) > 0)
+    ? `${integer.toLocaleString()}.${decimal}`
+    : integer.toLocaleString();
+};
+
+export const formatInputNumber = (
+  val: string | number | readonly string[],
+  options?: {
+    noDecimalsAllowed: boolean;
+    // returnNumber: boolean;
+  }
+) => {
+  const str = String(val);
+  const value = str.startsWith('.') ? '0' + str : str;
+  const pattern = options?.noDecimalsAllowed ? /[^\d]/g : /[^\d.]|(?<=\.\d*)\./g;
+  const formattedVal = value.replace(pattern, '');
+
+  return formattedVal;
+};
+
+export const uploadFileWithProgress = (
+  file: File,
+  uploadUrl: string,
+  onProgress: (percentage: number) => void
+) => {
+  return new Promise<string>((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT', uploadUrl);
+
+    // Set headers, if required
+    xhr.setRequestHeader('Content-Type', file.type);
+
+    // Track upload progress
+    xhr.upload.onprogress = event => {
+      if (event.lengthComputable) {
+        const percentComplete = (event.loaded / event.total) * 100;
+        onProgress(Math.round(percentComplete));
+      }
+    };
+
+    // Resolve or reject the promise based on the response
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        resolve('Image successfully uploaded');
+      } else {
+        reject(new Error('Upload failed'));
+      }
+    };
+
+    xhr.onerror = () => reject(new Error('Upload failed'));
+
+    // Send the file
+    xhr.send(file);
+  });
+};
+
+export function createFileList(files: File[]): FileList {
+  const dataTransfer = new DataTransfer();
+  files.forEach(file => dataTransfer.items.add(file));
+  return dataTransfer.files;
+}
