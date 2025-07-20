@@ -82,7 +82,7 @@ export default function ServicePage(props: { params: Promise<Params> }) {
           projectId: curr.id,
           name: curr.name,
           image: curr.cardImage,
-          description: curr.descSummary,
+          description: curr.pageTitle,
         });
       }
 
@@ -104,7 +104,7 @@ export default function ServicePage(props: { params: Promise<Params> }) {
       <DescriptionTextSection className="bg-dark text-white/80" text={serviceData.description} />
       <ServiceExpertise {...serviceData.expertise} />
       <WhatMakesUsUnique {...serviceData.whatMakesUsUnique} />
-      <RelatedProjects projects={relatedProjects} />
+      <RelatedProjects projects={relatedProjects.slice(0, 7)} />
       <CTA className="hidden md:flex" />
       <section
         ref={otherServicesRef}
