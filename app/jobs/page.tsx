@@ -53,7 +53,7 @@ export default function JobsPage() {
   const isMobile = useMediaQuery('(max-width:768px)');
   return (
     <>
-      <MainLayout className="pt-6 md:pt-20 lg:pt-0">
+      <MainLayout className="pt-6 md:pt-20 lg:pt-0 ease-quart">
         <CommonHero
           caption="JOBS"
           title="Join the Atelier!"

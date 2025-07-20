@@ -12,7 +12,7 @@ import { PinpointContactsProps } from '../types/general';
 export const changingHeroTitleModifiers: string[] = ['strategic', 'branding', 'digital', 'stories'];
 export const changingContactTitleModifiers: string[] = [
   'Hello',
-  'Atelier',
+  'Guten tag',
   'Bonjour',
   'Bom dia',
   'Hola',

@@ -1,6 +1,6 @@
 import { contactInformation } from '@/lib/constants/texts';
 import Link from 'next/link';
-
+import { motion } from 'framer-motion';
 import { ComponentType, SVGProps } from 'react';
 
 export const PinpointSocials = () => {
@@ -23,9 +23,22 @@ export const SocialBtn = ({ Icon, url, title }: SocialBtnProps) => {
   return (
     <Link
       href={url}
-      className="size-[3.125rem] md:size-[4rem] rounded-full grid place-items-center p-2 border border-white group-hover:border-white transition-[border_0.4s_ease-in-out]">
+      className="group size-[3.125rem] md:size-[4rem] rounded-full grid place-items-center p-2 border  border-white transition-colors relative overflow-hidden duration-1500 w-fit ">
       <span className="sr-only">{title}</span>
-      <Icon className="text-xl" />
+      <span className="block relative h-full mt-[50%] overflow-hidden">
+        <motion.span
+          initial={{ y: 0 }}
+          transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+          className="block relative h-full top-0 left-0 w-full group-hover:-translate-y-full ease-quart duration-500 transition-transform ease-in-out">
+          <Icon className="text-xl" />
+        </motion.span>
+        <motion.span
+          initial={{ y: 0 }}
+          transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
+          className="block relative h-full top-0 left-0 w-full group-hover:-translate-y-full ease-quart duration-500 transition-transform ease-in-out">
+          <Icon className="text-xl" />
+        </motion.span>
+      </span>
     </Link>
   );
 };
