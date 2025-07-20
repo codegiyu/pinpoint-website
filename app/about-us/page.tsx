@@ -1,5 +1,6 @@
 import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
+import { OurReferences } from '@/components/sections/about/References';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
 
@@ -15,7 +16,8 @@ export default function AboutUsPage() {
           priority: true,
         }}
       />
-      <CTA variant="gray" />
+      <OurReferences />
+      <CTA />
       <PageSideDecoration caption="About Us" />
     </MainLayout>
   );
