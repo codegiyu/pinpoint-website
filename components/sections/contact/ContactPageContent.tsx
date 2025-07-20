@@ -45,7 +45,7 @@ export default function ContactPageContent() {
                 linkProps={{ href: '/starting-a-new-project' }}
                 animate={{
                   axis: 'y',
-                  duration: 0.5,
+                  duration: 0.4,
                 }}
               />
               <PinpointBtn
@@ -53,7 +53,7 @@ export default function ContactPageContent() {
                 className="border bg-transparent border-white text-white"
                 text="Join the team"
                 linkProps={{ href: '/jobs' }}
-                animate={{ axis: 'y', duration: 0.5 }}
+                animate={{ axis: 'y', duration: 0.4 }}
               />
             </div>
           </div>

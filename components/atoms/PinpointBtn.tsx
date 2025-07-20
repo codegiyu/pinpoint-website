@@ -118,7 +118,7 @@ export const PinpointBtn = ({
                   initial={{ [animate.axis]: 0 }}
                   transition={{ duration: animate.duration, ease: [0.25, 1, 0.5, 1] }}
                   className={cn(
-                    `font-rubik block absolute z-100 h-full left-0 top-0 w-full group-hover:-translate-${animate.axis}-full duration-400 transition-transform ease-in-out`,
+                    `font-rubik block absolute h-full top-0 left-0 w-full group-hover:-${animate.axis === 'y' ? 'translate-y-full z-100' : 'translate-x-full group-hover:block'} duration-400 transition-transform ease-in-out`,
                     textClassName
                   )}>
                   {text}
@@ -127,7 +127,7 @@ export const PinpointBtn = ({
                   initial={{ [animate.axis]: 0 }}
                   transition={{ duration: animate.duration, ease: [0.25, 1, 0.5, 1] }}
                   className={cn(
-                    `font-rubik block relative h-full ${animate.axis === 'y' ? 'top-[500%] left-0' : 'left-[100%] top-0'} w-full group-hover:-${animate.axis === 'y' ? 'translate-y-[500%]' : 'translate-x-[100%]'}  group-hover:block duration-500 transition-transform ease-in-out`,
+                    `font-rubik block relative h-full  ${animate.axis === 'y' ? 'left-0 top-[500%]' : 'left-[100%] top-0'} w-full group-hover:-${animate.axis === 'y' ? 'translate-y-[500%]' : 'translate-x-[100%]'} group-hover:block duration-500 transition-transform ease-in-out`,
                     textClassName
                   )}>
                   {text}
