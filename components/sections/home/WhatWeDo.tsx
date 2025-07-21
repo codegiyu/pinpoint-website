@@ -116,10 +116,11 @@ const ServiceCard = ({ name, breakdown, href, videoUrl, isLast }: ServiceCardPro
 export const BreakdownSingle = ({
   text,
   className,
-}: ComponentPropsWithRef<'li'> & { text: string }) => {
+  noDecorationInXL,
+}: ComponentPropsWithRef<'li'> & { text: string; noDecorationInXL?: boolean }) => {
   return (
     <li className={cn(`w-fit flex items-center gap-2 typo-body-4 text-white/85`, className)}>
-      <span className="">-</span>
+      <span className={`${noDecorationInXL ? 'xl:hidden' : ''}`}>-</span>
       <span className="">{text}</span>
     </li>
   );

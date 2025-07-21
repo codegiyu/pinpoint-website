@@ -11,6 +11,7 @@ import { PinpointContactsProps } from '../types/general';
 import { ReferenceProps } from '@/components/sections/about/References';
 
 export const changingHeroTitleModifiers: string[] = ['strategic', 'branding', 'digital', 'stories'];
+
 export const changingContactTitleModifiers: string[] = [
   'Hello',
   'Atelier',
@@ -50,6 +51,27 @@ export const contactInformation: PinpointContactsProps = {
 };
 
 export const selectedCaseStudies: string[] = ['cefic', 'fipra', 'eortc'];
+
+export const ourStoryTexts: string[] = [
+  "Back in the 2000's, while studying graphic design, two creative souls with the\
+  same values clicked right away. After their studies, they each went their own way\
+  and filled their professional backpacks with a significant expertise in various\
+  fields of communication. In 2009, they joined forces to found the creative\
+  communication agency of their dreams. And that's how Atelier Design was born,\
+  in the heart of Brussels.",
+
+  "Over the years, other enthusiastic talents have joined the Atelier's dream team. \
+  They will be able to tell you about the many client objectives that we have achieved \
+  with extraordinary collective energy without ever, ever, taking shortcuts.",
+
+  'More marathoners than sprinters, we think, analyze, design, and develop communication \
+  tools for all brands that are looking for quality as much as we are. We offer them a \
+  tailor-made service, so that the results obtained are unique and allow them to really stand out.',
+
+  'And in an age where AI is everywhere, we are committed to putting the human touch at \
+  the center of our approach. Because nothing beats a touch of creativity and sincerity. \
+  We promise to do all this with passion and a good dose of humility.',
+];
 
 export const ALL_SERVICES_DATA: FullServiceData[] = [
   {
