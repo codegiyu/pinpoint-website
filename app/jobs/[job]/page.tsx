@@ -1,7 +1,7 @@
 'use client';
 import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
-// import { ProjectRequestForm } from '@/components/sections/forms/ProjectRequestForm';
+import { JobsForm } from '@/components/sections/forms/JobsForm';
 import JobDetails from '@/components/sections/jobs/JobDetails';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { ALL_JOBS_DATA } from '@/lib/constants/texts';
@@ -23,7 +23,7 @@ export default function JobOpportunityPage() {
         jobDescription={jobData.jobDescription}
         PS={jobData.PS}
       />
-      {/* <ProjectRequestForm /> */}
+      <JobsForm />
       <PageSideDecoration caption="JOIN THE TEAM" />
     </MainLayout>
   );
