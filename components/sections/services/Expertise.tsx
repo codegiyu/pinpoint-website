@@ -3,6 +3,7 @@ import { SectionHeader } from '@/components/general/SectionHeader';
 import { BreakdownSingle } from '../home/WhatWeDo';
 import Image from 'next/image';
 import { useMemo } from 'react';
+import { MarqueeTextSection } from '@/components/general/MarqueeTextSection';
 
 export const ServiceExpertise = ({
   title,
@@ -75,19 +76,7 @@ export const ServiceExpertise = ({
             priority
           />
         </div>
-        <div className="marquee md:bg-gray-f2 h-[calc(168px_+_5vh)] md:h-auto mt-[calc(-168px_-_5vh)] md:mt-0 pl-[10vw] relative z-[6] overflow-hidden">
-          <div
-            id="scroll-text"
-            className="w-[1000vw] animate-[marquee_40s_infinite_linear] flex flex-nowrap gap-12 typo-display text-white md:text-dark">
-            {Array(20)
-              .fill('')
-              .map((_, idx) => (
-                <p key={idx} className="flex-none py-[3.75rem] md:pb-[7.5rem]">
-                  {marqueeText}
-                </p>
-              ))}
-          </div>
-        </div>
+        <MarqueeTextSection text={marqueeText} />
       </div>
     </section>
   );

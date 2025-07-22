@@ -9,6 +9,8 @@ import SvgFacebookIcon from '@/components/icons/FacebookIcon';
 import { WorkCardProps } from '@/components/sections/works/WorksDisplay';
 import { PinpointContactsProps } from '../types/general';
 import { ReferenceProps } from '@/components/sections/about/References';
+import { AchievementBlockProps } from '@/components/sections/about/Achievements';
+import { TeamSlideProps } from '@/components/sections/about/Team';
 
 export const changingHeroTitleModifiers: string[] = ['strategic', 'branding', 'digital', 'stories'];
 
@@ -71,6 +73,85 @@ export const ourStoryTexts: string[] = [
   'And in an age where AI is everywhere, we are committed to putting the human touch at \
   the center of our approach. Because nothing beats a touch of creativity and sincerity. \
   We promise to do all this with passion and a good dose of humility.',
+];
+
+export const OUR_ACHIEVEMENTS: AchievementBlockProps[] = [
+  {
+    number: 17,
+    desc: 'Awards & Recognitions',
+    className:
+      'grid bg-gray-f2 md:col-start-3 md:col-end-4 lg:col-start-4 lg:col-end-5 md:row-start-1 md:row-end-2',
+  },
+  {
+    number: 15,
+    desc: 'Years of experience',
+    className:
+      'grid bg-dark text-white md:col-start-1 md:col-end-2 lg:col-start-2 lg:col-end-3 md:row-start-2 md:row-end-3',
+  },
+  {
+    number: 300,
+    numberSuffix: '+',
+    desc: 'Projects launched',
+    className:
+      'grid bg-white md:col-start-1 md:col-end-2 lg:col-start-2 lg:col-end-3 md:row-start-3 md:row-end-4',
+  },
+  {
+    number: 10,
+    numberSuffix: '+',
+    desc: 'Coffee drunk today',
+    className: 'hidden lg:grid bg-gray-d9 lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4',
+  },
+];
+
+export const OUR_TEAM: TeamSlideProps[] = [
+  {
+    name: 'Steven van Boxtel',
+    title: 'Founder & Creative Director',
+    mainImage: '/images/team/steven-main.webp',
+    subImage: '/images/team/steven-sub.webp',
+  },
+  {
+    name: 'Alicia Dekoninck',
+    title: 'Founder & Project Manager',
+    mainImage: '/images/team/alicia-main.webp',
+    subImage: '/images/team/alicia-sub.webp',
+  },
+  {
+    name: 'Grégoire',
+    title: 'UI/UX & Brand Designer',
+    mainImage: '/images/team/gregoire-main.jpg',
+    subImage: '/images/team/gregoire-sub.webp',
+  },
+  {
+    name: 'Sandra',
+    title: 'UI/UX & Graphic Designer',
+    mainImage: '/images/team/sandra-main.webp',
+    subImage: '/images/team/sandra-sub.webp',
+  },
+  {
+    name: 'Dimitri',
+    title: 'Front-end Developer',
+    mainImage: '/images/team/dimitri-main.webp',
+    subImage: '/images/team/dimitri-sub.webp',
+  },
+  {
+    name: 'Gyozo',
+    title: 'Front-end Developer',
+    mainImage: '/images/team/gyozoi-main.webp',
+    subImage: '/images/team/gyozoi-sub.webp',
+  },
+  {
+    name: 'Julien',
+    title: 'Extern Front-end Developer',
+    mainImage: '/images/team/julien-main.webp',
+    subImage: '/images/team/julien-sub.webp',
+  },
+  {
+    name: 'Louis',
+    title: 'Extern Front-end Developer',
+    mainImage: '/images/team/louis-main.jpg',
+    subImage: '/images/team/louis-sub.webp',
+  },
 ];
 
 export const ALL_SERVICES_DATA: FullServiceData[] = [
@@ -708,8 +789,8 @@ export const ALL_JOBS_DATA = [
       'You are comfortable with Photoshop, Illustrator and Figma',
       'You manage SEO techniques',
       'You are creative and involved: every problem has its solution',
-      'You’re perfectly self-taught and have a passion for open source',
-      'You like to work in a team and you’re not afraid to communicate…',
+      "You're perfectly self-taught and have a passion for open source",
+      "You like to work in a team and you're not afraid to communicate…",
       'You speak French and/or Dutch',
       'You are super organized and you have a good culture of technology watch',
       'You like a job well done, you pay attention to detail…',

@@ -44,7 +44,10 @@ export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
                 <MacaronTextePlayEn className="half-macaron homepage-half-macaron absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" />
               </GhostBtn>
             </div>
-            <p className="lg:hidden absolute md:relative bottom-[3.125rem] md:bottom-0 left-0 w-[70%] md:w-fit md:pt-5 lg:pt-0 typo-caption-large md:italic lg:not-italic break-words text-wrap">
+            <p
+              className="lg:hidden absolute md:relative bottom-[3.125rem] md:bottom-0 
+              left-0 w-[70%] md:w-fit md:pt-5 lg:pt-0 typo-caption-large md:italic 
+              lg:not-italic break-words text-wrap">
               But we love to play with them.
             </p>
           </div>
@@ -58,7 +61,9 @@ export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
       </div>
       <HeroArrow
         id="move-down-arrow"
-        className="block md:hidden lg:block text-white absolute lg:fixed bottom-[3.75rem] lg:bottom-[5vh] right-[7.1vw] lg:right-auto lg:left-[7.1vw] xl:left-[5vw] z-[2]"
+        className="block md:hidden lg:block text-white absolute lg:fixed 
+        bottom-[3.75rem] lg:bottom-[5vh] right-[7.1vw] lg:right-auto 
+        lg:left-[7.1vw] xl:left-[5vw] z-[2]"
       />
     </section>
   );
