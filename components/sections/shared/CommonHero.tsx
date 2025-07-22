@@ -23,7 +23,7 @@ interface CommonHeroWithImageProps extends BaseCommonHeroProps {
 }
 
 interface CommonHeroWithVideoProps extends BaseCommonHeroProps {
-  videoURL: string;
+  videoURL?: string;
   imageProps?: never;
 }
 

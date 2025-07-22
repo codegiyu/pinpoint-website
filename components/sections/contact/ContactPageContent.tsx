@@ -9,20 +9,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ContactPageContent() {
   return (
-    <section className="w-full h-screen bg-dark text-white relative overflow-hidden">
+    <section className="w-full min-h-screen relative inset-0 text-white ">
       <video
         src="/videos/contact-animation.webm"
-        className="w-full h-full object-cover"
+        className="w-full h-screen relative inset-0 object-cover"
         autoPlay
         loop
         muted
         playsInline
       />
-      <div className="overlay bg-[#00000022] inset-0 z-10 absolute h-screen w-screen"></div>
-      <div className="hero-content w-full-h-full absolute inset-0 pinpoint-container touch-events-none z-30">
-        <div className="w-full h-full justify-center lg:justify-between flex-col  flex gap-12 md:gap-16 lg:gap-0  lg:flex-row place-items-center mt-12 md:mt-4 lg:mt-0 relative ">
+      <div className="overlay bg-[#00000022] inset-0 z-10 absolute min-h-screen w-screen "></div>
+      <div className="hero-content absolute inset-0 pinpoint-container touch-events-none z-30 ">
+        <div className="md:w-full md:h-full justify-center lg:justify-between flex-col flex gap-12 md:gap-16 lg:gap-0 lg:flex-row place-items-center mt-24 md:mt-6  lg:mt-0 relative ">
           <div className="w-full lg:w-3/7 grid gap-2 ">
-            <h1 className="typo-h1 h-[7rem] lg:mb-10">
+            <h1 className="typo-h1 h-[5rem] md:h-[7rem] lg:mb-10">
               <ChangingModifier />
             </h1>
 
@@ -45,7 +45,7 @@ export default function ContactPageContent() {
                 linkProps={{ href: '/starting-a-new-project' }}
                 animate={{
                   axis: 'y',
-                  duration: 0.4,
+                  duration: 0.2,
                 }}
               />
               <PinpointBtn
@@ -53,7 +53,7 @@ export default function ContactPageContent() {
                 className="border bg-transparent border-white text-white transition-all duration-500 ease-in-out hover:outline-3 hover:outline-white hover:-outline-offset-3"
                 text="Join the team"
                 linkProps={{ href: '/jobs' }}
-                animate={{ axis: 'y', duration: 0.4 }}
+                animate={{ axis: 'y', duration: 0.2 }}
               />
             </div>
           </div>

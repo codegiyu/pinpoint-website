@@ -111,23 +111,21 @@ export const PinpointBtn = ({
               <LeftIcon {...leftIconProps} />
             </i>
           )}
-          <div className="gap-3 grid place-items-center transition-colors relative overflow-hidden duration-1500">
+          <div className="gap-3 grid place-items-center transition-colors relative overflow-hidden">
             {animate ? (
-              <span className="block relative h-full overflow-hidden">
+              <span className="block relative h-full  overflow-hidden">
                 <motion.span
-                  initial={{ [animate.axis]: 0 }}
-                  transition={{ duration: animate.duration, ease: [0.25, 1, 0.5, 1] }}
+                  transition={{ ease: [0.25, 1, 0.5, 1] }}
                   className={cn(
-                    `font-rubik block absolute h-full top-0 left-0 w-full group-hover:-${animate.axis === 'y' ? 'translate-y-full z-100' : 'translate-x-full group-hover:block'} duration-400 transition-transform ease-in-out`,
+                    `font-rubik block absolute h-full leading-10 top-0 left-0 w-full ${animate.axis === 'y' ? `group-hover:animate-[slideY_${animate.duration}s_ease-in-out_forwards]` : `group-hover:animate-[slideX_${animate.duration}s_ease-in-out_forwards]`} `,
                     textClassName
                   )}>
                   {text}
                 </motion.span>
                 <motion.span
-                  initial={{ [animate.axis]: 0 }}
-                  transition={{ duration: animate.duration, ease: [0.25, 1, 0.5, 1] }}
+                  transition={{ ease: [0.25, 1, 0.5, 1] }}
                   className={cn(
-                    `font-rubik block relative h-full  ${animate.axis === 'y' ? 'left-0 top-[500%]' : 'left-[100%] top-0'} w-full group-hover:-${animate.axis === 'y' ? 'translate-y-[500%]' : 'translate-x-[100%]'} group-hover:block duration-500 transition-transform ease-in-out`,
+                    `font-rubik block relative h-full w-full leading-10 ${animate.axis === 'y' ? `left-0 top-full group-hover:animate-[slideY_${animate.duration}s_ease-in-out_forwards]` : `left-full top-0 group-hover:animate-[slideX_${animate.duration}s_ease-in-out_forwards]`} `,
                     textClassName
                   )}>
                   {text}

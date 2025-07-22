@@ -16,9 +16,9 @@ const buttonVariants = cva(
       },
       size: {
         default:
-          'w-full md:w-fit px-4 py-6 md:px-9 md:py-[1.125rem] xl:px-[clamp(35px,_2.612vw,_42px)] xl:py-[clamp(19px,_1.418vw,_24px)] rounded-none gap-2',
+          'w-full md:w-fit px-4 py-4 md:px-9 md:py-[1.025rem] xl:px-[clamp(35px,_2.612vw,_42px)] xl:py-[clamp(16px,_1.018vw,_20px)] rounded-none gap-2',
         icon: '',
-        full: 'w-full px-4 py-6 md:px-9 md:py-[1.125rem] rounded-none gap-2',
+        full: 'w-full px-4 py-4 md:px-9 md:py-[1.025rem] rounded-none gap-2',
       },
       typo: {
         default: 'typo-button',
