@@ -12,21 +12,21 @@ const jobsPageCardsData = [
     description:
       'We are looking for a committed person, passionate about product and design, who develops interfaces with eye and rigor in order to take the lead on certain projects.',
     btnText: 'Discover the oppportunity',
-    href: '#',
+    href: '/jobs/interactive-and-resourceful-front-end-developer',
   },
   {
     title: 'Interactive and resourceful front-end developer',
     description:
       'We are looking for a committed person, passionate about product and design, who develops interfaces with eye and rigor in order to take the lead on certain projects.',
     btnText: 'Discover the oppportunity',
-    href: '#',
+    href: '/jobs/interactive-and-resourceful-front-end-developer',
   },
   {
     title: 'Internship in development, communication or project management',
     description:
       'We gladly welcome interns who are looking for experience in the field of web development, communication or project management.',
     btnText: 'Discover the oppportunity',
-    href: '#',
+    href: '/jobs/internship-in-development-communication-or-project-management',
   },
 ];
 
@@ -53,7 +53,7 @@ export default function JobsPage() {
   const isMobile = useMediaQuery('(max-width:768px)');
   return (
     <>
-      <MainLayout className="pt-6 md:pt-20 lg:pt-0">
+      <MainLayout className="pt-6 md:pt-20 lg:pt-0 ease-quart">
         <CommonHero
           caption="JOBS"
           title="Join the Atelier!"

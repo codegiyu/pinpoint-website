@@ -176,6 +176,29 @@
   --animate-marquee: marquee 100s infinite;
 }
 
+@layer utilities {
+  @keyframes slideY {
+    0% {
+      transform: translateY(0%);
+    
+    }
+    100% {
+      transform: translateY(-100%);
+     
+    }
+  }
+  @keyframes slideX {
+    0% {
+      transform: translateX(0%);
+    
+    }
+    100% {
+      transform: translatex(-100%);
+     
+    }
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

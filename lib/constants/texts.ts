@@ -14,7 +14,7 @@ export const changingHeroTitleModifiers: string[] = ['strategic', 'branding', 'd
 
 export const changingContactTitleModifiers: string[] = [
   'Hello',
-  'Atelier',
+  'Guten tag',
   'Bonjour',
   'Bom dia',
   'Hola',
@@ -695,3 +695,37 @@ export const { provenServicesList, provenSectorsList } = (() => {
     provenSectorsList: Array.from(sectors),
   };
 })();
+
+export const ALL_JOBS_DATA = [
+  {
+    id: 'interactive-and-resourceful-front-end-developer',
+    title: 'Interactive and resourceful front-end developer',
+    profile: [
+      'You have a minimum of 3 years of experience',
+      'Complete mastery of HTML/CSS/JS and integration techniques in responsive design',
+      'You have a good knowledge of PHP and MYSQL. WebGL and Canvas are a plus',
+      'You know about JavaScript/jQuery/Wordpress',
+      'You are comfortable with Photoshop, Illustrator and Figma',
+      'You manage SEO techniques',
+      'You are creative and involved: every problem has its solution',
+      'You’re perfectly self-taught and have a passion for open source',
+      'You like to work in a team and you’re not afraid to communicate…',
+      'You speak French and/or Dutch',
+      'You are super organized and you have a good culture of technology watch',
+      'You like a job well done, you pay attention to detail…',
+    ],
+    offer: [
+      ' A freelance contract with an attractive remuneration',
+      'A well-established organization in collaboration with our project managers, you will compose your own schedule according to your availability',
+      'A unique experience in a small communication agency in Brussels',
+      'Talented colleagues who love afterwork parties',
+      'A creative and pleasant environment (micro-naps are allowed)',
+    ],
+    directions:
+      'If you are interested in this opportunity, apply on our website. Address yourself directly to Juju (no need to impress him with a long cover letter, just show him your portfolio and your best work).',
+  },
+  {
+    id: 'internship-in-development-communication-or-project-management',
+    title: 'Internship in development, communication or project management',
+  },
+];

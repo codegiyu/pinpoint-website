@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { omit } from 'lodash';
 import { Loader } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export interface PinpointBtnProps
   extends ComponentPropsWithRef<'button'>,
@@ -35,6 +36,11 @@ export interface PinpointBtnProps
   linkProps?: Omit<ComponentPropsWithoutRef<'a'>, 'onClick' | 'className' | 'children' | 'href'> & {
     href: string;
     preventdefault?: string;
+  };
+
+  animate?: {
+    duration: number;
+    axis: 'x' | 'y';
   };
 }
 
@@ -59,6 +65,7 @@ export const PinpointBtn = ({
   disabled = false,
   wrapClassName = '',
   linkProps,
+  animate,
   ref,
   ...props
 }: PinpointBtnProps) => {
@@ -86,7 +93,7 @@ export const PinpointBtn = ({
   };
   const mainEl = (
     <button
-      className={cn(buttonVariants({ size, variant, typo, className }))}
+      className={cn(buttonVariants({ size, variant, typo, className }), 'group')}
       ref={ref}
       disabled={loading || disabled}
       aria-label={props['aria-label'] || text || 'button'}
@@ -104,8 +111,29 @@ export const PinpointBtn = ({
               <LeftIcon {...leftIconProps} />
             </i>
           )}
-          <div className="flex items-center gap-3">
-            <span className={cn('font-rubik', textClassName)}>{text}</span>
+          <div className="gap-3 grid place-items-center transition-colors relative overflow-hidden">
+            {animate ? (
+              <span className="block relative h-full  overflow-hidden">
+                <motion.span
+                  transition={{ ease: [0.25, 1, 0.5, 1] }}
+                  className={cn(
+                    `font-rubik block absolute h-full leading-10 top-0 left-0 w-full ${animate.axis === 'y' ? `group-hover:animate-[slideY_${animate.duration}s_ease-in-out_forwards]` : `group-hover:animate-[slideX_${animate.duration}s_ease-in-out_forwards]`} `,
+                    textClassName
+                  )}>
+                  {text}
+                </motion.span>
+                <motion.span
+                  transition={{ ease: [0.25, 1, 0.5, 1] }}
+                  className={cn(
+                    `font-rubik block relative h-full w-full leading-10 ${animate.axis === 'y' ? `left-0 top-full group-hover:animate-[slideY_${animate.duration}s_ease-in-out_forwards]` : `left-full top-0 group-hover:animate-[slideX_${animate.duration}s_ease-in-out_forwards]`} `,
+                    textClassName
+                  )}>
+                  {text}
+                </motion.span>
+              </span>
+            ) : (
+              <span className={cn('font-rubik ', textClassName)}>{text}</span>
+            )}
             {loading && (
               <Loader className={cn('size-4 bg-green-500 animate-spin', loadingIconClassName)} />
             )}
