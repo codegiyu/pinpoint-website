@@ -5,7 +5,8 @@ import { HeroArrow } from '@/components/general/HeroArrow';
 import { MacaronTextEn, MacaronTextePlayEn } from '@/components/icons';
 import { changingHeroTitleModifiers } from '@/lib/constants/texts';
 import { PropsWithVideoDisplayRef } from '@/lib/types/general';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
+import { ChangingModifier } from '../contact/ContactPageContent';
 
 export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
   return (
@@ -25,14 +26,20 @@ export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
           <div className="w-full grid gap-0">
             <span className="typo-subtitle">Creative communications agency based in Brussels</span>
             <div className="w-full h-fit flex items-center justify-between">
-              <h1 className="typo-h1">
-                <span>
-                  We create <ChangingModifier />
-                </span>
+              <h1 className="typo-h1 w-full">
+                <div className="w-full inline-grid md:grid-cols-[auto_1fr] items-center md:gap-2 lg:gap-4">
+                  <p className="inline-block">We create </p>
+                  <ChangingModifier
+                    textsArray={changingHeroTitleModifiers}
+                    wrapClassName="h-[calc((10vw_+_3px)_*_1.2)] sm:h-[calc(3.3125rem_*_1.2)] md:h-full"
+                  />
+                </div>
+                {/* <span>
+                </span> */}
                 <br />
                 <span>tools, not toys</span>
               </h1>
-              <GhostBtn className="hidden lg:block relative">
+              <GhostBtn className="hidden lg:block relative" wrapClassName="flex-none">
                 <MacaronTextEn className="macaron homepage-macaron animate-spin animation-duration-[10s]" />
                 <MacaronTextePlayEn className="half-macaron homepage-half-macaron absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" />
               </GhostBtn>
@@ -57,16 +64,16 @@ export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
   );
 };
 
-const ChangingModifier = () => {
-  const [index, setIndex] = useState(0);
+// const ChangingModifier = () => {
+//   const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex(prev => (prev + 1) % changingHeroTitleModifiers.length);
-    }, 1500);
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setIndex(prev => (prev + 1) % changingHeroTitleModifiers.length);
+//     }, 1500);
 
-    return () => clearInterval(interval);
-  }, []);
+//     return () => clearInterval(interval);
+//   }, []);
 
-  return changingHeroTitleModifiers[index];
-};
+//   return changingHeroTitleModifiers[index];
+// };
