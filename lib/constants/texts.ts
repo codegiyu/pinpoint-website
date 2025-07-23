@@ -12,7 +12,12 @@ import { ReferenceProps } from '@/components/sections/about/References';
 import { AchievementBlockProps } from '@/components/sections/about/Achievements';
 import { TeamSlideProps } from '@/components/sections/about/Team';
 
-export const changingHeroTitleModifiers: string[] = ['strategic', 'branding', 'digital', 'stories'];
+export const changingHeroTitleModifiers: string[] = [
+  'brands',
+  'campaigns',
+  'experiences',
+  'identities',
+];
 
 export const changingContactTitleModifiers: string[] = [
   'Hello',
@@ -55,24 +60,33 @@ export const contactInformation: PinpointContactsProps = {
 export const selectedCaseStudies: string[] = ['cefic', 'fipra', 'eortc'];
 
 export const ourStoryTexts: string[] = [
-  "Back in the 2000's, while studying graphic design, two creative souls with the\
-  same values clicked right away. After their studies, they each went their own way\
-  and filled their professional backpacks with a significant expertise in various\
-  fields of communication. In 2009, they joined forces to found the creative\
-  communication agency of their dreams. And that's how Atelier Design was born,\
-  in the heart of Brussels.",
+  'Founded in 2020, Pinpoint Global was born from the desire to provide brands \
+  with the strategic direction and creative expertise needed to stand out in an \
+  increasingly competitive marketplace. After years of working in the design and \
+  branding industry, we recognized a gap for an agency that could combine a deep \
+  understanding of brand strategy with innovative, high-quality design and packaging \
+  solutions. Pinpoint Global was launched to fill that gap.',
 
-  "Over the years, other enthusiastic talents have joined the Atelier's dream team. \
-  They will be able to tell you about the many client objectives that we have achieved \
-  with extraordinary collective energy without ever, ever, taking shortcuts.",
+  'Our agency was built on one core belief: brands are more than just logos and colors; \
+  they are experiences, stories, and promises that connect with people on a deeper level. \
+  We specialize in creating those connections by offering a full suite of branding services, \
+  from strategy development and brand positioning to packaging design, digital marketing, \
+  video animations, website design & development, and public relations.',
 
-  'More marathoners than sprinters, we think, analyze, design, and develop communication \
-  tools for all brands that are looking for quality as much as we are. We offer them a \
-  tailor-made service, so that the results obtained are unique and allow them to really stand out.',
+  "When we founded Pinpoint Global, our vision was clear—we wanted to create an agency that \
+  wasn't just focused on aesthetics but driven by the bigger picture of helping businesses \
+  grow sustainably. The world is filled with incredible ideas and products, yet many brands \
+  struggle to gain the visibility and trust they deserve due to ineffective branding and \
+  inconsistent messaging. That's where Pinpoint Global comes in.",
 
-  'And in an age where AI is everywhere, we are committed to putting the human touch at \
-  the center of our approach. Because nothing beats a touch of creativity and sincerity. \
-  We promise to do all this with passion and a good dose of humility.',
+  'We sought to provide companies, big or small, with a roadmap for success, guiding them \
+  through every step of the branding journey. Whether a brand is in its early stages or \
+  looking to reinvent itself, we are here to help it reach its full potential through \
+  strategic brand positioning, innovative design, and thoughtful storytelling.',
+
+  "We understand that while first impressions matter, longevity in the market is achieved \
+  through consistency and a deep emotional connection with your audience. Our goal is to \
+  build brands that don't just stand out — they endure",
 ];
 
 export const OUR_ACHIEVEMENTS: AchievementBlockProps[] = [
@@ -154,7 +168,7 @@ export const OUR_TEAM: TeamSlideProps[] = [
   },
 ];
 
-export const ALL_SERVICES_DATA: FullServiceData[] = [
+export const ATELIER_SERVICES_DATA: FullServiceData[] = [
   {
     id: 'communication-strategy',
     name: 'Communication Strategy',
@@ -435,6 +449,434 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
     },
   },
 ];
+export const ALL_SERVICES_DATA: FullServiceData[] = [
+  {
+    id: 'branding_and_identity',
+    name: 'Branding & Identity',
+    pageTitle: 'We craft brand identities that speak before you do',
+    videoUrl: '/videos/branding-animation.webm',
+    description:
+      "At the heart of every successful brand is a clear and compelling identity. \
+      Through collaborative workshops and deep discovery sessions, we help you uncover \
+      your brand's unique voice, core values, and visual personality. From professional \
+      logo design to comprehensive brand systems and guidelines, we build identities \
+      that not only stand out but also connect meaningfully with your audience. Every \
+      element we create is crafted to ensure consistency, credibility, and long-term \
+      recognition across every medium and touchpoint.",
+    expertise: {
+      title: 'Define, differentiate & stand out',
+      breakdown: [
+        {
+          title: 'We shape visual identities',
+          services: [
+            'Logo Design',
+            'Typography & Color Systems',
+            'Visual Identity Development',
+            'Iconography & Brand Assets',
+            'Brand Guidelines',
+          ],
+        },
+        {
+          title: 'We build meaningful brands',
+          services: [
+            'Brand Strategy & Positioning',
+            'Naming & Tagline Creation',
+            'Brand Personality Development',
+            'Competitive & Market Analysis',
+          ],
+        },
+        {
+          title: 'We bring your brand to life',
+          services: [
+            'Business Card & Stationery Design',
+            'Pitch Decks & Templates',
+            'Email Signature Design',
+            'Brand Audit & Refresh',
+            'Rebranding',
+            'Brand Activation',
+          ],
+        },
+      ],
+      highlightImage: '/images/communication-strategy-highlight.webp',
+      marqueeText: 'Define, differentiate & stand out.',
+    },
+    breakdownSummary: [
+      'Brand strategy & positioning',
+      'Professional logo design',
+      'Visual identity design',
+      'Brand naming & taglines',
+      'Stationery design',
+    ],
+    whatMakesUsUnique: {
+      title: 'Our long-term and qualitative vision',
+      groups: [
+        {
+          title: 'Tailor-made',
+          text: 'Because we are convinced that every project is unique, we automatically propose tailor-made solutions. We concentrate our energy into making a brand strategy that perfectly fits in with your business.',
+        },
+        {
+          title: 'Rooted in strategy',
+          text: 'Our branding process is built on research and insight, ensuring your identity is both meaningful and memorable. We help you define your “why” before shaping the “how”.',
+        },
+        {
+          title: 'Beyond the logo',
+          text: "We don't just create logos, we craft cohesive visual identities that speak your brand's truth across every touchpoint, from fonts to first impressions.",
+        },
+        {
+          title: 'Consistency is power',
+          text: 'We create systems that keep your brand consistent, from pitch decks to packaging, making sure your audience always recognizes and remembers you.',
+        },
+      ],
+    },
+    menu: {
+      image: '',
+      className: '',
+    },
+  },
+  {
+    id: 'marketing_and_media',
+    name: 'Marketing & Media',
+    pageTitle: 'Stories that move, strategies that stick',
+    videoUrl: '/videos/print-animation.webm',
+    description:
+      'In a fast-moving digital world, connection is everything. We help \
+      brands communicate with clarity, creativity, and consistency, \
+      across every platform and format. From content strategies and \
+      campaign planning to video production, motion graphics, and product \
+      animations, we craft media that not only grabs attention but inspires \
+      action. Our approach blends storytelling, design, and data to ensure \
+      your message lands with the right audience, at the right time, in the \
+      most engaging way possible.',
+    expertise: {
+      title: 'Captivate, connect & convert',
+      breakdown: [
+        {
+          title: 'We plan campaigns that convert',
+          services: [
+            'Campaign Concept & Planning',
+            'Audience Research & Targeting',
+            'Paid Social & Google Ads',
+            'Influencer & Partner Campaigns',
+            'Analytics & Performance Tracking',
+            'Cross-channel Strategy for Video & Motion Content',
+          ],
+        },
+        {
+          title: 'We amplify your message everywhere',
+          services: [
+            'Email Marketing',
+            'Print & Outdoor Advertising',
+            'Marketing Collateral (Flyers, Banners, Brochures)',
+            'Press Kits & PR Assets',
+            'Cross-platform Messaging Alignment',
+            'Media Adaptation for Various Formats',
+          ],
+        },
+        {
+          title: 'We create content that connects',
+          services: [
+            'Social Media Strategy',
+            'Copywriting & Storytelling',
+            'Creative Direction',
+            'Content Calendars',
+            'Visual Assets for Campaigns',
+            'Video Content',
+            'Motion Graphics',
+            'Product Animations',
+            '3D Product Visualization',
+          ],
+        },
+      ],
+      highlightImage: '/images/communication-strategy-highlight.webp',
+      marqueeText: 'Captivate, connect & convert.',
+    },
+    breakdownSummary: [
+      'Campaign branding',
+      'Advertising design',
+      'Storytelling & copywriting',
+      'Event branding and design',
+      'Social media strategy & management',
+    ],
+    whatMakesUsUnique: {
+      title: 'Our long-term and qualitative vision',
+      groups: [
+        {
+          title: 'Story-first thinking',
+          text: 'We lead with narrative, crafting campaigns and content that connect emotionally before they convert. Every asset has a purpose, and every message has meaning.',
+        },
+        {
+          title: 'Cross-platform fluency',
+          text: 'From social media to outdoor, motion to messaging, we understand how to tailor your voice to every channel without losing its soul.',
+        },
+        {
+          title: 'Creative meets performance',
+          text: "We combine bold creativity with data-backed strategy, ensuring that your campaigns don't just look good, they perform.",
+        },
+        {
+          title: 'Scalable content systems',
+          text: 'We design modular assets and systems you can reuse, remix, and adapt, so your brand stays fresh without reinventing the wheel every time.',
+        },
+      ],
+    },
+    menu: {
+      image: '',
+      className: '',
+    },
+  },
+  {
+    id: 'packaging_and_product_design',
+    name: 'Packaging & Product Design',
+    pageTitle: 'We turn packaging into powerful first impressions',
+    videoUrl: '/videos/print-animation.webm',
+    description:
+      "Packaging is more than protection — it's the first conversation your \
+      product has with the world. We design packaging that captivates, \
+      communicates, and converts, all while staying true to your brand story. \
+      From structural design to label layouts and custom dielines, we bring \
+      strategic thinking and creative execution together to create memorable, \
+      functional packaging. Whether it's on a shelf or on a screen, we make sure \
+      your product stands out — and stands for something.",
+    expertise: {
+      title: 'Package, elevate & inspire',
+      breakdown: [
+        {
+          title: 'We create products you can touch',
+          services: [
+            'Product Packaging',
+            'Custom Stickers',
+            '3D Dome Stickers',
+            'Branded Stationery',
+            'Promotional Products',
+            'Tactile Brand Assets',
+          ],
+        },
+        {
+          title: 'We shape products with form and function',
+          services: [
+            'Product Mockups & Prototypes',
+            'Art Direction for Product Launches',
+            'Point-of-Sale Materials',
+            'Display & Retail Design',
+            'Label & Print File Preparation',
+            'Packaging Guidelines & Templates',
+          ],
+        },
+        {
+          title: 'We bring brands to life in the real world',
+          services: [
+            'Packaging Design',
+            'Label Systems',
+            'Material & Finish Consulting',
+            'Unboxing Experience Design',
+            'Wearable Design',
+          ],
+        },
+      ],
+      highlightImage: '/images/communication-strategy-highlight.webp',
+      marqueeText: 'Package, elevate & inspire.',
+    },
+    breakdownSummary: [
+      'Product packaging',
+      'Packaging design',
+      'Sticker & label design',
+      'Unboxing experience design',
+      'Promotional Products',
+    ],
+    whatMakesUsUnique: {
+      title: 'Our long-term and qualitative vision',
+      groups: [
+        {
+          title: 'Form with purpose',
+          text: 'Our packaging designs are as functional as they are beautiful — built to protect, perform, and pop on any shelf or screen.',
+        },
+        {
+          title: 'Tailored to your product',
+          text: 'No templates here — we design packaging that fits your product, your brand, and your audience down to the last fold or label.',
+        },
+        {
+          title: 'Retail & digital ready',
+          text: 'Whether your product lives on shelves or in scrolls, we design packaging that shines in real life and in photos, thumbnails, and e-commerce listings.',
+        },
+        {
+          title: 'Unified inside & out',
+          text: 'From structural packaging to printed collateral, we ensure a seamless brand experience that flows from unboxing to long-term loyalty.',
+        },
+      ],
+    },
+    menu: {
+      image: '',
+      className: '',
+    },
+  },
+  {
+    id: 'offset_and_digital_printing',
+    name: 'Offset & Digital Printing',
+    pageTitle: 'Print that delivers impact, on paper and in hand',
+    videoUrl: '/videos/digital-animation.webm',
+    description:
+      'Tangible experiences still matter — and great print leaves a lasting impression. \
+      We bring your ideas to life through high-quality offset and digital printing that \
+      reflects the precision and polish of your brand. Whether you need business cards, \
+      brochures, banners, or packaging sleeves, we ensure every piece is produced with \
+      care and consistency. From file prep to final delivery, we manage the process \
+      end-to-end so you can focus on results, not logistics.',
+    expertise: {
+      title: 'Print, polish & impress',
+      breakdown: [
+        {
+          title: 'We bring your ideas to life on paper',
+          services: [
+            'Offset & Digital Print Production',
+            'Business Cards & Stationery',
+            'Posters & Large-Format Prints',
+            'Brochures, Catalogues & Lookbooks',
+            'Books & Editorial Projects',
+            'Branded Marketing Materials',
+          ],
+        },
+        {
+          title: 'We take care of the details so your print looks perfect',
+          services: [
+            'Print Layout & Setup',
+            'Proofing & Color Checks',
+            'Paper & Finish Recommendations',
+            'Print File Preparation',
+            'Vendor Coordination',
+            'Quality Review & Delivery',
+          ],
+        },
+        {
+          title: 'We create print that feels as good as it looks',
+          services: [
+            'Tactile Materials & Textures',
+            'Foiling, Embossing & Special Finishes',
+            'Packaging Inserts & Gift Wraps',
+            'Custom Invitations & Event Collateral',
+          ],
+        },
+      ],
+      highlightImage: '/images/website-creation-highlight.jpg',
+      marqueeText: 'Print, polish & impress.',
+    },
+    breakdownSummary: [
+      'Business card printing',
+      'Brochure & flyer printing',
+      'Poster & banner printing',
+      'Booklet & magazine printing',
+      'Branded stationery printing',
+    ],
+    whatMakesUsUnique: {
+      title: 'Our long-term and qualitative vision',
+      groups: [
+        {
+          title: 'Detail-obsessed',
+          text: 'We sweat the small stuff, from color matching to paper selection, so that every print reflects the care behind your brand.',
+        },
+        {
+          title: 'From file to finish',
+          text: 'We manage the entire print process, making sure your materials arrive exactly as envisioned, with no surprises.',
+        },
+        {
+          title: 'Print that performs',
+          text: "Beyond looks, our printed materials are designed to support business goals; whether that's sales, awareness, or credibility.",
+        },
+        {
+          title: 'Digital and physical harmony',
+          text: 'We make sure your print materials align with your digital presence, creating a cohesive brand experience wherever your audience meets you.',
+        },
+      ],
+    },
+    menu: {
+      image: '',
+      className: '',
+    },
+  },
+  {
+    id: 'digital_products_creation',
+    name: 'Digital Products Creation',
+    pageTitle: 'We craft digital products that feel as good as they function',
+    videoUrl: '/videos/digital-animation.webm',
+    description:
+      "We design and develop digital products that feel intuitive, perform beautifully, \
+      and grow with your business. Through thoughtful UX, responsive design, and scalable \
+      code, we turn ideas into engaging web and mobile experiences. Whether you're building \
+      a landing page, an e-commerce store, or a full-featured mobile app, we craft solutions \
+      that meet user needs and exceed business goals. From concept to launch — and beyond — \
+      we're your partner in creating digital tools that are built to last.",
+    expertise: {
+      title: 'Shape, ship & evolve',
+      breakdown: [
+        {
+          title: 'We design experiences people love to use',
+          services: [
+            'UI/UX Design for Web & Mobile',
+            'Wireframes & Interactive Prototypes',
+            'Responsive & Adaptive Layouts',
+            'Design Systems & Component Libraries',
+            'Accessibility-first Design',
+            'Brand Integration & Visual Consistency',
+          ],
+        },
+        {
+          title: 'We build digital products that scale with you',
+          services: [
+            'Frontend Development',
+            'Cross-platform Mobile App Development',
+            'Backend Development & API Integration',
+            'Headless CMS Integration',
+            'E-commerce & SaaS Platforms',
+            'Performance & SEO Optimization',
+          ],
+        },
+        {
+          title: 'We support, evolve, and grow your product',
+          services: [
+            'Ongoing Maintenance & Feature Updates',
+            'Content Management Training',
+            'User Analytics & Conversion Tracking',
+            'Cloud Hosting & DevOps Support',
+            'Security & Compliance Monitoring',
+            'Product Strategy & Roadmapping',
+          ],
+        },
+      ],
+      highlightImage: '/images/website-creation-highlight.jpg',
+      marqueeText: 'Shape, ship & evolve.',
+    },
+    breakdownSummary: [
+      'UI/UX Design for Web & Mobile',
+      'Frontend development',
+      'Cross-platform mobile app development',
+      'Backend Development & API Integration',
+      'E-commerce & SaaS platfroms',
+    ],
+    whatMakesUsUnique: {
+      title: 'Our long-term and qualitative vision',
+      groups: [
+        {
+          title: 'Built for people',
+          text: 'Every digital product we design is made for real users, with intuitive interfaces and thoughtful experiences that put people first.',
+        },
+        {
+          title: 'Performance meets polish',
+          text: 'We care about clean code, fast load times, and smooth transitions; because details make the difference between a tool and a product people love.',
+        },
+        {
+          title: 'Scalable from day one',
+          text: 'We build with growth in mind, from MVPs to enterprise tools, your product is designed to scale with your vision.',
+        },
+        {
+          title: 'Design and dev under one roof',
+          text: 'No handoff headaches. Our designers and developers work together from start to ship, ensuring cohesion at every step.',
+        },
+      ],
+    },
+    menu: {
+      image: '',
+      className: '',
+    },
+  },
+];
 
 export const ALL_PROJECTS_DATA: FullProjectData[] = [
   {
@@ -446,7 +888,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/cefic.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity'],
+    services: ['Branding & Identity', 'Offset & Digital Printing', 'Packaging & Product Design'],
     extraServices: ['Illustration', 'Print'],
     sectors: ['Corporate', 'Health'],
   },
@@ -459,7 +901,13 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/sander.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
+    services: [
+      'Branding & Identity',
+      'Marketing & Media',
+      'Offset & Digital Printing',
+      'Packaging & Product Design',
+      'Digital Products Creation',
+    ],
     extraServices: ['Print'],
     sectors: ['Corporate'],
   },
@@ -473,7 +921,13 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/fipra.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
+    services: [
+      'Branding & Identity',
+      'Marketing & Media',
+      'Offset & Digital Printing',
+      'Packaging & Product Design',
+      'Digital Products Creation',
+    ],
     extraServices: ['Logo', 'Print'],
     sectors: ['Corporate'],
   },
@@ -487,7 +941,12 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/eortc.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity', 'Communication Strategy'],
+    services: [
+      'Branding & Identity',
+      'Offset & Digital Printing',
+      'Packaging & Product Design',
+      'Marketing & Media',
+    ],
     extraServices: ['Print'],
     sectors: ['Corporate'],
   },
@@ -500,7 +959,12 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/sothebys.webp',
     descriptionBg: '',
     description: '',
-    services: ['Communication Strategy', 'Website Creation'],
+    services: [
+      'Marketing & Media',
+      'Offset & Digital Printing',
+      'Packaging & Product Design',
+      'Digital Products Creation',
+    ],
     extraServices: ['Print'],
     sectors: ['Corporate', 'Real Estate'],
   },
@@ -513,7 +977,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/froidmont.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
+    services: ['Branding & Identity', 'Marketing & Media', 'Digital Products Creation'],
     extraServices: ['Illustration'],
     sectors: ['E-shop', 'NGO'],
   },
@@ -526,7 +990,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/febecoop.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
+    services: ['Branding & Identity', 'Marketing & Media', 'Digital Products Creation'],
     extraServices: ['Illustration'],
     sectors: ['Corporate', 'NGO'],
   },
@@ -539,7 +1003,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/bluefino.webp',
     descriptionBg: '',
     description: '',
-    services: ['Communication Strategy', 'Website Creation'],
+    services: ['Marketing & Media', 'Digital Products Creation'],
     extraServices: [],
     sectors: ['Corporate', 'Marketing'],
   },
@@ -552,7 +1016,13 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/castell.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
+    services: [
+      'Branding & Identity',
+      'Marketing & Media',
+      'Offset & Digital Printing',
+      'Packaging & Product Design',
+      'Digital Products Creation',
+    ],
     extraServices: ['Logo', 'Print'],
     sectors: ['Corporate', 'Real Estate'],
   },
@@ -565,7 +1035,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/palais.webp',
     descriptionBg: '',
     description: '',
-    services: ['Communication Strategy', 'Website Creation'],
+    services: ['Marketing & Media', 'Digital Products Creation'],
     extraServices: [],
     sectors: ['Food'],
   },
@@ -578,7 +1048,12 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/archibald.webp',
     descriptionBg: '',
     description: '',
-    services: ['Communication Strategy', 'Website Creation'],
+    services: [
+      'Marketing & Media',
+      'Offset & Digital Printing',
+      'Packaging & Product Design',
+      'Digital Products Creation',
+    ],
     extraServices: ['Print'],
     sectors: ['Corporate', 'Real Estate'],
   },
@@ -591,7 +1066,13 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/sanoleo.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
+    services: [
+      'Branding & Identity',
+      'Marketing & Media',
+      'Offset & Digital Printing',
+      'Packaging & Product Design',
+      'Digital Products Creation',
+    ],
     extraServices: ['Print'],
     sectors: ['Corporate', 'Health'],
   },
@@ -604,7 +1085,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/eu-traveltech.webp',
     descriptionBg: '',
     description: '',
-    services: ['Communication Strategy', 'Website Creation'],
+    services: ['Marketing & Media', 'Digital Products Creation'],
     extraServices: [],
     sectors: ['Corporate'],
   },
@@ -615,7 +1096,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     pageTitle: '',
     descSummary: '',
     bannerURL: { image: '/images/our-works/nove.jpg' },
-    services: ['Communication Strategy', 'Website Creation'],
+    services: ['Marketing & Media', 'Digital Products Creation'],
     descriptionBg: '',
     description: '',
     extraServices: [],
@@ -630,7 +1111,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/speos.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
+    services: ['Branding & Identity', 'Marketing & Media', 'Digital Products Creation'],
     extraServices: ['Logo', 'Print'],
     sectors: ['Corporate', 'Marketing'],
   },
@@ -643,7 +1124,13 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/acumen.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity', 'Communication Strategy', 'Website Creation'],
+    services: [
+      'Branding & Identity',
+      'Marketing & Media',
+      'Offset & Digital Printing',
+      'Packaging & Product Design',
+      'Digital Products Creation',
+    ],
     extraServices: ['Logo', 'Print'],
     sectors: ['Corporate'],
   },
@@ -656,7 +1143,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/racine.webp',
     descriptionBg: '',
     description: '',
-    services: ['Communication Strategy', 'Website Creation'],
+    services: ['Marketing & Media', 'Digital Products Creation'],
     extraServices: [],
     sectors: ['Corporate', 'Legal'],
   },
@@ -667,7 +1154,12 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     pageTitle: '',
     descSummary: '',
     bannerURL: { image: '/images/our-works/iro.webp' },
-    services: ['Brand Identity', 'Communication Strategy'],
+    services: [
+      'Branding & Identity',
+      'Marketing & Media',
+      'Offset & Digital Printing',
+      'Packaging & Product Design',
+    ],
     descriptionBg: '',
     description: '',
     extraServices: ['Illustration', 'Print'],
@@ -682,7 +1174,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/sibelga.webp',
     descriptionBg: '',
     description: '',
-    services: ['Brand Identity', 'Website Creation'],
+    services: ['Branding & Identity', 'Digital Products Creation'],
     extraServices: ['Illustration'],
     sectors: ['Corporate', 'Energy'],
   },
@@ -695,7 +1187,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     cardImage: '/images/our-works/caritas.webp',
     descriptionBg: '',
     description: '',
-    services: ['Communication Strategy', 'Website Creation'],
+    services: ['Marketing & Media', 'Digital Products Creation'],
     extraServices: [],
     sectors: ['NGO'],
   },
@@ -760,19 +1252,14 @@ export const homeCaseStudySamples = (() => {
 })();
 
 export const { provenServicesList, provenSectorsList } = (() => {
-  let services = new Set<string>();
   let sectors = new Set<string>();
 
   ALL_PROJECTS_DATA.forEach(project => {
-    services = new Set([...services, ...project.extraServices]);
     sectors = new Set([...sectors, ...project.sectors]);
   });
 
   return {
-    provenServicesList: [
-      ...ALL_SERVICES_DATA.map(service => service.name),
-      ...Array.from(services),
-    ],
+    provenServicesList: ALL_SERVICES_DATA.map(service => service.name),
     provenSectorsList: Array.from(sectors),
   };
 })();

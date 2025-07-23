@@ -67,5 +67,7 @@ export const HomeScrollManager = ({ refsForObserver }: HomeScrollManagerProps) =
     // };
   }, [refsForObserver]);
 
-  return <PageSideCaption caption="Creative Communication Agency" noDefaultOpacity />;
+  return (
+    <PageSideCaption caption="Your Branding, Marketing, and Packaging Solution" noDefaultOpacity />
+  );
 };

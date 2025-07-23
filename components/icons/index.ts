@@ -8,4 +8,6 @@ export { default as MacaronTeamPointing } from './MacaronTeamPointing';
 export { default as MacaronTeam } from './MacaronTeam';
 export { default as MacaronTextEn } from './MacaronTextEn';
 export { default as MacaronTextePlayEn } from './MacaronTextePlayEn';
+export { default as PinpointFull } from './PinpointFull';
+export { default as PinpointLogo } from './PinpointLogo';
 export { default as XIcon } from './XIcon';

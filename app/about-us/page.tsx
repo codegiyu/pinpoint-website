@@ -13,18 +13,18 @@ export default function AboutUsPage() {
   return (
     <MainLayout>
       <CommonHero
-        caption="Our Communication Agency"
-        title="Creative Minds for Impactful Communications"
+        caption="Our Creative Agency"
+        title="Creative by Nature, Strategic by Design"
         imageProps={{
           src: '/images/about-page/hero.webp',
-          alt: 'Atelier design team',
+          alt: 'Pinpoint design team',
           priority: true,
         }}
       />
       <OurStory />
       <Services />
       <MarqueeTextSection
-        text="Work hard, live with passion"
+        text="Repitition makes reputation and reputation makes customers."
         wrapClassName="hidden md:block md:bg-white"
         scrollContainerClassName=""
       />

@@ -5,10 +5,12 @@ import { PropsWithChildren } from 'react';
 export const GetToKnowUs = () => {
   return (
     <DescriptionTextSection
-      text="Achieve your communication goals with Atelier Design : Get your message out, reflect who
-      you are, be your own ambassador. Our creative communication agency based in Brussels
-      produces powerful, innovative and digital projects that are tailor-made and effective.
-      You'll love it.">
+      text="Build a brand people remember with Pinpoint Global.
+      We help you connect, communicate, and create impact, through 
+      strategy, design, content, and experiences that reflect 
+      who you are. From branding to digital to packaging, we craft 
+      thoughtful, purpose-driven work that moves people. Let's make 
+      something meaningful.">
       <PinpointBtn linkProps={{ href: '/about-us' }} variant="secondary" text="Get to know us" />
     </DescriptionTextSection>
   );

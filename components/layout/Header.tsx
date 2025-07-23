@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { GhostBtn } from '../atoms/GhostBtn';
-import { LogoAd, LogoText } from '../icons';
+import { PinpointFull } from '../icons';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../ui/dialog';
 import { usePathname } from 'next/navigation';
@@ -47,11 +47,12 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
         className={`h-fit wide-pinpoint-container fixed inset-0 
         ${
           menuOpen || whiteTextStart ? 'mix-blend-normal' : 'mix-blend-difference'
-        } flex items-center justify-between py-6 md:py-8 z-[99]`}>
+        } ${menuOpen ? 'menu-open' : 'menu-closed'}
+        flex items-center justify-between py-6 md:py-8 z-[99]`}>
         <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
-          <div className="w-fit flex items-center text-[1.8125rem] md:text-[2.0625rem] xl:text-[clamp(33px,_2.463vw,_42px)]">
-            <LogoAd />
-            <LogoText />
+          <div className="w-fit flex items-center text-[1.25rem] md:text-[1.75rem] xl:text-[clamp(33px,_2.463vw,_42px)]">
+            {/* <PinpointLogo className="pinpoint-logo" /> */}
+            <PinpointFull className="pinpoint-logo" />
           </div>
         </GhostBtn>
 

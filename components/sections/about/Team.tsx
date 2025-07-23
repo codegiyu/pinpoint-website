@@ -32,8 +32,8 @@ export const Team = () => {
           onSwiper={swiper => {
             // Fix for timing issues to ensures navigation is correctly bound
             setTimeout(() => {
-              swiper.navigation.init();
-              swiper.navigation.update();
+              swiper.navigation?.init();
+              swiper.navigation?.update();
             });
           }}
           className="mySwiper w-full h-auto flex items-center justify-start flex-nowrap relative">

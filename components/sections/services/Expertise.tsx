@@ -22,7 +22,7 @@ export const ServiceExpertise = ({
       className={`w-full ${onlyTwoGroups ? 'bg-white md:bg-gray-f2' : 'bg-white'} pt-[3.75rem] md:pt-[6.25rem]`}>
       <div className="w-full relative overflow-hidden">
         <div className="pinpoint-container">
-          <SectionHeader caption="Expertise" title={title} titleClassName="lg:w-3/4" />
+          <SectionHeader caption="Expertise" title={title} titleClassName="lg:w-3/4 uppercase" />
           <div
             className={`w-full md:w-[756px] xl:w-[782px] 2xl:w-[950px] grid md:grid-cols-2 
             md:gap-x-6 xl:gap-x-[5vw] mt-[3.125rem] xl:mt-[clamp(86px,_5.333vw,_120px)] 

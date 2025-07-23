@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 
 export interface MarqueeTextSectionProps {
   text: string;
-  animationDuration?: number;
+  // animationDuration?: number;
   duplicationCount?: number;
   wrapClassName?: string;
   scrollContainerClassName?: string;
@@ -10,12 +10,12 @@ export interface MarqueeTextSectionProps {
 
 export const MarqueeTextSection = ({
   text,
-  animationDuration = 40,
+  // animationDuration = 40,
   duplicationCount = 20,
   wrapClassName,
   scrollContainerClassName,
 }: MarqueeTextSectionProps) => {
-  const scrollAnimation = 'animate-[marquee_' + animationDuration + 's_infinite_linear]';
+  const scrollAnimation = 'animate-[marquee_40s_infinite_linear]';
 
   return (
     <div
@@ -26,7 +26,7 @@ export const MarqueeTextSection = ({
       <div
         id="scroll-text"
         className={cn(
-          `w-[1000vw] ${scrollAnimation} flex flex-nowrap gap-12 typo-display text-white md:text-dark`,
+          `w-[1000vw] ${scrollAnimation} flex flex-nowrap gap-[9rem] typo-display text-white md:text-dark`,
           scrollContainerClassName
         )}>
         {Array(duplicationCount)

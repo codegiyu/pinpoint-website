@@ -108,7 +108,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
+  /* --color-primary: var(--primary); */
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -164,6 +164,8 @@
   --breakpoint-2xl: 1536px;
   --breakpoint-3xl: 1700px;
 
+  --color-primary: #fe7702;
+  --color-primary-inverse: #0188fd;
   --color-dark: #141414;
   --color-gray-59: #595959;
   --color-gray-66: #666666;
@@ -233,6 +235,22 @@
   }
   /* .swiper-button-next,
   .swiper-button-prev {} */
+
+  #visible-header .pinpoint-logo path.black-text {
+    fill: currentColor;
+  }
+  #visible-header.mix-blend-difference .pinpoint-logo path.black-text {
+    fill: currentColor;
+  }
+  #visible-header.mix-blend-normal .pinpoint-logo path.coloured-text {
+    fill: currentColor;
+  }
+  #visible-header.mix-blend-difference .pinpoint-logo path.coloured-text {
+    fill: #0188fd;
+  }
+  #visible-header.menu-open .pinpoint-logo path.coloured-text {
+    fill: #fe7702;
+  }
 
   /* Typography */
   .typo-h1 { /* Home hero */

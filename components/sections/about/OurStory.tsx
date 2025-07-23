@@ -21,6 +21,7 @@ export const OurStory = () => {
                   src="/images/about-page/founder-image-1.webp"
                   alt=""
                   className="w-full h-full object-cover"
+                  sizes=""
                   fill
                 />
               </div>
@@ -31,6 +32,7 @@ export const OurStory = () => {
                   src="/images/about-page/founder-image-2.webp"
                   alt=""
                   className="w-full h-full object-cover"
+                  sizes=""
                   fill
                 />
               </div>
@@ -38,14 +40,15 @@ export const OurStory = () => {
           </div>
         </div>
 
-        <div className="w-full grid lg:grid-cols-[55fr_45fr] lg:gap-[3.75rem] lg:mb-[110px]">
+        <div className="w-full grid lg:grid-cols-[50fr_50fr] lg:gap-[3.75rem] lg:mb-[130px]">
           <div className="hidden lg:block w-full h-full relative">
-            <div className="absolute inset-0 w-full xl:w-[90%] h-[calc(100%_+_50px)] xl:h-[calc(100%_+_70px)] z-[6]">
+            <div className="absolute inset-0 w-full h-[calc(100%_+_50px)] xl:h-[calc(100%_+_70px)] z-[6]">
               <div className="w-full h-full relative">
                 <Image
                   src="/images/about-page/founder-image-3.webp"
                   alt=""
                   className="w-full h-full object-cover"
+                  sizes=""
                   fill
                 />
               </div>
@@ -54,7 +57,7 @@ export const OurStory = () => {
           <div
             className="w-full md:max-w-[455px] h-fit grid gap-10 pt-11 pb-[3.75rem] 
             md:pt-[3.75rem] md:pb-[6.25rem] lg:pt-0 lg:pb-[6rem] xl:pt-20 xl:pb-[8rem] mx-auto">
-            <div className="w-full grid">
+            <div className="w-full grid gap-5">
               {ourStoryTexts.slice(1).map((paragraph, idx) => (
                 <p key={idx} className="typo-body-7 text-gray-59">
                   {paragraph}
@@ -78,6 +81,7 @@ export const OurStory = () => {
             src="/images/about-page/founder-image-3.webp"
             alt=""
             className="w-full h-full object-cover"
+            sizes=""
             fill
           />
         </div>
