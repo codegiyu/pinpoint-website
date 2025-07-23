@@ -27,7 +27,7 @@ export const InputWrapper = ({
         {label && (
           <span
             className={cn(
-              'text-[0.625rem] lg:text-[0.75rem] leading-[1.2] font-extralight text-gray-66 transition-all ease-linear duration-300',
+              'text-[0.825rem] lg:text-[0.95rem] leading-[1.2] font-extralight text-gray-66 transition-all ease-linear duration-300',
               labelOnTop
                 ? 'transform-y-0 transform-x-0 opacity-100'
                 : 'transform-y-2 transform-x-2 opacity-0',

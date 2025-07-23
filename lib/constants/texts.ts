@@ -722,7 +722,7 @@ export const ALL_JOBS_DATA = [
       'Talented colleagues who love afterwork parties',
       'A creative and pleasant environment (micro-naps are allowed)',
     ],
-    PS: 'If you are interested in this opportunity, apply on our website. Address yourself directly to Juju (no need to impress him with a long cover letter, just show him your portfolio and your best work).',
+    Ps: 'If you are interested in this opportunity, apply on our website. Address yourself directly to Juju (no need to impress him with a long cover letter, just show him your portfolio and your best work).',
   },
   {
     id: 'internship-in-development-communication-or-project-management',
@@ -747,6 +747,6 @@ export const ALL_JOBS_DATA = [
       },
     ],
 
-    PS: 'PS: If you don’t hear from us, don’t hesitate to call, we are sometimes distracted 😉',
+    Ps: 'PS: If you don’t hear from us, don’t hesitate to call, we are sometimes distracted 😉',
   },
 ];

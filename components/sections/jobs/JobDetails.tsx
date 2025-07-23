@@ -2,7 +2,7 @@ type JobDetailsProps = {
   profile?: string[];
   offer?: string[];
   jobDescription?: { title: string; text: string }[];
-  PS: string;
+  Ps: string;
 };
 
 type ListUIProps = {
@@ -15,7 +15,7 @@ type ParagraphUI = {
   text: string;
 };
 
-export default function JobDetails({ profile, offer, jobDescription, PS }: JobDetailsProps) {
+export default function JobDetails({ profile, offer, jobDescription, Ps }: JobDetailsProps) {
   return (
     <section className="relative z-10 py-18 md:py-24 bg-gray-f2 w-full h-full">
       <div className="pinpoint-container md:pl-30 grid gap-12 md:gap-16">
@@ -29,7 +29,7 @@ export default function JobDetails({ profile, offer, jobDescription, PS }: JobDe
         {jobDescription &&
           jobDescription.map((item, index) => <ParagraphUI {...item} key={index} />)}
 
-        <p className="typo-body-2 tracking-wide italic">{PS}</p>
+        <p className="typo-body-2 tracking-wide italic">{Ps}</p>
       </div>
     </section>
   );
@@ -54,7 +54,7 @@ export const ParagraphUI = ({ title, text }: ParagraphUI) => {
   return (
     <>
       <div className="grid gap-2">
-        <h2 className="typo-h2">{title}</h2>
+        <h2 className="typo-h2 font-[600]">{title}</h2>
         <p className="typo-body-2 tracking-wide">{text}</p>
       </div>
     </>

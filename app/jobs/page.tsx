@@ -59,6 +59,7 @@ export default function JobsPage() {
           title="Join the Atelier!"
           description={heroDescription}
           videoURL="/videos/jobs-animation.webm"
+          bottomStripBackground="hidden"
         />
 
         {isMobile && (

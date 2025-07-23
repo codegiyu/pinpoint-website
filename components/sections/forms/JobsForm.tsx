@@ -8,16 +8,25 @@ import { useForm } from '@/lib/hooks/use-form';
 import { debounce } from '@/lib/utils/general';
 import { useMemo, useState } from 'react';
 import z from 'zod';
+import FormAlert from './FormAlert';
 
 const formSchema = z.object({
-  name: z.string().min(3, { error: 'Please enter at least 3 characters' }),
+  firstName: z.string().min(3, { error: 'Please enter at least 3 characters' }),
+  lastName: z.string().min(3, { error: 'Please enter at least 3 characters' }),
   email: z.email({ error: 'Please enter a valid email' }),
+  tel: z.string().min(11, { error: 'Please enter a valid phone number' }),
+  portfolio: z.url({ error: 'Please enter a valid url' }),
+  linkedin: z.url({ error: 'Please enter a valid url' }),
   message: z.string().min(10, { error: 'Message is not long enough' }),
 });
 type FormSchema = z.infer<typeof formSchema>;
 const defaultFormValues: FormSchema = {
-  name: '',
+  firstName: '',
+  lastName: '',
   email: '',
+  tel: '',
+  portfolio: '',
+  linkedin: '',
   message: '',
 };
 
@@ -55,20 +64,20 @@ export const JobsForm = () => {
     await debounce(2500);
     return true;
   }
-
+  console.log({ formValues });
   return (
     <section className="w-full py-10">
-      <form onSubmit={handleSubmit} className="pinpoint-container grid gap-14">
-        <h2 className="typo-h2 py-4">Apply Now</h2>
-        <div className="inputs-wrap grid gap-5">
+      <form onSubmit={handleSubmit} className="pinpoint-container pb-12 grid gap-8 md:gap-14">
+        <h2 className="typo-h2 pt-4">Apply Now</h2>
+        <div className="inputs-wrap grid gap-5 lg:gap-7">
           <div className="w-full grid gap-x-4 gap-y-8 md:grid-cols-2">
             <RegularInput
               label="First Name"
               type="text"
-              name="first-name"
-              value={formValues.name}
+              name="firstName"
+              value={formValues.firstName}
               onChange={handleInputChange}
-              errors={errorsVisible ? formErrors.name : undefined}
+              errors={errorsVisible ? formErrors.firstName : undefined}
               wrapClassName=""
               required
               ref={firstFieldRef}
@@ -76,8 +85,8 @@ export const JobsForm = () => {
             <RegularInput
               label="Last Name"
               type="text"
-              name="last-name"
-              value={formValues.email}
+              name="lastName"
+              value={formValues.lastName}
               onChange={handleInputChange}
               errors={errorsVisible ? formErrors.email : undefined}
               wrapClassName=""
@@ -89,9 +98,9 @@ export const JobsForm = () => {
               label="Email"
               type="email"
               name="email"
-              value={formValues.name}
+              value={formValues.email}
               onChange={handleInputChange}
-              errors={errorsVisible ? formErrors.name : undefined}
+              errors={errorsVisible ? formErrors.email : undefined}
               wrapClassName=""
               required
               ref={firstFieldRef}
@@ -100,9 +109,9 @@ export const JobsForm = () => {
               label="Phone"
               type="tel"
               name="tel"
-              value={formValues.email}
+              value={formValues.tel}
               onChange={handleInputChange}
-              errors={errorsVisible ? formErrors.email : undefined}
+              errors={errorsVisible ? formErrors.tel : undefined}
               wrapClassName=""
               required
             />
@@ -112,9 +121,9 @@ export const JobsForm = () => {
               label="Portfolio URL"
               type="url"
               name="portfolio"
-              value={formValues.name}
+              value={formValues.portfolio}
               onChange={handleInputChange}
-              errors={errorsVisible ? formErrors.name : undefined}
+              errors={errorsVisible ? formErrors.portfolio : undefined}
               wrapClassName=""
               required
               ref={firstFieldRef}
@@ -123,9 +132,9 @@ export const JobsForm = () => {
               label="LinkedIn URL"
               type="url"
               name="linkedin"
-              value={formValues.email}
+              value={formValues.linkedin}
               onChange={handleInputChange}
-              errors={errorsVisible ? formErrors.email : undefined}
+              errors={errorsVisible ? formErrors.linkedin : undefined}
               wrapClassName=""
               required
             />
@@ -133,22 +142,22 @@ export const JobsForm = () => {
           <FileUploadInput files={files} setFiles={setFiles} inputProps={{ required: true }} />
           <RegularTextarea
             label="Message"
-            placeholder="Tell us about your project: what is the objective, the budget, the schedule, any problems you want to solve...?"
+            placeholder="Message"
             name="message"
             value={formValues.message}
             onChange={handleInputChange}
             errors={errorsVisible ? formErrors.message : undefined}
             wrapClassName=""
-            required
           />
         </div>
-        <div className="w-full flex justify-center gap-2">
+        <div className="w-full relative flex items-center justify-center pt-4 gap-2">
           <PinpointBtn
             text="Submit"
             loading={loading}
             disabled={!formValid}
             onDisabledClick={generalValidation}
           />
+          <FormAlert />
         </div>
       </form>
     </section>
