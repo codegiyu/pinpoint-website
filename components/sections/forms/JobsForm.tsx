@@ -9,6 +9,7 @@ import { debounce } from '@/lib/utils/general';
 import { useMemo, useState } from 'react';
 import z from 'zod';
 import FormAlert from './FormAlert';
+import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
   firstName: z.string().min(3, { error: 'Please enter at least 3 characters' }),
@@ -30,7 +31,15 @@ const defaultFormValues: FormSchema = {
   message: '',
 };
 
-export const JobsForm = () => {
+type JobsFormProps = {
+  heading: {
+    text: string;
+    className?: string;
+  };
+  description?: string;
+};
+
+export const JobsForm = ({ heading, description }: JobsFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const {
     formValues,
@@ -64,11 +73,14 @@ export const JobsForm = () => {
     await debounce(2500);
     return true;
   }
-  console.log({ formValues });
+
   return (
     <section className="w-full py-10">
       <form onSubmit={handleSubmit} className="pinpoint-container pb-12 grid gap-8 md:gap-14">
-        <h2 className="typo-h2 pt-4">Apply Now</h2>
+        <h2 className={cn('typo-h2 pt-4', heading.className)}>{heading.text}</h2>
+        {description && (
+          <p className="text-[clamp(18px,_1.2vw,_23px)] font-light py-4 ">{description}</p>
+        )}
         <div className="inputs-wrap grid gap-5 lg:gap-7">
           <div className="w-full grid gap-x-4 gap-y-8 md:grid-cols-2">
             <RegularInput
@@ -150,12 +162,13 @@ export const JobsForm = () => {
             wrapClassName=""
           />
         </div>
-        <div className="w-full relative flex items-center justify-center pt-4 gap-2">
+        <div className="w-full flex items-center justify-center pt-4 gap-2">
           <PinpointBtn
             text="Submit"
             loading={loading}
             disabled={!formValid}
             onDisabledClick={generalValidation}
+            // className="w-4/5 md:w-fit"
           />
           <FormAlert />
         </div>

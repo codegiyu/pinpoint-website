@@ -7,10 +7,9 @@ import Link from 'next/link';
 export default function FormAlert() {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <>
+    <div onMouseLeave={() => setIsHovered(false)} className="relative pr-4">
       <button
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         className="w-[2.125rem] group cursor-pointer aspect-square md:size-[3rem] rounded-full grid place-items-center p-2 border text-black border-gray-300 transition-colors relative overflow-hidden duration-1500  ">
         <span className="sr-only">
           By submitting this form, I accept that the information entered in this form will be
@@ -29,22 +28,26 @@ export default function FormAlert() {
           </motion.span>
         </span>
       </button>
-      <p
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+      <div
         className={cn(
-          'absolute w-[290px] grid left-180 py-4 px-8 min-h-[150px] place-items-center text-[13px] top-1/2 tracking-normal leading-6 bg-[#f2f2f2] text-gray-600 transform-y-2 transform-x-2 opacity-0 transition-all ease-linear duration-300 before:h-10 before:aspect-6/9 before:bg-[#f2f2f2] before:absolute before:-left-0.5 before:rotate-45 before:-z-10',
-          isHovered && '-translate-y-1/2 transform-x-0 opacity-100'
+          'pl-4 absolute top-36 -left-66 md:top-36 md:-left-62 lg:top-1/2 opacity-0 invisible lg:left-14 transition-all ease-linear duration-300 ',
+          isHovered && '-translate-y-1/2 opacity-100 visible'
         )}>
-        <span>
-          By submitting this form, I accept that the information entered in this form will be
-          treated according to Atelier Design&apos;s
-          <Link href="/legal-notice" className="text-black/95 underline px-1">
-            privacy policy
-          </Link>
-          to allow me to contact me
-        </span>
-      </p>
-    </>
+        {' '}
+        <p
+          className={cn(
+            ' w-[290px] grid py-4 px-8 min-h-[150px] place-items-center text-[13px] tracking-normal leading-6 bg-[#f2f2f2] text-gray-600 transition-all ease-linear duration-300 before:left-64 before:-top-2 before:bg-[#f2f2f2] before:h-10 before:aspect-6/9 before:absolute  lg:before:top-14 lg:before:left-2.5 before:rotate-45 before:-z-10'
+          )}>
+          <span>
+            By submitting this form, I accept that the information entered in this form will be
+            treated according to Atelier Design&apos;s
+            <Link href="/legal-notice" className="text-black/95 underline px-1">
+              privacy policy
+            </Link>
+            to allow me to contact me
+          </span>
+        </p>
+      </div>
+    </div>
   );
 }

@@ -39,6 +39,21 @@ export const JobsCTA = ({ variant = 'white', title, description, btnText, href }
               )}>
               <span className="xl:px-[0.9375rem] text-[15.5px] text-nowrap">{btnText}</span>
             </div>
+
+            {/* <div
+              className={cn(
+                buttonVariants({ variant: 'default', size: 'default', typo: 'default' }),
+                ' justify-self-start group overflow-hidden relative self-start lg:self-end max-w-[250px] md:max-w-[270px] xl:max-w-[300px] lg:mx-auto'
+              )}>
+              <span className="grid overflow-hidden  h-full">
+                <span className="xl:px-[0.9375rem] text-[15.5px] text-nowrap block relative top-0 h-fit group-hover:animate-[slideY_0.2s_ease-in-out_forwards]">
+                  {btnText}
+                </span>
+                <span className="xl:px-[0.9375rem] text-[15.5px] text-nowrap absolute top-1/2 h-full group-hover:animate-[slideY_0.2s_ease-in-out_forwards]">
+                  {btnText}
+                </span>
+              </span>
+            </div> */}
           </div>
         </GhostBtn>
       </div>

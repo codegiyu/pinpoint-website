@@ -18,7 +18,7 @@ type ParagraphUI = {
 export default function JobDetails({ profile, offer, jobDescription, Ps }: JobDetailsProps) {
   return (
     <section className="relative z-10 py-18 md:py-24 bg-gray-f2 w-full h-full">
-      <div className="pinpoint-container md:pl-30 grid gap-12 md:gap-16">
+      <div className="pinpoint-container lg:pl-30 grid gap-12 md:gap-16">
         {profile && offer && (
           <>
             <ListUI heading="Profile we are looking for:" list={profile} />

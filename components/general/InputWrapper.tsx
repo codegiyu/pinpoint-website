@@ -39,7 +39,9 @@ export const InputWrapper = ({
         )}
         <div className="relative w-full">{children}</div>
       </div>
-      {errors.length > 0 && <p className={cn('typo-body-6 text-red-500 mt-1')}>{errors[0]}</p>}
+      {errors.length > 0 && (
+        <p className={cn('typo-body-6 text-sm text-red-500 mt-1')}>{errors[0]}</p>
+      )}
     </label>
   );
 };
