@@ -12,6 +12,9 @@ export default function JobsFooter() {
           variant="secondary"
           text="Your spontaneous candidature"
           className="font-medium"
+          linkProps={{
+            href: '/join-our-team',
+          }}
         />
       </div>
     </section>

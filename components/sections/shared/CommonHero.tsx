@@ -39,34 +39,37 @@ export const CommonHero = ({
 }: CommonHeroProps) => {
   return (
     <section className="w-full relative">
-      {/* lg:w-[calc(828px_+_((100%_-_828px)_/_2))] */}
       <CommonHeroTextSection {...{ caption, title, description }} />
-      <div
-        className="img-container w-full md:w-[calc(595px_+_((100%_-_595px)_/_2))] 
-       lg:w-[88vw]  h-[30rem] lg:h-[clamp(500px,_65vh,_650px)] 
-        xl:w-[88vw] xl:h-[75vh] xl:min-h-[40.625rem] md:ml-auto">
-        <div className="w-full h-full overflow-hidden">
-          <div className="w-full h-full relative z-[1]">
-            {imageProps && (
-              <Image
-                {...omit(imageProps, ['className'])}
-                className={cn('w-full h-full object-cover', imageProps.className)}
-                fill
-              />
-            )}
-            {videoURL && (
-              <video
-                src={videoURL}
-                className="w-full h-full object-cover"
-                autoPlay
-                loop
-                muted
-                playsInline
-              />
-            )}
+
+      {(imageProps || videoURL) && (
+        <div
+          className="img-container w-full md:w-[calc(595px_+_((100%_-_595px)_/_2))] 
+    lg:w-[88vw] h-[30rem] lg:h-[clamp(500px,_65vh,_650px)] 
+    xl:w-[88vw] xl:h-[75vh] xl:min-h-[40.625rem] md:ml-auto">
+          <div className="w-full h-full overflow-hidden">
+            <div className="w-full h-full relative z-[1]">
+              {imageProps && (
+                <Image
+                  {...omit(imageProps, ['className'])}
+                  className={cn('w-full h-full object-cover', imageProps.className)}
+                  fill
+                />
+              )}
+
+              {videoURL && (
+                <video
+                  src={videoURL}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className="w-full h-[21.875rem] hidden md:block absolute -bottom-[15rem] z-0">
         <div className={cn('w-full h-[150%] bg-gray-f2', bottomStripBackground)}></div>
       </div>
@@ -92,7 +95,10 @@ export const CommonHeroTextSection = ({
         className={`w-full ${leanUI ? '' : 'max-h-[47.5rem] lg:max-h-none'} grid gap-[1.875rem] 
        lg:ml-[4.375rem] xl:ml-0 relative `}>
         <PageHeroCaption caption={caption} />
-        <h1 className={`${leanUI ? '' : 'min-h-[34vh] md:min-h-auto'} typo-h2-hero`}>{title}</h1>
+        <h1
+          className={`${leanUI ? '' : 'min-h-[34vh] md:min-h-auto'} typo-h2-hero md:text-[clamp(51px,_3.933vw,_88px)]`}>
+          {title}
+        </h1>
         {!leanUI && (
           <div className="w-full absolute -bottom-9 flex md:hidden justify-end">
             <HeroArrow className="" />

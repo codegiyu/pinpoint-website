@@ -6,19 +6,19 @@ import { ChangingModifier } from '@/components/general/ChangingModifier';
 
 export default function ContactPageContent() {
   return (
-    <section className="w-full min-h-screen relative inset-0 text-white ">
+    <section className="w-full min-h-[105vh] md:h-screen inset-0 pb-4 text-white overflow-hidden">
       <video
         src="/videos/contact-animation.webm"
-        className="w-full h-screen relative inset-0 object-cover"
+        className="w-full min-h-[105vh] md:h-screen relative inset-0 object-cover"
         autoPlay
         loop
         muted
         playsInline
       />
-      <div className="overlay bg-[#00000022] inset-0 z-10 absolute min-h-screen w-full "></div>
+      <div className="overlay bg-[#00000022] inset-0 z-10 absolute min-h-[105vh]  md:h-full"></div>
       <div className="hero-content absolute inset-0 pinpoint-container touch-events-none z-30 ">
-        <div className="md:w-full md:h-full justify-center lg:justify-between flex-col flex gap-12 md:gap-16 lg:gap-0 lg:flex-row place-items-center mt-24 md:mt-6  lg:mt-0 relative ">
-          <div className="w-full lg:w-3/7 grid gap-2 ">
+        <div className="md:w-full md:h-full justify-center lg:justify-between flex-col flex gap-12 md:gap-16 lg:gap-0 lg:flex-row place-items-center mt-24 md:mt-6 lg:mt-0 relative ">
+          <div className="w-full lg:w-3/7 grid gap-2">
             <h1 className="typo-h1 h-[5rem] md:h-[7rem] lg:mb-10">
               <ChangingModifier textsArray={changingContactTitleModifiers} />
             </h1>
