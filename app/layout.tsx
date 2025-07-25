@@ -4,10 +4,13 @@ import './globals.css';
 import { Providers } from './Providers';
 
 export const metadata: Metadata = {
-  title: 'Creative communication agency based in Brussels | Atelier design | Atelier Design',
+  title: 'Your Branding, Marketing, and Packaging Solution | Pinpoint Global Limited',
   description:
-    'Atelier Design is a Brussels-based creative communications agency specialising in website design, branding, digital, print and strategy.',
-  icons: '/favicon.webp',
+    "We are a creative brand consultancy into design, branding and packaging. \
+    We've been collaborating with leading organizations to solve brand and \
+    business challenges since 2019. Our team across different locations uses \
+    the power of creativity to transform businesses for the better.",
+  icons: '/favicon.png',
 };
 
 export default function RootLayout({

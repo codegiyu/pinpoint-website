@@ -21,10 +21,21 @@ export const Services = () => {
           </p>
         </div>
 
-        <div className="w-full flex flex-col lg:flex-row lg:justify-between gap-6 md:gap-14 lg:gap-0">
-          {servicesSummary.map((service, idx) => (
-            <ServiceCard key={idx} {...omit(service, ['videoUrl'])} />
-          ))}
+        <div className="w-full">
+          <div className="w-full flex flex-wrap flex-col lg:flex-row lg:justify-between gap-6 md:gap-14 lg:gap-x-0 lg:gap-y-24">
+            {servicesSummary.map((service, idx) => (
+              <ServiceCard key={idx} {...omit(service, ['videoUrl'])} />
+            ))}
+            <div className="hidden lg:block lg:w-[216px] xl:w-[264px] 2xl:w-[330px]"></div>
+          </div>
+
+          {/* {servicesSummary.length > 3 && (
+            <div className="w-full flex flex-wrap flex-col lg:flex-row lg:justify-between gap-6 md:gap-14 lg:gap-0">
+              {servicesSummary.slice(3, 6).map((service, idx) => (
+                <ServiceCard key={idx} {...omit(service, ['videoUrl'])} />
+              ))}
+            </div>
+          )} */}
         </div>
       </div>
     </section>
