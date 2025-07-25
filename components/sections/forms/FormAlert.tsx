@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { AlertCircleIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { Info } from 'lucide-react';
 
 export default function FormAlert() {
   const [isHovered, setIsHovered] = useState(false);
@@ -19,12 +19,12 @@ export default function FormAlert() {
           <motion.span
             transition={{ ease: [0.25, 1, 0.5, 1] }}
             className="block relative h-full top-0 left-0 w-full group-hover:animate-[slideY_0.2s_ease-in-out_forwards]">
-            <AlertCircleIcon className="text-xl" />
+            <Info className="text-xl" />
           </motion.span>
           <motion.span
             transition={{ ease: [0.25, 1, 0.5, 1] }}
             className="block relative h-full top-0 left-0 w-full group-hover:animate-[slideY_0.2s_ease-in-out_forwards]">
-            <AlertCircleIcon className="text-xl" />
+            <Info className="text-xl" />
           </motion.span>
         </span>
       </button>
