@@ -1,12 +1,8 @@
-'use client';
-
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
 import { PageSideCaption } from '@/components/general/PageSideCaption';
 import { changingContactTitleModifiers } from '@/lib/constants/texts';
-import { useEffect, useState } from 'react';
 import PinpointContacts from '../../general/PinpointContacts';
-import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { ChangingModifier } from '@/components/general/ChangingModifier';
 
 export default function ContactPageContent() {
   return (
@@ -19,7 +15,7 @@ export default function ContactPageContent() {
         muted
         playsInline
       />
-      <div className="overlay bg-[#00000022] inset-0 z-10 absolute min-h-screen w-screen "></div>
+      <div className="overlay bg-[#00000022] inset-0 z-10 absolute min-h-screen w-full "></div>
       <div className="hero-content absolute inset-0 pinpoint-container touch-events-none z-30 ">
         <div className="md:w-full md:h-full justify-center lg:justify-between flex-col flex gap-12 md:gap-16 lg:gap-0 lg:flex-row place-items-center mt-24 md:mt-6  lg:mt-0 relative ">
           <div className="w-full lg:w-3/7 grid gap-2 ">
@@ -46,7 +42,7 @@ export default function ContactPageContent() {
                 linkProps={{ href: '/starting-a-new-project' }}
                 animate={{
                   axis: 'y',
-                  duration: 0.2,
+                  duration: 0.1,
                 }}
               />
               <PinpointBtn
@@ -54,7 +50,7 @@ export default function ContactPageContent() {
                 className="border bg-transparent border-white text-white transition-all duration-500 ease-in-out hover:outline-3 hover:outline-white hover:-outline-offset-3"
                 text="Join the team"
                 linkProps={{ href: '/jobs' }}
-                animate={{ axis: 'y', duration: 0.2 }}
+                animate={{ axis: 'y', duration: 0.1 }}
               />
             </div>
           </div>
@@ -68,42 +64,5 @@ export default function ContactPageContent() {
         noDefaultOpacity
       />
     </section>
-  );
-}
-
-export function ChangingModifier({
-  textsArray,
-  duration = 2200,
-  wrapClassName,
-}: {
-  textsArray: string[];
-  duration?: number;
-  wrapClassName?: string;
-}) {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex(prev => (prev + 1) % textsArray.length);
-    }, duration);
-
-    return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <p className={cn('inline-block relative w-full h-full overflow-hidden', wrapClassName)}>
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={textsArray[index]}
-          initial={{ y: '100%', opacity: 0 }}
-          animate={{ y: '0%', opacity: 1 }}
-          exit={{ y: '-100%', opacity: 0 }}
-          transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-          className="absolute inset-0">
-          {textsArray[index]}
-        </motion.span>
-      </AnimatePresence>
-    </p>
   );
 }

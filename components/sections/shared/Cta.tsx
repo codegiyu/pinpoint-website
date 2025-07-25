@@ -1,6 +1,9 @@
+'use client';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
+import { FlipText } from '@/components/general/ChangingModifier';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
 
 export interface CTAProps {
   variant?: 'white' | 'gray';
@@ -8,6 +11,7 @@ export interface CTAProps {
 }
 
 export const CTA = ({ variant = 'white', className }: CTAProps) => {
+  const [flipKey, setFlipKey] = useState(0);
   const bgClass = variant === 'white' ? 'before:bg-white' : 'before:bg-gray-f2 md:before:bg-white';
   const containerBgClass = variant === 'gray' ? 'bg-gray-f2' : 'bg-white md:bg-gray-f2';
 
@@ -31,11 +35,14 @@ export const CTA = ({ variant = 'white', className }: CTAProps) => {
               </p>
             </div>
             <div
+              onMouseEnter={() => {
+                setFlipKey(prev => prev + 1);
+              }}
               className={cn(
                 buttonVariants({ variant: 'default', size: 'default', typo: 'default' }),
                 'mx-auto'
               )}>
-              <span className="xl:px-[0.9375rem]">Contact us</span>
+              <FlipText text="Contact us" wrapClassName="xl:px-[0.9375rem]" flipKey={flipKey} />
             </div>
           </div>
         </GhostBtn>

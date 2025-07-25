@@ -1,11 +1,11 @@
 'use client';
 
 import { GhostBtn } from '@/components/atoms/GhostBtn';
+import { ChangingModifier } from '@/components/general/ChangingModifier';
 import { HeroArrow } from '@/components/general/HeroArrow';
 import { MacaronTextEn, MacaronTextePlayEn } from '@/components/icons';
 import { changingHeroTitleModifiers } from '@/lib/constants/texts';
 import { PropsWithVideoDisplayRef } from '@/lib/types/general';
-import { ChangingModifier } from '../contact/ContactPageContent';
 
 export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
   return (

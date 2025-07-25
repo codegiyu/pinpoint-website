@@ -470,6 +470,15 @@
       transform: translateX(-100%);
     }
   }
+
+  @keyframes zoom-out {
+    from {
+      transform: scale(110%);
+    }
+    to {
+      transform: scale(100%);
+    }
+  }
 }
 
 /* .dark {

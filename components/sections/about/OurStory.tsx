@@ -69,6 +69,7 @@ export const OurStory = () => {
                 variant="secondary"
                 linkProps={{ href: '/our-works' }}
                 text="See it to believe it"
+                animate
               />
             </div>
           </div>

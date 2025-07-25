@@ -21,7 +21,12 @@ export const CaseStudies = () => {
           ))}
         </div>
         <div className="flex justify-center mt-6 md:mt-14">
-          <PinpointBtn linkProps={{ href: 'our-works' }} variant="secondary" text="Discover more" />
+          <PinpointBtn
+            linkProps={{ href: 'our-works' }}
+            variant="secondary"
+            text="Discover more"
+            animate
+          />
         </div>
       </div>
     </section>

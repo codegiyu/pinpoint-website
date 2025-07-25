@@ -210,6 +210,7 @@ export const WorksDisplay = () => {
               text="Give me some more"
               onClick={giveMeMore}
               className={`${hideMoreButton ? 'hidden' : 'flex'}`}
+              animate
             />
           </div>
         </div>
