@@ -25,6 +25,7 @@ export default function Home() {
 
   return (
     <MainLayout
+      pageName="Pinpoint Global"
       headerProps={{
         whiteTextStart: true,
       }}>

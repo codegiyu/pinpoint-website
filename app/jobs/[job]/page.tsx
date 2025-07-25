@@ -16,7 +16,7 @@ export default function JobOpportunityPage() {
   if (!jobData) notFound();
 
   return (
-    <MainLayout>
+    <MainLayout pageName={jobData.title}>
       <CommonHero caption="JOIN THE TEAM" title={jobData.title} bottomStripBackground="hidden" />
       <JobDetails
         profile={jobData.profile}

@@ -11,7 +11,12 @@ export const GetToKnowUs = () => {
       who you are. From branding to digital to packaging, we craft 
       thoughtful, purpose-driven work that moves people. Let's make 
       something meaningful.">
-      <PinpointBtn linkProps={{ href: '/about-us' }} variant="secondary" text="Get to know us" />
+      <PinpointBtn
+        linkProps={{ href: '/about-us' }}
+        variant="secondary"
+        text="Get to know us"
+        animate
+      />
     </DescriptionTextSection>
   );
 };

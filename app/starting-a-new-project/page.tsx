@@ -4,7 +4,7 @@ import { CommonHeroTextSection } from '@/components/sections/shared/CommonHero';
 
 export default function StartingANewProject() {
   return (
-    <MainLayout>
+    <MainLayout pageName="Starting a new project?">
       <CommonHeroTextSection caption="" title="Let us discover your project" />
       <ProjectRequestForm />
     </MainLayout>

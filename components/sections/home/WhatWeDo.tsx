@@ -1,9 +1,12 @@
+'use client';
+
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { servicesSummary } from '@/lib/constants/texts';
+import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { cn } from '@/lib/utils';
 import { splitArrayInTwo, splitTextIntoTwoWithBrTag } from '@/lib/utils/general';
 import { MoveRight } from 'lucide-react';
-import { ComponentPropsWithRef, RefObject } from 'react';
+import { ComponentPropsWithRef, RefObject, useState } from 'react';
 
 interface WhatWeDoProps {
   sectionVideoDisplayRef?: RefObject<HTMLElement | null>;
@@ -55,12 +58,18 @@ export interface ServiceCardProps {
 }
 
 const ServiceCard = ({ name, breakdown, href, videoUrl, isLast }: ServiceCardProps) => {
+  const [cardHovered, setCardHovered] = useState(false);
+  const isLargeScreen = useMediaQuery('(min-width: 1024px)');
   const [firstHalfOfBreakdown, secondHalfOfBreakdown] = splitArrayInTwo([...breakdown, '...']);
 
   return (
     <li className="group w-full relative md:static overflow-hidden lg:overflow-visible">
       <GhostBtn
-        linkProps={{ href }}
+        linkProps={{
+          href,
+          onMouseEnter: () => setCardHovered(true),
+          onMouseLeave: () => setCardHovered(false),
+        }}
         className={`w-full py-10 md:py-[2.875rem] xl:py-[clamp(46px,_3.433vw,_58px)] md:border lg:border-x-0 
           ${isLast ? 'lg:border-y-0' : 'lg:border-t-0'} border-white/25 group-hover:border-white relative z-10`}
         wrapClassName="group peer relative z-[6] before:hidden lg:before:block lg:before:absolute before:-top-[9px] 
@@ -99,9 +108,11 @@ const ServiceCard = ({ name, breakdown, href, videoUrl, isLast }: ServiceCardPro
         </div>
       </GhostBtn>
       <div className="video-box w-full h-full absolute inset-0 opacity-100 md:opacity-0 lg:peer-hover:opacity-100 transition-opacity duration-300 peer-hover:duration-100 ease-linear">
+        {/* {(!isLargeScreen || (isLargeScreen && cardHovered)) && (
+        )} */}
         <video
           src={videoUrl}
-          className="w-full h-full object-cover scale-120 relative z-[4]"
+          className={`w-full h-full object-cover scale-110 ${!isLargeScreen || (isLargeScreen && cardHovered) ? 'animate-[zoom-out_0.8s_ease-out_forwards]' : ''} relative z-[4]`}
           autoPlay
           loop
           muted

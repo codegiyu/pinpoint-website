@@ -1,3 +1,4 @@
+'use client';
 import { contactInformation } from '@/lib/constants/texts';
 import Link from 'next/link';
 // import { motion } from 'framer-motion';

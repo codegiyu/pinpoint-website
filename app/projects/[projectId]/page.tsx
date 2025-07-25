@@ -33,7 +33,7 @@ export default function ServicePage(props: { params: Promise<Params> }) {
 
   if (!projectData) notFound();
   return (
-    <MainLayout>
+    <MainLayout pageName={projectData.name}>
       <CommonHero
         caption={projectData.name}
         title={projectData.pageTitle}

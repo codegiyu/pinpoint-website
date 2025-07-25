@@ -3,13 +3,12 @@ import ContactPageContent from '@/components/sections/contact/ContactPageContent
 
 export default function ContactPage() {
   return (
-    <>
-      <MainLayout
-        headerProps={{
-          whiteTextStart: true,
-        }}>
-        <ContactPageContent />
-      </MainLayout>
-    </>
+    <MainLayout
+      pageName="Contact"
+      headerProps={{
+        whiteTextStart: true,
+      }}>
+      <ContactPageContent />
+    </MainLayout>
   );
 }

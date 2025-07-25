@@ -52,30 +52,28 @@ const mobileHeroDescription = (
 export default function JobsPage() {
   const isMobile = useMediaQuery('(max-width:768px)');
   return (
-    <>
-      <MainLayout className="pt-6 md:pt-20 lg:pt-0">
-        <CommonHero
-          caption="JOBS"
-          title="Join the Atelier!"
-          description={heroDescription}
-          videoURL="/videos/jobs-animation.webm"
-          bottomStripBackground="hidden"
-        />
+    <MainLayout pageName="Jobs" className="pt-6 md:pt-20 lg:pt-0">
+      <CommonHero
+        caption="JOBS"
+        title="Join the Atelier!"
+        description={heroDescription}
+        videoURL="/videos/jobs-animation.webm"
+        bottomStripBackground="hidden"
+      />
 
-        {isMobile && (
-          <div className="max-w-[900px] text-[clamp(1.3rem,_1.2vw,_2.25rem)] sm:text-[clamp(1.55rem,_1.2vw,_2.25rem)] py-16 pb-0 px-8 sm:px-16 bg-gray-f2 font-light leading-9 sm:leading-12">
-            {mobileHeroDescription}
-          </div>
-        )}
-        <div className="pt-[clamp(65px,_4.551vw,_165px)] bg-gray-f2">
-          {jobsPageCardsData.map((card, index) => (
-            <JobsCTA {...card} key={index} />
-          ))}
+      {isMobile && (
+        <div className="max-w-[900px] text-[clamp(1.3rem,_1.2vw,_2.25rem)] sm:text-[clamp(1.55rem,_1.2vw,_2.25rem)] py-16 pb-0 px-8 sm:px-16 bg-gray-f2 font-light leading-9 sm:leading-12">
+          {mobileHeroDescription}
         </div>
-        <JobsFooter />
+      )}
+      <div className="pt-[clamp(65px,_4.551vw,_165px)] bg-gray-f2">
+        {jobsPageCardsData.map((card, index) => (
+          <JobsCTA {...card} key={index} />
+        ))}
+      </div>
+      <JobsFooter />
 
-        <PageSideDecoration caption="JOBS" />
-      </MainLayout>
-    </>
+      <PageSideDecoration caption="JOBS" />
+    </MainLayout>
   );
 }

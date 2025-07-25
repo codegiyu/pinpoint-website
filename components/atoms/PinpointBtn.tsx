@@ -6,6 +6,7 @@ import {
   MouseEvent,
   ComponentPropsWithoutRef,
   ComponentPropsWithRef,
+  useState,
 } from 'react';
 import { buttonVariants } from '../ui/button';
 import { type VariantProps } from 'class-variance-authority';
@@ -13,7 +14,8 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { omit } from 'lodash';
 import { Loader } from 'lucide-react';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
+import { FlipText } from '../general/ChangingModifier';
 
 export interface PinpointBtnProps
   extends ComponentPropsWithRef<'button'>,
@@ -37,11 +39,12 @@ export interface PinpointBtnProps
     href: string;
     preventdefault?: string;
   };
-
-  animate?: {
-    duration: number;
-    axis: 'x' | 'y';
-  };
+  animate?:
+    | {
+        duration: number; // in seconds
+        axis: 'x' | 'y';
+      }
+    | true;
 }
 
 export const PinpointBtn = ({
@@ -64,11 +67,14 @@ export const PinpointBtn = ({
   onDisabledClick,
   disabled = false,
   wrapClassName = '',
+  onMouseEnter,
   linkProps,
   animate,
   ref,
   ...props
 }: PinpointBtnProps) => {
+  const [flipTextKey, setFlipTextKey] = useState(0);
+
   const fullWrapClassName = cn(
     `inline-block leading-none ${!!onDisabledClick && disabled ? 'cursor-pointer focus-visible:outline-gray-border focus-visible:outline-1' : 'cursor-default'} focus:outline-none focus-visible:outline-white/60 focus-visible:outline-2 outline-offset-2`,
     size === 'full' || className.includes('w-full')
@@ -96,6 +102,10 @@ export const PinpointBtn = ({
       className={cn(buttonVariants({ size, variant, typo, className }), 'group')}
       ref={ref}
       disabled={loading || disabled}
+      onMouseEnter={e => {
+        if (animate) setFlipTextKey(prev => prev + 1);
+        if (onMouseEnter) onMouseEnter(e);
+      }}
       aria-label={props['aria-label'] || text || 'button'}
       {...omit(props, ['aria-label'])}>
       {loading && children ? (
@@ -113,24 +123,13 @@ export const PinpointBtn = ({
           )}
           <div className="gap-3 grid place-items-center transition-colors relative overflow-hidden">
             {animate ? (
-              <span className="block relative h-full  overflow-hidden">
-                <motion.span
-                  transition={{ ease: [0.25, 1, 0.5, 1] }}
-                  className={cn(
-                    `font-rubik block absolute h-full leading-10 top-0 left-0 w-full ${animate.axis === 'y' ? `group-hover:animate-[slideY_${animate.duration}s_ease-in-out_forwards]` : `group-hover:animate-[slideX_${animate.duration}s_ease-in-out_forwards]`} `,
-                    textClassName
-                  )}>
-                  {text}
-                </motion.span>
-                <motion.span
-                  transition={{ ease: [0.25, 1, 0.5, 1] }}
-                  className={cn(
-                    `font-rubik block relative h-full w-full leading-10 ${animate.axis === 'y' ? `left-0 top-full group-hover:animate-[slideY_${animate.duration}s_ease-in-out_forwards]` : `left-full top-0 group-hover:animate-[slideX_${animate.duration}s_ease-in-out_forwards]`} `,
-                    textClassName
-                  )}>
-                  {text}
-                </motion.span>
-              </span>
+              <FlipText
+                text={text}
+                flipKey={flipTextKey}
+                wrapClassName={cn('', textClassName)}
+                duration={animate === true ? 0.1 : animate.duration}
+                axis={animate === true ? 'y' : animate.axis}
+              />
             ) : (
               <span className={cn('font-rubik ', textClassName)}>{text}</span>
             )}

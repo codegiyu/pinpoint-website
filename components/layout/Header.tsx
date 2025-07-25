@@ -7,6 +7,8 @@ import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../ui/dialog';
 import { usePathname } from 'next/navigation';
 import { langChangeOptions, navlinks } from '@/lib/constants/routing';
+// import { motion } from 'framer-motion';
+import { FlipText } from '../general/ChangingModifier';
 
 export interface HeaderProps {
   whiteTextStart?: boolean;
@@ -14,6 +16,7 @@ export interface HeaderProps {
 
 export const Header = ({ whiteTextStart }: HeaderProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [flipTextKey, setFlipTextKey] = useState(0);
   const pathname = usePathname();
 
   const { selectedLang, allNavLinks } = useMemo(() => {
@@ -50,15 +53,18 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
         } ${menuOpen ? 'menu-open' : 'menu-closed'}
         flex items-center justify-between py-6 md:py-8 z-[99]`}>
         <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
-          <div className="w-fit flex items-center text-[1.25rem] md:text-[1.75rem] xl:text-[clamp(33px,_2.463vw,_42px)]">
+          <div className="w-fit flex items-center text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]">
             {/* <PinpointLogo className="pinpoint-logo" /> */}
             <PinpointFull className="pinpoint-logo" />
           </div>
         </GhostBtn>
 
-        <GhostBtn className="group pointer-events-auto" onClick={menuHandler}>
+        <GhostBtn
+          className="group pointer-events-auto"
+          onClick={menuHandler}
+          onMouseEnter={() => setFlipTextKey(prev => prev + 1)}>
           <div className="w-fit flex items-center gap-3">
-            <span className="typo-menu">MENU</span>
+            <FlipText text="MENU" flipKey={flipTextKey} wrapClassName="typo-menu" />
             <div className="w-fit grid gap-[4px]">
               <div
                 className={`w-[1.25rem] h-[2px] bg-[currentColor] ${menuOpen ? 'transform-origin-top-left w-[1.125rem] rotate-45' : ''} transition-transform duration-300 ease-linear`}
