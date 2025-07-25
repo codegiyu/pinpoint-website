@@ -6,7 +6,7 @@ import { CTA } from '@/components/sections/shared/Cta';
 
 export default function LegalNotice() {
   return (
-    <MainLayout>
+    <MainLayout pageName="Legal Notice">
       <CommonHeroTextSection caption="Notice" title="Legal Notice" />
       <section className="w-full py-16">
         <div className="pinpoint-container">

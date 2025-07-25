@@ -11,7 +11,7 @@ import { CTA } from '@/components/sections/shared/Cta';
 
 export default function AboutUsPage() {
   return (
-    <MainLayout>
+    <MainLayout pageName="About us">
       <CommonHero
         caption="Our Creative Agency"
         title="Creative by Nature, Strategic by Design"

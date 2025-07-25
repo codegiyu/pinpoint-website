@@ -94,7 +94,7 @@ export default function ServicePage(props: { params: Promise<Params> }) {
 
   if (!serviceData) notFound();
   return (
-    <MainLayout>
+    <MainLayout pageName={serviceData.name}>
       <CommonHero
         caption={serviceData.name}
         title={serviceData.pageTitle}

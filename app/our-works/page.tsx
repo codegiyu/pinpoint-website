@@ -8,7 +8,7 @@ import { Suspense } from 'react';
 
 export default function OurWorksPage() {
   return (
-    <MainLayout className="bg-gray-f2 lg:bg-white">
+    <MainLayout pageName="Our Works" className="bg-gray-f2 lg:bg-white">
       <CommonHeroTextSection
         caption="Our Case Studies"
         title="When our achievements speak for themselves"
