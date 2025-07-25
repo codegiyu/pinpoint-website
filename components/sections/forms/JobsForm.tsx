@@ -37,9 +37,10 @@ type JobsFormProps = {
     className?: string;
   };
   description?: string;
+  useFirstRef: boolean;
 };
 
-export const JobsForm = ({ heading, description }: JobsFormProps) => {
+export const JobsForm = ({ heading, description, useFirstRef }: JobsFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const {
     formValues,
@@ -92,7 +93,7 @@ export const JobsForm = ({ heading, description }: JobsFormProps) => {
               errors={errorsVisible ? formErrors.firstName : undefined}
               wrapClassName=""
               required
-              ref={firstFieldRef}
+              ref={useFirstRef ? firstFieldRef : undefined}
             />
             <RegularInput
               label="Last Name"
@@ -115,7 +116,6 @@ export const JobsForm = ({ heading, description }: JobsFormProps) => {
               errors={errorsVisible ? formErrors.email : undefined}
               wrapClassName=""
               required
-              ref={firstFieldRef}
             />
             <RegularInput
               label="Phone"
@@ -138,7 +138,6 @@ export const JobsForm = ({ heading, description }: JobsFormProps) => {
               errors={errorsVisible ? formErrors.portfolio : undefined}
               wrapClassName=""
               required
-              ref={firstFieldRef}
             />
             <RegularInput
               label="LinkedIn URL"

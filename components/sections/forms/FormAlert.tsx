@@ -36,7 +36,7 @@ export default function FormAlert() {
         {' '}
         <p
           className={cn(
-            ' w-[290px] grid py-4 px-8 min-h-[150px] place-items-center shadow-lg text-[13px] tracking-normal leading-6 bg-[#f2f2f2] text-gray-600 transition-all ease-linear duration-300 before:left-64 before:-top-2 before:bg-[#f2f2f2] before:h-10 before:aspect-6/9 before:absolute  lg:before:top-14 lg:before:left-2.5 before:rotate-45 before:-z-10'
+            ' w-[290px] grid py-4 px-8 min-h-[150px] place-items-center shadow-lg text-[13px] tracking-normal leading-6 bg-[#f2f2f2] text-gray-600 transition-all ease-linear duration-300 before:left-64 before:-top-2 before:bg-[#f2f2f2] before:h-10 before:aspect-6/9 before:absolute lg:before:top-14 lg:before:left-2.5 before:rotate-45 before:-z-10'
           )}>
           <span>
             By submitting this form, I accept that the information entered in this form will be

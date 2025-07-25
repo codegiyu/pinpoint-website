@@ -12,6 +12,7 @@ export default function JoinOurTeamPage() {
             className: 'text-[2.75rem] md:typo-h1 2xl:text-[5rem] 2xl:text-wrap 2xl:w-1/2',
           }}
           description="Send your CV"
+          useFirstRef={true}
         />
       </div>
       <JobsDetailsFooter />

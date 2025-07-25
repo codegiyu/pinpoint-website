@@ -38,7 +38,7 @@ export default function JobDetails({ profile, offer, jobDescription, Ps }: JobDe
 export const ListUI = ({ heading, list }: ListUIProps) => {
   return (
     <div>
-      <h2 className="typo-h2 pb-6">{heading}</h2>
+      <h2 className="typo-h4 pb-6">{heading}</h2>
       <ul className="list-['-'] grid gap-6 typo-body-2 tracking-wide md:pl-4 ">
         {list.map((item, index) => (
           <li key={index} className=" ">
@@ -54,7 +54,7 @@ export const ParagraphUI = ({ title, text }: ParagraphUI) => {
   return (
     <>
       <div className="grid gap-2">
-        <h2 className="typo-h2 font-[600]">{title}</h2>
+        <h2 className="typo-h4 font-[600]">{title}</h2>
         <p className="typo-body-2 tracking-wide">{text}</p>
       </div>
     </>
