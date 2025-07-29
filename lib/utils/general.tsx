@@ -186,6 +186,20 @@ export const formatInputNumber = (
   return formattedVal;
 };
 
+export function formatFileSize(bytes: number): { filesize: number; unit: 'KB' | 'MB' } {
+  if (bytes < 1024 * 1024) {
+    return {
+      filesize: parseFloat((bytes / 1024).toFixed(2)),
+      unit: 'KB',
+    };
+  } else {
+    return {
+      filesize: parseFloat((bytes / (1024 * 1024)).toFixed(2)),
+      unit: 'MB',
+    };
+  }
+}
+
 export const uploadFileWithProgress = (
   file: File,
   uploadUrl: string,

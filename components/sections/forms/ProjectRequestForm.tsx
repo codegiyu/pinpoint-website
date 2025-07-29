@@ -5,10 +5,10 @@ import { RegularInput } from '@/components/atoms/RegularInput';
 import { RegularTextarea } from '@/components/atoms/RegularTextarea';
 import { toast } from '@/components/atoms/Toast';
 import { useForm } from '@/lib/hooks/use-form';
-import { debounce } from '@/lib/utils/general';
 import { useMemo, useState } from 'react';
 import z from 'zod';
 import FormAlert from './FormAlert';
+import { CheckCheck } from 'lucide-react';
 
 const formSchema = z.object({
   name: z.string().min(3, { error: 'Please enter at least 3 characters' }),
@@ -29,17 +29,18 @@ const defaultFormValues: FormSchema = {
   message: '',
 };
 
-export const ProjectRequestForm = () => {
+export const ProjectRequestForm = ({ formName = 'New Project Request' }: { formName?: string }) => {
   const [files, setFiles] = useState<File[]>([]);
   const {
     formValues,
     formErrors,
     loading,
     isValid,
-    // firstFieldRef,
     errorsVisible,
+    submitted,
+    resetForm,
     handleInputChange,
-    // setFormErrors,
+    setFormErrors,
     handleSubmit,
     validateForm,
   } = useForm({
@@ -53,15 +54,46 @@ export const ProjectRequestForm = () => {
   const generalValidation = () => {
     if (!files.length) {
       toast({ title: 'Please upload at least one file', variant: 'error' });
+      return false;
     }
 
-    validateForm();
+    return validateForm();
   };
 
   async function onSubmit(values: FormSchema): Promise<boolean> {
-    console.log({ values });
-    await debounce(2500);
-    return true;
+    if (!generalValidation()) return false;
+
+    const formData = new FormData();
+
+    formData.append('formName', formName);
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    files.forEach(file => {
+      formData.append('files', file);
+    });
+
+    console.log('Making request to backend');
+    const res = await fetch('/api/send-company-mail', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const parsedRes = await res.json();
+
+    toast({ title: parsedRes.message, variant: parsedRes.success ? 'success' : 'error' });
+
+    if (parsedRes.error) {
+      setFormErrors({ message: parsedRes.error });
+    }
+
+    if (parsedRes.success) {
+      resetForm();
+      setFiles([]);
+      return true;
+    }
+
+    return false;
   }
 
   return (
@@ -127,6 +159,8 @@ export const ProjectRequestForm = () => {
             loading={loading}
             disabled={!formValid}
             onDisabledClick={generalValidation}
+            RightIcon={submitted ? CheckCheck : undefined}
+            rightIconProps={{ className: 'size-4 text-green-600' }}
           />
           <FormAlert />
         </div>

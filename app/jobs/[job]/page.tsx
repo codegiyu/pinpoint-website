@@ -36,7 +36,7 @@ export default function JobOpportunityPage() {
         Ps={jobData.Ps}
       />
 
-      <JobsForm heading={{ text: 'Apply Now' }} useFirstRef={false} />
+      <JobsForm heading={{ text: 'Apply Now' }} formName={jobData.title} />
       <JobsDetailsFooter />
       <PageSideDecoration caption="JOIN THE TEAM" />
     </MainLayout>

@@ -2,7 +2,6 @@
 import {
   type KeyboardEvent,
   type SVGProps,
-  type JSX,
   MouseEvent,
   ComponentPropsWithoutRef,
   ComponentPropsWithRef,
@@ -16,14 +15,13 @@ import { omit } from 'lodash';
 import { Loader } from 'lucide-react';
 // import { motion } from 'framer-motion';
 import { FlipText } from '../general/ChangingModifier';
+import { LucideIconComp } from '@/lib/types/general';
 
 export interface PinpointBtnProps
   extends ComponentPropsWithRef<'button'>,
     VariantProps<typeof buttonVariants> {
-  LeftIcon?: (props: SVGProps<SVGSVGElement>) => JSX.Element;
-  RightIcon?: (props: SVGProps<SVGSVGElement>) => JSX.Element;
-  leftIconClass?: string;
-  rightIconClass?: string;
+  LeftIcon?: LucideIconComp;
+  RightIcon?: LucideIconComp;
   leftIconProps?: SVGProps<SVGSVGElement>;
   rightIconProps?: SVGProps<SVGSVGElement>;
   text?: string;
@@ -50,8 +48,6 @@ export interface PinpointBtnProps
 export const PinpointBtn = ({
   LeftIcon,
   RightIcon,
-  leftIconClass = '',
-  rightIconClass = '',
   leftIconProps = {},
   rightIconProps = {},
   className = '',
@@ -109,18 +105,14 @@ export const PinpointBtn = ({
       aria-label={props['aria-label'] || text || 'button'}
       {...omit(props, ['aria-label'])}>
       {loading && children ? (
-        <Loader className={cn('size-4 bg-green-500 animate-spin', loadingIconClassName)} />
+        <Loader className={cn('size-4 text-green-500 animate-spin', loadingIconClassName)} />
       ) : !loading && children ? (
         children
       ) : loading && !loadingIconBesideText ? (
-        <Loader className={cn('size-4 bg-green-500 animate-spin', loadingIconClassName)} />
+        <Loader className={cn('size-4 text-green-500 animate-spin', loadingIconClassName)} />
       ) : (
         <>
-          {LeftIcon && (
-            <i className={cn('', leftIconClass)}>
-              <LeftIcon {...leftIconProps} />
-            </i>
-          )}
+          {LeftIcon && <LeftIcon {...leftIconProps} />}
           <div className="gap-3 grid place-items-center transition-colors relative overflow-hidden">
             {animate ? (
               <FlipText
@@ -134,14 +126,10 @@ export const PinpointBtn = ({
               <span className={cn('font-rubik ', textClassName)}>{text}</span>
             )}
             {loading && (
-              <Loader className={cn('size-4 bg-green-500 animate-spin', loadingIconClassName)} />
+              <Loader className={cn('size-4 text-green-500 animate-spin', loadingIconClassName)} />
             )}
           </div>
-          {RightIcon && (
-            <i className={cn('', rightIconClass)}>
-              <RightIcon {...rightIconProps} />
-            </i>
-          )}
+          {RightIcon && <RightIcon {...rightIconProps} />}
         </>
       )}
     </button>

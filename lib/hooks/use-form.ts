@@ -43,6 +43,7 @@ export interface UseFormReturn<TSchema extends ZodType<any>> {
   firstFieldRef: RefObject<HTMLInputElement | null>;
   firstButtonFieldRef: RefObject<HTMLButtonElement | null>;
   isValid: boolean;
+  submitted: boolean;
   handleInputChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     options?: {
@@ -259,5 +260,6 @@ export const useForm = <TSchema extends ZodType<any>>({
     validateForm,
     validateField,
     handleSubmit,
+    submitted,
   };
 };

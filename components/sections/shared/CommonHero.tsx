@@ -141,7 +141,7 @@ export const FormPageHeadingSection = ({
         xl:pt-[240px]',
         className
       )}>
-      <div className={`w-full grid gap-[1.875rem] lg:ml-[4.375rem] xl:ml-0 relative `}>
+      <div className={`w-full grid gap-[1.875rem] lg:ml-[0rem] xl:ml-0 relative `}>
         {caption && <PageHeroCaption caption={caption} />}
         <h1 className="typo-h2-hero">{heading}</h1>
       </div>

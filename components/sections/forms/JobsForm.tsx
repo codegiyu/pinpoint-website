@@ -5,17 +5,17 @@ import { RegularInput } from '@/components/atoms/RegularInput';
 import { RegularTextarea } from '@/components/atoms/RegularTextarea';
 import { toast } from '@/components/atoms/Toast';
 import { useForm } from '@/lib/hooks/use-form';
-import { debounce } from '@/lib/utils/general';
 import { useMemo, useState } from 'react';
 import z from 'zod';
 import FormAlert from './FormAlert';
 import { cn } from '@/lib/utils';
+import { CheckCheck } from 'lucide-react';
 
 const formSchema = z.object({
   firstName: z.string().min(3, { error: 'Please enter at least 3 characters' }),
   lastName: z.string().min(3, { error: 'Please enter at least 3 characters' }),
   email: z.email({ error: 'Please enter a valid email' }),
-  tel: z.string().min(11, { error: 'Please enter a valid phone number' }),
+  phone: z.string().min(11, { error: 'Please enter a valid phone number' }),
   portfolio: z.url({ error: 'Please enter a valid url' }),
   linkedin: z.url({ error: 'Please enter a valid url' }),
   message: z.string().min(10, { error: 'Message is not long enough' }),
@@ -25,13 +25,14 @@ const defaultFormValues: FormSchema = {
   firstName: '',
   lastName: '',
   email: '',
-  tel: '',
+  phone: '',
   portfolio: '',
   linkedin: '',
   message: '',
 };
 
 type JobsFormProps = {
+  formName: string;
   heading: {
     text: string;
     className?: string;
@@ -40,7 +41,7 @@ type JobsFormProps = {
   useFirstRef?: boolean;
 };
 
-export const JobsForm = ({ heading, description, useFirstRef }: JobsFormProps) => {
+export const JobsForm = ({ heading, description, useFirstRef, formName }: JobsFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const {
     formValues,
@@ -49,8 +50,10 @@ export const JobsForm = ({ heading, description, useFirstRef }: JobsFormProps) =
     isValid,
     firstFieldRef,
     errorsVisible,
+    submitted,
     handleInputChange,
-    // setFormErrors,
+    resetForm,
+    setFormErrors,
     handleSubmit,
     validateForm,
   } = useForm({
@@ -64,15 +67,46 @@ export const JobsForm = ({ heading, description, useFirstRef }: JobsFormProps) =
   const generalValidation = () => {
     if (!files.length) {
       toast({ title: 'Please upload at least one file', variant: 'error' });
+      return false;
     }
 
-    validateForm();
+    return validateForm();
   };
 
   async function onSubmit(values: FormSchema): Promise<boolean> {
-    console.log({ values });
-    await debounce(2500);
-    return true;
+    if (!generalValidation()) return false;
+
+    const formData = new FormData();
+
+    formData.append('formName', formName);
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    files.forEach(file => {
+      formData.append('files', file);
+    });
+
+    console.log('Making request to backend');
+    const res = await fetch('/api/send-company-mail', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const parsedRes = await res.json();
+
+    toast({ title: parsedRes.message, variant: parsedRes.success ? 'success' : 'error' });
+
+    if (parsedRes.error) {
+      setFormErrors({ message: parsedRes.error });
+    }
+
+    if (parsedRes.success) {
+      resetForm();
+      setFiles([]);
+      return true;
+    }
+
+    return false;
   }
 
   return (
@@ -118,12 +152,12 @@ export const JobsForm = ({ heading, description, useFirstRef }: JobsFormProps) =
               required
             />
             <RegularInput
-              label="Phone"
-              type="tel"
-              name="tel"
-              value={formValues.tel}
+              label="Phone Number"
+              type="phone"
+              name="phone"
+              value={formValues.phone}
               onChange={handleInputChange}
-              errors={errorsVisible ? formErrors.tel : undefined}
+              errors={errorsVisible ? formErrors.phone : undefined}
               wrapClassName=""
               required
             />
@@ -150,7 +184,11 @@ export const JobsForm = ({ heading, description, useFirstRef }: JobsFormProps) =
               required
             />
           </div>
-          <FileUploadInput files={files} setFiles={setFiles} inputProps={{ required: true }} />
+          <FileUploadInput
+            files={files}
+            setFiles={setFiles}
+            inputProps={{ multiple: true, required: true }}
+          />
           <RegularTextarea
             label="Message"
             placeholder="Message"
@@ -167,7 +205,8 @@ export const JobsForm = ({ heading, description, useFirstRef }: JobsFormProps) =
             loading={loading}
             disabled={!formValid}
             onDisabledClick={generalValidation}
-            // className="w-4/5 md:w-fit"
+            RightIcon={submitted ? CheckCheck : undefined}
+            rightIconProps={{ className: 'size-4 text-green-600' }}
           />
           <FormAlert />
         </div>

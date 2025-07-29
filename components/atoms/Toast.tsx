@@ -21,9 +21,9 @@ function Toast(props: ToastProps) {
   const { title, description, variant, id } = props;
 
   const bg = {
-    success: 'bg-green',
-    error: 'bg-red',
-    default: 'bg-charcoal',
+    success: 'bg-green-500',
+    error: 'bg-red-500',
+    default: 'bg-gray-59',
   };
 
   return (

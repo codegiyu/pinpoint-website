@@ -9,9 +9,9 @@ import {
   useRef,
 } from 'react';
 import { toast } from './Toast';
-import { CheckCircle2, Upload } from 'lucide-react';
+import { CheckCircle2, Upload, XCircle } from 'lucide-react';
 import { GhostBtn } from './GhostBtn';
-import { createFileList } from '@/lib/utils/general';
+import { createFileList, formatFileSize } from '@/lib/utils/general';
 import { InputWrapper } from '../general/InputWrapper';
 
 export interface FileUploadInputProps {
@@ -113,16 +113,17 @@ export const FileUploadInput = ({
 
 const FileDisplay = ({ file, removeFile }: { file: File; removeFile: () => void }) => {
   // TODO: Create utility function to take in file.size and return the object on the right
-  const { filesize, unit } = { filesize: file.size, unit: 'MB' };
+  const { filesize, unit } = formatFileSize(file.size);
 
   return (
     <GhostBtn type="button" className="w-full" onClick={removeFile}>
       <div className="w-full bg-gray-f2 grid items-center grid-cols-[auto_1fr_auto_auto] gap-4 border-b-2 border-dark px-2 py-2">
         <CheckCircle2 className="size-4 text-dark" />
-        <p className="typo-body-4 text-gray-66 truncate">{file.name}</p>
+        <p className="typo-body-4 text-gray-66 truncate text-start">{file.name}</p>
         <p className="typo-body-4 text-gray-66">
           <span className="font-medium text-dark">{filesize}</span> {unit}
         </p>
+        <XCircle className="size-4 text-dark" />
       </div>
     </GhostBtn>
   );

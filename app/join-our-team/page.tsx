@@ -18,6 +18,7 @@ export default function JoinOurTeamPage() {
               tracking-[0] font-medium',
           }}
           description="Send your CV"
+          formName="Spontaneous Application"
         />
       </div>
       <JobsDetailsFooter />

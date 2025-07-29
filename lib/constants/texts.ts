@@ -2,9 +2,7 @@ import { FullProjectData } from '@/app/projects/[projectId]/page';
 import { FullServiceData } from '@/app/services/[service]/page';
 import { CaseStudySummaryProps } from '@/components/sections/home/CaseStudies';
 import { ServiceCardProps } from '@/components/sections/home/WhatWeDo';
-import SvgLinkedin from '@/components/icons/Linkedin';
 import SvgInstagramIcon from '@/components/icons/InstagramIcon';
-import SvgXIcon from '@/components/icons/XIcon';
 import SvgFacebookIcon from '@/components/icons/FacebookIcon';
 import { WorkCardProps } from '@/components/sections/works/WorksDisplay';
 import { ReferenceProps } from '@/components/sections/about/References';
@@ -62,27 +60,27 @@ export const contactInformation: ContactsGroupProps[] = [
 export const pinpointSocials: SocialBtnProps[] = [
   {
     title: 'Instagram',
-    url: 'https://www.instagram.com/atelierdesign_bxl/',
+    url: 'https://www.instagram.com/pinpointpackaging?igsh=MXNlbTN3MnQ3bzdicg==',
     Icon: SvgInstagramIcon,
   },
   {
     title: 'Facebook',
-    url: 'https://www.facebook.com/atelierdesign.be/',
+    url: 'https://www.facebook.com/share/19MUWfmSiG/?mibextid=wwXIfr',
     Icon: SvgFacebookIcon,
   },
-  {
-    title: 'LinkedIn',
-    url: 'https://be.linkedin.com/company/atelier-design',
-    Icon: SvgLinkedin,
-  },
-  {
-    title: 'X',
-    url: 'https://x.com/atelierdesign',
-    Icon: SvgXIcon,
-  },
+  // {
+  //   title: 'LinkedIn',
+  //   url: 'https://be.linkedin.com/company/atelier-design',
+  //   Icon: SvgLinkedin,
+  // },
+  // {
+  //   title: 'X',
+  //   url: 'https://x.com/atelierdesign',
+  //   Icon: SvgXIcon,
+  // },
   {
     title: 'Tiktok',
-    url: 'https://x.com/atelierdesign',
+    url: 'https://www.tiktok.com/@pinpointglobal?_t=ZS-8yRAXCYmRLp&_r=1',
     Icon: TiktokIcon,
   },
 ];
