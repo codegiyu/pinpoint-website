@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 import { langChangeOptions, navlinks } from '@/lib/constants/routing';
 // import { motion } from 'framer-motion';
 import { FlipText } from '../general/ChangingModifier';
+import PinpointContacts from '../general/PinpointContacts';
 
 export interface HeaderProps {
   whiteTextStart?: boolean;
@@ -19,7 +20,7 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
   const [flipTextKey, setFlipTextKey] = useState(0);
   const pathname = usePathname();
 
-  const { selectedLang, allNavLinks } = useMemo(() => {
+  const { allNavLinks } = useMemo(() => {
     const slugsArr = pathname.split('/');
     const firstSlug = '/' + slugsArr.slice(0, 2).join('');
     const selectedLangOption = langChangeOptions.find(item => item.href === firstSlug);
@@ -54,7 +55,6 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
         flex items-center justify-between py-6 md:py-8 z-[99]`}>
         <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
           <div className="w-fit flex items-center text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]">
-            {/* <PinpointLogo className="pinpoint-logo" /> */}
             <PinpointFull className="pinpoint-logo" />
           </div>
         </GhostBtn>
@@ -93,10 +93,12 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
             </DialogDescription>
           </VisuallyHidden>
           <div className="menu-container grid lg:grid-cols-2 gap-[6.75rem]">
-            <div className="w-full h-full hidden lg:grid"></div>
+            <div className="w-full h-full hidden lg:grid place-items-center text-white/35">
+              {menuOpen && <PinpointContacts fullWidth inDarkBg />}
+            </div>
             <div className="w-full h-full flex items-center lg:pr-[5.27vw] relative">
               <div className="w-full grid gap-0">
-                <nav className="h-[3.75rem] flex items-center lg:absolute lg:top-5 left-0">
+                {/* <nav className="h-[3.75rem] flex items-center lg:absolute lg:top-5 left-0">
                   <ul className="flex">
                     {langChangeOptions.map((item, idx) => (
                       <LangChangeLink
@@ -107,16 +109,16 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
                       />
                     ))}
                   </ul>
-                </nav>
+                </nav> */}
                 <nav className="w-full grid">
                   {allNavLinks.map((item, idx) => (
                     <NavLinkGroup key={idx} {...item} isLast={idx === allNavLinks.length - 1} />
                   ))}
                 </nav>
                 <div className="flex lg:absolute lg:bottom-20 left-0 mt-14 lg:mt-0">
-                  <GhostBtn linkProps={{ href: '#' }}>
+                  <GhostBtn linkProps={{ href: '/privacy-policy' }}>
                     <span className="typo-caption-small uppercase text-white/50 hover:text-white">
-                      Legal Notice
+                      Privacy Policy
                     </span>
                   </GhostBtn>
                 </div>
@@ -136,13 +138,13 @@ export interface LangChangeLinkProps {
   isLast?: boolean;
 }
 
-const LangChangeLink = ({ lang, isSelected, isLast }: LangChangeLinkProps) => {
+export const LangChangeLink = ({ lang, isSelected, isLast }: LangChangeLinkProps) => {
   return (
     <li className="">
       <GhostBtn
         linkProps={{ href: '#', hrefLang: lang }}
         className={`text-[9px] leading-[1.125rem] font-black pointer-events-auto
-        ${isSelected ? 'text-white' : 'text-white/25 hover:text-white'} 
+        ${isSelected ? 'text-white' : 'text-white/25 hover:text-white'}
         ${isLast ? '' : 'border-r border-white/25'}`}>
         <span className="uppercase px-[0.6875rem]">{lang}</span>
       </GhostBtn>

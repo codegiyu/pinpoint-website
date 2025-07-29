@@ -37,7 +37,7 @@ export const RegularTextarea = ({
       errors={errors}>
       <Textarea
         placeholder={isFocused ? '' : placeholder || label + (required ? ' *' : '')}
-        className={cn('', className)}
+        className={cn('py-5 min-h-[14rem]', className)}
         ref={ref}
         {...props}
         onFocus={(e: FocusEvent<HTMLTextAreaElement>) => {

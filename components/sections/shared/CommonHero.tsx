@@ -82,7 +82,11 @@ export const CommonHeroTextSection = ({
   title,
   description,
   leanUI = false,
-}: Pick<CommonHeroProps, 'caption' | 'title' | 'description'> & { leanUI?: boolean }) => {
+  className = '',
+}: Pick<CommonHeroProps, 'caption' | 'title' | 'description'> & {
+  leanUI?: boolean;
+  className?: string;
+}) => {
   const isTabletScreenAndAbove = useMediaQuery('(min-width: 768px)');
   const paddingBottom = `${leanUI ? 'pb-10' : 'pb-[6.25rem] md:pb-[10rem]'}`;
 
@@ -90,7 +94,7 @@ export const CommonHeroTextSection = ({
     <div
       className={`pinpoint-container xl:w-[61.875rem] 2xl:w-[70rem] lg:h-[70vh] 
       lg:flex items-center pt-[7.5rem] ${leanUI ? 'pt-[11rem]' : ''} ${paddingBottom} lg:py-0 
-      xl:ml-[calc((100vw_-_794px)_/_2)] 2xl:ml-[calc((100vw_-_968px)_/_2)] relative`}>
+      xl:ml-[calc((100vw_-_794px)_/_2)] 2xl:ml-[calc((100vw_-_968px)_/_2)] relative ${className}`}>
       <div
         className={`w-full ${leanUI ? '' : 'max-h-[47.5rem] lg:max-h-none'} grid gap-[1.875rem] 
        lg:ml-[4.375rem] xl:ml-0 relative `}>
@@ -115,5 +119,41 @@ export const CommonHeroTextSection = ({
         </div>
       </div>
     </div>
+  );
+};
+
+export const FormPageHeadingSection = ({
+  caption,
+  heading,
+  texts,
+  className,
+}: {
+  caption?: string;
+  heading: string;
+  texts: string[];
+  className?: string;
+}) => {
+  return (
+    <section
+      className={cn(
+        'form-page-container grid gap-6 xl:gap-[clamp(48px,_3.582vw,_62px)] \
+        pt-[164px] pb-[42px] md:pt-[234px] md:pb-[80px] lg:pt-[230px] \
+        xl:pt-[240px]',
+        className
+      )}>
+      <div className={`w-full grid gap-[1.875rem] lg:ml-[4.375rem] xl:ml-0 relative `}>
+        {caption && <PageHeroCaption caption={caption} />}
+        <h1 className="typo-h2-hero">{heading}</h1>
+      </div>
+      {texts.length > 0 && (
+        <div className="typo-body-7 text-gray-59">
+          {texts.map((text, idx) => (
+            <p key={idx} className="">
+              {text}
+            </p>
+          ))}
+        </div>
+      )}
+    </section>
   );
 };

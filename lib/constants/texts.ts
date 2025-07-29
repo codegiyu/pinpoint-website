@@ -7,10 +7,14 @@ import SvgInstagramIcon from '@/components/icons/InstagramIcon';
 import SvgXIcon from '@/components/icons/XIcon';
 import SvgFacebookIcon from '@/components/icons/FacebookIcon';
 import { WorkCardProps } from '@/components/sections/works/WorksDisplay';
-import { PinpointContactsProps } from '../types/general';
 import { ReferenceProps } from '@/components/sections/about/References';
 import { AchievementBlockProps } from '@/components/sections/about/Achievements';
 import { TeamSlideProps } from '@/components/sections/about/Team';
+import { SocialBtnProps } from '@/components/general/Socials';
+import { ContactsGroupProps } from '@/components/general/PinpointContacts';
+import { JobsCTAProps } from '@/components/sections/jobs/JobsCTA';
+import { FullJobProps } from '@/app/jobs/[job]/page';
+import { TiktokIcon } from '@/components/icons';
 
 export const changingHeroTitleModifiers: string[] = [
   'brands',
@@ -21,41 +25,67 @@ export const changingHeroTitleModifiers: string[] = [
 
 export const changingContactTitleModifiers: string[] = [
   'Hello',
-  'Guten tag',
-  'Bonjour',
-  'Bom dia',
-  'Hola',
-  'Goeiedag',
-  'Buongiorno',
+  'Sannu',
+  'Ndewo',
+  'Ẹ n lẹ',
+  'Msugh',
+  'Nǐ hǎo',
 ];
 
-export const contactInformation: PinpointContactsProps = {
-  address: ['Rue de Haerne 51', '1040 Brussels'],
-  tel: ' +32 2 494 01 28',
-  email: ' info@atelierdesign.be',
-  socials: [
-    {
-      title: 'Instagram',
-      url: 'https://www.instagram.com/atelierdesign_bxl/',
-      Icon: SvgInstagramIcon,
-    },
-    {
-      title: 'Facebook',
-      url: 'https://www.facebook.com///atelierdesign.be/',
-      Icon: SvgFacebookIcon,
-    },
-    {
-      title: 'LinkedIn',
-      url: 'https://be.linkedin.com/company/atelier-design',
-      Icon: SvgLinkedin,
-    },
-    {
-      title: 'X',
-      url: 'https://x.com/atelierdesign',
-      Icon: SvgXIcon,
-    },
-  ],
-};
+export const contactInformation: ContactsGroupProps[] = [
+  {
+    location: 'Abuja',
+    address: 'No.18 Aba Close Area 8 Garki, Abuja.',
+    tel: ['+234 912 323 2389', '+234 912 323 2397'],
+    email: 'abuja@pinpoint.ng',
+  },
+  {
+    location: 'Kano',
+    address: 'MTN Office. Civic Center',
+    tel: ['+234 812 222 1489', '+234 812 222 6489'],
+    email: 'kano@pinpoint.ng',
+  },
+  {
+    location: 'Benue',
+    address: 'No.18 Aba Close Area 8 Garki, Abuja.',
+    tel: [],
+    email: 'benue@pinpoint.ng',
+  },
+  {
+    location: 'China',
+    address: 'No.18 Aba Close Area 8 Garki, Abuja.',
+    tel: ['+86 1958 7410 572'],
+    email: 'china@pinpoint.ng',
+  },
+];
+
+export const pinpointSocials: SocialBtnProps[] = [
+  {
+    title: 'Instagram',
+    url: 'https://www.instagram.com/atelierdesign_bxl/',
+    Icon: SvgInstagramIcon,
+  },
+  {
+    title: 'Facebook',
+    url: 'https://www.facebook.com/atelierdesign.be/',
+    Icon: SvgFacebookIcon,
+  },
+  {
+    title: 'LinkedIn',
+    url: 'https://be.linkedin.com/company/atelier-design',
+    Icon: SvgLinkedin,
+  },
+  {
+    title: 'X',
+    url: 'https://x.com/atelierdesign',
+    Icon: SvgXIcon,
+  },
+  {
+    title: 'Tiktok',
+    url: 'https://x.com/atelierdesign',
+    Icon: TiktokIcon,
+  },
+];
 
 export const selectedCaseStudies: string[] = ['cefic', 'fipra', 'eortc'];
 
@@ -166,6 +196,17 @@ export const OUR_TEAM: TeamSlideProps[] = [
     mainImage: '/images/team/louis-main.jpg',
     subImage: '/images/team/louis-sub.webp',
   },
+];
+
+export const newProjectTexts: string[] = [
+  'A brilliant idea deserves to shine. With us, every concept is a unique opportunity \
+  to exceed our limits. Our creative agency combines its expertise in branding, marketing, \
+  packaging, printing website creation, and strategies to turn each project into a \
+  success blending elegance, quality, and functionality.',
+  'The Pinpoint Team is a group of enthusiasts who are not afraid to break the mold. \
+  Whether you need a website that grabs attention, a memorable visual identity, or a \
+  powerful communication strategy, we are committed to delivering results that \
+  exceed your expectations.',
 ];
 
 export const ATELIER_SERVICES_DATA: FullServiceData[] = [
@@ -1214,10 +1255,14 @@ export const { provenServicesList, provenSectorsList } = (() => {
   };
 })();
 
-export const ALL_JOBS_DATA = [
+export const ALL_JOBS_DATA: FullJobProps[] = [
   {
     id: 'interactive-and-resourceful-front-end-developer',
     title: 'Interactive and resourceful front-end developer',
+    description:
+      'We are looking for a committed person, passionate about product \
+      and design, who develops interfaces with eye and rigor in order to \
+      take the lead on certain projects.',
     type: 'list',
     profile: [
       'You have a minimum of 3 years of experience',
@@ -1235,36 +1280,59 @@ export const ALL_JOBS_DATA = [
     ],
     offer: [
       ' A freelance contract with an attractive remuneration',
-      'A well-established organization in collaboration with our project managers, you will compose your own schedule according to your availability',
+      'A well-established organization in collaboration with our project \
+      managers, you will compose your own schedule according to your availability',
       'A unique experience in a small communication agency in Brussels',
       'Talented colleagues who love afterwork parties',
       'A creative and pleasant environment (micro-naps are allowed)',
     ],
-    Ps: 'If you are interested in this opportunity, apply on our website. Address yourself directly to Juju (no need to impress him with a long cover letter, just show him your portfolio and your best work).',
+    jobDescription: [],
+    Ps: 'If you are interested in this opportunity, apply on our website. Address \
+    yourself directly to Juju (no need to impress him with a long cover letter, \
+    just show him your portfolio and your best work).',
   },
   {
-    id: 'internship-in-development-communication-or-project-management',
-    title: 'Internship in development, communication or project management',
+    id: 'internship-in-development-marketing-or-project-management',
+    title: 'Internship in development, marketing or project management',
+    description:
+      'We gladly welcome interns who are looking for experience in the field of \
+      web development, marketing or project management.',
     type: 'paragraphs',
     jobDescription: [
       {
         title: 'Which field?',
-        text: ' We gladly welcome interns who are looking for experience in the field of web development, communication or project management.',
+        text: ' We gladly welcome interns who are looking for experience in the \
+        field of web design and development, marketing or project management.',
       },
       {
         title: 'What will you do ?',
-        text: 'Don’t worry, you won’t have to serve coffee or decorate the Christmas tree… In fact, we expect much more from our interns. We like them to be dynamic, proactive, eager to learn, not afraid to make mistakes and stronger than us at Mario Kart!',
+        text: "Don't worry, you won't have to serve coffee or decorate the Christmas \
+        tree… In fact, we expect much more from our interns. We like them to be dynamic, \
+        proactive, eager to learn, not afraid to make mistakes and stronger than us at FIFA 25!",
       },
       {
         title: 'No secret between us',
-        text: 'We are a small multi-hat team that is on many fronts at the same time. So don’t hesitate to pull our sleeve because we forgot to provide you with tasks, because there will always be tasks!',
+        text: "We are a small multi-hat team that is on many fronts at the same time. So \
+        don't hesitate to pull our sleeve because we forgot to provide you with tasks, \
+        because there will always be tasks!",
       },
       {
         title: 'Apply now',
-        text: 'If you are independent, creative and flexible, and you like to progress quickly while bringing your own initiatives. Tell us more about your strengths and show us what you could concretely bring to the agency.',
+        text: 'If you are independent, creative and flexible, and you like to progress \
+        quickly while bringing your own initiatives. Tell us more about your strengths \
+        and show us what you could concretely bring to the agency.',
       },
     ],
-
-    Ps: 'PS: If you don’t hear from us, don’t hesitate to call, we are sometimes distracted 😉',
+    profile: [],
+    offer: [],
+    Ps: "PS: If you don't hear from us, don't hesitate to call, we are sometimes distracted 😉",
   },
 ];
+
+export const jobCards: JobsCTAProps[] = (() => {
+  return ALL_JOBS_DATA.map(job => ({
+    title: job.title,
+    description: job.description,
+    href: `/jobs/${job.id}`,
+  }));
+})();

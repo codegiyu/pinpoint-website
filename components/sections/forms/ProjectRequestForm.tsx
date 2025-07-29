@@ -8,16 +8,24 @@ import { useForm } from '@/lib/hooks/use-form';
 import { debounce } from '@/lib/utils/general';
 import { useMemo, useState } from 'react';
 import z from 'zod';
+import FormAlert from './FormAlert';
 
 const formSchema = z.object({
   name: z.string().min(3, { error: 'Please enter at least 3 characters' }),
   email: z.email({ error: 'Please enter a valid email' }),
+  phone: z
+    .string()
+    .min(11, { error: 'Please enter at least 11 characters' })
+    .max(14, { error: 'Phone number is too long' }),
+  company: z.string().min(3, { error: 'Please enter at least 3 characters' }),
   message: z.string().min(10, { error: 'Message is not long enough' }),
 });
 type FormSchema = z.infer<typeof formSchema>;
 const defaultFormValues: FormSchema = {
   name: '',
   email: '',
+  phone: '',
+  company: '',
   message: '',
 };
 
@@ -28,7 +36,7 @@ export const ProjectRequestForm = () => {
     formErrors,
     loading,
     isValid,
-    firstFieldRef,
+    // firstFieldRef,
     errorsVisible,
     handleInputChange,
     // setFormErrors,
@@ -57,8 +65,8 @@ export const ProjectRequestForm = () => {
   }
 
   return (
-    <section className="w-full py-10">
-      <form onSubmit={handleSubmit} className="pinpoint-container grid gap-14">
+    <section className="w-full pb-20 md:pb-[95px]">
+      <form onSubmit={handleSubmit} className="form-page-container grid gap-14">
         <div className="inputs-wrap grid gap-5">
           <div className="w-full grid gap-x-4 gap-y-8 md:grid-cols-2">
             <RegularInput
@@ -69,7 +77,6 @@ export const ProjectRequestForm = () => {
               errors={errorsVisible ? formErrors.name : undefined}
               wrapClassName=""
               required
-              ref={firstFieldRef}
             />
             <RegularInput
               label="Email"
@@ -78,6 +85,26 @@ export const ProjectRequestForm = () => {
               value={formValues.email}
               onChange={handleInputChange}
               errors={errorsVisible ? formErrors.email : undefined}
+              wrapClassName=""
+              required
+            />
+          </div>
+          <div className="w-full grid gap-x-4 gap-y-8 md:grid-cols-2">
+            <RegularInput
+              label="Phone Number"
+              name="phone"
+              value={formValues.phone}
+              onChange={handleInputChange}
+              errors={errorsVisible ? formErrors.phone : undefined}
+              wrapClassName=""
+              required
+            />
+            <RegularInput
+              label="Company"
+              name="company"
+              value={formValues.company}
+              onChange={handleInputChange}
+              errors={errorsVisible ? formErrors.company : undefined}
               wrapClassName=""
               required
             />
@@ -94,13 +121,14 @@ export const ProjectRequestForm = () => {
             required
           />
         </div>
-        <div className="w-full flex justify-center gap-2">
+        <div className="w-full flex items-center justify-center pt-4 gap-2">
           <PinpointBtn
             text="Submit"
             loading={loading}
             disabled={!formValid}
             onDisabledClick={generalValidation}
           />
+          <FormAlert />
         </div>
       </form>
     </section>

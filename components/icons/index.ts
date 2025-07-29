@@ -10,4 +10,5 @@ export { default as MacaronTextEn } from './MacaronTextEn';
 export { default as MacaronTextePlayEn } from './MacaronTextePlayEn';
 export { default as PinpointFull } from './PinpointFull';
 export { default as PinpointLogo } from './PinpointLogo';
+export { default as TiktokIcon } from './TiktokIcon';
 export { default as XIcon } from './XIcon';

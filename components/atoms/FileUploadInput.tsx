@@ -82,7 +82,7 @@ export const FileUploadInput = ({
       required={inputProps?.required}
       otherLabelProps={{ onDrop: handleFileDrop }}>
       <>
-        <div className="w-full grid grid-cols-[1fr_auto] gap-5 border border-dark/25 py-4 px-4">
+        <div className="w-full grid grid-cols-[1fr_auto] gap-5 border border-dark/25 py-6 px-4">
           <div className="w-full">
             {!files.length ? (
               <span className="typo-body-4 text-gray-66">

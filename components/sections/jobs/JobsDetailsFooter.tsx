@@ -1,50 +1,38 @@
 import { contactInformation } from '@/lib/constants/texts';
-import Link from 'next/link';
 import { PinpointSocials } from '@/components/general/Socials';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
-import { LogoAd, LogoText } from '@/components/icons';
+import { PinpointFull } from '@/components/icons';
+import { ContactsGroup } from '@/components/general/PinpointContacts';
 
 export default function JobsDetailsFooter() {
   return (
-    <footer className="bg-gray-f2 w-full py-10 lg:py-28">
-      <div className="grid gap-4 justify-start items-start w-full mx-auto py-8 md:flex xl:gap-16 md:bg-white md:gap-16 md:justify-between md:w-8/12 md:py-20 xl:py-16 px-8 sm:px-16 md:px-20 lg:w-8/10 lg:justify-around 2xl:gap-20 xl:px-36 xl:w-7/10">
-        <GhostBtn
-          linkProps={{ href: '/' }}
-          className="pointer-events-auto self-start justify-self-start h-full block md:self-start md:justify-self-start lg:self-center lg:justify-self-center lg:2/10">
-          <div className="w-fit flex items-center text-[1.8125rem] md:text-[2.0625rem]  xl:text-[clamp(33px,_2.463vw,_42px)] pb-4 md:pb-0">
-            <LogoAd />
-            <LogoText />
+    <footer className="footer bg-gray-f2 w-full py-10 lg:py-28">
+      <section className="pinpoint-container-mobile-w-full md:bg-white md:py-14 lg:py-16 2xl:py-20">
+        <div className="flex-none w-[85.8vw] max-w-[495px] md:w-[28.4375rem] md:max-w-none lg:w-[38.25rem] xl:w-[48.875rem] 2xl:w-[59.375rem] grid gap-6 mx-auto relative z-[3]">
+          <div className="w-fit grid gap-5 pb-8">
+            <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
+              <div className="w-fit flex items-center text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]">
+                <PinpointFull id="footer-logo" className="logo" />
+              </div>
+            </GhostBtn>
+            <p className="typo-body-7 text-gray-59/90">
+              We are a creative brand consultancy into design, branding and packaging. We&apos;ve
+              been collaborating with leading organizations to solve brand and business challenges
+              since 2019. Our team across different locations uses the power of creativity to
+              transform businesses for the better.
+            </p>
           </div>
-        </GhostBtn>
-        <div className="grid gap-6 lg:flex items-center md:self-end md:justify-self-end md:gap-6 justify-between md:w-2/3 lg:w-8/10 text-xs xl:text-sm xl:typo-body-4 font-light lg:typo-body-3">
-          <div className="grid gap-2 lg:gap-2 text-xs md:typo-body-4 font-light lg:typo-body-3 underline">
-            {contactInformation.address.map((address, index) => (
-              <p key={index}>{address}</p>
+          <div className="w-full grid gap-8 sm:grid-cols-2 1400:grid-cols-4 text-dark/80">
+            {contactInformation.map((group, idx) => (
+              <ContactsGroup key={idx} {...group} showOpacity />
             ))}
           </div>
 
-          <div className="grid gap-2 lg:gap-2 font-light lg:typo-body-3">
-            <p className="flex gap-1">
-              <label htmlFor="phone-number" className="font-medium">
-                T
-              </label>
-              :
-              <Link href={`tel:${contactInformation.tel}`} id="phone-number">
-                {contactInformation.tel}
-              </Link>
-            </p>
-            <p>
-              <Link href={`mailto:${contactInformation.email}`} id="email">
-                {contactInformation.email}
-              </Link>
-            </p>
-          </div>
-
-          <div className="pt-3 md:pt-6 lg:pt-0 flex items-center">
+          <div className="w-full flex lg:justify-center pt-3 md:pt-6 text-dark/80">
             <PinpointSocials variant="black" />
           </div>
         </div>
-      </div>
+      </section>
     </footer>
   );
 }

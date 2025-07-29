@@ -1,9 +1,6 @@
-type JobDetailsProps = {
-  profile?: string[];
-  offer?: string[];
-  jobDescription?: { title: string; text: string }[];
-  Ps: string;
-};
+import { FullJobProps } from '@/app/jobs/[job]/page';
+
+type JobDetailsProps = Partial<Pick<FullJobProps, 'profile' | 'offer' | 'jobDescription' | 'Ps'>>;
 
 type ListUIProps = {
   heading: string;
@@ -15,18 +12,24 @@ type ParagraphUI = {
   text: string;
 };
 
-export default function JobDetails({ profile, offer, jobDescription, Ps }: JobDetailsProps) {
+export interface JobDescription {
+  title: string;
+  text: string;
+}
+
+export default function JobDetails({
+  profile = [],
+  offer = [],
+  jobDescription = [],
+  Ps,
+}: JobDetailsProps) {
   return (
     <section className="relative z-10 py-18 md:py-24 bg-gray-f2 w-full h-full">
       <div className="pinpoint-container lg:pl-30 grid gap-12 md:gap-16">
-        {profile && offer && (
-          <>
-            <ListUI heading="Profile we are looking for:" list={profile} />
-            <ListUI heading="Our Offer" list={offer} />
-          </>
-        )}
+        {profile.length > 0 && <ListUI heading="Profile we are looking for:" list={profile} />}
+        {offer.length > 0 && <ListUI heading="Our Offer" list={offer} />}
 
-        {jobDescription &&
+        {jobDescription.length > 0 &&
           jobDescription.map((item, index) => <ParagraphUI {...item} key={index} />)}
 
         <p className="typo-body-2 tracking-wide italic">{Ps}</p>

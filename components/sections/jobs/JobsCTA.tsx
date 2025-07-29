@@ -7,11 +7,17 @@ export interface JobsCTAProps {
   variant?: 'white' | 'gray';
   title: string;
   description: string;
-  btnText: string;
+  btnText?: string;
   href: string;
 }
 
-export const JobsCTA = ({ variant = 'white', title, description, btnText, href }: JobsCTAProps) => {
+export const JobsCTA = ({
+  variant = 'white',
+  title,
+  description,
+  btnText = 'Discover the opportunity',
+  href,
+}: JobsCTAProps) => {
   const containerBgClass = variant === 'gray' ? 'bg-gray-f2' : 'bg-gray-f2 md:bg-gray-f2';
   const bgClass = variant === 'white' ? 'before:bg-white ' : 'before:bg-gray-f2 md:before:bg-white';
 

@@ -37,7 +37,7 @@ type JobsFormProps = {
     className?: string;
   };
   description?: string;
-  useFirstRef: boolean;
+  useFirstRef?: boolean;
 };
 
 export const JobsForm = ({ heading, description, useFirstRef }: JobsFormProps) => {
@@ -77,7 +77,7 @@ export const JobsForm = ({ heading, description, useFirstRef }: JobsFormProps) =
 
   return (
     <section className="w-full py-10">
-      <form onSubmit={handleSubmit} className="pinpoint-container pb-12 grid gap-8 md:gap-14">
+      <form onSubmit={handleSubmit} className="form-page-container pb-12 grid gap-8 md:gap-14">
         <h2 className={cn('typo-h3 pt-4', heading.className)}>{heading.text}</h2>
         {description && (
           <p className="text-[clamp(18px,_1.2vw,_23px)] font-light py-4 ">{description}</p>

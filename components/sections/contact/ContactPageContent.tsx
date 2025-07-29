@@ -6,32 +6,35 @@ import { ChangingModifier } from '@/components/general/ChangingModifier';
 
 export default function ContactPageContent() {
   return (
-    <section className="w-full min-h-[105vh] md:h-screen inset-0 pb-4 text-white overflow-hidden">
+    <section className="w-full min-h-screen pb-4 text-white relative overflow-hidden">
       <video
         src="/videos/contact-animation.webm"
-        className="w-full min-h-[105vh] md:h-screen relative inset-0 object-cover"
+        className="w-full h-full absolute z-[1] inset-0 object-cover"
         autoPlay
         loop
         muted
         playsInline
       />
-      <div className="overlay bg-[#00000022] inset-0 z-10 absolute min-h-[105vh]  md:h-full"></div>
-      <div className="hero-content absolute inset-0 pinpoint-container touch-events-none z-30 ">
-        <div className="md:w-full md:h-full justify-center lg:justify-between flex-col flex gap-12 md:gap-16 lg:gap-0 lg:flex-row place-items-center mt-24 md:mt-6 lg:mt-0 relative ">
+      <div className="overlay bg-[#00000040] inset-0 z-[2] absolute h-full" />
+      <div className="hero-content pinpoint-container touch-events-none pt-10 md:pt-40 lg:pt-60 pb-10 relative z-[3]">
+        <div
+          className="md:w-full md:h-full justify-center lg:justify-between flex-col flex \
+          gap-12 md:gap-16 lg:gap-0 lg:flex-row place-items-center mt-24 md:mt-6 lg:mt-0 \
+          relative ">
           <div className="w-full lg:w-3/7 grid gap-2">
             <h1 className="typo-h1 h-[5rem] md:h-[7rem] lg:mb-10">
               <ChangingModifier textsArray={changingContactTitleModifiers} />
             </h1>
 
             <p className="bottom-[3.125rem] md:bottom-0 left-0 w-full lg:pt-0 text-[1.15rem] typo-body-3 md:typo-body-1 md:text-[1.4rem] md:tracking-wider leading-6.5 md:leading-normal break-words text-wrap">
-              Transform your ideas into reality with our <br className="hidden md:block" /> creative
-              communication agency in Brussels.
+              Transform your ideas into reality with our{' '}
+              <br className="hidden md:block lg:hidden" /> branding, marketing and packaging agency.
             </p>
-            <p className="bottom-[3.125rem] md:bottom-0 left-0  w-fit md:w-4/5  lg:pt-0 text-sm  typo-body-2 sm:text-base md:text-[18px] md:typo-subtitle leading-6 md:tracking-wide md:leading-8 break-words text-wrap">
-              Our mission is to elevate your ideas into accomplished projects with elegance and
-              precision. As experts in web design, logo creation and brand strategies, our
-              communication agency in Brussels develops tailored solutions to make your brand shine
-              while perfectly addressing your challenges
+            <p className="bottom-[3.125rem] md:bottom-0 left-0 w-fit md:w-4/5 lg:w-full lg:pt-0 typo-body-7 break-words text-wrap">
+              Our mission is to empower brands globally by providing innovative, strategic branding
+              solutions that solve complex challenges and create memorable, lasting impressions. We
+              are dedicated to transforming businesses into iconic brands by offering tailored
+              branding solutions that ensure success in an ever-evolving global marketplace.
             </p>
 
             <div className="grid md:flex gap-6 pt-4 md:pt-8">

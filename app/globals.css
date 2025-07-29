@@ -219,6 +219,9 @@
   .pinpoint-container-mobile-w-full {
     @apply w-full max-w-full md:max-w-none md:w-[595px] lg:w-[828px] xl:w-[1024px] 2xl:w-[1200px] 3xl:w-[1300px] mx-auto;
   }
+  .form-page-container {
+    @apply w-[85.8vw] max-w-[495px] md:max-w-none md:w-[595px] lg:w-[684px] xl:w-[782px] 2xl:w-[950px] 3xl:w-[1024px] mx-auto;
+  }
   .menu-container {
     @apply w-[85.8vw] max-w-[495px] lg:max-w-none lg:w-full mx-auto;
   }
@@ -249,6 +252,9 @@
     fill: #0188fd;
   }
   #visible-header.menu-open .pinpoint-logo path.coloured-text {
+    fill: #fe7702;
+  }
+  .footer #footer-logo path.coloured-text {
     fill: #fe7702;
   }
 

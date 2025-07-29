@@ -41,7 +41,7 @@ export default function FormAlert() {
           <span>
             By submitting this form, I accept that the information entered in this form will be
             treated according to Atelier Design&apos;s
-            <Link href="/legal-notice" className="text-black/95 underline px-1">
+            <Link href="/privacy-policy" className="text-black/95 underline px-1">
               privacy policy
             </Link>
             to allow me to contact me

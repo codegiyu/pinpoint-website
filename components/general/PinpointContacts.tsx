@@ -2,38 +2,63 @@ import { PinpointSocials } from '@/components/general/Socials';
 import Link from 'next/link';
 import { contactInformation } from '@/lib/constants/texts';
 
-export default function PinpointContacts() {
+export default function PinpointContacts({
+  fullWidth,
+  inDarkBg,
+}: {
+  fullWidth?: boolean;
+  inDarkBg?: boolean;
+}) {
   return (
-    <div className="grid gap-2 lg:gap-4 w-full lg:w-2/7 place-items-start ">
-      <h5 className="typo-h5 pb-2">Atelier Design</h5>
-      <div className="grid gap-4 md:flex md:gap-16 lg:gap-8 lg:grid text-sm md:typo-body-3 md:text-[1.2rem] font-light lg:typo-body-2">
-        <div className="grid gap-2">
-          {contactInformation.address.map((address, index) => (
-            <p key={index}>{address}</p>
-          ))}
-        </div>
-
-        <div className="grid gap-0 lg:gap-2">
-          <p className="flex gap-1">
-            <label htmlFor="phone-number" className="font-medium">
-              T
-            </label>
-            :
-            <Link href={`tel:${contactInformation.tel}`} id="phone-number">
-              {contactInformation.tel}
-            </Link>
-          </p>
-          <p>
-            <Link href={`mailto:${contactInformation.email}`} id="email">
-              {contactInformation.email}
-            </Link>
-          </p>
-        </div>
+    <div
+      className={`grid gap-6 lg:gap-6 h-fit w-full ${fullWidth ? '' : 'lg:max-w-3/7'} lg:place-items-center`}>
+      <div className="grid gap-10 sm:grid-cols-2">
+        {contactInformation.map((group, idx) => (
+          <ContactsGroup key={idx} {...group} inDarkBg={inDarkBg} />
+        ))}
       </div>
 
-      <div className="pt-3 md:pt-6">
+      <div className="flex lg:justify-center pt-3 md:pt-6">
         <PinpointSocials />
       </div>
     </div>
   );
 }
+
+export interface ContactsGroupProps {
+  location: string;
+  address: string;
+  tel: string[];
+  email: string;
+  inDarkBg?: boolean;
+  showOpacity?: boolean;
+}
+
+export const ContactsGroup = ({
+  location,
+  address,
+  tel,
+  email,
+  inDarkBg,
+  showOpacity,
+}: ContactsGroupProps) => {
+  return (
+    <div className="max-w-[150px] h-fit grid gap-2 md:gap-4">
+      <h5 className="typo-h5 pb-2 text-wrap break-words ">{location}</h5>
+      <p className={`typo-body-h7 ${showOpacity ? 'opacity-75' : ''}`}>{address}</p>
+      <div className="grid gap-2">
+        {tel.map((phone, idx) => (
+          <p
+            key={idx}
+            className={`flex ${showOpacity ? 'opacity-75 hover:opacity-100' : ''} hover:underline ${inDarkBg ? 'hover:text-white' : 'hover:scale-105'} transition-all duration-500 ease-out`}>
+            <Link href={`tel:${phone}`}>{phone}</Link>
+          </p>
+        ))}
+      </div>
+      <p
+        className={`flex ${showOpacity ? 'opacity-75 hover:opacity-100' : ''} hover:underline ${inDarkBg ? 'hover:text-white' : 'hover:scale-105'} transition-all duration-500 ease-out`}>
+        <Link href={`mailto:${email}`}>{email}</Link>
+      </p>
+    </div>
+  );
+};

@@ -39,7 +39,7 @@ export const RegularInput = ({
       <Input
         placeholder={isFocused ? placeholder : label + (required ? ' *' : '') || placeholder}
         type={type}
-        className={cn('', className)}
+        className={cn('py-5', className)}
         ref={ref}
         {...props}
         onFocus={(e: FocusEvent<HTMLInputElement>) => {
