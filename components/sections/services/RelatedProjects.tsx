@@ -15,58 +15,70 @@ export const RelatedProjects = ({ projects }: { projects: RelatedProjectSlidePro
         <h2 className="typo-caption-small uppercase">Related Projects</h2>
       </div>
 
-      <div className="w-full relative">
-        <Swiper
-          modules={[Manipulation, A11y, Pagination, Navigation]}
-          mousewheel={true}
-          slidesPerView={'auto'}
-          speed={1200}
-          navigation={{
-            prevEl: '#custom-swiper-prev',
-            nextEl: '#custom-swiper-next',
-          }}
-          onSwiper={swiper => {
-            // Fix for timing issues to ensures navigation is correctly bound
-            setTimeout(() => {
-              swiper.navigation?.init();
-              swiper.navigation?.update();
-            });
-          }}
-          className="mySwiper w-full h-auto flex items-center justify-start flex-nowrap relative">
-          {projects.map((project, idx) => (
-            <SwiperSlide
-              key={idx}
-              className={`!w-[85vw] !max-w-[450px] md:!max-w-none md:!w-[298px] lg:!w-[410px] xl:!w-[528px] !mr-2 md:!mr-4 !transition-all !duration-500 !ease-in-out !relative`}>
-              <ProjectSlide {...project} />
-            </SwiperSlide>
-          ))}
-          <SwiperSlide
-            className={`!w-[85vw] !max-w-[450px] md:!max-w-none md:!w-[298px] lg:!w-[410px] xl:!w-[528px] !mr-2 md:!mr-4 !transition-all !duration-500 !ease-in-out !relative`}>
-            <DiscoverMoreSlide />
-          </SwiperSlide>
-          <SwiperSlide
-            className={`hidden md:block !w-[85vw] !max-w-[450px] md:!max-w-none md:!w-[298px] lg:!w-[410px] xl:!w-[528px] !mr-2 md:!mr-4 !transition-all !duration-500 !ease-in-out !relative`}
-          />
-        </Swiper>
+      <RelatedProjectsSlider projects={projects} />
+    </section>
+  );
+};
 
-        <div className="nav-btns-wrapper hidden md:block lg:absolute lg:top-[-105px] xl:relative xl:top-0 w-full mt-[34px]">
-          <div className="nav-btns-container pinpoint-container flex items-center justify-end gap-2 relative">
-            <GhostBtn
-              id="custom-swiper-prev"
-              LucideIcon={MoveLeft}
-              iconClass="size-4 text-dark/75 scale-120"
-              className="size-[52px] rounded-full grid place-items-center border border-[silver] hover:border-dark disabled:opacity-50"
-            />
-            <GhostBtn
-              id="custom-swiper-next"
-              LucideIcon={MoveRight}
-              iconClass="size-4 text-dark/75 scale-120"
-              className="size-[52px] rounded-full grid place-items-center border border-[silver] hover:border-dark disabled:opacity-50"
-            />
-          </div>
+export const RelatedProjectsSlider = ({
+  projects,
+  className,
+}: {
+  projects: RelatedProjectSlideProps[];
+  className?: string;
+}) => {
+  return (
+    <div className={cn('w-full relative', className)}>
+      <Swiper
+        modules={[Manipulation, A11y, Pagination, Navigation]}
+        mousewheel={true}
+        slidesPerView={'auto'}
+        speed={1200}
+        navigation={{
+          prevEl: '#custom-swiper-prev',
+          nextEl: '#custom-swiper-next',
+        }}
+        onSwiper={swiper => {
+          // Fix for timing issues to ensures navigation is correctly bound
+          setTimeout(() => {
+            swiper.navigation?.init();
+            swiper.navigation?.update();
+          });
+        }}
+        className="mySwiper w-full h-auto flex items-center justify-start flex-nowrap relative">
+        {projects.map((project, idx) => (
+          <SwiperSlide
+            key={idx}
+            className={`!w-[85vw] !max-w-[450px] md:!max-w-none md:!w-[298px] lg:!w-[410px] xl:!w-[528px] !mr-2 md:!mr-4 !transition-all !duration-500 !ease-in-out !relative`}>
+            <ProjectSlide {...project} />
+          </SwiperSlide>
+        ))}
+        <SwiperSlide
+          className={`!w-[85vw] !max-w-[450px] md:!max-w-none md:!w-[298px] lg:!w-[410px] xl:!w-[528px] !mr-2 md:!mr-4 !transition-all !duration-500 !ease-in-out !relative`}>
+          <DiscoverMoreSlide />
+        </SwiperSlide>
+        <SwiperSlide
+          className={`hidden md:block !w-[85vw] !max-w-[450px] md:!max-w-none md:!w-[298px] lg:!w-[410px] xl:!w-[528px] !mr-2 md:!mr-4 !transition-all !duration-500 !ease-in-out !relative`}
+        />
+      </Swiper>
+
+      <div className="nav-btns-wrapper hidden md:block lg:absolute lg:top-[-105px] xl:relative xl:top-0 w-full mt-[34px]">
+        <div className="nav-btns-container pinpoint-container flex items-center justify-end gap-2 relative">
+          <GhostBtn
+            id="custom-swiper-prev"
+            LucideIcon={MoveLeft}
+            iconClass="size-4 text-dark/75 scale-120"
+            className="size-[52px] rounded-full grid place-items-center border border-[silver] hover:border-dark disabled:opacity-50"
+          />
+          <GhostBtn
+            id="custom-swiper-next"
+            LucideIcon={MoveRight}
+            iconClass="size-4 text-dark/75 scale-120"
+            className="size-[52px] rounded-full grid place-items-center border border-[silver] hover:border-dark disabled:opacity-50"
+          />
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
@@ -77,9 +89,12 @@ export interface RelatedProjectSlideProps {
   projectId: string;
 }
 
-const ProjectSlide = ({ name, description, image, projectId }: RelatedProjectSlideProps) => {
+export const ProjectSlide = ({ name, description, image, projectId }: RelatedProjectSlideProps) => {
   return (
-    <GhostBtn linkProps={{ href: `/works/${projectId}` }} className="w-full" wrapClassName="group">
+    <GhostBtn
+      linkProps={{ href: `/projects/${projectId}` }}
+      className="w-full"
+      wrapClassName="group">
       <div className="w-full relative">
         <div className="w-full h-[60vw] md:h-[200px] lg:h-[280px] xl:h-[clamp(354px,_26.418vw,_442px)]">
           <div className="w-full h-full relative overflow-hidden">

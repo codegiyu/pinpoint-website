@@ -13,12 +13,12 @@ import { ServiceScrollManager } from '@/components/sections/services/ScrollManag
 import { WhatMakesUsUnique } from '@/components/sections/services/WhatMakesUsUnique';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
-import { ALL_SERVICES_DATA, ALL_PROJECTS_DATA } from '@/lib/constants/texts';
+import { ALL_SERVICES_DATA, ALL_PROJECTS_DATA, AvailableService } from '@/lib/constants/texts';
 import { notFound } from 'next/navigation';
 import { use, useMemo, useRef } from 'react';
 
 export interface FullServiceData {
-  id: string;
+  id: AvailableService;
   name: string;
   pageTitle: string;
   videoUrl: string;
@@ -77,7 +77,7 @@ export default function ServicePage(props: { params: Promise<Params> }) {
     }, []);
 
     const relatedProjects = ALL_PROJECTS_DATA.reduce<RelatedProjectSlideProps[]>((acc, curr) => {
-      if (serviceData && curr.services.includes(serviceData.name)) {
+      if (serviceData && curr.services.includes(serviceData.id)) {
         acc.push({
           projectId: curr.id,
           name: curr.name,

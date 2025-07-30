@@ -15,7 +15,7 @@ export const Team = () => {
       <div className="pinpoint-container relative z-[2]">
         <SectionHeader
           caption="The Creators Behind Our Achievements"
-          title="Discover our artisans"
+          title="Creative hands, strategic minds"
         />
       </div>
 

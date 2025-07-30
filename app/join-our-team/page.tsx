@@ -1,7 +1,7 @@
 import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { JobsForm } from '@/components/sections/forms/JobsForm';
-import JobsDetailsFooter from '@/components/sections/jobs/JobsDetailsFooter';
+import Footer from '@/components/layout/Footer';
 
 export default function JoinOurTeamPage() {
   return (
@@ -21,7 +21,7 @@ export default function JoinOurTeamPage() {
           formName="Spontaneous Application"
         />
       </div>
-      <JobsDetailsFooter />
+      <Footer />
       <PageSideDecoration caption="Join our team" />
     </MainLayout>
   );

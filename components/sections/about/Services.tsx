@@ -7,17 +7,19 @@ import { splitArrayInTwo, splitTextIntoTwoWithBrTag } from '@/lib/utils/general'
 import { omit } from 'lodash';
 
 export const Services = () => {
+  const modulusByThree = servicesSummary.length % 3;
+
   return (
     <section className="w-full bg-white pt-[3.75rem] md:pt-0 md:pb-[5.375rem] lg:pb-16 xl:pb-[clamp(64px,_3.731vw,_116px)]">
       <div className="pinpoint-container grid gap-10 md:gap-20 xl:gap-[11rem]">
         <div className="w-full lg:max-w-[720px] xl:max-w-[782px] 1400:max-w-[950px] grid gap-5 mx-auto px-0">
-          <SectionHeader caption="AD Services" title="" />
+          <SectionHeader caption="Pinpoint Services" title="" />
           <p className="typo-body-1 text-dark/75 font-light">
-            Our communication agency located in Brussels dedicates itself wholeheartedly to boosting
-            your brand. Without compromising on quality. Experts in WordPress, the little CMS that
-            has conquered the world, we create ambitious websites. And to enrich your online and
-            offline presence, we also produce targeted content: videos, photos, texts, and
-            meaningful print materials.
+            Pinpoint is a creative agency dedicated to helping brands define their identity, connect
+            with their audience, and grow with confidence. From standout packaging to strategic
+            marketing and high-performing digital products, we craft design-driven solutions across
+            every touchpoint. Whether online or offline, we blend clarity, creativity, and
+            consistency to bring your brand to life.
           </p>
         </div>
 
@@ -26,16 +28,15 @@ export const Services = () => {
             {servicesSummary.map((service, idx) => (
               <ServiceCard key={idx} {...omit(service, ['videoUrl'])} />
             ))}
-            <div className="hidden lg:block lg:w-[216px] xl:w-[264px] 2xl:w-[330px]"></div>
+            {modulusByThree &&
+              Array(modulusByThree)
+                .fill(0)
+                .map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="hidden lg:block lg:w-[216px] xl:w-[264px] 2xl:w-[330px]"></div>
+                ))}
           </div>
-
-          {/* {servicesSummary.length > 3 && (
-            <div className="w-full flex flex-wrap flex-col lg:flex-row lg:justify-between gap-6 md:gap-14 lg:gap-0">
-              {servicesSummary.slice(3, 6).map((service, idx) => (
-                <ServiceCard key={idx} {...omit(service, ['videoUrl'])} />
-              ))}
-            </div>
-          )} */}
         </div>
       </div>
     </section>

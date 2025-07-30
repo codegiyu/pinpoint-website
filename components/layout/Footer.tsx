@@ -4,7 +4,7 @@ import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { PinpointFull } from '@/components/icons';
 import { ContactsGroup } from '@/components/general/PinpointContacts';
 
-export default function JobsDetailsFooter() {
+export default function Footer() {
   return (
     <footer className="footer bg-gray-f2 w-full py-10 lg:py-28">
       <section className="pinpoint-container-mobile-w-full md:bg-white md:py-14 lg:py-16 2xl:py-20">

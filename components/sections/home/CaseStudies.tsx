@@ -9,10 +9,10 @@ export const CaseStudies = () => {
     <section className="w-full section-block-padding bg-gray-f2 relative z-[3]">
       <div className="pinpoint-container grid gap-6 md:gap-8 lg:gap-[3.75rem] xl:gap-[clamp(60px,_4.478vw,_75px)">
         <div className="grid gap-3">
-          <p className="typo-caption-small uppercase">Our latest case studies</p>
+          <p className="typo-caption-small uppercase">Our project highlights</p>
           <h2 className="typo-h2">
-            The DNA of <br />
-            our creative agency
+            Snapshots of vision, <br />
+            design and delivery
           </h2>
         </div>
         <div className="grid gap-12 md:gap-16 lg:gap-[7.5rem] xl:gap-[clamp(120px,_8.956vw,_150px)">

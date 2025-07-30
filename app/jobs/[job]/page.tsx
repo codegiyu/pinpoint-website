@@ -3,7 +3,7 @@ import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { JobsForm } from '@/components/sections/forms/JobsForm';
 import JobDetails, { JobDescription } from '@/components/sections/jobs/JobDetails';
-import JobsDetailsFooter from '@/components/sections/jobs/JobsDetailsFooter';
+import Footer from '@/components/layout/Footer';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { ALL_JOBS_DATA } from '@/lib/constants/texts';
 import { notFound, useParams } from 'next/navigation';
@@ -37,7 +37,7 @@ export default function JobOpportunityPage() {
       />
 
       <JobsForm heading={{ text: 'Apply Now' }} formName={jobData.title} />
-      <JobsDetailsFooter />
+      <Footer />
       <PageSideDecoration caption="JOIN THE TEAM" />
     </MainLayout>
   );

@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { PinpointBtn, PinpointBtnProps } from './PinpointBtn';
 import { IconComp, LucideIconComp } from '@/lib/types/general';
 
-interface BaseGhostBtnProps extends PinpointBtnProps {
+interface BaseGhostBtnProps extends Omit<PinpointBtnProps, 'text'> {
   iconClass?: string;
   Icon?: IconComp;
   LucideIcon?: LucideIconComp;

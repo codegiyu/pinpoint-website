@@ -2,7 +2,13 @@
 
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
-import { provenSectorsList, provenServicesList, projectsSummary } from '@/lib/constants/texts';
+import {
+  provenSectorsList,
+  provenServicesList,
+  projectsSummary,
+  servicesLookup,
+  AvailableService,
+} from '@/lib/constants/texts';
 import Image from 'next/image';
 import { Dispatch, SetStateAction, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { parseAsString, useQueryStates } from 'nuqs';
@@ -223,7 +229,7 @@ export interface WorkCardProps {
   id: string;
   name: string;
   image: string;
-  services: string[];
+  services: AvailableService[];
   extraServices: string[];
   sectors: string[];
 }
@@ -233,7 +239,7 @@ const WorkCard = ({ name, id, image, services }: WorkCardProps) => {
     let finalString = '';
 
     services.forEach((service, idx, arr) => {
-      finalString += `${service}${idx < arr.length - 1 ? ' | ' : ''}`;
+      finalString += `${servicesLookup[service]}${idx < arr.length - 1 ? ' | ' : ''}`;
     });
 
     return finalString;

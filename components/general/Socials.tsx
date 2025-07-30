@@ -28,6 +28,7 @@ export const SocialBtn = ({ Icon, url, title, variant = 'white' }: SocialBtnVari
   return (
     <Link
       href={url}
+      target="_blank"
       className={cn(
         'group w-[3.125rem] aspect-square md:size-[3.5rem] xl:size-[4rem] rounded-full grid place-items-center  border transition-colors relative overflow-hidden duration-1500 ',
         variant === 'black'

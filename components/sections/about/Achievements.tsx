@@ -10,11 +10,11 @@ export const OurAchievements = () => {
       <div className="w-full md:absolute md:inset-0">
         <div className="pinpoint-container pb-10 md:pb-0">
           <SectionHeader
-            caption="AD in Numbers"
+            caption="Pinpoint Achievements"
             title={
               <>
-                If you work,
-                <br /> it will work
+                Proud moments,
+                <br /> measurable impact
               </>
             }
           />

@@ -9,7 +9,10 @@ export const OurStory = () => {
       <div className="pinpoint-container grid lg:gap-[3.75rem] xl:gap-7">
         <div className="w-full grid lg:grid-cols-[59fr_41fr] lg:gap-[3.75rem] relative z-[5]">
           <div className="w-full h-fit md:max-w-[455px] lg:max-w-none mx-auto">
-            <SectionHeader caption="Once upon a time" title="A story of complementarity" />
+            <SectionHeader
+              caption="Words became worlds..."
+              title="And brands found their place in them"
+            />
             <div className="w-full xl:w-[450px] pt-5 pb-10 md:pt-11 md:pb-[3.75rem] lg:pt-[3.75rem] lg:pb-0 xl:pt-[45px] xl:pb-[75px] xl:ml-auto xl:mr-7">
               <p className="typo-body-7 text-gray-59">{ourStoryTexts[0]}</p>
             </div>
