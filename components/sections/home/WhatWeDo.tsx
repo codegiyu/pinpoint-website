@@ -1,6 +1,7 @@
 'use client';
 
 import { GhostBtn } from '@/components/atoms/GhostBtn';
+import { SmartVideo } from '@/components/general/SmartVideo';
 import { servicesSummary } from '@/lib/constants/texts';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { cn } from '@/lib/utils';
@@ -107,15 +108,15 @@ const ServiceCard = memo(({ name, breakdown, href, videoUrl, isLast }: ServiceCa
         </div>
       </GhostBtn>
       <div className="video-box w-full h-full absolute inset-0 opacity-100 md:opacity-0 lg:peer-hover:opacity-100 transition-opacity duration-300 peer-hover:duration-100 ease-linear">
-        {/* {(!isLargeScreen || (isLargeScreen && cardHovered)) && (
-        )} */}
-        <video
+        <SmartVideo
           src={videoUrl}
-          className={`w-full h-full object-cover scale-110 ${!isLargeScreen || (isLargeScreen && cardHovered) ? 'animate-[zoom-out_0.8s_ease-out_forwards]' : ''} relative z-[4]`}
-          autoPlay
-          loop
-          muted
-          playsInline
+          wrapClassName="h-full"
+          className={`scale-110 relative z-[4]
+            ${
+              !isLargeScreen || (isLargeScreen && cardHovered)
+                ? 'animate-[zoom-out_0.8s_ease-out_forwards]'
+                : ''
+            }`}
         />
         <div className="w-full h-full absolute inset-0 bg-gradient-to-t from-dark/50 to-dark/15 z-[4]" />
       </div>

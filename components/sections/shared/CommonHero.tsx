@@ -7,6 +7,7 @@ import { omit } from 'lodash';
 import Image, { ImageProps } from 'next/image';
 import { ReactNode } from 'react';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
+import { SmartVideo } from '@/components/general/SmartVideo';
 
 interface BaseCommonHeroProps {
   caption: string;
@@ -56,16 +57,7 @@ export const CommonHero = ({
                 />
               )}
 
-              {videoURL && (
-                <video
-                  src={videoURL}
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                />
-              )}
+              {videoURL && <SmartVideo src={videoURL} wrapClassName="h-full" />}
             </div>
           </div>
         </div>

@@ -3,17 +3,15 @@ import { PageSideCaption } from '@/components/general/PageSideCaption';
 import { changingContactTitleModifiers } from '@/lib/constants/texts';
 import PinpointContacts from '../../general/PinpointContacts';
 import { ChangingModifier } from '@/components/general/ChangingModifier';
+import { SmartVideo } from '@/components/general/SmartVideo';
 
 export default function ContactPageContent() {
   return (
     <section className="w-full min-h-screen pb-4 text-white relative overflow-hidden">
-      <video
+      <SmartVideo
         src="/videos/contact-animation.webm"
-        className="w-full h-full absolute z-[1] inset-0 object-cover"
-        autoPlay
-        loop
-        muted
-        playsInline
+        wrapClassName="h-full"
+        className="absolute z-[1] inset-0 object-cover"
       />
       <div className="overlay bg-[#00000040] inset-0 z-[2] absolute h-full" />
       <div className="hero-content pinpoint-container touch-events-none pt-10 md:pt-40 lg:pt-60 pb-10 relative z-[3]">

@@ -3,6 +3,7 @@
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { ChangingModifier } from '@/components/general/ChangingModifier';
 import { HeroArrow } from '@/components/general/HeroArrow';
+import { SmartVideo } from '@/components/general/SmartVideo';
 import { MacaronTextEn, MacaronTextePlayEn } from '@/components/icons';
 import { changingHeroTitleModifiers } from '@/lib/constants/texts';
 import { PropsWithVideoDisplayRef } from '@/lib/types/general';
@@ -12,17 +13,7 @@ export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
     <section
       ref={videoDisplayRef}
       className="w-full h-screen bg-dark text-white relative overflow-hidden">
-      <video
-        src="/videos/home-animation.webm"
-        className="object-cover"
-        width="100%"
-        // height="100vh"
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={{ height: '100%' }}
-      />
+      <SmartVideo src="/videos/home-animation.webm" wrapClassName="h-full" />
       <div className="hero-content w-full-h-full absolute inset-0 pinpoint-container touch-events-none">
         <div className="w-full h-full grid place-items-center relative lg:static">
           <div className="w-full grid gap-0">
