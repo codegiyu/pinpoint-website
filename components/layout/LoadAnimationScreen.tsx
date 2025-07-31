@@ -1,14 +1,14 @@
 'use client';
 import useScrollBlock from '@/lib/hooks/use-scroll-block';
 import { usePageStore } from '@/lib/store/usePageStore';
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { memo, useEffect, useState } from 'react';
+import { motion } from 'motion/react';
 import { debounce } from '@/lib/utils/general';
 
 const BASE_LOAD_TIME = 1500; // ms
 const TRANSITION_DURATION = 0.8; // s
 
-export const LoadAnimationScreen = ({ name }: { name: string }) => {
+export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
   const {
     actions: { setPageLoaded },
   } = usePageStore(state => state);
@@ -55,4 +55,5 @@ export const LoadAnimationScreen = ({ name }: { name: string }) => {
       <h2 className="typo-h3 text-white">{name}</h2>
     </motion.section>
   );
-};
+});
+LoadAnimationScreen.displayName = 'LoadAnimationScreen';

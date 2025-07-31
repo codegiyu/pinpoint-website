@@ -2,13 +2,13 @@
 
 import { PageSideCaption } from '@/components/general/PageSideCaption';
 import { intersectionExists } from '@/lib/utils/general';
-import { RefObject, useEffect } from 'react';
+import { memo, RefObject, useEffect } from 'react';
 
 export interface HomeScrollManagerProps {
   refsForObserver: RefObject<HTMLElement | null>[];
 }
 
-export const HomeScrollManager = ({ refsForObserver }: HomeScrollManagerProps) => {
+export const HomeScrollManager = memo(({ refsForObserver }: HomeScrollManagerProps) => {
   useEffect(() => {
     const scrollManager = () => {
       const header = document.getElementById('visible-header');
@@ -70,4 +70,5 @@ export const HomeScrollManager = ({ refsForObserver }: HomeScrollManagerProps) =
   return (
     <PageSideCaption caption="Your Branding, Marketing, and Packaging Solution" noDefaultOpacity />
   );
-};
+});
+HomeScrollManager.displayName = 'HomeScrollManager';

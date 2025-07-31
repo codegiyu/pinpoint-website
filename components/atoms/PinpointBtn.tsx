@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { omit } from 'lodash';
 import { Loader } from 'lucide-react';
-// import { motion } from 'framer-motion';
 import { FlipText } from '../general/ChangingModifier';
 import { LucideIconComp } from '@/lib/types/general';
 

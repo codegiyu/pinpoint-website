@@ -1,13 +1,12 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { GhostBtn } from '../atoms/GhostBtn';
 import { PinpointFull } from '../icons';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../ui/dialog';
 import { usePathname } from 'next/navigation';
 import { langChangeOptions, navlinks } from '@/lib/constants/routing';
-// import { motion } from 'framer-motion';
 import { FlipText } from '../general/ChangingModifier';
 import PinpointContacts from '../general/PinpointContacts';
 
@@ -15,7 +14,7 @@ export interface HeaderProps {
   whiteTextStart?: boolean;
 }
 
-export const Header = ({ whiteTextStart }: HeaderProps) => {
+export const Header = memo(({ whiteTextStart }: HeaderProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [flipTextKey, setFlipTextKey] = useState(0);
   const pathname = usePathname();
@@ -129,7 +128,8 @@ export const Header = ({ whiteTextStart }: HeaderProps) => {
       </Dialog>
     </header>
   );
-};
+});
+Header.displayName = 'Header';
 
 export interface LangChangeLinkProps {
   lang: string;

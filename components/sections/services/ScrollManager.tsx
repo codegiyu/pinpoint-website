@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { HomeScrollManagerProps } from '../home/HomeScrollManager';
 import { intersectionExists } from '@/lib/utils/general';
 
-export const ServiceScrollManager = ({ refsForObserver }: HomeScrollManagerProps) => {
+export const ServiceScrollManager = memo(({ refsForObserver }: HomeScrollManagerProps) => {
   useEffect(() => {
     const scrollManager = () => {
       const header = document.getElementById('visible-header');
@@ -30,4 +30,5 @@ export const ServiceScrollManager = ({ refsForObserver }: HomeScrollManagerProps
   }, [refsForObserver]);
 
   return null;
-};
+});
+ServiceScrollManager.displayName = 'ServiceScrollManager';

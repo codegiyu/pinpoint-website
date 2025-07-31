@@ -5,8 +5,8 @@ import { RegularInput } from '@/components/atoms/RegularInput';
 import { RegularTextarea } from '@/components/atoms/RegularTextarea';
 import { toast } from '@/components/atoms/Toast';
 import { useForm } from '@/lib/hooks/use-form';
-import { useMemo, useState } from 'react';
-import z from 'zod';
+import { memo, useMemo, useState } from 'react';
+import { z } from 'zod';
 import FormAlert from './FormAlert';
 import { cn } from '@/lib/utils';
 import { CheckCheck } from 'lucide-react';
@@ -41,7 +41,7 @@ type JobsFormProps = {
   useFirstRef?: boolean;
 };
 
-export const JobsForm = ({ heading, description, useFirstRef, formName }: JobsFormProps) => {
+export const JobsForm = memo(({ heading, description, useFirstRef, formName }: JobsFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const {
     formValues,
@@ -213,4 +213,5 @@ export const JobsForm = ({ heading, description, useFirstRef, formName }: JobsFo
       </form>
     </section>
   );
-};
+});
+JobsForm.displayName = 'JobsForm';

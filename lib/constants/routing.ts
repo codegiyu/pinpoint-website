@@ -1,6 +1,6 @@
 import { LangChangeLinkProps, NavLinkGroupProps } from '@/components/layout/Header';
 import { ALL_SERVICES_DATA } from './texts';
-import { capitalize } from 'lodash';
+import capitalize from 'lodash/capitalize';
 
 export const langChangeOptions: LangChangeLinkProps[] = [
   { lang: 'fr', href: '/fr' },

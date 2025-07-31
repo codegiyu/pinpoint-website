@@ -14,11 +14,14 @@ export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
       className="w-full h-screen bg-dark text-white relative overflow-hidden">
       <video
         src="/videos/home-animation.webm"
-        className="w-full h-full object-cover"
+        className="object-cover"
+        width="100%"
+        // height="100vh"
         autoPlay
         loop
         muted
         playsInline
+        style={{ height: '100%' }}
       />
       <div className="hero-content w-full-h-full absolute inset-0 pinpoint-container touch-events-none">
         <div className="w-full h-full grid place-items-center relative lg:static">

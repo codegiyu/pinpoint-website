@@ -8,8 +8,9 @@ import { MoveLeft, MoveRight } from 'lucide-react';
 import { OUR_TEAM } from '@/lib/constants/texts';
 import Image from 'next/image';
 import { MacaronTeam, MacaronTeamHand, MacaronTeamPointing } from '@/components/icons';
+import { memo } from 'react';
 
-export const Team = () => {
+export const Team = memo(() => {
   return (
     <section className="w-full bg-gray-f2 pt-[3.75rem]">
       <div className="pinpoint-container relative z-[2]">
@@ -99,7 +100,8 @@ export const Team = () => {
       </div>
     </section>
   );
-};
+});
+Team.displayName = 'Team';
 
 export interface TeamSlideProps {
   name: string;

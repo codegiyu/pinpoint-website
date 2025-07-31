@@ -19,7 +19,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { capitalize } from 'lodash';
+import capitalize from 'lodash/capitalize';
 import { Loader2, X } from 'lucide-react';
 import { DropdownOption, HoverDropdown } from '@/components/atoms/HoverDropdown';
 
