@@ -9,12 +9,20 @@ type SmartVideoProps = {
   className?: string;
   wrapClassName?: string;
   poster?: string;
+  threshold?: number;
 };
+const DEFAULT_THRESHOLD = 0.4;
 
-export function SmartVideo({ src, className, wrapClassName, poster }: SmartVideoProps) {
+export function SmartVideo({
+  src,
+  className,
+  wrapClassName,
+  poster,
+  threshold = DEFAULT_THRESHOLD,
+}: SmartVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { ref, inView } = useInView({
-    threshold: 0.25, // play only if at least 25% is visible
+    threshold: threshold > 1 ? DEFAULT_THRESHOLD : threshold <= 0 ? DEFAULT_THRESHOLD : threshold, // play only if at least `${threshold}` is visible
   });
 
   useEffect(() => {

@@ -70,7 +70,7 @@ const ServiceCard = memo(({ name, breakdown, href, videoUrl, isLast }: ServiceCa
           onMouseEnter: () => setCardHovered(true),
           onMouseLeave: () => setCardHovered(false),
         }}
-        className={`w-full py-10 md:py-[2.875rem] xl:py-[clamp(46px,_3.433vw,_58px)] md:border lg:border-x-0 
+        className={`w-full py-10 sm:py-18 md:py-[2.875rem] xl:py-[clamp(46px,_3.433vw,_58px)] md:border lg:border-x-0 
           ${isLast ? 'lg:border-y-0' : 'lg:border-t-0'} border-white/25 group-hover:border-white relative z-10`}
         wrapClassName="group peer relative z-[6] before:hidden lg:before:block lg:before:absolute before:-top-[9px] 
         before:left-1/2 before:-translate-x-1/2 before:z-[5] before:w-[51.75rem] before:h-[calc(100%_+_10px)]
@@ -110,7 +110,18 @@ const ServiceCard = memo(({ name, breakdown, href, videoUrl, isLast }: ServiceCa
       <div className="video-box w-full h-full absolute inset-0 opacity-100 md:opacity-0 lg:peer-hover:opacity-100 transition-opacity duration-300 peer-hover:duration-100 ease-linear">
         <SmartVideo
           src={videoUrl}
-          wrapClassName="h-full"
+          wrapClassName="h-full mobile-video md:hidden"
+          className={`scale-110 relative z-[4]
+            ${
+              !isLargeScreen || (isLargeScreen && cardHovered)
+                ? 'animate-[zoom-out_0.8s_ease-out_forwards]'
+                : ''
+            }`}
+          threshold={1}
+        />
+        <SmartVideo
+          src={videoUrl}
+          wrapClassName="h-full hidden md:block"
           className={`scale-110 relative z-[4]
             ${
               !isLargeScreen || (isLargeScreen && cardHovered)
