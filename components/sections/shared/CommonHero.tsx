@@ -8,6 +8,7 @@ import Image, { ImageProps } from 'next/image';
 import { ReactNode } from 'react';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { SmartVideo } from '@/components/general/SmartVideo';
+import { motion } from 'motion/react';
 
 interface BaseCommonHeroProps {
   caption: string;
@@ -39,7 +40,11 @@ export const CommonHero = ({
   bottomStripBackground,
 }: CommonHeroProps) => {
   return (
-    <section className="w-full relative">
+    <motion.section
+      initial={{ opacity: 0, translateY: -50 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ duration: 1.4, delay: 2 }}
+      className="w-full relative">
       <CommonHeroTextSection {...{ caption, title, description }} />
 
       {(imageProps || videoURL) && (
@@ -65,7 +70,7 @@ export const CommonHero = ({
       <div className="w-full h-[21.875rem] hidden md:block absolute -bottom-[15rem] z-0">
         <div className={cn('w-full h-[150%] bg-gray-f2', bottomStripBackground)}></div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
@@ -91,10 +96,13 @@ export const CommonHeroTextSection = ({
         className={`w-full ${leanUI ? '' : 'max-h-[47.5rem] lg:max-h-none'} grid gap-[1.875rem] 
        lg:ml-[4.375rem] xl:ml-0 relative `}>
         <PageHeroCaption caption={caption} />
-        <h1
+        <motion.h1
+          initial={{ y: 60, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: 2 }}
           className={`${leanUI ? '' : 'min-h-[34vh] md:min-h-auto'} typo-h2-hero md:text-[clamp(51px,_3.933vw,_88px)]`}>
           {title}
-        </h1>
+        </motion.h1>
         {!leanUI && (
           <div className="w-full absolute -bottom-9 flex md:hidden justify-end">
             <HeroArrow className="" />
@@ -102,9 +110,9 @@ export const CommonHeroTextSection = ({
         )}
 
         {description && isTabletScreenAndAbove && (
-          <div className=" max-w-[900px] typo-body-2 lg:typo-body-1 lg:text-[18px] lg:tracking-wide xl:text-[clamp(1.25rem,_1.2vw,_2.25rem)] 2xl:tracking-[0.028em] 2xl:leading-10 font-light leading-9 md:leading-8 md:tracking-[0.018em] md:text-base md:text-nowrap">
+          <motion.div className=" max-w-[900px] typo-body-2 lg:typo-body-1 lg:text-[18px] lg:tracking-wide xl:text-[clamp(1.25rem,_1.2vw,_2.25rem)] 2xl:tracking-[0.028em] 2xl:leading-10 font-light leading-9 md:leading-8 md:tracking-[0.018em] md:text-base md:text-nowrap">
             {description}
-          </div>
+          </motion.div>
         )}
         <div className="w-full absolute -bottom-9 flex md:hidden justify-end">
           <HeroArrow className="" />
@@ -126,7 +134,10 @@ export const FormPageHeadingSection = ({
   className?: string;
 }) => {
   return (
-    <section
+    <motion.section
+      initial={{ opacity: 0, translateY: 50 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ duration: 1, delay: 2.3 }}
       className={cn(
         'form-page-container grid gap-6 xl:gap-[clamp(48px,_3.582vw,_62px)] \
         pt-[164px] pb-[42px] md:pt-[234px] md:pb-[80px] lg:pt-[230px] \
@@ -146,6 +157,6 @@ export const FormPageHeadingSection = ({
           ))}
         </div>
       )}
-    </section>
+    </motion.section>
   );
 };
