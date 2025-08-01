@@ -2,6 +2,7 @@ import { GhostBtn } from '@/components/atoms/GhostBtn';
 
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { motion } from 'motion/react';
 
 export interface JobsCTAProps {
   variant?: 'white' | 'gray';
@@ -9,6 +10,7 @@ export interface JobsCTAProps {
   description: string;
   btnText?: string;
   href: string;
+  index?: number;
 }
 
 export const JobsCTA = ({
@@ -17,6 +19,7 @@ export const JobsCTA = ({
   description,
   btnText = 'Discover the opportunity',
   href,
+  index,
 }: JobsCTAProps) => {
   const containerBgClass = variant === 'gray' ? 'bg-gray-f2' : 'bg-gray-f2 md:bg-gray-f2';
   const bgClass = variant === 'white' ? 'before:bg-white ' : 'before:bg-gray-f2 md:before:bg-white';
@@ -24,7 +27,11 @@ export const JobsCTA = ({
   return (
     <section
       className={`w-full mx-auto ${containerBgClass} flex justify-center pt-4  pb-[1.125rem] md:pt-[1.75rem] md:pb-[1.125rem] px-6 lg:pt-[2.25rem] lg:pb-[2.25rem] xl:pt-[clamp(26px,_1.557vw,_145px)] xl:pb-[clamp(20px,_1.551vw,_165px)] relative z-[3]`}>
-      <div className="pinpoint-container-mobile-w-full lg:w-[76vw] xl:w-[76vw] 2xl:w-[67vw]">
+      <motion.div
+        initial={{ y: -60, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, delay: index && index * 0.4 }}
+        className="pinpoint-container-mobile-w-full lg:w-[76vw] xl:w-[76vw] 2xl:w-[67vw]">
         <GhostBtn
           linkProps={{ href: href }}
           className={`w-full  bg-transparent flex-none py-10 md:py-[3.125rem] px-14 lg:px-[clamp(5rem,_1.557vw,_55px)] lg:py-[clamp(5rem,_1.557vw,_45px)] xl:p-[clamp(80px,_4.97vw,_120px)] 2xl:py-[6rem] `}
@@ -45,24 +52,9 @@ export const JobsCTA = ({
               )}>
               <span className="xl:px-[0.9375rem] text-[15.5px] text-nowrap">{btnText}</span>
             </div>
-
-            {/* <div
-              className={cn(
-                buttonVariants({ variant: 'default', size: 'default', typo: 'default' }),
-                ' justify-self-start group overflow-hidden relative self-start lg:self-end max-w-[250px] md:max-w-[270px] xl:max-w-[300px] lg:mx-auto'
-              )}>
-              <span className="grid overflow-hidden  h-full">
-                <span className="xl:px-[0.9375rem] text-[15.5px] text-nowrap block relative top-0 h-fit group-hover:animate-[slideY_0.2s_ease-in-out_forwards]">
-                  {btnText}
-                </span>
-                <span className="xl:px-[0.9375rem] text-[15.5px] text-nowrap absolute top-1/2 h-full group-hover:animate-[slideY_0.2s_ease-in-out_forwards]">
-                  {btnText}
-                </span>
-              </span>
-            </div> */}
           </div>
         </GhostBtn>
-      </div>
+      </motion.div>
     </section>
   );
 };

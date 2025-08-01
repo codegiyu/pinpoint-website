@@ -43,7 +43,7 @@ export default function JobsPage() {
       )}
       <div className="pt-[clamp(65px,_4.551vw,_165px)] bg-gray-f2">
         {jobCards.map((card, index) => (
-          <JobsCTA {...card} key={index} />
+          <JobsCTA {...card} index={index} key={index} />
         ))}
       </div>
       <JobsFooter />

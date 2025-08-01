@@ -3,6 +3,7 @@ import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { FlipText } from '@/components/general/ChangingModifier';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { motion } from 'motion/react';
 import { useState } from 'react';
 
 export interface CTAProps {
@@ -22,7 +23,11 @@ export const CTA = ({ variant = 'white', className }: CTAProps) => {
       lg:pt-[7.25rem] lg:pb-[8.25rem] xl:pt-[clamp(116px,_8.657vw,_145px)] xl:pb-[clamp(132px,_9.851vw,_165px)] relative z-[3]`,
         className
       )}>
-      <div className="pinpoint-container-mobile-w-full">
+      <motion.div
+        initial={{ opacity: 0, translateY: 50 }}
+        whileInView={{ opacity: 1, translateY: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="pinpoint-container-mobile-w-full">
         <GhostBtn
           linkProps={{ href: '/starting-a-new-project' }}
           className={`w-full flex-none bg-transparent py-10 md:py-[3.125rem] lg:py-[4.25rem] xl:p-[clamp(80px,_5.97vw,_120px)]`}
@@ -46,7 +51,7 @@ export const CTA = ({ variant = 'white', className }: CTAProps) => {
             </div>
           </div>
         </GhostBtn>
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -1,3 +1,4 @@
+'use client';
 import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { JobsForm } from '@/components/sections/forms/JobsForm';
@@ -19,6 +20,7 @@ export default function JoinOurTeamPage() {
           }}
           description="Send your CV"
           formName="Spontaneous Application"
+          transitionDelay={0.7}
         />
       </div>
       <Footer />

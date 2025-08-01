@@ -1,13 +1,19 @@
+'use client';
 import { contactInformation } from '@/lib/constants/texts';
 import { PinpointSocials } from '@/components/general/Socials';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { PinpointFull } from '@/components/icons';
 import { ContactsGroup } from '@/components/general/PinpointContacts';
+import { motion } from 'motion/react';
 
 export default function Footer() {
   return (
     <footer className="footer bg-gray-f2 w-full py-10 lg:py-28">
-      <section className="pinpoint-container-mobile-w-full md:bg-white md:py-14 lg:py-16 2xl:py-20">
+      <motion.section
+        initial={{ opacity: 0, translateY: 50 }}
+        whileInView={{ opacity: 1, translateY: 0 }}
+        transition={{ duration: 0.7, delay: 0.3 }}
+        className="pinpoint-container-mobile-w-full md:bg-white md:py-14 lg:py-16 2xl:py-20">
         <div className="flex-none w-[85.8vw] max-w-[495px] md:w-[28.4375rem] md:max-w-none lg:w-[38.25rem] xl:w-[48.875rem] 2xl:w-[59.375rem] grid gap-6 mx-auto relative z-[3]">
           <div className="w-fit grid gap-5 pb-8">
             <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
@@ -32,7 +38,7 @@ export default function Footer() {
             <PinpointSocials variant="black" />
           </div>
         </div>
-      </section>
+      </motion.section>
     </footer>
   );
 }
