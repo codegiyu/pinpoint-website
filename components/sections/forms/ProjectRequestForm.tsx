@@ -11,6 +11,7 @@ import FormAlert from './FormAlert';
 import { CheckCheck } from 'lucide-react';
 import { MultiSelect } from '@/components/atoms/MultiSelect';
 import { generateOptionsFromArray } from '@/lib/utils/general';
+import { motion } from 'motion/react';
 
 const formSchema = z.object({
   name: z.string().min(3, { error: 'Please enter at least 3 characters' }),
@@ -118,7 +119,12 @@ export const ProjectRequestForm = memo(
 
     return (
       <section className="w-full pb-20 md:pb-[95px]">
-        <form onSubmit={handleSubmit} className="form-page-container grid gap-14">
+        <motion.form
+          initial={{ opacity: 0, translateY: 50 }}
+          whileInView={{ opacity: 1, translateY: 0 }}
+          transition={{ duration: 1, delay: 0.7 }}
+          onSubmit={handleSubmit}
+          className="form-page-container grid gap-14">
           <div className="inputs-wrap grid gap-5">
             <div className="w-full grid gap-x-4 gap-y-8 md:grid-cols-2">
               <RegularInput
@@ -190,7 +196,7 @@ export const ProjectRequestForm = memo(
             />
             <FormAlert />
           </div>
-        </form>
+        </motion.form>
       </section>
     );
   }

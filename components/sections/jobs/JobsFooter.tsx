@@ -1,9 +1,14 @@
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
+import { motion } from 'motion/react';
 
 export default function JobsFooter() {
   return (
     <section className=" pb-20 px-4 bg-gray-f2 ">
-      <div className=" py-16 space-y-8  grid place-items-center gap-6 bg-gray-f2">
+      <motion.div
+        initial={{ y: -60, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
+        className=" py-16 space-y-8  grid place-items-center gap-6 bg-gray-f2">
         <p className="typo-body-3 text-[15.5px] md:text-[1.2rem] leading-8 font-light w-9/10 mx-auto break-words md:w-5/10 text-center">
           No offer corresponding to your profile but you have an exceptional talent to share?
         </p>
@@ -15,7 +20,7 @@ export default function JobsFooter() {
             href: '/join-our-team',
           }}
         />
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import { FullJobProps } from '@/app/jobs/[job]/page';
+import { motion } from 'motion/react';
 
 type JobDetailsProps = Partial<Pick<FullJobProps, 'profile' | 'offer' | 'jobDescription' | 'Ps'>>;
 
@@ -25,7 +26,11 @@ export default function JobDetails({
 }: JobDetailsProps) {
   return (
     <section className="relative z-10 py-18 md:py-24 bg-gray-f2 w-full h-full">
-      <div className="pinpoint-container lg:pl-30 grid gap-12 md:gap-16">
+      <motion.div
+        initial={{ opacity: 0, translateY: -50 }}
+        whileInView={{ opacity: 1, translateY: 0 }}
+        transition={{ duration: 0.7, delay: 0.2 }}
+        className="pinpoint-container lg:pl-30 grid gap-12 md:gap-16">
         {profile.length > 0 && <ListUI heading="Profile we are looking for:" list={profile} />}
         {offer.length > 0 && <ListUI heading="Our Offer" list={offer} />}
 
@@ -33,7 +38,7 @@ export default function JobDetails({
           jobDescription.map((item, index) => <ParagraphUI {...item} key={index} />)}
 
         <p className="typo-body-2 tracking-wide italic">{Ps}</p>
-      </div>
+      </motion.div>
     </section>
   );
 }
