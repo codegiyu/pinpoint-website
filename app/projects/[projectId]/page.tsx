@@ -1,18 +1,17 @@
-'use client';
-
 import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { ProjectIntroduction } from '@/components/sections/works/ProjectIntroduction';
 import { RelatedProjects } from '@/components/sections/works/RelatedProjects';
 import { RenderedService } from '@/components/sections/works/RenderedService';
-import { ALL_PROJECTS_DATA, AvailableService } from '@/lib/constants/texts';
+import { AvailableProject, AvailableService } from '@/lib/constants/texts';
 import { ImageOrVideoURL } from '@/lib/types/general';
+import { getProjectById } from '@/lib/utils/transform';
 import { notFound } from 'next/navigation';
-import { ComponentPropsWithoutRef, use, useMemo } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 
 export interface FullProjectData {
-  id: string;
+  id: AvailableProject;
   name: string;
   pageTitle: string;
   descSummary: string;
@@ -27,6 +26,7 @@ export interface FullProjectData {
   sectors: string[];
   createdWebsite: string;
   renderedServices: RenderedServiceProps[];
+  relatedProjects: AvailableProject[];
 }
 
 export interface RenderedServiceProps {
@@ -39,25 +39,16 @@ export interface RenderedServiceProps {
   images: (ComponentPropsWithoutRef<'img'> & { alt: string })[];
 }
 
-interface Params {
-  projectId: string;
+interface Props {
+  params: Promise<{
+    projectId: string;
+  }>;
 }
 
-export default function ServicePage(props: { params: Promise<Params> }) {
-  const { projectId } = use<Params>(props.params);
+export default async function ProjectPage({ params }: Props) {
+  const projectData = getProjectById((await params).projectId);
 
-  const projectData = ALL_PROJECTS_DATA.find(item => item.id === projectId);
-
-  const relatedProjects = useMemo(() => {
-    return ALL_PROJECTS_DATA.slice(0, 2).map(project => ({
-      projectId: project.id,
-      name: project.name,
-      image: project.cardImage,
-      description: project.pageTitle,
-    }));
-  }, []);
-
-  if (!projectData) notFound();
+  if (!projectData) return notFound();
 
   const {
     name,
@@ -67,11 +58,13 @@ export default function ServicePage(props: { params: Promise<Params> }) {
     textColorClass,
     descriptionHighlightPhotos,
     description,
-    services,
+    serviceBreakdown,
     extraServices,
     createdWebsite,
     renderedServices,
+    relatedProjects,
   } = projectData;
+
   return (
     <MainLayout pageName={name}>
       <CommonHero
@@ -87,7 +80,7 @@ export default function ServicePage(props: { params: Promise<Params> }) {
           description,
           descriptionBg,
           descriptionHighlightPhotos,
-          services,
+          serviceBreakdown,
           extraServices,
           createdWebsite,
           textColorClass,

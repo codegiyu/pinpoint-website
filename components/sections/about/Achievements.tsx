@@ -1,10 +1,9 @@
 import { AnimatedCounter } from '@/components/general/AnimatedCounter';
 import { SectionHeader } from '@/components/general/SectionHeader';
-import { OUR_ACHIEVEMENTS } from '@/lib/constants/texts';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
-export const OurAchievements = () => {
+export const OurAchievements = ({ achievements }: { achievements: AchievementBlockProps[] }) => {
   return (
     <section className="w-full relative pt-[3.75rem] md:pt-0 1400:pb-[6.25rem]">
       <div className="w-full md:absolute md:inset-0">
@@ -25,7 +24,7 @@ export const OurAchievements = () => {
           className="w-full 1400:w-[1024px] 2xl:w-[1200px] 3xl:w-[1300px] h-auto 
           md:h-[100vw] lg:h-[75vw] 1400:h-[794px] 3xl:h-[50vw] grid md:grid-cols-3 
           lg:grid-cols-4 md:grid-rows-3 mx-auto relative z-[1]">
-          {OUR_ACHIEVEMENTS.map((item, idx) => (
+          {achievements.map((item, idx) => (
             <AchievementBlock key={idx} {...item} />
           ))}
           <div

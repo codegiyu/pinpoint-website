@@ -1,13 +1,28 @@
-'use client';
-
 import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import Footer from '@/components/layout/Footer';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { CommonHeroTextSection } from '@/components/sections/shared/CommonHero';
 import { WorksDisplay } from '@/components/sections/works/WorksDisplay';
+import { filterProjects, getProvenServicesAndSectors } from '@/lib/utils/transform';
 import { Suspense } from 'react';
 
-export default function OurWorksPage() {
+interface Props {
+  searchParams: Promise<{
+    sector?: string;
+    service?: string;
+    limit?: string;
+  }>;
+}
+
+export const dynamic = 'force-dynamic';
+
+export default async function OurWorksPage({ searchParams }: Props) {
+  const search = await searchParams;
+
+  const { provenSectors, provenServices } = getProvenServicesAndSectors();
+  const projects = await filterProjects(search);
+  console.log({ projects, search });
+
   return (
     <MainLayout pageName="Our Works" className="bg-gray-f2 lg:bg-white">
       <CommonHeroTextSection
@@ -16,7 +31,11 @@ export default function OurWorksPage() {
         leanUI
       />
       <Suspense fallback={null}>
-        <WorksDisplay />
+        <WorksDisplay
+          projects={projects}
+          provenSectors={provenSectors}
+          provenServices={provenServices}
+        />
       </Suspense>
       <Footer />
       <PageSideDecoration caption="Our Case Studies" />

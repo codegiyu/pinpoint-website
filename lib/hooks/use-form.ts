@@ -52,7 +52,7 @@ export interface UseFormReturn<TSchema extends ZodType<any>> {
   ) => void;
   onChange: (
     name: keyof z.TypeOf<TSchema>,
-    value: string,
+    value: string | string[] | number | boolean,
     options?: {
       clearFields?: (keyof z.TypeOf<TSchema>)[];
     }
@@ -113,7 +113,7 @@ export const useForm = <TSchema extends ZodType<any>>({
 
   const onChange = (
     name: keyof FormValues,
-    value: string,
+    value: string | string[] | number | boolean,
     options?: { clearFields?: (keyof FormValues)[] }
   ) => {
     setFormValues(prev => {

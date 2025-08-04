@@ -5,12 +5,11 @@ import { Manipulation, A11y, Pagination, Navigation } from 'swiper/modules';
 import { SectionHeader } from '@/components/general/SectionHeader';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { MoveLeft, MoveRight } from 'lucide-react';
-import { OUR_TEAM } from '@/lib/constants/texts';
 import Image from 'next/image';
 import { MacaronTeam, MacaronTeamHand, MacaronTeamPointing } from '@/components/icons';
 import { memo } from 'react';
 
-export const Team = memo(() => {
+export const Team = memo(({ team }: { team: TeamSlideProps[] }) => {
   return (
     <section className="w-full bg-gray-f2 pt-[3.75rem]">
       <div className="pinpoint-container relative z-[2]">
@@ -38,7 +37,7 @@ export const Team = memo(() => {
             });
           }}
           className="mySwiper w-full h-auto flex items-center justify-start flex-nowrap relative">
-          {OUR_TEAM.map((teamMember, idx) => (
+          {team.map((teamMember, idx) => (
             <SwiperSlide
               key={idx}
               className={`!w-[85vw] !max-w-[450px] md:!max-w-none md:!w-[298px] 

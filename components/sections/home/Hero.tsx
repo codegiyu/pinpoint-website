@@ -6,13 +6,10 @@ import { HeroArrow } from '@/components/general/HeroArrow';
 import { SmartVideo } from '@/components/general/SmartVideo';
 import { MacaronTextEn, MacaronTextePlayEn } from '@/components/icons';
 import { changingHeroTitleModifiers } from '@/lib/constants/texts';
-import { PropsWithVideoDisplayRef } from '@/lib/types/general';
 
-export const HomeHero = ({ videoDisplayRef }: PropsWithVideoDisplayRef) => {
+export const HomeHero = () => {
   return (
-    <section
-      ref={videoDisplayRef}
-      className="w-full h-screen bg-dark text-white relative overflow-hidden">
+    <section id="hero" className="w-full h-screen bg-dark text-white relative overflow-hidden">
       <SmartVideo src="/videos/home-animation.webm" wrapClassName="h-full" />
       <div className="hero-content w-full-h-full absolute inset-0 pinpoint-container touch-events-none">
         <div className="w-full h-full grid place-items-center relative lg:static">

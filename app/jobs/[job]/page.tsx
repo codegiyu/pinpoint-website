@@ -1,12 +1,11 @@
-'use client';
 import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { JobsForm } from '@/components/sections/forms/JobsForm';
 import JobDetails, { JobDescription } from '@/components/sections/jobs/JobDetails';
 import Footer from '@/components/layout/Footer';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
-import { ALL_JOBS_DATA } from '@/lib/constants/texts';
-import { notFound, useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
+import { getJobById } from '@/lib/utils/transform';
 
 export interface FullJobProps {
   id: string;
@@ -19,12 +18,16 @@ export interface FullJobProps {
   jobDescription: JobDescription[];
 }
 
-export default function JobOpportunityPage() {
-  const { job } = useParams();
+interface Props {
+  params: Promise<{
+    job: string;
+  }>;
+}
 
-  const jobData = ALL_JOBS_DATA.find(data => data.id === job);
+export default async function JobOpportunityPage({ params }: Props) {
+  const jobData = getJobById((await params).job);
 
-  if (!jobData) notFound();
+  if (!jobData) return notFound();
 
   return (
     <MainLayout pageName={jobData.title}>

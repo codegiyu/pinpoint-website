@@ -2,51 +2,44 @@
 
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { SmartVideo } from '@/components/general/SmartVideo';
-import { servicesSummary } from '@/lib/constants/texts';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { cn } from '@/lib/utils';
 import { splitArrayInTwo, splitTextIntoTwoWithBrTag } from '@/lib/utils/general';
 import { MoveRight } from 'lucide-react';
-import { ComponentPropsWithRef, memo, RefObject, useState } from 'react';
+import { ComponentPropsWithRef, memo, useState } from 'react';
 
 interface WhatWeDoProps {
-  sectionVideoDisplayRef?: RefObject<HTMLElement | null>;
-  listVideoDisplayRef?: RefObject<HTMLElement | null>;
-  customProps?: {
-    sectionName: string;
-    services: ServiceCardProps[];
-  };
+  sectionName?: string;
+  services: ServiceCardProps[];
 }
 
-export const WhatWeDo = memo(
-  ({ sectionVideoDisplayRef, listVideoDisplayRef, customProps }: WhatWeDoProps) => {
-    return (
-      <section
-        ref={sectionVideoDisplayRef}
-        className={`w-full bg-gray-f2 md:bg-dark grid gap-10 md:gap-5 
+export const WhatWeDo = memo(({ sectionName, services }: WhatWeDoProps) => {
+  return (
+    <section
+      id="what-we-do"
+      className={`w-full bg-gray-f2 md:bg-dark grid gap-10 md:gap-5 
       xl:gap-[clamp(20px,_1.493vw,_30px)] py-0 md:pt-[4.375rem] overflow-hidden
-      xl:pt-[clamp(70px,_5.224vw,_88px)] ${customProps ? '' : 'relative'} z-[3]`}>
-        <p
-          className={`pinpoint-container typo-caption-small uppercase 
+      xl:pt-[clamp(70px,_5.224vw,_88px)] ${sectionName ? '' : 'relative'} z-[3]`}>
+      <p
+        className={`pinpoint-container typo-caption-small uppercase 
         md:text-white/85 mb-[2px] relative z-[10]`}>
-          {customProps?.sectionName || 'What We Do'}
-        </p>
+        {sectionName || 'What We Do'}
+      </p>
 
-        <section
-          ref={listVideoDisplayRef}
-          className="w-full max-w-full md:max-w-none md:w-[595px] lg:w-[684px] xl:w-[782px] 2xl:w-[950px] 3xl:w-[1024px] mx-auto">
-          <ul
-            id="services-list"
-            className="w-full grid md:gap-[3.375rem] lg:gap-0 md:pt-10 md:pb-[3.125rem] lg:pt-5 xl:pt-[clamp(60px,_4.478vw,_112px)] xl:pb-[clamp(60px,_4.478vw,_112px)]">
-            {(customProps?.services || servicesSummary).map((item, idx, arr) => (
-              <ServiceCard key={idx} {...item} isLast={idx === arr.length - 1} />
-            ))}
-          </ul>
-        </section>
+      <section
+        id="what-we-do-inner"
+        className="w-full max-w-full md:max-w-none md:w-[595px] lg:w-[684px] xl:w-[782px] 2xl:w-[950px] 3xl:w-[1024px] mx-auto">
+        <ul
+          id="services-list"
+          className="w-full grid md:gap-[3.375rem] lg:gap-0 md:pt-10 md:pb-[3.125rem] lg:pt-5 xl:pt-[clamp(60px,_4.478vw,_112px)] xl:pb-[clamp(60px,_4.478vw,_112px)]">
+          {services.map((item, idx, arr) => (
+            <ServiceCard key={idx} {...item} isLast={idx === arr.length - 1} />
+          ))}
+        </ul>
       </section>
-    );
-  }
-);
+    </section>
+  );
+});
 WhatWeDo.displayName = 'WhatWeDo';
 
 export interface ServiceCardProps {

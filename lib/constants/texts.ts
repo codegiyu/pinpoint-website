@@ -1,18 +1,14 @@
 import { FullProjectData } from '@/app/projects/[projectId]/page';
 import { FullServiceData } from '@/app/services/[service]/page';
-import { CaseStudySummaryProps } from '@/components/sections/home/CaseStudies';
-import { ServiceCardProps } from '@/components/sections/home/WhatWeDo';
 import SvgInstagramIcon from '@/components/icons/InstagramIcon';
 import SvgFacebookIcon from '@/components/icons/FacebookIcon';
-import { WorkCardProps } from '@/components/sections/works/WorksDisplay';
 import { ReferenceProps } from '@/components/sections/about/References';
 import { AchievementBlockProps } from '@/components/sections/about/Achievements';
 import { TeamSlideProps } from '@/components/sections/about/Team';
 import { SocialBtnProps } from '@/components/general/Socials';
 import { ContactsGroupProps } from '@/components/general/PinpointContacts';
-import { JobsCTAProps } from '@/components/sections/jobs/JobsCTA';
-import { FullJobProps } from '@/app/jobs/[job]/page';
 import { TiktokIcon } from '@/components/icons';
+import { FullJobProps } from '@/app/jobs/[job]/page';
 
 export const changingHeroTitleModifiers: string[] = [
   'brands',
@@ -45,13 +41,15 @@ export const contactInformation: ContactsGroupProps[] = [
   },
   {
     location: 'Benue',
-    address: 'No.18 Aba Close Area 8 Garki, Abuja.',
+    address: 'No. 8, 7th Avenue Inikpi street, High level.',
     tel: [],
     email: 'benue@pinpoint.ng',
   },
   {
     location: 'China',
-    address: 'No.18 Aba Close Area 8 Garki, Abuja.',
+    address:
+      'No. 36, Qingyuan Road, Jinfeng Town Zhangjiagang, \
+      Suzhou City, Jiangsu Province, China.',
     tel: ['+86 1958 7410 572'],
     email: 'china@pinpoint.ng',
   },
@@ -85,7 +83,7 @@ export const pinpointSocials: SocialBtnProps[] = [
   },
 ];
 
-export const selectedCaseStudies: string[] = ['tahwil-solutions', 'fipra', 'eortc'];
+export const selectedCaseStudies: AvailableProject[] = ['tahwil_solutions', 'gusto', 'afropay'];
 
 export const ourStoryTexts: string[] = [
   'Founded in 2020, Pinpoint Global was born from the desire to provide brands \
@@ -119,28 +117,29 @@ export const ourStoryTexts: string[] = [
 
 export const OUR_ACHIEVEMENTS: AchievementBlockProps[] = [
   {
-    number: 17,
+    number: 50,
+    numberSuffix: '+',
     desc: 'Awards & Recognitions',
     className:
       'grid bg-gray-f2 md:col-start-3 md:col-end-4 lg:col-start-4 lg:col-end-5 md:row-start-1 md:row-end-2',
   },
   {
-    number: 15,
+    number: 5,
     desc: 'Years of experience',
     className:
       'grid bg-dark text-white md:col-start-1 md:col-end-2 lg:col-start-2 lg:col-end-3 md:row-start-2 md:row-end-3',
   },
   {
-    number: 300,
+    number: 1000,
     numberSuffix: '+',
-    desc: 'Projects launched',
+    desc: 'Brands Worked with',
     className:
       'grid bg-white md:col-start-1 md:col-end-2 lg:col-start-2 lg:col-end-3 md:row-start-3 md:row-end-4',
   },
   {
     number: 10,
-    numberSuffix: '+',
-    desc: 'Coffee drunk today',
+    numberSuffix: 'K+',
+    desc: 'Projects completed',
     className: 'hidden lg:grid bg-gray-d9 lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4',
   },
 ];
@@ -213,287 +212,6 @@ export const newProjectTexts: string[] = [
   exceed your expectations.',
 ];
 
-// export const ATELIER_SERVICES_DATA: FullServiceData[] = [
-//   {
-//     id: 'communication-strategy',
-//     name: 'Communication Strategy',
-//     pageTitle: 'We plan communication strategies that build your success',
-//     videoUrl: '/videos/branding-animation.webm',
-//     description:
-//       'In our communication agency, we orchestrate interactive and creative workshops to \
-//       jointly define the future of your communication strategy. This strategic approach \
-//       lays the foundation on which all other communication tools are developed, such as \
-//       logo creation, website development, and the production of various communication \
-//       supports. Our approach ensures that each developed tool is aligned with a coherent \
-//       strategy, thereby strengthening your message and optimizing your impact on your target audience.',
-//     expertise: {
-//       title: 'What we do',
-//       breakdown: [
-//         {
-//           title: 'We think digital',
-//           services: [
-//             'Audience Targeting',
-//             'Data Analysis',
-//             'Content Strategy',
-//             'Information Architecture',
-//             'Technical Analysis',
-//             'Planification',
-//             'Storytelling',
-//           ],
-//         },
-//         {
-//           title: 'We think brands',
-//           services: [
-//             'Analysis & Audit',
-//             'Positioning',
-//             'Value Proposition',
-//             'Brand Culture',
-//             'Brand Message',
-//             'Planification',
-//             'Storytelling',
-//           ],
-//         },
-//       ],
-//       highlightImage: '/images/communication-strategy-highlight.webp',
-//       marqueeText: 'Write your story',
-//     },
-//     breakdownSummary: [
-//       'Branding & positioning',
-//       'Digital strategy',
-//       'Content strategy',
-//       'Naming',
-//       'Research & analysis',
-//     ],
-//     whatMakesUsUnique: {
-//       title: 'Our long-term and qualitative vision',
-//       groups: [
-//         {
-//           title: 'Custom-made',
-//           text: 'We adapt our strategic solutions to your real needs in order \
-//           to develop communication tools that are unique to your project.',
-//         },
-//         {
-//           title: 'User and Audience Centric',
-//           text: 'Through interactive and creative workshops, we will be able to \
-//           establish the focal points to connect with your audience. This will \
-//           allow you to understand their logic and meet their needs in the best possible way.',
-//         },
-//         {
-//           title: 'Your story, your voice',
-//           text: "It is scientifically proven that stories grab a person's attention. \
-//           Our strategic workshops will help to build a powerful storytelling strategy \
-//           that not only makes sense but also builds an emotional and lasting connection \
-//           with your target audience. It will also define the right tone of voice that \
-//           is a perfect fit with their cultural language and behaviours.",
-//         },
-//         {
-//           title: 'All in confidence',
-//           text: "Your trust is important to us. We know that sometimes we touch a sensitive \
-//           chord. It's your company, your history, your values. All our workshops take place \
-//           indoors and all the information collected remains confidential between you and us.",
-//         },
-//       ],
-//     },
-//     menu: {
-//       image: '',
-//       className: '',
-//     },
-//   },
-//   {
-//     id: 'brand-identity',
-//     name: 'Brand Identity',
-//     pageTitle: 'Get all the attention you deserve',
-//     videoUrl: '/videos/print-animation.webm',
-//     description:
-//       'Give your brand a unique personality and ensure its immediate recognition \
-//       by collaborating with our communication agency in Brussels. We help you \
-//       create a logo that truly reflects your vision and values, making it a \
-//       cornerstone of your communication. We build visual identities that do \
-//       more than catch the eye; they actively support your communication goals, \
-//       establishing an authentic connection with your audience.',
-//     expertise: {
-//       title: 'Master every detail, create the extraordinary',
-//       breakdown: [
-//         {
-//           title: 'We think',
-//           services: [
-//             'Research & Analysis',
-//             'Brand Strategy',
-//             'Brand Positionining',
-//             'Brand Messaging',
-//             'Audience Tracking',
-//             'Planification',
-//           ],
-//         },
-//         {
-//           title: 'We create',
-//           services: [
-//             'Logotypes',
-//             'Namings',
-//             'Brand Identities',
-//             'Storytellings',
-//             'Visual & Motion Contents',
-//           ],
-//         },
-//         {
-//           title: 'We achieve',
-//           services: [
-//             'Print Collaterals',
-//             'Promotional Tools',
-//             'Annual Reports',
-//             'Signages',
-//             'Packagings',
-//             'Websites',
-//           ],
-//         },
-//       ],
-//       highlightImage: '/images/brand-identity-highlight.webp',
-//       marqueeText: 'Be authentic, consistent & memorable',
-//     },
-//     breakdownSummary: [
-//       'Logotype',
-//       'Printed materials',
-//       'Storytelling & copywrinting',
-//       'Graphic design',
-//       'Photography',
-//     ],
-//     whatMakesUsUnique: {
-//       title: 'Our long-term and qualitative vision',
-//       groups: [
-//         {
-//           title: 'Tailor-made',
-//           text: 'Because we are convinced that every project is unique, we \
-//           automatically propose tailor-made solutions. We concentrate our \
-//           energy into making a brand strategy that perfectly fits in with \
-//           your business.',
-//         },
-//         {
-//           title: 'Impressive identity',
-//           text: "We are known for our extraordinary creativity. We won't \
-//           tell you our secret, just know that your visual identity will \
-//           involve intense creative thinking and this journey will transform your brand.",
-//         },
-//         {
-//           title: 'Collateral communication supports',
-//           text: 'We have the most awesome creative solutions for everything: \
-//           from your brand name, to your storytelling, to graphic and visual \
-//           creations, that gives your brand a personality and makes it \
-//           instantly recognisable.',
-//         },
-//         {
-//           title: 'Effective harmony',
-//           text: 'Our team is committed to service and quality. Your project \
-//           is in the best hands. Our holistic approach allows you to communicate \
-//           consistently and interact efficiently through all your channels.',
-//         },
-//       ],
-//     },
-//     menu: {
-//       image: '',
-//       className: '',
-//     },
-//   },
-//   {
-//     id: 'website-creation',
-//     name: 'Website Creation',
-//     pageTitle: 'We design websites that evolve with you',
-//     videoUrl: '/videos/digital-animation.webm',
-//     description:
-//       'Our website creation agency in Brussels brings its expertise to \
-//       your project to ensure an optimized and effective digital presence, perfectly \
-//       tailored to your users. Over time, we have developed powerful tools specifically \
-//       for the WordPress platform, allowing you to get the most out of this robust CMS.',
-//     expertise: {
-//       title: 'Amaze, engage & build loyalty',
-//       breakdown: [
-//         {
-//           title: 'We think',
-//           services: [
-//             'Research & Analysis',
-//             'Strategic Workshops',
-//             'Planification',
-//             'Wireframes',
-//             'User Stories',
-//             'Content Hierarchy',
-//           ],
-//         },
-//         {
-//           title: 'We create',
-//           services: [
-//             'Storytelling',
-//             'User Experience (UX)',
-//             'User Interface (UI)',
-//             'Prototypes',
-//             'Responsive Design',
-//             'Visual, Motion & Text Content',
-//           ],
-//         },
-//         {
-//           title: 'We achieve',
-//           services: [
-//             'Websites',
-//             'Custom-Made Wordpress',
-//             'SEO',
-//             'E-Shops',
-//             'Web Applications',
-//             'Landing Page',
-//             'Newsletter',
-//             'Integration API CRM: Hubspot, Whise, Omnicasa, ...',
-//           ],
-//         },
-//       ],
-//       highlightImage: '/images/website-creation-highlight.jpg',
-//       marqueeText: 'Amaze, engage & build loyalty',
-//     },
-//     breakdownSummary: [
-//       'Website creation',
-//       'E-shop',
-//       'SEO',
-//       'Ergonomy (UI/UX)',
-//       'CRM API Integration',
-//     ],
-//     whatMakesUsUnique: {
-//       title: 'Our long-term and qualitative vision',
-//       groups: [
-//         {
-//           title: 'Custom-made',
-//           text: "It's been more than 10 years that we have specialized in \
-//           custom web solutions around the Wordpress tool, the CMS - reference \
-//           (30% of the CMS used in the world). Exit the prefabricated themes. \
-//           We concentrate our energy on making a site that fits perfectly \
-//           with your business.",
-//         },
-//         {
-//           title: 'Mobile first',
-//           text: "Because the mobile has become our first screen for several \
-//           years, a mobile-first approach allows us to prioritize technical \
-//           developments on the use of the mobile and thus offer a meaningful \
-//           customer experience from a smartphone. Of course, we do not neglect \
-//           any other screen: desktop, tablet or PC! It's called responsive design.",
-//         },
-//         {
-//           title: 'SEO',
-//           text: 'Having an attractive site is one thing, but how do you make \
-//           it visible so that your audience finds you and comes back again and \
-//           again? Technical optimization, semantic analysis and link profiling. \
-//           Thanks to our efficient work on natural referencing, your target \
-//           audience will always find you easily and at the right time.',
-//         },
-//         {
-//           title: 'Secure solutions',
-//           text: 'We do all that is necessary to secure your website. We work \
-//           on several axes as the qualitative and secure hosting choice, the \
-//           backups, the website code and other elements that ensure the security \
-//           of your website.',
-//         },
-//       ],
-//     },
-//     menu: {
-//       image: '',
-//       className: '',
-//     },
-//   },
-// ];
 export const AVAILABLE_SERVICE_IDS = [
   'branding_and_identity',
   'marketing_and_media',
@@ -931,274 +649,11 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
   },
 ];
 
-// export const ALL_PROJECTS_DATA: FullProjectData[] = [
-//   {
-//     id: 'cefic',
-//     name: 'CEFIC',
-//     pageTitle: 'Celebrating 50 years of scientific excellence',
-//     descSummary: 'Celebrating 50 years of scientific excellence',
-//     bannerURL: { image: '/images/our-works/cefic.webp' },
-//     cardImage: '/images/our-works/cefic.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Branding & Identity', 'Offset & Digital Printing'],
-//     extraServices: ['Illustration', 'Print'],
-//     sectors: ['Corporate', 'Health'],
-//   },
-//   {
-//     id: 'sander',
-//     name: 'Sander',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/sander.webp' },
-//     cardImage: '/images/our-works/sander.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Marketing & Media', 'Offset & Digital Printing'],
-//     extraServices: ['Print'],
-//     sectors: ['Corporate'],
-//   },
-//   {
-//     id: 'fipra',
-//     name: 'Fipra',
-//     pageTitle: 'Redefining the boundaries of strategic communication',
-//     descSummary:
-//       'Redefining the boundaries of strategic communication through a new visual identity and website',
-//     bannerURL: { image: '/images/our-works/fipra.webp' },
-//     cardImage: '/images/our-works/fipra.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Branding & Identity', 'Packaging & Product Design', 'Digital Products Creation'],
-//     extraServices: ['Logo', 'Print'],
-//     sectors: ['Corporate'],
-//   },
-//   {
-//     id: 'eortc',
-//     name: 'EORTC',
-//     pageTitle: 'Highlighting therapeutic advances in cancer treatment',
-//     descSummary:
-//       'Highlighting therapeutic advances in cancer treatment through their new annual report',
-//     bannerURL: { image: '/images/our-works/eortc.webp' },
-//     cardImage: '/images/our-works/eortc.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Branding & Identity', 'Offset & Digital Printing', 'Packaging & Product Design'],
-//     extraServices: ['Print'],
-//     sectors: ['Corporate'],
-//   },
-//   {
-//     id: 'sothebys',
-//     name: "Sotheby's Realty - Belgium",
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/sothebys.webp' },
-//     cardImage: '/images/our-works/sothebys.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Packaging & Product Design', 'Digital Products Creation'],
-//     extraServices: ['Print'],
-//     sectors: ['Corporate', 'Real Estate'],
-//   },
-//   {
-//     id: 'froidmont',
-//     name: 'La Ferme de Froidmont',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/froidmont.webp' },
-//     cardImage: '/images/our-works/froidmont.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Branding & Identity', 'Digital Products Creation'],
-//     extraServices: ['Illustration'],
-//     sectors: ['E-shop', 'NGO'],
-//   },
-//   {
-//     id: 'febecoop',
-//     name: 'Febecoop',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/febecoop.webp' },
-//     cardImage: '/images/our-works/febecoop.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Branding & Identity', 'Marketing & Media'],
-//     extraServices: ['Illustration'],
-//     sectors: ['Corporate', 'NGO'],
-//   },
-//   {
-//     id: 'bluefino',
-//     name: 'Bluefino',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/bluefino.webp' },
-//     cardImage: '/images/our-works/bluefino.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Marketing & Media', 'Digital Products Creation'],
-//     extraServices: [],
-//     sectors: ['Corporate', 'Marketing'],
-//   },
-//   {
-//     id: 'castell',
-//     name: 'Castell Management',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/castell.webp' },
-//     cardImage: '/images/our-works/castell.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Branding & Identity', 'Offset & Digital Printing', 'Digital Products Creation'],
-//     extraServices: ['Logo', 'Print'],
-//     sectors: ['Corporate', 'Real Estate'],
-//   },
-//   {
-//     id: 'palais',
-//     name: "Pa'lais",
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/palais.webp' },
-//     cardImage: '/images/our-works/palais.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Marketing & Media', 'Digital Products Creation'],
-//     extraServices: [],
-//     sectors: ['Food'],
-//   },
-//   {
-//     id: 'archibald',
-//     name: 'Archibald',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/archibald.webp' },
-//     cardImage: '/images/our-works/archibald.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Offset & Digital Printing', 'Packaging & Product Design'],
-//     extraServices: ['Print'],
-//     sectors: ['Corporate', 'Real Estate'],
-//   },
-//   {
-//     id: 'sanoleo',
-//     name: 'Sanoleo',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/sanoleo.webp' },
-//     cardImage: '/images/our-works/sanoleo.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Offset & Digital Printing', 'Digital Products Creation'],
-//     extraServices: ['Print'],
-//     sectors: ['Corporate', 'Health'],
-//   },
-//   {
-//     id: 'eu-traveltech',
-//     name: 'Eu Traveltech',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/eu-traveltech.webp' },
-//     cardImage: '/images/our-works/eu-traveltech.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Marketing & Media', 'Digital Products Creation'],
-//     extraServices: [],
-//     sectors: ['Corporate'],
-//   },
-//   {
-//     id: 'nove',
-//     name: 'Nove',
-//     cardImage: '/images/our-works/nove.jpg',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/nove.jpg' },
-//     services: ['Marketing & Media', 'Digital Products Creation'],
-//     descriptionBg: '',
-//     description: '',
-//     extraServices: [],
-//     sectors: ['Corporate'],
-//   },
-//   {
-//     id: 'speos',
-//     name: 'Speos',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/speos.webp' },
-//     cardImage: '/images/our-works/speos.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Branding & Identity', 'Marketing & Media'],
-//     extraServices: ['Logo', 'Print'],
-//     sectors: ['Corporate', 'Marketing'],
-//   },
-//   {
-//     id: 'acumen',
-//     name: 'Acumen',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/acumen.webp' },
-//     cardImage: '/images/our-works/acumen.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Branding & Identity', 'Offset & Digital Printing'],
-//     extraServices: ['Logo', 'Print'],
-//     sectors: ['Corporate'],
-//   },
-//   {
-//     id: 'racine',
-//     name: 'Racine',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/racine.webp' },
-//     cardImage: '/images/our-works/racine.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Marketing & Media', 'Digital Products Creation'],
-//     extraServices: [],
-//     sectors: ['Corporate', 'Legal'],
-//   },
-//   {
-//     id: 'iro',
-//     name: 'IRO',
-//     cardImage: '/images/our-works/iro.webp',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/iro.webp' },
-//     services: ['Branding & Identity', 'Offset & Digital Printing'],
-//     descriptionBg: '',
-//     description: '',
-//     extraServices: ['Illustration', 'Print'],
-//     sectors: ['Food'],
-//   },
-//   {
-//     id: 'sibelga',
-//     name: 'Sibelga',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/sibelga.webp' },
-//     cardImage: '/images/our-works/sibelga.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Branding & Identity', 'Digital Products Creation'],
-//     extraServices: ['Illustration'],
-//     sectors: ['Corporate', 'Energy'],
-//   },
-//   {
-//     id: 'caritas',
-//     name: 'Caritas International',
-//     pageTitle: '',
-//     descSummary: '',
-//     bannerURL: { image: '/images/our-works/caritas.webp' },
-//     cardImage: '/images/our-works/caritas.webp',
-//     descriptionBg: '',
-//     description: '',
-//     services: ['Marketing & Media', 'Digital Products Creation'],
-//     extraServices: [],
-//     sectors: ['NGO'],
-//   },
-// ];
-
+export const AVAILABLE_PROJECT_IDS = ['tahwil_solutions', 'afropay', 'gusto'] as const;
+export type AvailableProject = (typeof AVAILABLE_PROJECT_IDS)[number];
 export const ALL_PROJECTS_DATA: FullProjectData[] = [
   {
-    id: 'tahwil-solutions',
+    id: 'tahwil_solutions',
     name: 'Tahwil Solutions',
     pageTitle: 'Visual identity to embody commitment to empowering businesses',
     descSummary:
@@ -1269,121 +724,214 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         ],
       },
     ],
+    relatedProjects: [],
   },
-];
-export const OUR_REFERENCES: ReferenceProps[] = [
-  { logo: '/images/references/Sothebys.webp', link: 'https://www.sothebysrealty.be/fr' },
   {
-    logo: '/images/references/caritas.webp',
-    link: 'https://www.caritasinternational.be/fr',
+    id: 'afropay',
+    name: 'Afropay',
+    pageTitle: 'Visual identity to embody commitment to empowering businesses',
+    descSummary: 'Trusted payment gateway bridging the gap between people and opportunities',
+    bannerURL: { image: '/images/projects/afropay-card.png' },
+    cardImage: '/images/projects/afropay-card.png',
+    descriptionBg: 'bg-dark',
+    textColorClass: 'text-white',
+    description:
+      'In the bustling cities and vibrant markets of West Africa, Afropay emerged \
+      as a beacon of innovation, transforming the way people connect, transact, and \
+      thrive in the digital age. Born out of a deep desire to empower individuals, \
+      businesses, and communities, Afropay became the trusted payment gateway that \
+      bridges the gap between people and opportunities. \\n\\nThe story of Afropay \
+      began with a shared vision—a vision to build a secure, efficient, and inclusive \
+      payment solution tailored to the unique needs of West Africa. We recognized the \
+      challenges faced by individuals and businesses in navigating the complex financial \
+      landscape, and we set out to provide a seamless platform that would unlock new possibilities.\
+      \\n\\nAt the heart of Afropay lies a commitment to empowerment. We believe that everyone, \
+      regardless of their background or circumstances, deserves access to the tools and resources \
+      that enable them to thrive. With Afropay, individuals can embrace financial independence, \
+      entrepreneurs can expand their reach, and communities can flourish.',
+    descriptionHighlightPhotos: [],
+    services: ['branding_and_identity'],
+    extraServices: ['Logo Design', 'Visual Identity Development'],
+    sectors: ['Corporate', 'Finance'],
+    createdWebsite: '',
+    renderedServices: [
+      {
+        caption: 'Brand Design',
+        title: 'Crafting a digital identity rooted in West African spirit',
+        sectionBg: 'bg-gray-f2',
+        textColorClass: '',
+        description: [
+          [
+            "We drew inspiration from the vibrant tapestry of West African cultures, infusing \
+            our brand with the spirit of unity, resilience, and entrepreneurship that defines \
+            the region. Just as the rhythm and diversity of the region's music and art captivate \
+            the world, Afropay aspires to captivate the payment industry with its innovative \
+            solutions and unwavering dedication to customer satisfaction.",
+          ],
+          [
+            "Afropay's story is intertwined with the stories of countless individuals, entrepreneurs, \
+            and communities across West Africa. Together, we are shaping a future where financial \
+            inclusion is a reality, where economic growth is fueled by seamless digital transactions, and where opportunities know no boundaries. Join us on this transformative journey, where Afropay empowers individuals, connects businesses, and paves the way for a brighter and more prosperous West Africa. Together, let's rewrite the story of payments and build a future where everyone can thrive.",
+          ],
+        ],
+        images: [
+          { src: '/images/projects/afropay-1.png', alt: '', className: 'w-1/2 md:w-1/3' },
+          { src: '/images/projects/afropay-2.png', alt: '', className: 'w-1/2 md:w-1/3' },
+          { src: '/images/projects/afropay-3.png', alt: '', className: 'w-full md:w-1/3' },
+          { src: '/images/projects/afropay-4.png', alt: '', className: 'w-1/2' },
+          { src: '/images/projects/afropay-5.png', alt: '', className: 'w-1/2' },
+        ],
+      },
+    ],
+    relatedProjects: [],
   },
-  { logo: '/images/references/cheeesebox.webp', link: 'https://www.cheesebox.com' },
-  { logo: '/images/references/bertone.png', link: 'https://bertone.it' },
-  { logo: '/images/references/infrabel.webp', link: 'https://infrabel.be/fr' },
-  { logo: '/images/references/iro.webp', link: 'https://www.matcha-iro.com' },
-  { logo: '/images/references/racine.webp', link: 'https://racinebrussels.eu/fr' },
-  { logo: '/images/references/senghor.webp', link: 'https://www.senghor.be' },
-  { logo: '/images/references/sibelga.webp', link: 'https://www.sibelga.be' },
-  { logo: '/images/references/vanin.png', link: 'https://www.vanin.be/fr' },
-  { logo: '/images/references/speos.png', link: 'https://www.speos.be/en' },
-  { logo: '/images/references/fipra.png', link: 'https://fipra.com' },
+  {
+    id: 'gusto',
+    name: 'Gusto',
+    pageTitle: 'Rebranding to match exceptional dining experience',
+    descSummary: 'Providing an exceptional dining experience that goes beyond just food',
+    bannerURL: { image: '/images/projects/gusto-card.png' },
+    cardImage: '/images/projects/gusto-card.png',
+    descriptionBg: '',
+    textColorClass: '',
+    description:
+      'Gusto, a well-established restaurant brand with branches in Kano, Abuja, \
+      and Lagos, embarked on a journey of transformation and innovation. \
+      Recognizing the importance of staying relevant and appealing to a dynamic \
+      audience, Gusto partnered with Pinpoint Design and Packaging for a \
+      comprehensive redesign and rebranding effort that would elevate its image \
+      and strengthen its connection with customers. \\nAs the sun sets on this \
+      tale of transformation, Gusto stands tall as a testament to the power of a \
+      well-executed rebranding effort. The redesigned logo, coupled with the \
+      revitalized visual identity, positions Gusto as a premier restaurant brand, \
+      drawing diners in Kano, Abuja, and Lagos with its exceptional cuisine, warm \
+      hospitality, and captivating dining experiences.',
+    descriptionHighlightPhotos: [],
+    services: [
+      'branding_and_identity',
+      'packaging_and_product_design',
+      'offset_and_digital_printing',
+    ],
+    extraServices: [
+      'Logo Design',
+      'Visual Identity Development',
+      'Rebranding',
+      'Product Design',
+      'Packaging',
+      'Foiling',
+      'Gift Wraps',
+    ],
+    sectors: ['Food'],
+    createdWebsite: '',
+    renderedServices: [
+      {
+        caption: 'Gusto re-imagined',
+        title: 'A complete brand transformation',
+        sectionBg:
+          "New visual identity reflecting the brand's essense and desired emotional response",
+        textColorClass: '',
+        description: [
+          [
+            "The new logo reflects Gusto's commitment to culinary excellence, warmth, and a passion for exceptional dining experiences. The redesigned logo features a harmonious blend of modernity and sophistication. It incorporates a stylized illustration of a plate with utensils, symbolizing Gusto's dedication to crafting delicious and visually appealing dishes. The plate is accompanied by the refined and elegant typography of the brand name “Gusto” in a custom-designed font that exudes professionalism and a touch of creativity.",
+          ],
+          [
+            "The color palette chosen for the rebranding reflects the brand's essence and desired emotional response. Deep shades of burgundy and rich gold are introduced to evoke a sense of luxury, sophistication, and culinary indulgence. These colors are complemented by subtle accents of ivory or silver, adding a touch of refinement and modernity to the overall visual identity.",
+          ],
+          [
+            'In addition to the logo redesign, the rebranding effort encompasses a holistic approach to visual elements, including typography, imagery, and overall brand aesthetics. The typography is carefully selected to strike a balance between readability and elegance, ensuring that it is legible across various mediums, from menus to digital platforms. Imagery showcases the culinary delights offered at Gusto, capturing the essence of flavors, textures, and visually stunning presentations.',
+          ],
+        ],
+        images: [
+          { src: '/images/projects/gusto-card.png', alt: '', className: 'w-1/2' },
+          { src: '/images/projects/gusto-1.png', alt: '', className: 'w-1/2' },
+        ],
+      },
+      {
+        caption: 'Product customization',
+        title: 'Refined packaginf for a refined experience',
+        sectionBg: '',
+        textColorClass: '',
+        description: [
+          [
+            "The restaurant's interior design and ambiance are also part of the rebranding process. A cohesive visual language is created through the use of refined materials, contemporary furniture, and lighting that sets the mood for an inviting and sophisticated dining experience. The combination of warm and neutral tones, along with carefully curated decor elements, adds to the overall atmosphere and reinforces the brand's identity.",
+          ],
+          [
+            "The reimagined Gusto aims to provide an exceptional dining experience that goes beyond just food, captivating guests with its refined ambiance, attentive service, and innovative culinary creations. The brand's values of quality, warmth, and passion are reflected in every aspect of the rebranding, inviting guests to indulge their senses and create lasting memories.",
+          ],
+          [
+            'With the redesigned logo and rebranding efforts by Pinpoint Design and Packaging, Gusto confidently repositions itself as a leading culinary destination, appealing to a diverse audience seeking a refined and remarkable dining experience. The revitalized brand identity positions Gusto as a beacon of culinary excellence, an inviting space for socializing, and a place where unforgettable moments are created.',
+          ],
+        ],
+        images: [
+          { src: '/images/projects/gusto-packaging-1.png', alt: '', className: 'w-1/2 md:w-1/3' },
+          { src: '/images/projects/gusto-packaging-2.png', alt: '', className: 'w-1/2 md:w-1/3' },
+          { src: '/images/projects/gusto-packaging-3.png', alt: '', className: 'w-full md:w-1/3' },
+        ],
+      },
+    ],
+    relatedProjects: [],
+  },
 ];
 
-export const servicesSummary: ServiceCardProps[] = (() => {
-  return ALL_SERVICES_DATA.map((service, idx, arr) => ({
-    name: service.name,
-    breakdown: service.breakdownSummary,
-    href: `/services/${service.id}`,
-    videoUrl: service.videoUrl,
-    isLast: idx === arr.length - 1,
-  }));
-})();
+export const DEFAULT_WORKS_DISPLAYED = 10;
 
-export const servicesLookup = (() =>
-  ALL_SERVICES_DATA.reduce<Partial<Record<AvailableService, string>>>((acc, curr) => {
-    acc[curr.id] = curr.name;
-    return acc;
-  }, {}))();
-
-export const projectsSummary: WorkCardProps[] = (() => {
-  return ALL_PROJECTS_DATA.map(project => ({
-    id: project.id,
-    name: project.name,
-    image: project.cardImage,
-    services: project.services,
-    extraServices: project.extraServices,
-    sectors: project.sectors,
-  }));
-})();
-
-export const homeCaseStudySamples = (() => {
-  const samples: Omit<CaseStudySummaryProps, 'index'>[] = [];
-  const selectedProjectsSet = new Set(selectedCaseStudies);
-
-  for (const project of ALL_PROJECTS_DATA) {
-    if (selectedProjectsSet.has(project.id)) {
-      samples.push({
-        id: project.id,
-        title: project.name,
-        description: project.descSummary,
-        img: project.cardImage,
-        imgOnRight: samples.length % 2 === 1,
-      });
-    }
-  }
-
-  return samples;
-})();
-
-export const { provenServicesList, provenSectorsList } = (() => {
-  let sectors = new Set<string>();
-
-  ALL_PROJECTS_DATA.forEach(project => {
-    sectors = new Set([...sectors, ...project.sectors]);
-  });
-
-  return {
-    provenServicesList: ALL_SERVICES_DATA.map(service => service.name),
-    provenSectorsList: Array.from(sectors),
-  };
-})();
+export const OUR_REFERENCES: ReferenceProps[] = [
+  { logo: '/images/references/dangote.png', link: 'https://www.dangote.com' },
+  {
+    logo: '/images/references/gtco.png',
+    link: 'https://www.gtcoplc.com',
+  },
+  { logo: '/images/references/bolt.png', link: 'https://bolt.eu/en-ng' },
+  { logo: '/images/references/airtel.png', link: 'https://www.airtel.com.ng' },
+  { logo: '/images/references/uba.png', link: 'https://www.ubagroup.com' },
+  { logo: '/images/references/ik-pen.png', link: 'https://ikpen.com' },
+  { logo: '/images/references/ayce.png', link: 'https://www.instagram.com/ayce_cafe' },
+  { logo: '/images/references/burgundy.png', link: 'https://www.theburgundyrestaurant.com' },
+  { logo: '/images/references/goalcash.png', link: 'https://www.goalcash.com/en/' },
+  { logo: '/images/references/maubbys.png', link: 'https://www.ordermaubbys.com/' },
+  { logo: '/images/references/eagle-watch.png', link: 'https://www.sulfman.com/eaglewatch' },
+  {
+    logo: '/images/references/kamshi.png',
+    link: 'https://www.instagram.com/kamshi_kamshi_bakhoor',
+  },
+];
 
 export const ALL_JOBS_DATA: FullJobProps[] = [
-  {
-    id: 'interactive-and-resourceful-front-end-developer',
-    title: 'Interactive and resourceful front-end developer',
-    description:
-      'We are looking for a committed person, passionate about product \
-      and design, who develops interfaces with eye and rigor in order to \
-      take the lead on certain projects.',
-    type: 'list',
-    profile: [
-      'You have a minimum of 3 years of experience',
-      'Complete mastery of HTML/CSS/JS and integration techniques in responsive design',
-      'You have a good knowledge of PHP and MYSQL. WebGL and Canvas are a plus',
-      'You know about JavaScript/jQuery/Wordpress',
-      'You are comfortable with Photoshop, Illustrator and Figma',
-      'You manage SEO techniques',
-      'You are creative and involved: every problem has its solution',
-      "You're perfectly self-taught and have a passion for open source",
-      "You like to work in a team and you're not afraid to communicate…",
-      'You speak French and/or Dutch',
-      'You are super organized and you have a good culture of technology watch',
-      'You like a job well done, you pay attention to detail…',
-    ],
-    offer: [
-      ' A freelance contract with an attractive remuneration',
-      'A well-established organization in collaboration with our project \
-      managers, you will compose your own schedule according to your availability',
-      'A unique experience in a small communication agency in Brussels',
-      'Talented colleagues who love afterwork parties',
-      'A creative and pleasant environment (micro-naps are allowed)',
-    ],
-    jobDescription: [],
-    Ps: 'If you are interested in this opportunity, apply on our website. Address \
-    yourself directly to Juju (no need to impress him with a long cover letter, \
-    just show him your portfolio and your best work).',
-  },
+  // {
+  //   id: 'interactive-and-resourceful-front-end-developer',
+  //   title: 'Interactive and resourceful front-end developer',
+  //   description:
+  //     'We are looking for a committed person, passionate about product \
+  //     and design, who develops interfaces with eye and rigor in order to \
+  //     take the lead on certain projects.',
+  //   type: 'list',
+  //   profile: [
+  //     'You have a minimum of 3 years of experience',
+  //     'Complete mastery of HTML/CSS/JS and integration techniques in responsive design',
+  //     'You have a good knowledge of PHP and MYSQL. WebGL and Canvas are a plus',
+  //     'You know about JavaScript/jQuery/Wordpress',
+  //     'You are comfortable with Photoshop, Illustrator and Figma',
+  //     'You manage SEO techniques',
+  //     'You are creative and involved: every problem has its solution',
+  //     "You're perfectly self-taught and have a passion for open source",
+  //     "You like to work in a team and you're not afraid to communicate…",
+  //     'You speak French and/or Dutch',
+  //     'You are super organized and you have a good culture of technology watch',
+  //     'You like a job well done, you pay attention to detail…',
+  //   ],
+  //   offer: [
+  //     ' A freelance contract with an attractive remuneration',
+  //     'A well-established organization in collaboration with our project \
+  //     managers, you will compose your own schedule according to your availability',
+  //     'A unique experience in a small communication agency in Brussels',
+  //     'Talented colleagues who love afterwork parties',
+  //     'A creative and pleasant environment (micro-naps are allowed)',
+  //   ],
+  //   jobDescription: [],
+  //   Ps: 'If you are interested in this opportunity, apply on our website. Address \
+  //   yourself directly to Juju (no need to impress him with a long cover letter, \
+  //   just show him your portfolio and your best work).',
+  // },
   {
     id: 'internship-in-development-marketing-or-project-management',
     title: 'Internship in development, marketing or project management',
@@ -1422,10 +970,109 @@ export const ALL_JOBS_DATA: FullJobProps[] = [
   },
 ];
 
-export const jobCards: JobsCTAProps[] = (() => {
-  return ALL_JOBS_DATA.map(job => ({
-    title: job.title,
-    description: job.description,
-    href: `/jobs/${job.id}`,
-  }));
-})();
+export const PRIVACY_POLICY: string[][] = [
+  [
+    'The following Terms and Conditions of Service apply to all products and services provided \
+    by as PINPOINT Ltd (hereinafter referred to as PINPOINT) and in the event of any dispute \
+    are governed by the laws of NIGERIA.',
+    'All work is carried out by as PINPOINT on the understanding that the client has agreed \
+    to our terms and conditions.',
+    'Copyright is retained by as PINPOINT on all design work including words, pictures, ideas, \
+    visuals and illustrations unless specifically released in writing and after all costs have \
+    been settled. If a choice of designs is presented and one is chosen for your project, only \
+    that solution is deemed to be given by us as fulfilling the contract. All other designs \
+    remain the property of as PINPOINT, unless specifically agreed in writing.',
+  ],
+  [
+    'Project Acceptance',
+    'At the time of proposal as PINPOINT will provide the customer with a written estimate or quotation by email. These Terms and Conditions can be read at any time on the as PINPOINT ,social handles and website. A copy of the written estimate or quotation is to be signed and dated by the customer to indicate acceptance and should be returned to as PINPOINT. Alternatively, the client may send an official purchase order in reply to the estimate or quotation which binds the client to accept our terms and conditions, or an email acknowledging acceptance of the quotation. For the avoidance of doubt, the as PINPOINT Terms & Conditions are what govern the job, not any conditions on the customer’s purchase order.',
+  ],
+  [
+    'Design Charges',
+    'Charges for design services to be provided by as PINPOINT will be set out in the written estimate or quotation that is provided to the customer. At the time of the customer’s signed acceptance of this estimate or quotation, indicating acceptance of the Terms & Conditions, a non-refundable payment of 50% of the quoted fee will become immediately due. Unless agreed otherwise with the Client, all design services require an advance payment of a minimum of fifty (50) percent of the project quotation total before the work commences or is supplied to the Client for review. The remaining fifty (50) percent of the project quotation total will be due upon completion of the work prior to upload to the server or release of materials.',
+  ],
+  [
+    'Source Files',
+    'We will supply proofs and PDF files as appropriate for printing, or other graphic files as detailed in the job scope or request. Charges for design work do not cover the release of our copyright design source files, including but not restricted to indd, psd, AI, png, fla or other source files or raw code; if the Client requires these files for transfer to an in-house or other designer, they will be subject to a separate quotation or ‘buy-out’ charge.',
+  ],
+  [
+    'Charges for Other Services',
+    'Charges for any additional services requested during the project that are over and above the estimated time or out of scope, will become fully payable (100% of the quoted amount) at the time of estimate or quotation acceptance.',
+  ],
+  [
+    'Payment',
+    'The customer will be provided with an Approval Form or Proof Email, and an Invoice prior to final publication. At this time the remainder of the amount due will become payable and the customer will also be required to sign and return the Approval Form or signify approval by email to as PINPOINT . Any invoice queries must be submitted by email within 14 days of the invoice date. Accounts which remain outstanding for 30 days after the date of invoice, will incur late payment interest charge at the Bank of CBN Base Rate plus 8% on the outstanding amount from the date due until the date of payment. Payments may be made by online transfer, credit card (Visa, Mastercard) or Debit Card. Payments made by cheque must be previously agreed and may be subject to an administration charge. Cheques should not be sent in regular mail unless sent recorded delivery. Publication and/or release of work done by as PINPOINT on behalf of the client, may not take place before cleared funds have been received. Returned cheques will incur an additional fee of £50 per returned cheque. as PINPOINT reserves the right to consider an account to be in default in the event of a returned cheque.',
+  ],
+  [
+    'Default',
+    'An account shall be considered default if it remains unpaid for 30 days from the date of invoice, or following a returned cheque. as PINPOINT shall be entitled to as PINPOINT s and/or the customer’s material from any and all computer systems, until the amount due has been fully paid. This includes any and all unpaid monies due for services, including, but not limited to, hosting, domain registration, search engine submission, design and maintenance, sub-contractors, printers, photographers and libraries. Removal of such materials does not relieve the customer of its obligation to pay the due amount. Customers whose accounts become default agree to pay all as PINPOINT ‘s reasonable legal and accounting expenses and third party collection agency fees in the enforcement of the debt and these Terms and Conditions.',
+  ],
+  [
+    'Copyrights and Trademarks',
+    'By supplying text, images and other data to as PINPOINT for inclusion in the customer’s website or other medium, the customer declares that it holds the appropriate copyright and/or trademark permissions. The ownership of such materials will remain with the customer, or rightful copyright or trademark owner. Any artwork, images, or text supplied and/or designed by as PINPOINT on behalf of the customer, will remain the property of as PINPOINT and/or its suppliers unless otherwise agreed in writing. A licence for use of the copyright material is granted to the customer solely for the project defined in the scope or request and not for any other purpose. The customer may request in writing from as PINPOINT, the necessary permission to use materials (for which as PINPOINT holds the copyright) in forms other than for which it was originally supplied, and as PINPOINT may, at its discretion, grant this and may charge for the additional usage. Such permission must be obtained in writing before any of the aforesaid artwork, images, text, or other data is used. Any software, code, plugin or other third party material used in a web or digital project remains the property of the creator and any ongoing licence fees or fees for upgrades are the responsibility of the client, not as PINPOINT. By supplying images, text, or any other data to as PINPOINT, the customer grants as PINPOINT permission to use this material freely in the pursuit of the design. Should as PINPOINT, or the customer supply an image, text, audio clip or any other file for use in a website, multimedia presentation, print item, exhibition, advertisement or any other medium believing it to be copyright and royalty free, which subsequently emerges to have such copyright or royalty usage limitations, the customer will agree to allow as PINPOINT to remove and/or replace the file on the site. The customer agrees to fully indemnify and hold as PINPOINT free from harm in any and all claims resulting from the customer in not having obtained all the required copyright, and/or any other necessary permissions',
+  ],
+  [
+    'Alterations',
+    'The customer agrees that changes required over and above the estimated work, or in addition to the agreed scope, or where the client makes changes to the supplied copy or changes required to be carried out after acceptance of the draft design, will be liable to a separate charge. The customer also agrees that as PINPOINT holds no responsibility for any amendments made by any third party, before or after a design is published.',
+  ],
+  [
+    'Licensing',
+    'Any design, copywriting, drawing, idea or code created for the customer by as PINPOINT, or any of its contractors, is licensed for use by the client on a one-time only basis and may not be modified, re-used, or re-distributed in any way or form without the express written consent of as PINPOINT and any of its relevant sub-contractors. All design work – where there is a risk that another party make a claim, should be registered by the client with the appropriate authorities prior to publishing or first use or searches and legal advice sought as to its use. as PINPOINT will not be held responsible for any and all damages resulting from such claims. Glazier Design is not responsible for any loss, or consequential loss, non-delivery of products or services, of whatever cause. The customer agrees not to hold as PINPOINT responsible for any such loss or damage. Any claim against as PINPOINT shall be limited to the relevant fee(s) paid by the customer.',
+  ],
+  [
+    'Data Formats',
+    'The client agrees to as PINPOINT definition of acceptable means of supplying data to the company. Text is to be supplied to as PINPOINT in electronic format as standard text (.txt), MS Word (.docx) or via e-mail / FTP or shared folder. Images which are supplied in an electronic format are to be provided in a format as prescribed by as PINPOINT via e-mail / FTP. Images must be of a quality suitable for use without any subsequent image processing, and as PINPOINT will not be held responsible for any image quality which the client later deems to be unacceptable. as PINPOINT cannot be held responsible for the quality of any images which the client wishes to be scanned from printed materials. Additional expenses may be incurred for any necessary action, including, but not limited to, photography and art direction, photography searches, media conversion, digital image processing, or data entry services, colour correction and alteration of images.',
+  ],
+  [
+    'Design Project Duration',
+    'Any indication given by as PINPOINT of a design project’s duration is to be considered by the customer to be an estimation. PINPOINT cannot be held responsible for any project over-runs, whatever the cause. Estimated project duration should be deemed to be from the date that cleared funds are received by as PINPOINT for the initial payment or by date confirmed in writing by as PINPOINT.',
+  ],
+  [
+    'Rights of Access for Website Construction',
+    'The client agrees to allow as PINPOINT all necessary access to computer systems and other locations, as required, in order to complete a website project and until all due funds are cleared, including the necessary read/write permissions, usernames and passwords. The customer also agrees to allow as PINPOINT access to any computer systems, usernames and passwords required to remove data and/or sites for failure to comply with these Terms and Conditions. The customer agrees to supply as PINPOINT with all necessary materials, electronic, or otherwise, required to create and complete the project, and to supply them in a timely manner.',
+  ],
+  [
+    'Design Project Completion',
+    'PINPOINT considers the design project complete upon receipt of the customer’s signed Approval form or signoff email. Other services such as printing, display panel production, filmwork, website uploading, publishing etc either contracted on the client’s behalf constitute a separate project and can be treated as a separate charge.',
+  ],
+  [
+    'Website design only',
+    'as PINPOINT require that a template is approved by the customer before coding of a site commences. Once the template(s) for the web site are approved by the customer, coding will commence; any changes to navigation items, colours, structure or content that require changes to the template will incur an additional charge. Once web design is complete, as PINPOINT will provide the customer with the opportunity to review the resulting work. as PINPOINT will make one set of minor changes at no extra cost within 14 days of the start of the review period. Minor changes include small textual changes and small adjustments to placement of items on the page. It does not include changes to images, colour schemes or any navigation features. Any minor changes can be notified to as PINPOINT by e-mail. as PINPOINT DESIGN will consider that the client has accepted the original draft, if no notification of changes is received in writing from the customer, within 14 days of the start of the review period.',
+  ],
+  [
+    'Hosting websites',
+    'PINPOINT offers a limited hosting services through an out-sourced virtual server. PINPOINT does not guarantee continuous service and will accept no liability for loss of service, whatever the cause. PINPOINT may request that clients change the type of hosting account used if that account is deemed by PINPOINT to be unacceptable because of poor service, lack of bandwidth or in any other way insufficient to support the website. Fees for hosting on PINPOINT virtual server are due at the commencement of any period of service and are non-refundable. Fees due to third party hosting organisations are the responsibility of the client PINPOINT are not liable for their payment, nor for the renewal of domain names, which are the sole responsibility of the customer / domain owner.',
+  ],
+  [
+    'Domain Registration',
+    'PINPOINT Design cannot guarantee the availability of any domain name. Where PINPOINT is to register a domain name on behalf of a client it will endeavour to do so but the client should not assume a successful registration.',
+  ],
+  [
+    'Search Engine Submission',
+    'Due to the infinite number of considerations that search engines use when determining a site’s ranking, PINPOINT cannot guarantee any particular placement. Acceptance by any search engine cannot be guaranteed and when a site is accepted, the time it takes to appear in search results varies from one search engine to another. Rankings will also vary as new sites are added. PINPOINT recommend that customers use a professional SEO company and are happy to provide details of such companies, but accept no responsibility for their services.',
+  ],
+  [
+    'Design Credits',
+    'The customer agrees to allow PINPOINT to place a small credit on printed material exhibition displays, advertisements and/or a link to PINPOINT Design own website on the customer’s website. This will usually be in the form of a small logo or line of text placed towards the bottom of the page. The customer also agrees to allow PINPOINT to place websites and other designs, along with a link to the client’s site on PINPOINT’s own website for demonstration purposes and to use any designs in its own publicity and portfolios.',
+  ],
+  [
+    'Rights of Refusal',
+    'PINPOINT will not include in its designs, any text, images or other data which it deems to be immoral, offensive, obscene or illegal. All advertising material must conform to all standards laid down by all relevant advertising standards authorities. PINPOINT also reserves the right to refuse to include submitted material without giving reason. In the situation where any images and/or data that PINPOINT does include in all good faith, and subsequently discovers is in contravention to such Terms and Conditions, the customer is obliged to allow PINPOINT to remove the contravention without hindrance, or penalty. PINPOINT is to be held in no way responsible for any such data being included.',
+  ],
+  [
+    'Cancellation',
+    'Cancellation of orders may be made initially by telephone contact, or e-mail, however, following this, PINPOINT will need formal notification in writing to the company’s postal address. The client will then be invoiced for all work completed over and above the non-refundable deposit that will have been made at the time of first ordering. The balance of monies due must be paid within 30 days. Please note: any cancellation which is not formally confirmed in writing and received by PINPOINT within 14 days of such instruction being issued, will be liable for the full quoted cost of the project.',
+  ],
+  [
+    'Disclaimer',
+    'PINPOINT makes no warranties of any kind, express or implied, for any and all products and/or services that it supplies. PINPOINT will not be held responsible for any and all damages resulting from products and/or services it supplies. PINPOINT or services, of whatever cause. While we take reasonable steps to investigate the materials we recommend, we accept no responsibility for the performance or quality of materials or any consequential loss arising from their failure. The customer agrees not to hold PINPOINT responsible for any such loss or damage. Any claim against PINPOINT shall be limited to the relevant fee(s) paid by the customer. PINPOINT reserves the right to use the services of sub-contractors, agents and suppliers and any work, content, services and usage is bound by their Terms and Conditions. PINPOINT will not knowingly perform any actions to contravene these and the client also agrees to be so bound. PINPOINT and its clients agree to comply with Printers Terms and Conditions which include disclaimers for non-completion on time and the flexibility to supply quantities within 10% of the total ordered. PINPOINT recommend that if an exact quantity is required, then 10% extra is added to the quantity and extra time made available should the job be delayed.',
+  ],
+  [
+    'General',
+    'These Terms and Conditions supersede any previous Terms and Conditions distributed in any form. PINPOINT reserves the right to change any rates and any of the Terms and Conditions at any time and without prior notice.',
+  ],
+  [
+    'Acceptance of Terms and Conditions and Quotation',
+    'The placement of an order for design and/or any other services offered by PINPOINT, by email, verbally or in writing, is deemed to be acceptance of these terms and conditions, which are freely available at www.pinpoint.ng .',
+  ],
+];

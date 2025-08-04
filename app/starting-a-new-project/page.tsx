@@ -4,12 +4,15 @@ import { ProjectRequestForm } from '@/components/sections/forms/ProjectRequestFo
 import Footer from '@/components/layout/Footer';
 import { FormPageHeadingSection } from '@/components/sections/shared/CommonHero';
 import { newProjectTexts } from '@/lib/constants/texts';
+import { getAllIndividualServices } from '@/lib/utils/transform';
 
 export default function StartingANewProject() {
+  const servicesList = getAllIndividualServices();
+
   return (
     <MainLayout pageName="Starting a new project?">
       <FormPageHeadingSection heading="Let us discover your project" texts={newProjectTexts} />
-      <ProjectRequestForm />
+      <ProjectRequestForm servicesList={servicesList} />
       <Footer />
       <PageSideDecoration caption="Starting a new project?" />
     </MainLayout>

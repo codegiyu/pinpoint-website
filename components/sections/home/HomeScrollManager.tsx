@@ -1,24 +1,30 @@
 'use client';
 
 import { PageSideCaption } from '@/components/general/PageSideCaption';
+import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { intersectionExists } from '@/lib/utils/general';
-import { memo, RefObject, useEffect } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 
-export interface HomeScrollManagerProps {
-  refsForObserver: RefObject<HTMLElement | null>[];
-}
+export const HomeScrollManager = memo(() => {
+  const isTabletScreenAndAbove = useMediaQuery('(min-width: 768px)');
 
-export const HomeScrollManager = memo(({ refsForObserver }: HomeScrollManagerProps) => {
+  const observerTargetIds = useMemo(
+    () => (isTabletScreenAndAbove ? ['hero', 'what-we-do-inner'] : ['hero', 'what-we-do']),
+    [isTabletScreenAndAbove]
+  );
+
   useEffect(() => {
     const scrollManager = () => {
       const header = document.getElementById('visible-header');
       const pageSideCaption = document.querySelector('.page-side-caption');
+      const observerTargets = observerTargetIds.map(id => document.getElementById(id));
+
       const halfInnerHeight = innerHeight / 2;
-      const whatWeDo = refsForObserver[1].current;
+      const whatWeDo = observerTargets[1];
 
       const { top: whatWeDoTop = 0 } = whatWeDo?.getBoundingClientRect() ?? {};
 
-      if (intersectionExists(refsForObserver, header)) {
+      if (intersectionExists(observerTargets, header)) {
         header?.classList.replace('mix-blend-difference', 'mix-blend-normal');
       } else {
         header?.classList.replace('mix-blend-normal', 'mix-blend-difference');
@@ -56,16 +62,16 @@ export const HomeScrollManager = memo(({ refsForObserver }: HomeScrollManagerPro
     //   }
     // );
 
-    // refsForObserver?.forEach(ref => {
+    // observerTargets?.forEach(ref => {
     //   if (ref.current) observerRef.current?.observe(ref.current);
     // });
 
     // return () => {
-    //   refsForObserver?.forEach(ref => {
+    //   observerTargets?.forEach(ref => {
     //     if (ref.current) observerRef.current?.unobserve(ref.current);
     //   });
     // };
-  }, [refsForObserver]);
+  }, [observerTargetIds]);
 
   return (
     <PageSideCaption caption="Your Branding, Marketing, and Packaging Solution" noDefaultOpacity />

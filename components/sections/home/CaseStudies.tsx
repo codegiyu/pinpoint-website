@@ -1,10 +1,9 @@
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
-import { homeCaseStudySamples } from '@/lib/constants/texts';
 import { MoveRight } from 'lucide-react';
 import Image from 'next/image';
 
-export const CaseStudies = () => {
+export const CaseStudies = ({ samples }: { samples: Omit<CaseStudySummaryProps, 'index'>[] }) => {
   return (
     <section className="w-full section-block-padding bg-gray-f2 relative z-[3]">
       <div className="pinpoint-container grid gap-6 md:gap-8 lg:gap-[3.75rem] xl:gap-[clamp(60px,_4.478vw,_75px)">
@@ -16,7 +15,7 @@ export const CaseStudies = () => {
           </h2>
         </div>
         <div className="grid gap-12 md:gap-16 lg:gap-[7.5rem] xl:gap-[clamp(120px,_8.956vw,_150px)">
-          {homeCaseStudySamples.map((item, idx) => (
+          {samples.map((item, idx) => (
             <CaseStudySummary key={idx} {...item} index={idx + 1} />
           ))}
         </div>

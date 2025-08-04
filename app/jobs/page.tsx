@@ -4,8 +4,7 @@ import { MainLayout } from '@/components/layout/MainLayout';
 import { JobsCTA } from '@/components/sections/jobs/JobsCTA';
 import JobsFooter from '@/components/sections/jobs/JobsFooter';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
-import { jobCards } from '@/lib/constants/texts';
-import { useMediaQuery } from '@/lib/hooks/use-media-query';
+import { getJobCards } from '@/lib/utils/transform';
 
 const heroDescription = (
   <>
@@ -25,7 +24,8 @@ const mobileHeroDescription = (
 );
 
 export default function JobsPage() {
-  const isMobile = useMediaQuery('(max-width:768px)');
+  const jobCards = getJobCards();
+
   return (
     <MainLayout pageName="Jobs" className="pt-6 md:pt-20 lg:pt-0">
       <CommonHero
@@ -36,11 +36,10 @@ export default function JobsPage() {
         bottomStripBackground=""
       />
 
-      {isMobile && (
-        <div className="max-w-[900px] text-[clamp(1.3rem,_1.2vw,_2.25rem)] sm:text-[clamp(1.55rem,_1.2vw,_2.25rem)] py-16 pb-0 px-8 sm:px-16 bg-gray-f2 font-light leading-9 sm:leading-12">
-          {mobileHeroDescription}
-        </div>
-      )}
+      <div className="block md:hidden max-w-[900px] text-[clamp(10px,_1.2vw,_17px)] sm:text-[clamp(1.55rem,_1.2vw,_2.25rem)] py-16 pb-0 px-8 sm:px-16 bg-gray-f2 font-light leading-9 sm:leading-12">
+        {mobileHeroDescription}
+      </div>
+
       <div className="pt-[clamp(65px,_4.551vw,_165px)] bg-gray-f2">
         {jobCards.map((card, index) => (
           <JobsCTA {...card} key={index} />
