@@ -9,7 +9,8 @@ import { WhatMakesUsUnique } from '@/components/sections/services/WhatMakesUsUni
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
 import { AvailableService } from '@/lib/constants/texts';
-import { getServiceById } from '@/lib/utils/transform';
+import { getAllServiceIds, getServiceById } from '@/lib/utils/transform';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 export interface FullServiceData {
@@ -52,6 +53,25 @@ interface Props {
   params: Promise<{
     service: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  return getAllServiceIds();
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const service = getServiceById((await params).service);
+
+  if (!service) return {};
+
+  return {
+    title: `${service.name} | Our Services | Pinpoint Global`,
+    description: service.description.slice(0, 160),
+    openGraph: {
+      title: service.name,
+      description: service.description,
+    },
+  };
 }
 
 export default async function ServicePage({ params }: Props) {

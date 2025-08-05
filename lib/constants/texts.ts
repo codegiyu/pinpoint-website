@@ -436,6 +436,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           title: 'We bring brands to life in the real world',
           services: [
             'Packaging Design',
+            'Product Design',
             'Label Systems',
             'Material & Finish Consulting',
             'Unboxing Experience Design',
@@ -586,6 +587,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
             'Design Systems & Component Libraries',
             'Accessibility-first Design',
             'Brand Integration & Visual Consistency',
+            'Web Design',
           ],
         },
         {
@@ -594,6 +596,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
             'Frontend Development',
             'Cross-platform Mobile App Development',
             'Backend Development & API Integration',
+            'Website Development',
             'Headless CMS Integration',
             'E-commerce & SaaS Platforms',
             'Performance & SEO Optimization',
@@ -619,7 +622,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       'Frontend development',
       'Cross-platform mobile app development',
       'Backend Development & API Integration',
-      'E-commerce & SaaS platfroms',
+      'E-commerce & SaaS platforms',
     ],
     whatMakesUsUnique: {
       title: 'Our long-term and qualitative vision',
@@ -649,7 +652,14 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
   },
 ];
 
-export const AVAILABLE_PROJECT_IDS = ['tahwil_solutions', 'afropay', 'gusto'] as const;
+export const AVAILABLE_PROJECT_IDS = [
+  'tahwil_solutions',
+  'afropay',
+  'gusto',
+  'pegrov',
+  'damsy',
+  'zhoikha',
+] as const;
 export type AvailableProject = (typeof AVAILABLE_PROJECT_IDS)[number];
 export const ALL_PROJECTS_DATA: FullProjectData[] = [
   {
@@ -827,8 +837,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
       {
         caption: 'Gusto re-imagined',
         title: 'A complete brand transformation',
-        sectionBg:
-          "New visual identity reflecting the brand's essense and desired emotional response",
+        sectionBg: '',
         textColorClass: '',
         description: [
           [
@@ -866,6 +875,237 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
           { src: '/images/projects/gusto-packaging-1.png', alt: '', className: 'w-1/2 md:w-1/3' },
           { src: '/images/projects/gusto-packaging-2.png', alt: '', className: 'w-1/2 md:w-1/3' },
           { src: '/images/projects/gusto-packaging-3.png', alt: '', className: 'w-full md:w-1/3' },
+        ],
+      },
+    ],
+    relatedProjects: [],
+  },
+  {
+    id: 'pegrov',
+    name: 'PEGROV',
+    pageTitle: 'Rebranding to establish dynamic and engaging identity',
+    descSummary: 'Innovative and trusted betting platform captivating customers in the UK',
+    bannerURL: { image: '/images/projects/pegrov-2.jpg' },
+    cardImage: '/images/projects/pegrov-2.jpg',
+    descriptionBg: '',
+    textColorClass: '',
+    description:
+      "PEGROV, a renowned betting of games company based in the UK, embarked on \
+      a journey of rebranding and transformation to establish a dynamic and \
+      engaging identity in the competitive betting industry. PEGROV sought the \
+      expertise of Pinpoint Design and Packaging to create a fresh and modern \
+      visual identity that reflects the brand's values, fosters trust, and \
+      captures the excitement of betting on games. \\nWith the redesigned logo \
+      and rebranding efforts by Pinpoint Design and Packaging, PEGROV confidently \
+      positions itself as a leading player in the betting of games industry in \
+      the UK. The revitalized brand identity positions PEGROV as a trusted \
+      platform for gamers and bettors, known for its exciting betting options, \
+      user-friendly interface, and commitment to responsible gaming.",
+    descriptionHighlightPhotos: [],
+    services: ['branding_and_identity', 'digital_products_creation'],
+    extraServices: [
+      'Logo Design',
+      'Visual Identity Development',
+      'Rebranding',
+      'Cross-platform Mobile App Development',
+      'Web Design',
+    ],
+    sectors: ['Entertainment', 'Gaming'],
+    createdWebsite: '',
+    renderedServices: [
+      {
+        caption: 'Rebranding',
+        title: 'Logo design and rebranding',
+        sectionBg: '',
+        textColorClass: '',
+        description: [
+          [
+            "The new logo design embodies PEGROV's energy, professionalism, and commitment to providing a thrilling betting experience. The redesigned logo features a sleek and contemporary symbol that combines elements from the world of games and betting. The symbol incorporates an abstract representation of a game controller or joystick, reflecting PEGROV's focus on gaming and betting activities. Its clean lines and balanced proportions create a sense of precision and reliability.",
+          ],
+          [
+            "In addition to the logo redesign, the rebranding effort extends to various touchpoints, including typography, visual elements, and overall brand aesthetics. The typography is carefully chosen to strike a balance between readability and modernity, with a clean and contemporary font that enhances legibility across different platforms. Visual elements, such as dynamic patterns or illustrations inspired by gaming motifs, can be incorporated to enhance the brand's visual identity.",
+          ],
+          [
+            "The reimagined PEGROV aims to provide a captivating and user-friendly betting platform that appeals to both experienced bettors and newcomers. The brand's values of transparency, integrity, and responsible gaming are reflected in every aspect of the rebranding, inviting customers to engage in a secure and thrilling betting experience.",
+          ],
+        ],
+        images: [
+          { src: '/images/projects/pegrov-1.jpg', alt: '', className: 'w-1/2 md:w-1/3' },
+          { src: '/images/projects/pegrov-2.jpg', alt: '', className: 'w-1/2 md:w-1/3' },
+          { src: '/images/projects/pegrov-3.jpg', alt: '', className: 'w-full md:w-1/3' },
+        ],
+      },
+      {
+        caption: 'Digital Products',
+        title: 'Web and mobile applications',
+        sectionBg: '',
+        textColorClass: '',
+        description: [
+          [
+            "The rebranding effort also extends to the user interface of PEGROV's digital platforms, ensuring a seamless and intuitive betting experience. The website and mobile applications feature a modern and user-friendly design, allowing customers to navigate effortlessly, place bets, and access a wide range of games and betting options.",
+          ],
+        ],
+        images: [],
+      },
+    ],
+    relatedProjects: [],
+  },
+  {
+    id: 'damsy',
+    name: 'Damsy',
+    pageTitle: 'Visual identity to capture the essence of the Damsy spirit',
+    descSummary:
+      'Committed to raising health livestock and poultry while \
+      promoting sustainable farming practices',
+    bannerURL: { image: '/images/projects/damsy-farm-card.png' },
+    cardImage: '/images/projects/damsy-farm-card.png',
+    descriptionBg: '',
+    textColorClass: '',
+    description:
+      "In the vast Nigerian countryside, where the land is fertile and the sun \
+      shines bright, a farm emerged with a passion for raising healthy livestock \
+      and poultry. Damsy, a name that echoed a connection to nature and a \
+      commitment to quality, embarked on a mission to provide nourishing food \
+      products while promoting sustainable farming practices. \\nPinpoint Design \
+      and Packaging, renowned for their expertise in visual storytelling, eagerly \
+      took on the task of designing a logo that would embody the spirit of Damsy. \
+      With careful precision and creative ingenuity, they set out to craft a symbol \
+      that would reflect the brand's dedication to farming and its harmonious \
+      relationship with the environment.",
+    descriptionHighlightPhotos: [],
+    services: ['branding_and_identity', 'packaging_and_product_design'],
+    extraServices: [
+      'Logo Design',
+      'Visual Identity Development',
+      'Brand Activation',
+      'Product Design',
+      'Promotional Products',
+      'Product Packaging',
+    ],
+    sectors: ['Food', 'Agriculture'],
+    createdWebsite: '',
+    renderedServices: [
+      {
+        caption: 'Visual Storytelling',
+        title: 'Logo design and branding',
+        sectionBg: '',
+        textColorClass: '',
+        description: [
+          [
+            "The logo, a masterpiece of design, begins with a stylized representation of a strong and majestic farm animal, the horned cow. This iconic symbol represents the livestock aspect of Damsy's operations, showcasing the brand's commitment to raising healthy and robust animals. The cow's silhouette exudes strength, while its curved horns evoke a sense of resilience and connection to the earth.",
+          ],
+          [
+            "Intertwined with the cow, there is an elegant illustration of a rooster, representing the poultry aspect of Damsy's farm. The rooster's proud stance and vibrant feathers symbolize the brand's dedication to raising poultry with care and expertise. It embodies the spirit of vitality and the dawn of a new day, reflecting the brand's commitment to providing fresh and nutritious poultry products.",
+          ],
+          [
+            "The color palette chosen for the logo draws inspiration from nature and the farm's surroundings. Earthy tones of green and brown evoke a sense of growth, abundance, and the fertile soil that nourishes Damsy's animals. These colors harmonize with the brand's commitment to sustainability and environmental stewardship.",
+          ],
+          [
+            "The typography within the logo is meticulously crafted to reflect the brand's identity. The font strikes a balance between approachability and professionalism, conveying a sense of trust and expertise. Its clean and bold appearance commands attention, representing the brand's commitment to quality and excellence.",
+          ],
+          [
+            "The logo encapsulates the essence of Damsy, a farm committed to raising healthy livestock and poultry while promoting sustainable farming practices. It stands as a symbol of strength, vitality, and the brand's dedication to providing nourishing food products with a focus on quality and sustainability.",
+          ],
+        ],
+        images: [
+          { src: '/images/projects/damsy-farm-1.png', alt: '', className: 'w-1/2 md:w-1/3' },
+          { src: '/images/projects/damsy-farm-2.jpg', alt: '', className: 'w-1/2 md:w-1/3' },
+          { src: '/images/projects/damsy-farm-card.png', alt: '', className: 'w-full md:w-1/3' },
+        ],
+      },
+      {
+        caption: 'Branding Material',
+        title: 'Quality branded products to confidently represent the brand',
+        sectionBg: 'bg-gray-f2',
+        textColorClass: '',
+        description: [
+          [
+            "As Pinpoint Design and Packaging developed the logo, they ensured that it could seamlessly adapt to various branding materials, including product packaging, signage, and marketing collateral. The logo's versatility allows it to confidently represent the brand across different mediums, reinforcing its identity and connection to the farm's values.",
+          ],
+        ],
+        images: [
+          {
+            src: '/images/projects/damsy-farm-packaging.png',
+            alt: '',
+            className: 'w-full lg:w-1/2',
+          },
+          {
+            src: '/images/projects/damsy-farm-packaging.png',
+            alt: '',
+            className: 'w-1/2 hidden lg:block',
+          },
+        ],
+      },
+    ],
+    relatedProjects: [],
+  },
+  {
+    id: 'zhoikha',
+    name: 'Zhoikha',
+    pageTitle: 'Elegant brand design with branded materials and packaging',
+    descSummary: 'Lifestyle brand embodying elegance, sophistication and modernity',
+    bannerURL: { image: '/images/projects/zhoikha-card.png' },
+    cardImage: '/images/projects/zhoikha-card.png',
+    descriptionBg: '',
+    textColorClass: '',
+    description:
+      "The lifestyle brand, Zhoikha, embodies elegance, soqhistication and modernity. \
+      Pinpoint Design and Packaging, renowned for their expertise in visual \
+      storytelling, eagerly took on the task of designing a logo representing the \
+      brand's core values and identity.",
+    descriptionHighlightPhotos: [],
+    services: [
+      'branding_and_identity',
+      'packaging_and_product_design',
+      'offset_and_digital_printing',
+    ],
+    extraServices: [
+      'Logo Design',
+      'Visual Identity Development',
+      'Product Design',
+      'Promotional Products',
+      'Product Packaging',
+    ],
+    sectors: ['Lifestyle'],
+    createdWebsite: '',
+    renderedServices: [
+      {
+        caption: 'Brand design',
+        title: 'Logo design and branding',
+        sectionBg: '',
+        textColorClass: '',
+        description: [
+          [
+            "The logo for ZHOIKHA, a lifestyle brand, embodies elegance, sophistication, and modernity. It features a combination of sleek typography and an abstract symbol that represents the brand's core values and identity.",
+          ],
+        ],
+        images: [
+          { src: '/images/projects/zhoikha-1.png', alt: '', className: 'w-1/2 md:w-1/3' },
+          { src: '/images/projects/zhoikha-2.png', alt: '', className: 'w-1/2 md:w-1/3' },
+          { src: '/images/projects/zhoikha-card.png', alt: '', className: 'w-full md:w-1/3' },
+        ],
+      },
+      {
+        caption: 'Branding Material',
+        title: 'Quality branded products to confidently represent the brand',
+        sectionBg: 'bg-gray-f2',
+        textColorClass: '',
+        description: [
+          [
+            "As Pinpoint Design and Packaging developed the logo, they ensured that it could seamlessly adapt to various branding materials, including product packaging, signage, and marketing collateral. The logo's versatility allows it to confidently represent the brand across different mediums, reinforcing its identity and connection to the brand's values.",
+          ],
+        ],
+        images: [
+          {
+            src: '/images/projects/zhoikha-packaging-1.png',
+            alt: '',
+            className: 'w-full sm:w-1/2',
+          },
+          {
+            src: '/images/projects/zhoikha-product-1.png',
+            alt: '',
+            className: 'w-full sm:w-1/2',
+          },
         ],
       },
     ],
@@ -985,15 +1225,15 @@ export const PRIVACY_POLICY: string[][] = [
   ],
   [
     'Project Acceptance',
-    'At the time of proposal as PINPOINT will provide the customer with a written estimate or quotation by email. These Terms and Conditions can be read at any time on the as PINPOINT ,social handles and website. A copy of the written estimate or quotation is to be signed and dated by the customer to indicate acceptance and should be returned to as PINPOINT. Alternatively, the client may send an official purchase order in reply to the estimate or quotation which binds the client to accept our terms and conditions, or an email acknowledging acceptance of the quotation. For the avoidance of doubt, the as PINPOINT Terms & Conditions are what govern the job, not any conditions on the customer’s purchase order.',
+    "At the time of proposal as PINPOINT will provide the customer with a written estimate or quotation by email. These Terms and Conditions can be read at any time on the as PINPOINT ,social handles and website. A copy of the written estimate or quotation is to be signed and dated by the customer to indicate acceptance and should be returned to as PINPOINT. Alternatively, the client may send an official purchase order in reply to the estimate or quotation which binds the client to accept our terms and conditions, or an email acknowledging acceptance of the quotation. For the avoidance of doubt, the as PINPOINT Terms & Conditions are what govern the job, not any conditions on the customer's purchase order.",
   ],
   [
     'Design Charges',
-    'Charges for design services to be provided by as PINPOINT will be set out in the written estimate or quotation that is provided to the customer. At the time of the customer’s signed acceptance of this estimate or quotation, indicating acceptance of the Terms & Conditions, a non-refundable payment of 50% of the quoted fee will become immediately due. Unless agreed otherwise with the Client, all design services require an advance payment of a minimum of fifty (50) percent of the project quotation total before the work commences or is supplied to the Client for review. The remaining fifty (50) percent of the project quotation total will be due upon completion of the work prior to upload to the server or release of materials.',
+    "Charges for design services to be provided by as PINPOINT will be set out in the written estimate or quotation that is provided to the customer. At the time of the customer's signed acceptance of this estimate or quotation, indicating acceptance of the Terms & Conditions, a non-refundable payment of 50% of the quoted fee will become immediately due. Unless agreed otherwise with the Client, all design services require an advance payment of a minimum of fifty (50) percent of the project quotation total before the work commences or is supplied to the Client for review. The remaining fifty (50) percent of the project quotation total will be due upon completion of the work prior to upload to the server or release of materials.",
   ],
   [
     'Source Files',
-    'We will supply proofs and PDF files as appropriate for printing, or other graphic files as detailed in the job scope or request. Charges for design work do not cover the release of our copyright design source files, including but not restricted to indd, psd, AI, png, fla or other source files or raw code; if the Client requires these files for transfer to an in-house or other designer, they will be subject to a separate quotation or ‘buy-out’ charge.',
+    "We will supply proofs and PDF files as appropriate for printing, or other graphic files as detailed in the job scope or request. Charges for design work do not cover the release of our copyright design source files, including but not restricted to indd, psd, AI, png, fla or other source files or raw code; if the Client requires these files for transfer to an in-house or other designer, they will be subject to a separate quotation or 'buy-out' charge.",
   ],
   [
     'Charges for Other Services',
@@ -1005,11 +1245,11 @@ export const PRIVACY_POLICY: string[][] = [
   ],
   [
     'Default',
-    'An account shall be considered default if it remains unpaid for 30 days from the date of invoice, or following a returned cheque. as PINPOINT shall be entitled to as PINPOINT s and/or the customer’s material from any and all computer systems, until the amount due has been fully paid. This includes any and all unpaid monies due for services, including, but not limited to, hosting, domain registration, search engine submission, design and maintenance, sub-contractors, printers, photographers and libraries. Removal of such materials does not relieve the customer of its obligation to pay the due amount. Customers whose accounts become default agree to pay all as PINPOINT ‘s reasonable legal and accounting expenses and third party collection agency fees in the enforcement of the debt and these Terms and Conditions.',
+    "An account shall be considered default if it remains unpaid for 30 days from the date of invoice, or following a returned cheque. as PINPOINT shall be entitled to as PINPOINT s and/or the customer's material from any and all computer systems, until the amount due has been fully paid. This includes any and all unpaid monies due for services, including, but not limited to, hosting, domain registration, search engine submission, design and maintenance, sub-contractors, printers, photographers and libraries. Removal of such materials does not relieve the customer of its obligation to pay the due amount. Customers whose accounts become default agree to pay all as PINPOINT ‘s reasonable legal and accounting expenses and third party collection agency fees in the enforcement of the debt and these Terms and Conditions.",
   ],
   [
     'Copyrights and Trademarks',
-    'By supplying text, images and other data to as PINPOINT for inclusion in the customer’s website or other medium, the customer declares that it holds the appropriate copyright and/or trademark permissions. The ownership of such materials will remain with the customer, or rightful copyright or trademark owner. Any artwork, images, or text supplied and/or designed by as PINPOINT on behalf of the customer, will remain the property of as PINPOINT and/or its suppliers unless otherwise agreed in writing. A licence for use of the copyright material is granted to the customer solely for the project defined in the scope or request and not for any other purpose. The customer may request in writing from as PINPOINT, the necessary permission to use materials (for which as PINPOINT holds the copyright) in forms other than for which it was originally supplied, and as PINPOINT may, at its discretion, grant this and may charge for the additional usage. Such permission must be obtained in writing before any of the aforesaid artwork, images, text, or other data is used. Any software, code, plugin or other third party material used in a web or digital project remains the property of the creator and any ongoing licence fees or fees for upgrades are the responsibility of the client, not as PINPOINT. By supplying images, text, or any other data to as PINPOINT, the customer grants as PINPOINT permission to use this material freely in the pursuit of the design. Should as PINPOINT, or the customer supply an image, text, audio clip or any other file for use in a website, multimedia presentation, print item, exhibition, advertisement or any other medium believing it to be copyright and royalty free, which subsequently emerges to have such copyright or royalty usage limitations, the customer will agree to allow as PINPOINT to remove and/or replace the file on the site. The customer agrees to fully indemnify and hold as PINPOINT free from harm in any and all claims resulting from the customer in not having obtained all the required copyright, and/or any other necessary permissions',
+    "By supplying text, images and other data to as PINPOINT for inclusion in the customer's website or other medium, the customer declares that it holds the appropriate copyright and/or trademark permissions. The ownership of such materials will remain with the customer, or rightful copyright or trademark owner. Any artwork, images, or text supplied and/or designed by as PINPOINT on behalf of the customer, will remain the property of as PINPOINT and/or its suppliers unless otherwise agreed in writing. A licence for use of the copyright material is granted to the customer solely for the project defined in the scope or request and not for any other purpose. The customer may request in writing from as PINPOINT, the necessary permission to use materials (for which as PINPOINT holds the copyright) in forms other than for which it was originally supplied, and as PINPOINT may, at its discretion, grant this and may charge for the additional usage. Such permission must be obtained in writing before any of the aforesaid artwork, images, text, or other data is used. Any software, code, plugin or other third party material used in a web or digital project remains the property of the creator and any ongoing licence fees or fees for upgrades are the responsibility of the client, not as PINPOINT. By supplying images, text, or any other data to as PINPOINT, the customer grants as PINPOINT permission to use this material freely in the pursuit of the design. Should as PINPOINT, or the customer supply an image, text, audio clip or any other file for use in a website, multimedia presentation, print item, exhibition, advertisement or any other medium believing it to be copyright and royalty free, which subsequently emerges to have such copyright or royalty usage limitations, the customer will agree to allow as PINPOINT to remove and/or replace the file on the site. The customer agrees to fully indemnify and hold as PINPOINT free from harm in any and all claims resulting from the customer in not having obtained all the required copyright, and/or any other necessary permissions",
   ],
   [
     'Alterations',
@@ -1017,7 +1257,7 @@ export const PRIVACY_POLICY: string[][] = [
   ],
   [
     'Licensing',
-    'Any design, copywriting, drawing, idea or code created for the customer by as PINPOINT, or any of its contractors, is licensed for use by the client on a one-time only basis and may not be modified, re-used, or re-distributed in any way or form without the express written consent of as PINPOINT and any of its relevant sub-contractors. All design work – where there is a risk that another party make a claim, should be registered by the client with the appropriate authorities prior to publishing or first use or searches and legal advice sought as to its use. as PINPOINT will not be held responsible for any and all damages resulting from such claims. Glazier Design is not responsible for any loss, or consequential loss, non-delivery of products or services, of whatever cause. The customer agrees not to hold as PINPOINT responsible for any such loss or damage. Any claim against as PINPOINT shall be limited to the relevant fee(s) paid by the customer.',
+    'Any design, copywriting, drawing, idea or code created for the customer by as PINPOINT, or any of its contractors, is licensed for use by the client on a one-time only basis and may not be modified, re-used, or re-distributed in any way or form without the express written consent of as PINPOINT and any of its relevant sub-contractors. All design work - where there is a risk that another party make a claim, should be registered by the client with the appropriate authorities prior to publishing or first use or searches and legal advice sought as to its use. as PINPOINT will not be held responsible for any and all damages resulting from such claims. Glazier Design is not responsible for any loss, or consequential loss, non-delivery of products or services, of whatever cause. The customer agrees not to hold as PINPOINT responsible for any such loss or damage. Any claim against as PINPOINT shall be limited to the relevant fee(s) paid by the customer.',
   ],
   [
     'Data Formats',
@@ -1025,7 +1265,7 @@ export const PRIVACY_POLICY: string[][] = [
   ],
   [
     'Design Project Duration',
-    'Any indication given by as PINPOINT of a design project’s duration is to be considered by the customer to be an estimation. PINPOINT cannot be held responsible for any project over-runs, whatever the cause. Estimated project duration should be deemed to be from the date that cleared funds are received by as PINPOINT for the initial payment or by date confirmed in writing by as PINPOINT.',
+    "Any indication given by as PINPOINT of a design project's duration is to be considered by the customer to be an estimation. PINPOINT cannot be held responsible for any project over-runs, whatever the cause. Estimated project duration should be deemed to be from the date that cleared funds are received by as PINPOINT for the initial payment or by date confirmed in writing by as PINPOINT.",
   ],
   [
     'Rights of Access for Website Construction',
@@ -1033,7 +1273,7 @@ export const PRIVACY_POLICY: string[][] = [
   ],
   [
     'Design Project Completion',
-    'PINPOINT considers the design project complete upon receipt of the customer’s signed Approval form or signoff email. Other services such as printing, display panel production, filmwork, website uploading, publishing etc either contracted on the client’s behalf constitute a separate project and can be treated as a separate charge.',
+    "PINPOINT considers the design project complete upon receipt of the customer's signed Approval form or signoff email. Other services such as printing, display panel production, filmwork, website uploading, publishing etc either contracted on the client's behalf constitute a separate project and can be treated as a separate charge.",
   ],
   [
     'Website design only',
@@ -1049,11 +1289,11 @@ export const PRIVACY_POLICY: string[][] = [
   ],
   [
     'Search Engine Submission',
-    'Due to the infinite number of considerations that search engines use when determining a site’s ranking, PINPOINT cannot guarantee any particular placement. Acceptance by any search engine cannot be guaranteed and when a site is accepted, the time it takes to appear in search results varies from one search engine to another. Rankings will also vary as new sites are added. PINPOINT recommend that customers use a professional SEO company and are happy to provide details of such companies, but accept no responsibility for their services.',
+    "Due to the infinite number of considerations that search engines use when determining a site's ranking, PINPOINT cannot guarantee any particular placement. Acceptance by any search engine cannot be guaranteed and when a site is accepted, the time it takes to appear in search results varies from one search engine to another. Rankings will also vary as new sites are added. PINPOINT recommend that customers use a professional SEO company and are happy to provide details of such companies, but accept no responsibility for their services.",
   ],
   [
     'Design Credits',
-    'The customer agrees to allow PINPOINT to place a small credit on printed material exhibition displays, advertisements and/or a link to PINPOINT Design own website on the customer’s website. This will usually be in the form of a small logo or line of text placed towards the bottom of the page. The customer also agrees to allow PINPOINT to place websites and other designs, along with a link to the client’s site on PINPOINT’s own website for demonstration purposes and to use any designs in its own publicity and portfolios.',
+    "The customer agrees to allow PINPOINT to place a small credit on printed material exhibition displays, advertisements and/or a link to PINPOINT Design own website on the customer's website. This will usually be in the form of a small logo or line of text placed towards the bottom of the page. The customer also agrees to allow PINPOINT to place websites and other designs, along with a link to the client's site on PINPOINT's own website for demonstration purposes and to use any designs in its own publicity and portfolios.",
   ],
   [
     'Rights of Refusal',
@@ -1061,7 +1301,7 @@ export const PRIVACY_POLICY: string[][] = [
   ],
   [
     'Cancellation',
-    'Cancellation of orders may be made initially by telephone contact, or e-mail, however, following this, PINPOINT will need formal notification in writing to the company’s postal address. The client will then be invoiced for all work completed over and above the non-refundable deposit that will have been made at the time of first ordering. The balance of monies due must be paid within 30 days. Please note: any cancellation which is not formally confirmed in writing and received by PINPOINT within 14 days of such instruction being issued, will be liable for the full quoted cost of the project.',
+    "Cancellation of orders may be made initially by telephone contact, or e-mail, however, following this, PINPOINT will need formal notification in writing to the company's postal address. The client will then be invoiced for all work completed over and above the non-refundable deposit that will have been made at the time of first ordering. The balance of monies due must be paid within 30 days. Please note: any cancellation which is not formally confirmed in writing and received by PINPOINT within 14 days of such instruction being issued, will be liable for the full quoted cost of the project.",
   ],
   [
     'Disclaimer',

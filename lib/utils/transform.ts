@@ -50,6 +50,10 @@ export const getAllIndividualServices = () => {
   ).sort();
 };
 
+export const getAllServiceIds = () => {
+  return ALL_SERVICES_DATA.map(service => ({ service: service.id }));
+};
+
 export const getServiceById = (id: string) => {
   const service = ALL_SERVICES_DATA.find(service => service.id === id);
 
@@ -136,6 +140,10 @@ export const getHomeCaseStudySamples = () => {
   return samples;
 };
 
+export const getAllProjectIds = () => {
+  return ALL_PROJECTS_DATA.map(project => ({ projectId: project.id }));
+};
+
 export const filterProjects = async ({
   service,
   sector,
@@ -160,11 +168,13 @@ export const filterProjects = async ({
     return projectsSummary.slice(0, Number(limit) || DEFAULT_WORKS_DISPLAYED);
   }
 
+  const servicesLookup = getServicesLookup();
+
   return projectsSummary
     .filter(project => {
       if (!service && !sector) return true;
 
-      const services = new Set([...project.services, ...project.extraServices]);
+      const services = new Set(project.services.map(s => servicesLookup[s]));
       const sectors = new Set(project.sectors);
 
       if (service && sector) return services.has(service) && sectors.has(sector);
@@ -223,6 +233,10 @@ export const getJobCards = (): JobsCTAProps[] => {
     description: job.description,
     href: `/jobs/${job.id}`,
   }));
+};
+
+export const getAllJobIds = () => {
+  return ALL_JOBS_DATA.map(job => ({ job: job.id }));
 };
 
 export const getJobById = (id: string) => {

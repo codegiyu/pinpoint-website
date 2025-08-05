@@ -137,7 +137,7 @@ export const WorksDisplay = ({ provenSectors, provenServices, projects }: WorksD
         <div
           className="filters-box w-[85.8vw] max-w-[495px] md:max-w-none md:w-[595px] 
           lg:w-[828px] xl:w-[1024px] 2xl:w-[1200px] 3xl:w-[1300px] lg:h-[150px] mx-auto">
-          <div className="w-full pt-6 pb-[2.125rem] md:py-0 grid gap-4">
+          <div className="w-full pt-6 pb-[2.125rem] lg:py-0 grid gap-4">
             <Accordion
               type="single"
               value={openfilter}
@@ -192,7 +192,7 @@ export const WorksDisplay = ({ provenSectors, provenServices, projects }: WorksD
             </div>
           ) : (
             <ul
-              className={`w-full h-auto grid md:grid-cols-2 gap-8 md:gap-4 lg:gap-x-[3.25rem] 
+              className={`w-full h-auto grid md:grid-cols-2 gap-8 md:gap-8 lg:gap-x-[3.25rem] 
             lg:gap-y-8 xl:gap-y-[clamp(24px,_1.119vw,_32px)] transition-all
             lg:[&>*:nth-child(even)]:translate-y-[-150px] duration-300 ease-in-out
             ${filterLoading.length ? 'opacity-0 max-h-0' : 'opacity-100 max-h-auto'} `}>

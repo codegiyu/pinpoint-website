@@ -21,7 +21,6 @@ export default async function OurWorksPage({ searchParams }: Props) {
 
   const { provenSectors, provenServices } = getProvenServicesAndSectors();
   const projects = await filterProjects(search);
-  console.log({ projects, search });
 
   return (
     <MainLayout pageName="Our Works" className="bg-gray-f2 lg:bg-white">

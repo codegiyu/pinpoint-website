@@ -6,7 +6,8 @@ import { RelatedProjects } from '@/components/sections/works/RelatedProjects';
 import { RenderedService } from '@/components/sections/works/RenderedService';
 import { AvailableProject, AvailableService } from '@/lib/constants/texts';
 import { ImageOrVideoURL } from '@/lib/types/general';
-import { getProjectById } from '@/lib/utils/transform';
+import { getAllProjectIds, getProjectById } from '@/lib/utils/transform';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ComponentPropsWithoutRef } from 'react';
 
@@ -43,6 +44,25 @@ interface Props {
   params: Promise<{
     projectId: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  return getAllProjectIds();
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const project = getProjectById((await params).projectId);
+
+  if (!project) return {};
+
+  return {
+    title: `${project.name} | Our Works | Pinpoint Global`,
+    description: project.description.slice(0, 160),
+    openGraph: {
+      title: project.name,
+      description: project.description,
+    },
+  };
 }
 
 export default async function ProjectPage({ params }: Props) {

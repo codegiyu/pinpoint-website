@@ -5,7 +5,8 @@ import JobDetails, { JobDescription } from '@/components/sections/jobs/JobDetail
 import Footer from '@/components/layout/Footer';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { notFound } from 'next/navigation';
-import { getJobById } from '@/lib/utils/transform';
+import { getAllJobIds, getJobById } from '@/lib/utils/transform';
+import { Metadata } from 'next';
 
 export interface FullJobProps {
   id: string;
@@ -22,6 +23,25 @@ interface Props {
   params: Promise<{
     job: string;
   }>;
+}
+
+export async function generateStaticParams() {
+  return getAllJobIds();
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const job = getJobById((await params).job);
+
+  if (!job) return {};
+
+  return {
+    title: `${job.title} | Jobs | Pinpoint Global`,
+    description: job.description.slice(0, 160),
+    openGraph: {
+      title: job.title,
+      description: job.description,
+    },
+  };
 }
 
 export default async function JobOpportunityPage({ params }: Props) {
