@@ -23,6 +23,8 @@ interface MultiSelectProps {
   onChange: (values: string[]) => void;
   placeholder?: string;
   className?: string;
+  label?: string;
+  errors?: string[];
 }
 
 export function MultiSelect({
@@ -31,6 +33,8 @@ export function MultiSelect({
   onChange,
   placeholder = 'Select options...',
   className,
+  label,
+  errors = [],
 }: MultiSelectProps) {
   const [open, setOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState('');
@@ -72,6 +76,15 @@ export function MultiSelect({
             </Badge>
           ))}
         </div>
+      )}
+
+      {label && (
+        <span
+          className={cn(
+            'invisible text-[0.825rem] lg:text-[0.95rem] leading-[1.2] font-extralight text-gray-66 transition-all ease-linear duration-300'
+          )}>
+          {label}
+        </span>
       )}
 
       <Popover open={open} onOpenChange={setOpen}>
@@ -128,6 +141,9 @@ export function MultiSelect({
           </Command>
         </PopoverContent>
       </Popover>
+      {errors.length > 0 && (
+        <p className={cn('typo-body-6 text-sm text-red-500 mt-1')}>{errors[0]}</p>
+      )}
     </div>
   );
 }

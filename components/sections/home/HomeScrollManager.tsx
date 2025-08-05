@@ -43,7 +43,7 @@ export const HomeScrollManager = memo(() => {
       }
     };
 
-    scrollManager();
+    // scrollManager();
     window.addEventListener('scroll', scrollManager);
 
     return () => window.removeEventListener('scroll', scrollManager);

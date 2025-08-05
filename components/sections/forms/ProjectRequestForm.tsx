@@ -60,6 +60,7 @@ export const ProjectRequestForm = memo(
       formSchema,
       defaultFormValues,
       onSubmit,
+      validateOnChange: true,
     });
 
     const formValid = useMemo(() => isValid && !!files.length, [isValid, files]);
@@ -71,10 +72,9 @@ export const ProjectRequestForm = memo(
     const generalValidation = () => {
       if (!files.length) {
         toast({ title: 'Please upload at least one file', variant: 'error' });
-        return false;
       }
 
-      return validateForm();
+      return validateForm() && !!files.length;
     };
 
     async function onSubmit(values: FormSchema): Promise<boolean> {
@@ -105,7 +105,7 @@ export const ProjectRequestForm = memo(
       toast({ title: parsedRes.message, variant: parsedRes.success ? 'success' : 'error' });
 
       if (parsedRes.error) {
-        setFormErrors({ message: parsedRes.error });
+        setFormErrors({ message: [parsedRes.error] });
       }
 
       if (parsedRes.success) {
@@ -171,7 +171,9 @@ export const ProjectRequestForm = memo(
               options={serviceOptions}
               selected={formValues.services}
               onChange={values => onChange('services', values)}
-              placeholder="Select at least one service"
+              errors={errorsVisible ? formErrors.services : undefined}
+              placeholder="Select at least one service which covers what you need *"
+              label="Services"
             />
             <FileUploadInput files={files} setFiles={setFiles} inputProps={{ required: true }} />
             <RegularTextarea

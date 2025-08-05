@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
         {
           success: false,
           message: 'Mail sending failed',
-          error: `The field(s) ${invalidFields.join(', ')} are invalid`,
+          error: `The field(s) ${invalidFields.map(item => `"${item}"`).join(', ')} are invalid`,
         },
         { status: 400 }
       );
@@ -138,6 +138,7 @@ const allowedFields = new Set([
   'phone',
   'tel',
   'company',
+  'services',
   'message',
   'portfolio',
   'linkedin',

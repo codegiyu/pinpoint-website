@@ -239,6 +239,11 @@
   /* .swiper-button-next,
   .swiper-button-prev {} */
 
+  body.load-animation-open #visible-header.mix-blend-normal .pinpoint-logo path.coloured-text,
+  body.load-animation-open #visible-header.mix-blend-difference .pinpoint-logo path.coloured-text {
+    fill: #fe7702 !important;
+  }
+
   #visible-header .pinpoint-logo path.black-text {
     fill: currentColor;
   }

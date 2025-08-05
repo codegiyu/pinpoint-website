@@ -36,14 +36,22 @@ export default function JobsPage() {
         bottomStripBackground=""
       />
 
-      <div className="block md:hidden max-w-[900px] text-[clamp(10px,_1.2vw,_17px)] sm:text-[clamp(1.55rem,_1.2vw,_2.25rem)] py-16 pb-0 px-8 sm:px-16 bg-gray-f2 font-light leading-9 sm:leading-12">
+      <div className="block md:hidden max-w-[900px] text-[clamp(10px,_1.2vw,_17px)] sm:text-[clamp(1.55rem,_1.2vw,_2.25rem)] py-16 pb-0 px-8 sm:px-16 bg-gray-f2 font-light leading-9 sm:leading-12 relative z-[5]">
         {mobileHeroDescription}
       </div>
 
-      <div className="pt-[clamp(65px,_4.551vw,_165px)] bg-gray-f2">
-        {jobCards.map((card, index) => (
-          <JobsCTA {...card} index={index} key={index} />
-        ))}
+      <div className="pt-[clamp(65px,_4.551vw,_165px)] bg-gray-f2 relative z-[5]">
+        {jobCards.length ? (
+          <>
+            {jobCards.map((card, index) => (
+              <JobsCTA {...card} index={index} key={index} />
+            ))}
+          </>
+        ) : (
+          <div className="w-full py-10">
+            <p className="typo-body-7 text-66 text-center">No open positions available</p>
+          </div>
+        )}
       </div>
       <JobsFooter />
 

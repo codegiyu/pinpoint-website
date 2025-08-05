@@ -932,42 +932,42 @@ export const ALL_JOBS_DATA: FullJobProps[] = [
   //   yourself directly to Juju (no need to impress him with a long cover letter, \
   //   just show him your portfolio and your best work).',
   // },
-  {
-    id: 'internship-in-development-marketing-or-project-management',
-    title: 'Internship in development, marketing or project management',
-    description:
-      'We gladly welcome interns who are looking for experience in the field of \
-      web development, marketing or project management.',
-    type: 'paragraphs',
-    jobDescription: [
-      {
-        title: 'Which field?',
-        text: ' We gladly welcome interns who are looking for experience in the \
-        field of web design and development, marketing or project management.',
-      },
-      {
-        title: 'What will you do ?',
-        text: "Don't worry, you won't have to serve coffee or decorate the Christmas \
-        tree… In fact, we expect much more from our interns. We like them to be dynamic, \
-        proactive, eager to learn, not afraid to make mistakes and stronger than us at FIFA 25!",
-      },
-      {
-        title: 'No secret between us',
-        text: "We are a small multi-hat team that is on many fronts at the same time. So \
-        don't hesitate to pull our sleeve because we forgot to provide you with tasks, \
-        because there will always be tasks!",
-      },
-      {
-        title: 'Apply now',
-        text: 'If you are independent, creative and flexible, and you like to progress \
-        quickly while bringing your own initiatives. Tell us more about your strengths \
-        and show us what you could concretely bring to the agency.',
-      },
-    ],
-    profile: [],
-    offer: [],
-    Ps: "PS: If you don't hear from us, don't hesitate to call, we are sometimes distracted 😉",
-  },
+  // {
+  //   id: 'internship-in-development-marketing-or-project-management',
+  //   title: 'Internship in development, marketing or project management',
+  //   description:
+  //     'We gladly welcome interns who are looking for experience in the field of \
+  //     web development, marketing or project management.',
+  //   type: 'paragraphs',
+  //   jobDescription: [
+  //     {
+  //       title: 'Which field?',
+  //       text: ' We gladly welcome interns who are looking for experience in the \
+  //       field of web design and development, marketing or project management.',
+  //     },
+  //     {
+  //       title: 'What will you do ?',
+  //       text: "Don't worry, you won't have to serve coffee or decorate the Christmas \
+  //       tree… In fact, we expect much more from our interns. We like them to be dynamic, \
+  //       proactive, eager to learn, not afraid to make mistakes and stronger than us at FIFA 25!",
+  //     },
+  //     {
+  //       title: 'No secret between us',
+  //       text: "We are a small multi-hat team that is on many fronts at the same time. So \
+  //       don't hesitate to pull our sleeve because we forgot to provide you with tasks, \
+  //       because there will always be tasks!",
+  //     },
+  //     {
+  //       title: 'Apply now',
+  //       text: 'If you are independent, creative and flexible, and you like to progress \
+  //       quickly while bringing your own initiatives. Tell us more about your strengths \
+  //       and show us what you could concretely bring to the agency.',
+  //     },
+  //   ],
+  //   profile: [],
+  //   offer: [],
+  //   Ps: "PS: If you don't hear from us, don't hesitate to call, we are sometimes distracted 😉",
+  // },
 ];
 
 export const PRIVACY_POLICY: string[][] = [
