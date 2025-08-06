@@ -8,8 +8,12 @@ import { Services } from '@/components/sections/about/Services';
 import { Team } from '@/components/sections/about/Team';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
+import { OUR_ACHIEVEMENTS, OUR_REFERENCES, OUR_TEAM, ourStoryTexts } from '@/lib/constants/texts';
+import { getServicesSummary } from '@/lib/utils/transform';
 
 export default function AboutUsPage() {
+  const servicesSummary = getServicesSummary();
+
   return (
     <MainLayout pageName="About us">
       <CommonHero
@@ -21,16 +25,16 @@ export default function AboutUsPage() {
           priority: true,
         }}
       />
-      <OurStory />
-      <Services />
+      <OurStory storyTexts={ourStoryTexts} />
+      <Services servicesSummary={servicesSummary} />
       <MarqueeTextSection
         text="Repitition makes reputation and reputation makes customers."
         wrapClassName="hidden md:block md:bg-white"
         scrollContainerClassName=""
       />
-      <OurAchievements />
-      <Team />
-      <OurReferences />
+      <OurAchievements achievements={OUR_ACHIEVEMENTS} />
+      <Team team={OUR_TEAM} />
+      <OurReferences references={OUR_REFERENCES} />
       <CTA />
       <PageSideDecoration caption="About Us" />
     </MainLayout>

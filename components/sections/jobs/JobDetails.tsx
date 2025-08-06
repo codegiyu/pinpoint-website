@@ -1,3 +1,4 @@
+'use client';
 import { FullJobProps } from '@/app/jobs/[job]/page';
 import { motion } from 'motion/react';
 

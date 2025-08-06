@@ -9,6 +9,8 @@ import { memo, useMemo, useState } from 'react';
 import { z } from 'zod';
 import FormAlert from './FormAlert';
 import { CheckCheck } from 'lucide-react';
+import { MultiSelect } from '@/components/atoms/MultiSelect';
+import { generateOptionsFromArray } from '@/lib/utils/general';
 import { motion } from 'motion/react';
 
 const formSchema = z.object({
@@ -19,6 +21,7 @@ const formSchema = z.object({
     .min(11, { error: 'Please enter at least 11 characters' })
     .max(14, { error: 'Phone number is too long' }),
   company: z.string().min(3, { error: 'Please enter at least 3 characters' }),
+  services: z.array(z.string()).min(1, { error: 'Please select at least one service' }),
   message: z.string().min(10, { error: 'Message is not long enough' }),
 });
 type FormSchema = z.infer<typeof formSchema>;
@@ -27,11 +30,18 @@ const defaultFormValues: FormSchema = {
   email: '',
   phone: '',
   company: '',
+  services: [],
   message: '',
 };
 
 export const ProjectRequestForm = memo(
-  ({ formName = 'New Project Request' }: { formName?: string }) => {
+  ({
+    formName = 'New Project Request',
+    servicesList,
+  }: {
+    formName?: string;
+    servicesList: string[];
+  }) => {
     const [files, setFiles] = useState<File[]>([]);
     const {
       formValues,
@@ -42,6 +52,7 @@ export const ProjectRequestForm = memo(
       submitted,
       resetForm,
       handleInputChange,
+      onChange,
       setFormErrors,
       handleSubmit,
       validateForm,
@@ -49,17 +60,21 @@ export const ProjectRequestForm = memo(
       formSchema,
       defaultFormValues,
       onSubmit,
+      validateOnChange: true,
     });
 
     const formValid = useMemo(() => isValid && !!files.length, [isValid, files]);
 
+    const serviceOptions = useMemo(() => {
+      return generateOptionsFromArray({ arr: servicesList });
+    }, [servicesList]);
+
     const generalValidation = () => {
       if (!files.length) {
         toast({ title: 'Please upload at least one file', variant: 'error' });
-        return false;
       }
 
-      return validateForm();
+      return validateForm() && !!files.length;
     };
 
     async function onSubmit(values: FormSchema): Promise<boolean> {
@@ -69,7 +84,11 @@ export const ProjectRequestForm = memo(
 
       formData.append('formName', formName);
       Object.entries(values).forEach(([key, value]) => {
-        formData.append(key, value);
+        if (Array.isArray(value)) {
+          value.forEach(val => formData.append(key, val));
+        } else {
+          formData.append(key, value);
+        }
       });
       files.forEach(file => {
         formData.append('files', file);
@@ -86,7 +105,7 @@ export const ProjectRequestForm = memo(
       toast({ title: parsedRes.message, variant: parsedRes.success ? 'success' : 'error' });
 
       if (parsedRes.error) {
-        setFormErrors({ message: parsedRes.error });
+        setFormErrors({ message: [parsedRes.error] });
       }
 
       if (parsedRes.success) {
@@ -148,6 +167,14 @@ export const ProjectRequestForm = memo(
                 required
               />
             </div>
+            <MultiSelect
+              options={serviceOptions}
+              selected={formValues.services}
+              onChange={values => onChange('services', values)}
+              errors={errorsVisible ? formErrors.services : undefined}
+              placeholder="Select at least one service which covers what you need *"
+              label="Services"
+            />
             <FileUploadInput files={files} setFiles={setFiles} inputProps={{ required: true }} />
             <RegularTextarea
               label="Message"

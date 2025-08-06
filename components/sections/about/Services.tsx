@@ -1,12 +1,11 @@
 import { SectionHeader } from '@/components/general/SectionHeader';
-import { servicesSummary } from '@/lib/constants/texts';
 import { BreakdownSingle, ServiceCardProps } from '../home/WhatWeDo';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { MoveRight } from 'lucide-react';
 import { splitArrayInTwo, splitTextIntoTwoWithBrTag } from '@/lib/utils/general';
 import { omit } from 'lodash';
 
-export const Services = () => {
+export const Services = ({ servicesSummary }: { servicesSummary: ServiceCardProps[] }) => {
   const modulusByThree = servicesSummary.length % 3;
 
   return (

@@ -1,4 +1,3 @@
-import { RefObject } from 'react';
 import { SelectOption } from '../types/general';
 import capitalize from 'lodash/capitalize';
 
@@ -38,7 +37,7 @@ export function splitArrayInTwo(array: Array<unknown>): [Array<unknown>, Array<u
 }
 
 export const intersectionExists = (
-  targetsArr: RefObject<HTMLElement | null>[],
+  targetsArr: (HTMLElement | null)[],
   mainEl: HTMLElement | null
 ): boolean => {
   if (!mainEl) return false;
@@ -50,7 +49,9 @@ export const intersectionExists = (
   const { top: mainElTop, bottom: mainElBottom } = mainEl.getBoundingClientRect();
 
   return existingTargets.some(target => {
-    const { top, bottom } = (target.current as HTMLElement).getBoundingClientRect();
+    if (!target) return false;
+
+    const { top, bottom } = (target as HTMLElement).getBoundingClientRect();
 
     const targetIntersects =
       (top <= mainElTop && bottom >= mainElBottom) ||

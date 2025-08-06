@@ -24,7 +24,7 @@ export default function Footer() {
             <p className="typo-body-7 text-gray-59/90">
               We are a creative brand consultancy into design, branding and packaging. We&apos;ve
               been collaborating with leading organizations to solve brand and business challenges
-              since 2019. Our team across different locations uses the power of creativity to
+              since 2020. Our team across different locations uses the power of creativity to
               transform businesses for the better.
             </p>
           </div>

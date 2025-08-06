@@ -14,7 +14,7 @@ export default function FormAlert() {
         className="w-[2.125rem] group cursor-pointer aspect-square md:size-[3rem] rounded-full grid place-items-center p-2 border text-black border-gray-300 transition-colors relative overflow-hidden duration-1500  ">
         <span className="sr-only">
           By submitting this form, I accept that the information entered in this form will be
-          treated according to Pinpoint&apos;s privacy policy to allow me to contact me
+          treated according to Pinpoint Global&apos;s privacy policy to allow me to contact them
         </span>
         <span className="block text-[3rem] h-fit aspect-square overflow-hidden">
           <motion.span
@@ -41,11 +41,11 @@ export default function FormAlert() {
           )}>
           <span>
             By submitting this form, I accept that the information entered in this form will be
-            treated according to Pinpoint&apos;s
+            treated according to Pinpoint Global&apos;s
             <Link href="/privacy-policy" className="text-black/95 underline px-1">
               privacy policy
             </Link>
-            to allow me to contact me
+            to allow me to contact them
           </span>
         </p>
       </div>

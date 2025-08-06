@@ -1,16 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { SectionHeader } from '@/components/general/SectionHeader';
-import { OUR_REFERENCES } from '@/lib/constants/texts';
 
-export const OurReferences = () => {
+export const OurReferences = ({ references }: { references: ReferenceProps[] }) => {
   return (
     <section className="w-full bg-gray-f2 pt-[3.75rem] pb-11 md:py-0 relative z-[5]">
       <div className="pinpoint-container ">
-        <SectionHeader caption="Our References" title="In Belgium and beyond" />
+        <SectionHeader caption="Our Clients" title="Brands that believe in us" />
 
         <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-y-20 gap-x-8 pt-16 md:pt-[6.25rem] pb-20">
-          {OUR_REFERENCES.map((reference, idx) => (
+          {references.map((reference, idx) => (
             <Reference key={idx} {...reference} />
           ))}
         </div>

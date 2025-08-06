@@ -6,7 +6,7 @@ import { PinpointFull } from '../icons';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../ui/dialog';
 import { usePathname } from 'next/navigation';
-import { langChangeOptions, navlinks } from '@/lib/constants/routing';
+import { navlinks } from '@/lib/constants/routing';
 import { FlipText } from '../general/ChangingModifier';
 import PinpointContacts from '../general/PinpointContacts';
 
@@ -22,21 +22,25 @@ export const Header = memo(({ whiteTextStart }: HeaderProps) => {
   const { allNavLinks } = useMemo(() => {
     const slugsArr = pathname.split('/');
     const firstSlug = '/' + slugsArr.slice(0, 2).join('');
-    const selectedLangOption = langChangeOptions.find(item => item.href === firstSlug);
-    const selectedLang = selectedLangOption?.lang ?? 'en';
+    // const selectedLangOption = langChangeOptions.find(item => item.href === firstSlug);
+    // const selectedLang = selectedLangOption?.lang ?? 'en';
 
-    const restOfPath = pathname.slice((selectedLangOption?.href ?? '/').length);
+    // const restOfPath = pathname.slice((selectedLangOption?.href ?? '/').length);
 
     const allNavLinks = navlinks.map(group => ({
       ...group,
       links: group.links.map(item => ({
         ...item,
-        href: `${selectedLang === 'en' ? '' : selectedLang}${item.href}`,
-        isSelected: !!(restOfPath && item.href.startsWith(restOfPath)),
+        // href: `${selectedLang === 'en' ? '' : selectedLang}${item.href}`,
+        href: item.href,
+        isSelected:
+          firstSlug !== '/' && item.href.startsWith('/services')
+            ? pathname.startsWith(item.href)
+            : item.href.startsWith(firstSlug),
       })),
     }));
 
-    return { selectedLang, allNavLinks };
+    return { allNavLinks };
   }, [pathname]);
 
   const menuHandler = () => {
@@ -93,7 +97,7 @@ export const Header = memo(({ whiteTextStart }: HeaderProps) => {
           </VisuallyHidden>
           <div className="menu-container grid lg:grid-cols-2 gap-[6.75rem]">
             <div className="w-full h-full hidden lg:grid place-items-center text-white/35">
-              {menuOpen && <PinpointContacts fullWidth inDarkBg />}
+              {menuOpen && <PinpointContacts fullWidth inDarkBg noTransitionDelay />}
             </div>
             <div className="w-full h-full flex items-center lg:pr-[5.27vw] relative">
               <div className="w-full grid gap-0">
@@ -186,9 +190,15 @@ const NavLink = ({ text, href, isSelected }: NavLinkProps) => {
     <li className="">
       <GhostBtn
         linkProps={{ href }}
-        className={`text-[1rem] md:text-[1.3125rem] xl:text-[clamp(1.5rem,_2.388vw,_1.875rem)] leading-[1] font-bold xl:font-medium py-[5px]
-        ${isSelected ? 'text-white' : 'text-white/25 hover:text-white'} `}>
+        className={`text-[1rem] md:text-[1.3125rem] xl:text-[1.5rem] leading-[1] font-bold xl:font-medium py-[5px]
+        ${isSelected ? 'text-white' : 'text-white/25 hover:text-white'} relative`}>
         <span className="">{text}</span>
+        {isSelected && (
+          <div className="w-fit h-fit hidden lg:flex items-center gap-4 absolute top-1/2 right-full -translate-y-1/2">
+            <div className="w-10 2xl:w-16 h-[2px] bg-current" />
+            <span></span>
+          </div>
+        )}
       </GhostBtn>
     </li>
   );

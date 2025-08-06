@@ -6,23 +6,30 @@ import { motion } from 'motion/react';
 export default function PinpointContacts({
   fullWidth,
   inDarkBg,
+  noTransitionDelay,
 }: {
   fullWidth?: boolean;
   inDarkBg?: boolean;
+  noTransitionDelay?: boolean;
 }) {
   return (
     <div
       className={`grid gap-6 lg:gap-6 h-fit w-full ${fullWidth ? '' : 'lg:max-w-3/7'} lg:place-items-center`}>
       <div className="grid gap-10 sm:grid-cols-2">
         {contactInformation.map((group, idx) => (
-          <ContactsGroup key={idx} {...group} inDarkBg={inDarkBg} />
+          <ContactsGroup
+            key={idx}
+            {...group}
+            inDarkBg={inDarkBg}
+            noTransitionDelay={noTransitionDelay}
+          />
         ))}
       </div>
 
       <motion.div
-        initial={{ opacity: 0, translateY: 100 }}
+        initial={{ opacity: 0, translateY: noTransitionDelay ? 50 : 100 }}
         animate={{ opacity: 1, translateY: 0 }}
-        transition={{ duration: 1, delay: 2.6 }}
+        transition={{ duration: 1, delay: noTransitionDelay ? 0 : 2.6 }}
         className="flex lg:justify-center pt-3 md:pt-6">
         <PinpointSocials />
       </motion.div>
@@ -37,6 +44,7 @@ export interface ContactsGroupProps {
   email: string;
   inDarkBg?: boolean;
   showOpacity?: boolean;
+  noTransitionDelay?: boolean;
 }
 
 export const ContactsGroup = ({
@@ -46,12 +54,13 @@ export const ContactsGroup = ({
   email,
   inDarkBg,
   showOpacity,
+  noTransitionDelay,
 }: ContactsGroupProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, translateY: 100 }}
+      initial={{ opacity: 0, translateY: noTransitionDelay ? 50 : 100 }}
       animate={{ opacity: 1, translateY: 0 }}
-      transition={{ duration: 1, delay: 2.4 }}
+      transition={{ duration: 1, delay: noTransitionDelay ? 0 : 2.4 }}
       className="max-w-[150px] h-fit grid gap-2 md:gap-4">
       <h5 className="typo-h5 pb-2 text-wrap break-words ">{location}</h5>
       <p className={`typo-body-h7 ${showOpacity ? 'opacity-75' : ''}`}>{address}</p>

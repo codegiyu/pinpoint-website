@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 
 export default function JobsFooter() {
   return (
-    <section className=" pb-20 px-4 bg-gray-f2 ">
+    <section className=" pb-20 px-4 bg-gray-f2 relative z-[5]">
       <motion.div
         initial={{ y: -60, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}

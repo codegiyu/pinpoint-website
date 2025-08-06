@@ -1,12 +1,10 @@
 'use client';
 import useScrollBlock from '@/lib/hooks/use-scroll-block';
 import { usePageStore } from '@/lib/store/usePageStore';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { debounce } from '@/lib/utils/general';
-
-const BASE_LOAD_TIME = 1500; // ms
-const TRANSITION_DURATION = 0.8; // s
+import { BASE_LOAD_TIME, TRANSITION_DURATION } from '@/lib/constants/routing';
 
 export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
   const {
@@ -14,6 +12,21 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
   } = usePageStore(state => state);
   const [localPageLoaded, setLocalPageLoaded] = useState(false);
   const { allowScroll, blockScroll } = useScrollBlock();
+  const screenRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const body = document.body;
+
+    if (!body) return;
+
+    if (localPageLoaded) {
+      setTimeout(() => {
+        body.classList.remove('load-animation-open');
+      }, TRANSITION_DURATION * 1000);
+    } else {
+      body.classList.add('load-animation-open');
+    }
+  }, [localPageLoaded]);
 
   useEffect(() => {
     blockScroll();
@@ -30,7 +43,7 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
       setTimeout(() => {
         allowScroll();
         setPageLoaded(false);
-      }, TRANSITION_DURATION * 100); // Based off of exit animation duration of this screen
+      }, TRANSITION_DURATION * 1000); // Based off of exit animation duration of this screen
     };
 
     // If already loaded (from cache)
@@ -48,6 +61,7 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
 
   return (
     <motion.section
+      ref={screenRef}
       className="w-full h-screen overflow-hidden bg-dark grid place-items-center"
       initial={{ maxHeight: '100vh' }}
       animate={{ maxHeight: localPageLoaded ? '0px' : '100vh' }}
