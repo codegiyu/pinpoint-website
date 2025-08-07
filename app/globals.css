@@ -239,26 +239,31 @@
   /* .swiper-button-next,
   .swiper-button-prev {} */
 
-  body.load-animation-open #visible-header.mix-blend-normal .pinpoint-logo path.coloured-text,
-  body.load-animation-open #visible-header.mix-blend-difference .pinpoint-logo path.coloured-text {
+  body.load-animation-open #visible-header.blend-normal .pinpoint-logo path.coloured-text,
+  body.load-animation-open #visible-header.blend-difference .pinpoint-logo path.coloured-text {
     fill: #fe7702 !important;
+  }
+  body.load-animation-open .pinpoint-logo path.black-text {
+    fill: #fff !important;
+  }
+  body.load-animation-open .menu-btn {
+    color: #fff !important;
   }
 
   #visible-header .pinpoint-logo path.black-text {
     fill: currentColor;
   }
-  #visible-header.mix-blend-difference .pinpoint-logo path.black-text {
+  #visible-header.blend-difference .pinpoint-logo path.black-text {
+    fill: #141414;
+  }
+  #visible-header.blend-difference .menu-btn {
+    color: #141414;
+  }
+  #visible-header.blend-normal .pinpoint-logo path.coloured-text {
     fill: currentColor;
   }
-  #visible-header.mix-blend-normal .pinpoint-logo path.coloured-text {
-    fill: currentColor;
-  }
-  #visible-header.mix-blend-difference .pinpoint-logo path.coloured-text {
-    fill: #0188fd;
-  }
-  #visible-header.menu-open .pinpoint-logo path.coloured-text {
-    fill: #fe7702;
-  }
+  #visible-header.blend-difference .pinpoint-logo path.coloured-text,
+  #visible-header.menu-open .pinpoint-logo path.coloured-text,
   .footer #footer-logo path.coloured-text {
     fill: #fe7702;
   }

@@ -4,6 +4,7 @@ import { PageSideCaption } from '@/components/general/PageSideCaption';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
 import { intersectionExists } from '@/lib/utils/general';
 import { memo, useEffect, useMemo } from 'react';
+import { default as debounce } from 'lodash/debounce';
 
 export const HomeScrollManager = memo(() => {
   const isTabletScreenAndAbove = useMediaQuery('(min-width: 768px)');
@@ -25,9 +26,9 @@ export const HomeScrollManager = memo(() => {
       const { top: whatWeDoTop = 0 } = whatWeDo?.getBoundingClientRect() ?? {};
 
       if (intersectionExists(observerTargets, header)) {
-        header?.classList.replace('mix-blend-difference', 'mix-blend-normal');
+        header?.classList.replace('blend-difference', 'blend-normal');
       } else {
-        header?.classList.replace('mix-blend-normal', 'mix-blend-difference');
+        header?.classList.replace('blend-normal', 'blend-difference');
       }
 
       if (scrollY > halfInnerHeight) {
@@ -43,10 +44,12 @@ export const HomeScrollManager = memo(() => {
       }
     };
 
-    // scrollManager();
-    window.addEventListener('scroll', scrollManager);
+    const debouncedScrollManager = debounce(scrollManager, 500);
 
-    return () => window.removeEventListener('scroll', scrollManager);
+    // scrollManager();
+    window.addEventListener('scroll', debouncedScrollManager);
+
+    return () => window.removeEventListener('scroll', debouncedScrollManager);
     // if (observerRef.current) observerRef.current.disconnect();
 
     // observerRef.current = new IntersectionObserver(

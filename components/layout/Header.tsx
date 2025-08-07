@@ -55,7 +55,7 @@ export const Header = memo(({ whiteTextStart }: HeaderProps) => {
         id="visible-header"
         className={`h-fit wide-pinpoint-container fixed inset-0 
         ${
-          menuOpen || whiteTextStart ? 'mix-blend-normal' : 'mix-blend-difference'
+          menuOpen || whiteTextStart ? 'blend-normal' : 'blend-difference'
         } ${menuOpen ? 'menu-open' : 'menu-closed'}
         flex items-center justify-between py-6 md:py-8 z-[99]`}>
         <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
@@ -68,7 +68,7 @@ export const Header = memo(({ whiteTextStart }: HeaderProps) => {
           className="group pointer-events-auto"
           onClick={menuHandler}
           onMouseEnter={() => setFlipTextKey(prev => prev + 1)}>
-          <div className="w-fit flex items-center gap-3">
+          <div className="menu-btn w-fit flex items-center gap-3">
             <FlipText text="MENU" flipKey={flipTextKey} wrapClassName="typo-menu" />
             <div className="w-fit grid gap-[4px]">
               <div

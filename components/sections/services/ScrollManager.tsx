@@ -2,6 +2,7 @@
 
 import { memo, useEffect } from 'react';
 import { intersectionExists } from '@/lib/utils/general';
+import { default as debounce } from 'lodash/debounce';
 
 export const ServiceScrollManager = memo(
   ({ observerTargetIds }: { observerTargetIds: string[] }) => {
@@ -12,9 +13,9 @@ export const ServiceScrollManager = memo(
         const observerTargets = observerTargetIds.map(id => document.getElementById(id));
 
         if (intersectionExists(observerTargets, header)) {
-          header?.classList.replace('mix-blend-difference', 'mix-blend-normal');
+          header?.classList.replace('blend-difference', 'blend-normal');
         } else {
-          header?.classList.replace('mix-blend-normal', 'mix-blend-difference');
+          header?.classList.replace('blend-normal', 'blend-difference');
         }
 
         if (intersectionExists(observerTargets, pageSideCaption as HTMLElement | null)) {
@@ -24,10 +25,12 @@ export const ServiceScrollManager = memo(
         }
       };
 
-      scrollManager();
-      window.addEventListener('scroll', scrollManager);
+      const debouncedScrollManager = debounce(scrollManager, 500);
 
-      return () => window.removeEventListener('scroll', scrollManager);
+      scrollManager();
+      window.addEventListener('scroll', debouncedScrollManager);
+
+      return () => window.removeEventListener('scroll', debouncedScrollManager);
     }, [observerTargetIds]);
 
     return null;
