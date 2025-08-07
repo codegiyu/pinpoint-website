@@ -10,6 +10,7 @@ export default function FormAlert() {
     <div onMouseLeave={() => setIsHovered(false)} className="relative pr-4">
       <button
         onMouseEnter={() => setIsHovered(true)}
+        type="button"
         className="w-[2.125rem] group cursor-pointer aspect-square md:size-[3rem] rounded-full grid place-items-center p-2 border text-black border-gray-300 transition-colors relative overflow-hidden duration-1500  ">
         <span className="sr-only">
           By submitting this form, I accept that the information entered in this form will be
@@ -30,7 +31,7 @@ export default function FormAlert() {
       </button>
       <div
         className={cn(
-          'pl-4 absolute top-36 -left-66 md:top-36 md:-left-62 lg:top-1/2 opacity-0 invisible lg:left-14 transition-all ease-linear duration-300 ',
+          'pl-4 absolute z-20 top-36 -left-66 md:top-36 md:-left-62 lg:top-1/2 opacity-0 invisible lg:left-14 transition-all ease-linear duration-300 ',
           isHovered && '-translate-y-1/2 opacity-100 visible'
         )}>
         {' '}
