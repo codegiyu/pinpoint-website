@@ -8,7 +8,7 @@ import { ServiceScrollManager } from '@/components/sections/services/ScrollManag
 import { WhatMakesUsUnique } from '@/components/sections/services/WhatMakesUsUnique';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
-import { AvailableService } from '@/lib/constants/texts';
+import { AvailablePackagedService, AvailableService } from '@/lib/constants/texts';
 import { getAllServiceIds, getServiceById } from '@/lib/utils/transform';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
