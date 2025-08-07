@@ -34,9 +34,11 @@ export const Header = memo(({ whiteTextStart }: HeaderProps) => {
         // href: `${selectedLang === 'en' ? '' : selectedLang}${item.href}`,
         href: item.href,
         isSelected:
-          firstSlug !== '/' && item.href.startsWith('/services')
-            ? pathname.startsWith(item.href)
-            : item.href.startsWith(firstSlug),
+          firstSlug === '/'
+            ? false
+            : item.href.startsWith('/services')
+              ? pathname.startsWith(item.href)
+              : item.href.startsWith(firstSlug),
       })),
     }));
 

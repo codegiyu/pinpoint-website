@@ -10,6 +10,11 @@ import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
 import { OUR_ACHIEVEMENTS, OUR_REFERENCES, OUR_TEAM, ourStoryTexts } from '@/lib/constants/texts';
 import { getServicesSummary } from '@/lib/utils/transform';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'About Us',
+};
 
 export default function AboutUsPage() {
   const servicesSummary = getServicesSummary();
@@ -20,7 +25,7 @@ export default function AboutUsPage() {
         caption="Our Creative Agency"
         title="Creative by Nature, Strategic by Design"
         imageProps={{
-          src: '/images/about-page/hero.webp',
+          src: 'https://static.pinpoint.ng/images/about-page/hero.webp',
           alt: 'Pinpoint design team',
           priority: true,
         }}

@@ -56,13 +56,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) return {};
 
   return {
-    title: `${project.name} | Our Works | Pinpoint Global`,
+    title: `${project.name} | Our Works`,
     description: project.description.slice(0, 160),
     openGraph: {
-      title: project.name,
+      title: `${project.name} | Our Works`,
       description: project.description,
+      images: [project.cardImage],
     },
-  };
+    twitter: {
+      images: project.cardImage,
+    },
+  } satisfies Metadata;
 }
 
 export default async function ProjectPage({ params }: Props) {

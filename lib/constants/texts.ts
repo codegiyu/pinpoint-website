@@ -10,6 +10,59 @@ import { ContactsGroupProps } from '@/components/general/PinpointContacts';
 import { TiktokIcon } from '@/components/icons';
 import { FullJobProps } from '@/app/jobs/[job]/page';
 
+const liveUrl = process.env.live_url || 'https://beta.pinpoint.ng';
+
+export const SEO_DETAILS = {
+  title: {
+    default: 'Your Branding, Marketing, and Packaging Solution',
+    template: '%s | Pinpoint Global',
+  },
+  description:
+    "We are a creative brand consultancy into design, branding and packaging. \
+    We've been collaborating with leading organizations to solve brand and \
+    business challenges since 2019. Our team across different locations uses \
+    the power of creativity to transform businesses for the better.",
+  metadataBase: new URL(liveUrl),
+  alternates: {
+    canonical: liveUrl,
+  },
+  image: 'https://static.pinpoint.ng/site-preview.png',
+  icons: 'https://static.pinpoint.ng/favicon.png',
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+    },
+  },
+  authors: [{ name: 'Edward-Precious Omegbu', url: 'https://portfolio-codegiyu.vercel.app' }],
+  keywords: [
+    'pinpoint',
+    'branding',
+    'marketing',
+    'packaging',
+    'creative agency',
+    'printing',
+    'product design',
+    'stickers',
+    'social media',
+    'animations',
+    'motion graphics',
+    'graphic design',
+    'logo',
+    'web design',
+    'mobile apps',
+  ],
+  generator: 'Next.js',
+  // referrer: 'no-referrer',
+  publisher: 'Pinpoint Global Limited',
+  category: 'Creative Agency',
+  classification: 'Complete solution for branding, marketing, packaging and digital products',
+};
+
 export const changingHeroTitleModifiers: string[] = [
   'brands',
   'campaigns',
@@ -148,56 +201,56 @@ export const OUR_TEAM: TeamSlideProps[] = [
   {
     name: 'Adepoju Olayode',
     title: 'Director',
-    mainImage: '/images/team/adepoju.png',
-    subImage: '/images/team/adepoju.png',
+    mainImage: 'https://static.pinpoint.ng/images/team/adepoju.png',
+    subImage: 'https://static.pinpoint.ng/images/team/adepoju.png',
   },
   {
     name: 'Audu Felix',
     title: 'Inventory / Store Keeper',
-    mainImage: '/images/team/felix.png',
-    subImage: '/images/team/felix.png',
+    mainImage: 'https://static.pinpoint.ng/images/team/felix.png',
+    subImage: 'https://static.pinpoint.ng/images/team/felix.png',
   },
   {
     name: 'Adams Khairat',
     title: 'Marketing Team',
-    mainImage: '/images/team/khairat.png',
-    subImage: '/images/team/khairat.png',
+    mainImage: 'https://static.pinpoint.ng/images/team/khairat.png',
+    subImage: 'https://static.pinpoint.ng/images/team/khairat.png',
   },
   {
     name: 'Akinsanya Simon',
     title: 'Graphic Design Team',
-    mainImage: '/images/team/simon.png',
-    subImage: '/images/team/simon.png',
+    mainImage: 'https://static.pinpoint.ng/images/team/simon.png',
+    subImage: 'https://static.pinpoint.ng/images/team/simon.png',
   },
   {
     name: 'Eleojo Gift Noah',
     title: 'Quality Control',
-    mainImage: '/images/team/gift.png',
-    subImage: '/images/team/gift.png',
+    mainImage: 'https://static.pinpoint.ng/images/team/gift.png',
+    subImage: 'https://static.pinpoint.ng/images/team/gift.png',
   },
   {
     name: 'Akeem Ayoola Aremu',
     title: 'Logistics Manager',
-    mainImage: '/images/team/akeem.png',
-    subImage: '/images/team/akeem.png',
+    mainImage: 'https://static.pinpoint.ng/images/team/akeem.png',
+    subImage: 'https://static.pinpoint.ng/images/team/akeem.png',
   },
   {
     name: 'Adegbite Olanrewaju',
     title: 'Production',
-    mainImage: '/images/team/olanrewaju.png',
-    subImage: '/images/team/olanrewaju.png',
+    mainImage: 'https://static.pinpoint.ng/images/team/olanrewaju.png',
+    subImage: 'https://static.pinpoint.ng/images/team/olanrewaju.png',
   },
   {
     name: 'Lawal Damilola',
     title: 'Printing & Packaging',
-    mainImage: '/images/team/lawal.jpeg',
-    subImage: '/images/team/lawal.jpeg',
+    mainImage: 'https://static.pinpoint.ng/images/team/lawal.jpeg',
+    subImage: 'https://static.pinpoint.ng/images/team/lawal.jpeg',
   },
   {
     name: 'Richard Ekikere Ukoks',
     title: 'Designer',
-    mainImage: '/images/team/richard.png',
-    subImage: '/images/team/richard.png',
+    mainImage: 'https://static.pinpoint.ng/images/team/richard.png',
+    subImage: 'https://static.pinpoint.ng/images/team/richard.png',
   },
 ];
 
@@ -225,7 +278,8 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
     id: 'branding_and_identity',
     name: 'Branding & Identity',
     pageTitle: 'We craft brand identities that speak before you do',
-    videoUrl: '/videos/branding-animation.webm',
+    videoUrl: 'https://static.pinpoint.ng/videos/branding-animation.mp4',
+    posterUrl: 'https://static.pinpoint.ng/images/video-posters/branding-poster.png',
     description:
       "At the heart of every successful brand is a clear and compelling identity. \
       Through collaborative workshops and deep discovery sessions, we help you uncover \
@@ -268,7 +322,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           ],
         },
       ],
-      highlightImage: '/images/branding-highlight.png',
+      highlightImage: 'https://static.pinpoint.ng/images/branding-highlight.png',
       marqueeText: 'Define, differentiate & stand out.',
     },
     breakdownSummary: [
@@ -308,7 +362,8 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
     id: 'marketing_and_media',
     name: 'Marketing & Media',
     pageTitle: 'Stories that move, strategies that stick',
-    videoUrl: '/videos/marketing-sample-animation-2.webm',
+    videoUrl: 'https://static.pinpoint.ng/videos/marketing-animation.mp4',
+    posterUrl: 'https://static.pinpoint.ng/images/video-posters/marketing-poster.png',
     description:
       'In a fast-moving digital world, connection is everything. We help \
       brands communicate with clarity, creativity, and consistency, \
@@ -358,7 +413,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           ],
         },
       ],
-      highlightImage: '/images/marketing-highlight.png',
+      highlightImage: 'https://static.pinpoint.ng/images/marketing-highlight.png',
       marqueeText: 'Captivate, connect & convert.',
     },
     breakdownSummary: [
@@ -398,7 +453,8 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
     id: 'packaging_and_product_design',
     name: 'Packaging & Product Design',
     pageTitle: 'We turn packaging into powerful first impressions',
-    videoUrl: '/videos/print-animation.webm',
+    videoUrl: 'https://static.pinpoint.ng/videos/packaging-animation.mp4',
+    posterUrl: 'https://static.pinpoint.ng/images/video-posters/packaging-poster.png',
     description:
       "Packaging is more than protection — it's the first conversation your \
       product has with the world. We design packaging that captivates, \
@@ -444,7 +500,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           ],
         },
       ],
-      highlightImage: '/images/packaging-highlight.png',
+      highlightImage: 'https://static.pinpoint.ng/images/packaging-highlight.png',
       marqueeText: 'Package, elevate & inspire.',
     },
     breakdownSummary: [
@@ -484,7 +540,8 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
     id: 'offset_and_digital_printing',
     name: 'Offset & Digital Printing',
     pageTitle: 'Print that delivers impact, on paper and in hand',
-    videoUrl: '/videos/print-animation.webm',
+    videoUrl: 'https://static.pinpoint.ng/videos/printing-animation.mp4',
+    posterUrl: 'https://static.pinpoint.ng/images/video-posters/printing-poster.png',
     description:
       'Tangible experiences still matter — and great print leaves a lasting impression. \
       We bring your ideas to life through high-quality offset and digital printing that \
@@ -527,7 +584,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           ],
         },
       ],
-      highlightImage: '/images/printing-highlight.png',
+      highlightImage: 'https://static.pinpoint.ng/images/printing-highlight.png',
       marqueeText: 'Print, polish & impress.',
     },
     breakdownSummary: [
@@ -567,7 +624,8 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
     id: 'digital_products_creation',
     name: 'Digital Products Creation',
     pageTitle: 'We craft digital products that feel as good as they function',
-    videoUrl: '/videos/digital-animation.webm',
+    videoUrl: 'https://static.pinpoint.ng/videos/digital-animation.mp4',
+    posterUrl: 'https://static.pinpoint.ng/images/video-posters/digital-poster.png',
     description:
       "We design and develop digital products that feel intuitive, perform beautifully, \
       and grow with your business. Through thoughtful UX, responsive design, and scalable \
@@ -614,7 +672,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           ],
         },
       ],
-      highlightImage: '/images/website-creation-highlight.jpg',
+      highlightImage: 'https://static.pinpoint.ng/images/website-creation-highlight.jpg',
       marqueeText: 'Shape, ship & evolve.',
     },
     breakdownSummary: [
@@ -669,8 +727,8 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     descSummary:
       'Empowering businesses through strategic development, \
       insightful intelligence and streamlined operations',
-    bannerURL: { image: '/images/projects/tahwil-solutions-card.png' },
-    cardImage: '/images/projects/tahwil-solutions-card.png',
+    bannerURL: { image: 'https://static.pinpoint.ng/images/projects/tahwil-solutions-card.png' },
+    cardImage: 'https://static.pinpoint.ng/images/projects/tahwil-solutions-card.png',
     descriptionBg: 'bg-[#0B4031]',
     textColorClass: 'text-white',
     description:
@@ -726,11 +784,31 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
           ],
         ],
         images: [
-          { src: '/images/projects/tahwil-solutions-1.png', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/tahwil-solutions-2.png', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/tahwil-solutions-3.png', alt: '', className: 'w-full md:w-1/3' },
-          { src: '/images/projects/tahwil-solutions-4.png', alt: '', className: 'w-1/2' },
-          { src: '/images/projects/tahwil-solutions-5.png', alt: '', className: 'w-1/2' },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/tahwil-solutions-1.png',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/tahwil-solutions-2.png',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/tahwil-solutions-3.png',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/tahwil-solutions-4.png',
+            alt: '',
+            className: 'w-1/2',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/tahwil-solutions-5.png',
+            alt: '',
+            className: 'w-1/2',
+          },
         ],
       },
     ],
@@ -741,8 +819,8 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     name: 'Afropay',
     pageTitle: 'Visual identity to embody commitment to empowering businesses',
     descSummary: 'Trusted payment gateway bridging the gap between people and opportunities',
-    bannerURL: { image: '/images/projects/afropay-card.png' },
-    cardImage: '/images/projects/afropay-card.png',
+    bannerURL: { image: 'https://static.pinpoint.ng/images/projects/afropay-card.png' },
+    cardImage: 'https://static.pinpoint.ng/images/projects/afropay-card.png',
     descriptionBg: 'bg-dark',
     textColorClass: 'text-white',
     description:
@@ -785,11 +863,31 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
           ],
         ],
         images: [
-          { src: '/images/projects/afropay-1.png', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/afropay-2.png', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/afropay-3.png', alt: '', className: 'w-full md:w-1/3' },
-          { src: '/images/projects/afropay-4.png', alt: '', className: 'w-1/2' },
-          { src: '/images/projects/afropay-5.png', alt: '', className: 'w-1/2' },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/afropay-1.png',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/afropay-2.png',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/afropay-3.png',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/afropay-4.png',
+            alt: '',
+            className: 'w-1/2',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/afropay-5.png',
+            alt: '',
+            className: 'w-1/2',
+          },
         ],
       },
     ],
@@ -800,8 +898,8 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     name: 'Gusto',
     pageTitle: 'Rebranding to match exceptional dining experience',
     descSummary: 'Providing an exceptional dining experience that goes beyond just food',
-    bannerURL: { image: '/images/projects/gusto-card.png' },
-    cardImage: '/images/projects/gusto-card.png',
+    bannerURL: { image: 'https://static.pinpoint.ng/images/projects/gusto-card.png' },
+    cardImage: 'https://static.pinpoint.ng/images/projects/gusto-card.png',
     descriptionBg: '',
     textColorClass: '',
     description:
@@ -851,13 +949,21 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
           ],
         ],
         images: [
-          { src: '/images/projects/gusto-card.png', alt: '', className: 'w-1/2' },
-          { src: '/images/projects/gusto-1.png', alt: '', className: 'w-1/2' },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/gusto-card.png',
+            alt: '',
+            className: 'w-1/2',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/gusto-1.png',
+            alt: '',
+            className: 'w-1/2',
+          },
         ],
       },
       {
         caption: 'Product customization',
-        title: 'Refined packaginf for a refined experience',
+        title: 'Refined packaging for a refined experience',
         sectionBg: '',
         textColorClass: '',
         description: [
@@ -872,9 +978,21 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
           ],
         ],
         images: [
-          { src: '/images/projects/gusto-packaging-1.png', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/gusto-packaging-2.png', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/gusto-packaging-3.png', alt: '', className: 'w-full md:w-1/3' },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/gusto-packaging-1.png',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/gusto-packaging-2.png',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/gusto-packaging-3.png',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
         ],
       },
     ],
@@ -885,8 +1003,8 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     name: 'PEGROV',
     pageTitle: 'Rebranding to establish dynamic and engaging identity',
     descSummary: 'Innovative and trusted betting platform captivating customers in the UK',
-    bannerURL: { image: '/images/projects/pegrov-2.jpg' },
-    cardImage: '/images/projects/pegrov-2.jpg',
+    bannerURL: { image: 'https://static.pinpoint.ng/images/projects/pegrov-2.jpg' },
+    cardImage: 'https://static.pinpoint.ng/images/projects/pegrov-2.jpg',
     descriptionBg: '',
     textColorClass: '',
     description:
@@ -930,9 +1048,21 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
           ],
         ],
         images: [
-          { src: '/images/projects/pegrov-1.jpg', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/pegrov-2.jpg', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/pegrov-3.jpg', alt: '', className: 'w-full md:w-1/3' },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/pegrov-1.jpg',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/pegrov-2.jpg',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/pegrov-3.jpg',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
         ],
       },
       {
@@ -957,8 +1087,8 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     descSummary:
       'Committed to raising health livestock and poultry while \
       promoting sustainable farming practices',
-    bannerURL: { image: '/images/projects/damsy-farm-card.png' },
-    cardImage: '/images/projects/damsy-farm-card.png',
+    bannerURL: { image: 'https://static.pinpoint.ng/images/projects/damsy-farm-card.png' },
+    cardImage: 'https://static.pinpoint.ng/images/projects/damsy-farm-card.png',
     descriptionBg: '',
     textColorClass: '',
     description:
@@ -1008,9 +1138,21 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
           ],
         ],
         images: [
-          { src: '/images/projects/damsy-farm-1.png', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/damsy-farm-2.jpg', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/damsy-farm-card.png', alt: '', className: 'w-full md:w-1/3' },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/damsy-farm-1.png',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/damsy-farm-2.jpg',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/damsy-farm-card.png',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
         ],
       },
       {
@@ -1025,12 +1167,12 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         ],
         images: [
           {
-            src: '/images/projects/damsy-farm-packaging.png',
+            src: 'https://static.pinpoint.ng/images/projects/damsy-farm-packaging.png',
             alt: '',
             className: 'w-full lg:w-1/2',
           },
           {
-            src: '/images/projects/damsy-farm-packaging.png',
+            src: 'https://static.pinpoint.ng/images/projects/damsy-farm-packaging.png',
             alt: '',
             className: 'w-1/2 hidden lg:block',
           },
@@ -1044,8 +1186,8 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     name: 'Zhoikha',
     pageTitle: 'Elegant brand design with branded materials and packaging',
     descSummary: 'Lifestyle brand embodying elegance, sophistication and modernity',
-    bannerURL: { image: '/images/projects/zhoikha-card.png' },
-    cardImage: '/images/projects/zhoikha-card.png',
+    bannerURL: { image: 'https://static.pinpoint.ng/images/projects/zhoikha-card.png' },
+    cardImage: 'https://static.pinpoint.ng/images/projects/zhoikha-card.png',
     descriptionBg: '',
     textColorClass: '',
     description:
@@ -1080,9 +1222,21 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
           ],
         ],
         images: [
-          { src: '/images/projects/zhoikha-1.png', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/zhoikha-2.png', alt: '', className: 'w-1/2 md:w-1/3' },
-          { src: '/images/projects/zhoikha-card.png', alt: '', className: 'w-full md:w-1/3' },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/zhoikha-1.png',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/zhoikha-2.png',
+            alt: '',
+            className: 'w-1/2 md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/zhoikha-card.png',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
         ],
       },
       {
@@ -1097,12 +1251,12 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         ],
         images: [
           {
-            src: '/images/projects/zhoikha-packaging-1.png',
+            src: 'https://static.pinpoint.ng/images/projects/zhoikha-packaging-1.png',
             alt: '',
             className: 'w-full sm:w-1/2',
           },
           {
-            src: '/images/projects/zhoikha-product-1.png',
+            src: 'https://static.pinpoint.ng/images/projects/zhoikha-product-1.png',
             alt: '',
             className: 'w-full sm:w-1/2',
           },
@@ -1116,22 +1270,46 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
 export const DEFAULT_WORKS_DISPLAYED = 10;
 
 export const OUR_REFERENCES: ReferenceProps[] = [
-  { logo: '/images/references/dangote.png', link: 'https://www.dangote.com' },
   {
-    logo: '/images/references/gtco.png',
+    logo: 'https://static.pinpoint.ng/images/references/dangote.png',
+    link: 'https://www.dangote.com',
+  },
+  {
+    logo: 'https://static.pinpoint.ng/images/references/gtco.png',
     link: 'https://www.gtcoplc.com',
   },
-  { logo: '/images/references/bolt.png', link: 'https://bolt.eu/en-ng' },
-  { logo: '/images/references/airtel.png', link: 'https://www.airtel.com.ng' },
-  { logo: '/images/references/uba.png', link: 'https://www.ubagroup.com' },
-  { logo: '/images/references/ik-pen.png', link: 'https://ikpen.com' },
-  { logo: '/images/references/ayce.png', link: 'https://www.instagram.com/ayce_cafe' },
-  { logo: '/images/references/burgundy.png', link: 'https://www.theburgundyrestaurant.com' },
-  { logo: '/images/references/goalcash.png', link: 'https://www.goalcash.com/en/' },
-  { logo: '/images/references/maubbys.png', link: 'https://www.ordermaubbys.com/' },
-  { logo: '/images/references/eagle-watch.png', link: 'https://www.sulfman.com/eaglewatch' },
+  { logo: 'https://static.pinpoint.ng/images/references/bolt.png', link: 'https://bolt.eu/en-ng' },
   {
-    logo: '/images/references/kamshi.png',
+    logo: 'https://static.pinpoint.ng/images/references/airtel.png',
+    link: 'https://www.airtel.com.ng',
+  },
+  {
+    logo: 'https://static.pinpoint.ng/images/references/uba.png',
+    link: 'https://www.ubagroup.com',
+  },
+  { logo: 'https://static.pinpoint.ng/images/references/ik-pen.png', link: 'https://ikpen.com' },
+  {
+    logo: 'https://static.pinpoint.ng/images/references/ayce.png',
+    link: 'https://www.instagram.com/ayce_cafe',
+  },
+  {
+    logo: 'https://static.pinpoint.ng/images/references/burgundy.png',
+    link: 'https://www.theburgundyrestaurant.com',
+  },
+  {
+    logo: 'https://static.pinpoint.ng/images/references/goalcash.png',
+    link: 'https://www.goalcash.com/en/',
+  },
+  {
+    logo: 'https://static.pinpoint.ng/images/references/maubbys.png',
+    link: 'https://www.ordermaubbys.com/',
+  },
+  {
+    logo: 'https://static.pinpoint.ng/images/references/eagle-watch.png',
+    link: 'https://www.sulfman.com/eaglewatch',
+  },
+  {
+    logo: 'https://static.pinpoint.ng/images/references/kamshi.png',
     link: 'https://www.instagram.com/kamshi_kamshi_bakhoor',
   },
 ];

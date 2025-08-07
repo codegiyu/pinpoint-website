@@ -1,16 +1,32 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { ScrollRestorationHandler } from '@/components/general/ScrollRestorationHandler';
 import './globals.css';
 import { Providers } from './Providers';
+import { SEO_DETAILS } from '@/lib/constants/texts';
 
 export const metadata: Metadata = {
-  title: 'Your Branding, Marketing, and Packaging Solution | Pinpoint Global Limited',
-  description:
-    "We are a creative brand consultancy into design, branding and packaging. \
-    We've been collaborating with leading organizations to solve brand and \
-    business challenges since 2019. Our team across different locations uses \
-    the power of creativity to transform businesses for the better.",
-  icons: '/favicon.png',
+  ...SEO_DETAILS,
+  openGraph: {
+    title: SEO_DETAILS.title,
+    description: SEO_DETAILS.description,
+    type: 'website',
+    url: SEO_DETAILS.metadataBase.toString(),
+    siteName: 'Pinpoint Global',
+    images: [{ url: SEO_DETAILS.image }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    // site: '@site',
+    creator: '@TheLonerider20',
+    images: SEO_DETAILS.image,
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  colorScheme: 'only light',
 };
 
 export default function RootLayout({

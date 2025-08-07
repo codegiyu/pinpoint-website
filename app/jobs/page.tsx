@@ -1,10 +1,10 @@
-'use client';
 import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { JobsCTA } from '@/components/sections/jobs/JobsCTA';
 import JobsFooter from '@/components/sections/jobs/JobsFooter';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { getJobCards } from '@/lib/utils/transform';
+import { Metadata } from 'next';
 
 const heroDescription = (
   <>
@@ -23,6 +23,10 @@ const mobileHeroDescription = (
   </>
 );
 
+export const metadata: Metadata = {
+  title: 'Jobs',
+};
+
 export default function JobsPage() {
   const jobCards = getJobCards();
 
@@ -32,7 +36,7 @@ export default function JobsPage() {
         caption="JOBS"
         title="Join Pinpoint Global!"
         description={heroDescription}
-        videoURL="/videos/jobs-animation.webm"
+        videoURL="https://static.pinpoint.ng/videos/jobs-animation.webm"
         bottomStripBackground=""
       />
 

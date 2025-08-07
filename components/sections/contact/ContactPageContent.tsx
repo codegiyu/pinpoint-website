@@ -11,7 +11,7 @@ export default function ContactPageContent() {
   return (
     <section className="w-full min-h-screen pb-4 text-white relative overflow-hidden">
       <SmartVideo
-        src="/videos/contact-animation.webm"
+        src="https://static.pinpoint.ng/videos/contact-animation.webm"
         wrapClassName="h-full"
         className="absolute z-[1] inset-0 object-cover"
       />

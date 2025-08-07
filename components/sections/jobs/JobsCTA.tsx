@@ -1,3 +1,4 @@
+'use client';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 
 import { buttonVariants } from '@/components/ui/button';

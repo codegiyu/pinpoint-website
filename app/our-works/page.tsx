@@ -5,6 +5,7 @@ import { CommonHeroTextSection } from '@/components/sections/shared/CommonHero';
 import { WorksDisplay } from '@/components/sections/works/WorksDisplay';
 import { filterProjects, getProvenServicesAndSectors } from '@/lib/utils/transform';
 import { Suspense } from 'react';
+import { Metadata } from 'next';
 
 interface Props {
   searchParams: Promise<{
@@ -15,6 +16,10 @@ interface Props {
 }
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Our Case Studies',
+};
 
 export default async function OurWorksPage({ searchParams }: Props) {
   const search = await searchParams;

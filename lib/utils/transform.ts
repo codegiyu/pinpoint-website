@@ -21,6 +21,7 @@ export const getServicesSummary = (): ServiceCardProps[] => {
     breakdown: service.breakdownSummary,
     href: `/services/${service.id}`,
     videoUrl: service.videoUrl,
+    posterUrl: service.posterUrl,
     isLast: idx === arr.length - 1,
   }));
 };
@@ -66,6 +67,7 @@ export const getServiceById = (id: string) => {
         breakdown: curr.breakdownSummary,
         href: `/services/${curr.id}`,
         videoUrl: curr.videoUrl,
+        posterUrl: curr.posterUrl,
       });
     }
     return acc;

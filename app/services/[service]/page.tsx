@@ -18,6 +18,7 @@ export interface FullServiceData {
   name: string;
   pageTitle: string;
   videoUrl: string;
+  posterUrl: string;
   description: string;
   expertise: {
     title: string;
@@ -65,13 +66,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!service) return {};
 
   return {
-    title: `${service.name} | Our Services | Pinpoint Global`,
+    title: `${service.name} | Our Services`,
     description: service.description.slice(0, 160),
     openGraph: {
-      title: service.name,
+      title: `${service.name} | Our Services`,
       description: service.description,
+      images: [service.posterUrl],
     },
-  };
+    twitter: {
+      images: service.posterUrl,
+    },
+  } satisfies Metadata;
 }
 
 export default async function ServicePage({ params }: Props) {

@@ -1,3 +1,4 @@
+'use client';
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
 import { motion } from 'motion/react';
 

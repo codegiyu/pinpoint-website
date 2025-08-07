@@ -35,13 +35,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!job) return {};
 
   return {
-    title: `${job.title} | Jobs | Pinpoint Global`,
+    title: `${job.title} | Jobs`,
     description: job.description.slice(0, 160),
     openGraph: {
-      title: job.title,
+      title: `${job.title} | Jobs`,
       description: job.description,
     },
-  };
+  } satisfies Metadata;
 }
 
 export default async function JobOpportunityPage({ params }: Props) {

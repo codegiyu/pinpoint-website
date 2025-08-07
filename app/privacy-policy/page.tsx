@@ -4,6 +4,11 @@ import { MainLayout } from '@/components/layout/MainLayout';
 import { FormPageHeadingSection } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
 import { PRIVACY_POLICY } from '@/lib/constants/texts';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+};
 
 export default function LegalNotice() {
   return (

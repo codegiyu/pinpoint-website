@@ -10,34 +10,42 @@ import { changingHeroTitleModifiers } from '@/lib/constants/texts';
 export const HomeHero = () => {
   return (
     <section id="hero" className="w-full h-screen bg-dark text-white relative overflow-hidden">
-      <SmartVideo src="/videos/home-animation.webm" wrapClassName="h-full" />
-      <div className="hero-content w-full-h-full absolute inset-0 pinpoint-container touch-events-none">
-        <div className="w-full h-full grid place-items-center relative lg:static">
-          <div className="w-full grid gap-0">
-            <span className="typo-subtitle">Your Branding, Marketing, and Packaging Solution</span>
-            <div className="w-full h-fit flex items-center justify-between">
-              <h1 className="typo-h1 w-full">
-                <div className="w-full inline-grid md:grid-cols-[auto_1fr] items-center md:gap-2 lg:gap-4">
-                  <p className="inline-block">We build </p>
-                  <ChangingModifier
-                    textsArray={changingHeroTitleModifiers}
-                    wrapClassName="h-[calc((10vw_+_3px)_*_1.2)] sm:h-[calc(3.3125rem_*_1.2)] md:h-full"
-                  />
-                </div>
-                <br />
-                <span>that mean something</span>
-              </h1>
-              <GhostBtn className="hidden lg:block relative" wrapClassName="flex-none">
-                <MacaronTextEn className="macaron homepage-macaron animate-spin animation-duration-[10s]" />
-                <MacaronTextePlayEn className="half-macaron homepage-half-macaron absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" />
-              </GhostBtn>
+      <SmartVideo
+        src="https://static.pinpoint.ng/videos/home-animation.mp4"
+        poster="https://static.pinpoint.ng/images/video-posters/home-poster.png"
+        wrapClassName="h-full w-full"
+      />
+      <div className="hero-content w-full h-full bg-black/15 absolute inset-0 touch-events-none">
+        <div className="pinpoint-container h-full">
+          <div className="w-full h-full grid place-items-center relative lg:static">
+            <div className="w-full grid gap-0">
+              <span className="typo-subtitle">
+                Your Branding, Marketing, and Packaging Solution
+              </span>
+              <div className="w-full h-fit flex items-center justify-between">
+                <h1 className="typo-h1 w-full">
+                  <div className="w-full inline-grid md:grid-cols-[auto_1fr] items-center md:gap-2 lg:gap-4">
+                    <p className="inline-block">We build </p>
+                    <ChangingModifier
+                      textsArray={changingHeroTitleModifiers}
+                      wrapClassName="h-[calc((10vw_+_3px)_*_1.2)] sm:h-[calc(3.3125rem_*_1.2)] md:h-full"
+                    />
+                  </div>
+                  <br />
+                  <span>that mean something</span>
+                </h1>
+                <GhostBtn className="hidden lg:block relative" wrapClassName="flex-none">
+                  <MacaronTextEn className="macaron homepage-macaron animate-spin animation-duration-[10s]" />
+                  <MacaronTextePlayEn className="half-macaron homepage-half-macaron absolute inset-1/2 -translate-x-1/2 -translate-y-1/2" />
+                </GhostBtn>
+              </div>
+              <p
+                className="lg:hidden absolute md:relative bottom-[3.125rem] md:bottom-0 
+                left-0 w-[70%] md:w-fit md:pt-5 lg:pt-0 typo-caption-large md:italic 
+                lg:not-italic break-words text-wrap">
+                Because beauty&apos;s better with purpose.
+              </p>
             </div>
-            <p
-              className="lg:hidden absolute md:relative bottom-[3.125rem] md:bottom-0 
-              left-0 w-[70%] md:w-fit md:pt-5 lg:pt-0 typo-caption-large md:italic 
-              lg:not-italic break-words text-wrap">
-              Because beauty&apos;s better with purpose.
-            </p>
           </div>
         </div>
       </div>

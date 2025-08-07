@@ -5,6 +5,11 @@ import Footer from '@/components/layout/Footer';
 import { FormPageHeadingSection } from '@/components/sections/shared/CommonHero';
 import { newProjectTexts } from '@/lib/constants/texts';
 import { getAllIndividualServices } from '@/lib/utils/transform';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Starting A New Project?',
+};
 
 export default function StartingANewProject() {
   const servicesList = getAllIndividualServices();
