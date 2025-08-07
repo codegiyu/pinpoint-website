@@ -39,6 +39,19 @@ export interface ServiceExpertiseGroupProps {
   className?: string;
 }
 
+export interface ServicePackageGroup {
+  id: AvailablePackagedService;
+  name: string;
+  packages: ServicePackage[];
+}
+
+export interface ServicePackage {
+  id: string;
+  name: string;
+  priceRange: [number, number];
+  benefits: string[];
+}
+
 export interface WhatMakesUsUniqueProps {
   title: string;
   groups: UniqueGroupProps[];

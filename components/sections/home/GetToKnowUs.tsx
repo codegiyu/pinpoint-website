@@ -5,7 +5,7 @@ import { PropsWithChildren } from 'react';
 export const GetToKnowUs = () => {
   return (
     <DescriptionTextSection
-      text="Build a brand people remember with Pinpoint Global.
+      text="Build a brand people remember with Pinpoint.
       We help you connect, communicate, and create impact, through 
       strategy, design, content, and experiences that reflect 
       who you are. From branding to digital to packaging, we craft 

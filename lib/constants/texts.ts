@@ -265,6 +265,9 @@ export const newProjectTexts: string[] = [
   exceed your expectations.',
 ];
 
+export const AVAILABLE_PACKAGED_SERVICE_IDS = [] as const;
+export type AvailablePackagedService = (typeof AVAILABLE_PACKAGED_SERVICE_IDS)[number];
+
 export const AVAILABLE_SERVICE_IDS = [
   'branding_and_identity',
   'marketing_and_media',
