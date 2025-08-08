@@ -47,7 +47,7 @@ export const getProvenServicesAndSectors = () => {
 
 export const getAllIndividualServices = () => {
   return [
-    'Make enquiries',
+    "I'm just making enquiries",
     ...ALL_SERVICES_DATA.flatMap(service =>
       service.expertise.breakdown.flatMap(item => item.services)
     ).sort(),

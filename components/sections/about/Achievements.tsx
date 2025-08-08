@@ -32,7 +32,7 @@ export const OurAchievements = ({ achievements }: { achievements: AchievementBlo
             lg:col-end-5 md:row-start-2 md:row-end-4">
             <div className="w-full h-full relative">
               <Image
-                src="https://static.pinpoint.ng/images/about-page/achievements-highlight.webp"
+                src="https://static.pinpoint.ng/images/about-page/achievements.jpg"
                 alt=""
                 className="w-full h-full object-cover"
                 fill

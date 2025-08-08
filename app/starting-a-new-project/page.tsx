@@ -7,11 +7,18 @@ import { newProjectTexts } from '@/lib/constants/texts';
 import { getAllIndividualServices } from '@/lib/utils/transform';
 import { Metadata } from 'next';
 
+interface Props {
+  searchParams: Promise<{
+    service?: string;
+    package?: string;
+  }>;
+}
+
 export const metadata: Metadata = {
   title: 'Starting A New Project?',
 };
 
-export default function StartingANewProject() {
+export default function StartingANewProject({}: Props) {
   const servicesList = getAllIndividualServices();
 
   return (

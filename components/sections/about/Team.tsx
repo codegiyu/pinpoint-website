@@ -113,7 +113,7 @@ const TeamSlide = ({ name, title, mainImage, subImage }: TeamSlideProps) => {
   const alt = `${name} - ${title}`;
 
   return (
-    <div className="group w-full h-[clamp(425px,_133vw,_598px)] md:h-[504px] lg:h-[500px] xl:h-[544px] relative overflow-hidden">
+    <div className="group w-full h-[clamp(425px,_133vw,_598px)] md:h-[480px] lg:h-[450px] relative overflow-hidden">
       <h4 className="sr-only">{alt}</h4>
       <div className="w-full h-full scale-120 group-hover:scale-100 transition-all duration-700 ease-out relative z-[1]">
         <Image src={mainImage} alt={alt} className="w-full h-full object-cover z-[3]" fill />
@@ -125,11 +125,12 @@ const TeamSlide = ({ name, title, mainImage, subImage }: TeamSlideProps) => {
         />
       </div>
       <div
-        className="absolute left-7 right-7 bottom-6 md:left-9 md:right-9 md:bottom-7 
-        lg:left-7 lg:right-7 lg:bottom-[1.875rem] xl:left-11 xl:bottom-9 grid 
-        text-[10.5px] md:text-[0.75rem] xl:text-[clamp(12px,_1.194vw,_15px)] 
-        leading-[1.625] tracking-[0.08em] font-light text-white z-[4]">
-        <p className="">{name}</p>
+        className="bg-dark/60 absolute w-full left-0 bottom-0 pl-5 pr-5 
+        pt-4 pb-4 grid text-[12px] leading-[1.625] 
+        tracking-[0.08em] font-light text-white z-[4]">
+        <p className="text-[0.875rem] md:text-[1rem] xl:text-[clamp(16px,_1.194vw,_20px)]">
+          {name}
+        </p>
         <p className="font-medium tracking-[0.05em]">{title}</p>
       </div>
     </div>

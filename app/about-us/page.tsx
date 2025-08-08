@@ -25,7 +25,7 @@ export default function AboutUsPage() {
         caption="Our Creative Agency"
         title="Creative by Nature, Strategic by Design"
         imageProps={{
-          src: 'https://static.pinpoint.ng/images/about-page/hero.webp',
+          src: 'https://static.pinpoint.ng/images/about-page/hero-2.jpg',
           alt: 'Pinpoint design team',
           priority: true,
         }}
