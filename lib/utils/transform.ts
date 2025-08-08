@@ -46,9 +46,12 @@ export const getProvenServicesAndSectors = () => {
 };
 
 export const getAllIndividualServices = () => {
-  return ALL_SERVICES_DATA.flatMap(service =>
-    service.expertise.breakdown.flatMap(item => item.services)
-  ).sort();
+  return [
+    'Make enquiries',
+    ...ALL_SERVICES_DATA.flatMap(service =>
+      service.expertise.breakdown.flatMap(item => item.services)
+    ).sort(),
+  ];
 };
 
 export const getAllServiceIds = () => {

@@ -139,11 +139,20 @@ export const BreakdownSingle = ({
   text,
   className,
   noDecorationInXL,
-}: ComponentPropsWithRef<'li'> & { text: string; noDecorationInXL?: boolean }) => {
+  tickDecoration,
+}: ComponentPropsWithRef<'li'> & {
+  text: string;
+  noDecorationInXL?: boolean;
+  tickDecoration?: boolean;
+}) => {
   return (
-    <li className={cn(`w-fit flex items-center gap-2 typo-body-4 text-white/85`, className)}>
-      <span className={`${noDecorationInXL ? 'xl:hidden' : ''}`}>-</span>
-      <span className="">{text}</span>
+    <li
+      className={cn(
+        `w-fit flex items-center gap-2 typo-body-4 leading-[1.2] md:leading-[1.2] text-white/85`,
+        className
+      )}>
+      <span className={`${noDecorationInXL ? 'xl:hidden' : ''}`}>{tickDecoration ? '✓' : '-'}</span>
+      <span className="text-wrap break-words text-start">{text}</span>
     </li>
   );
 };

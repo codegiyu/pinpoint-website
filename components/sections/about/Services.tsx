@@ -27,7 +27,7 @@ export const Services = ({ servicesSummary }: { servicesSummary: ServiceCardProp
             {servicesSummary.map((service, idx) => (
               <ServiceCard key={idx} {...omit(service, ['videoUrl'])} />
             ))}
-            {modulusByThree &&
+            {modulusByThree > 0 &&
               Array(modulusByThree)
                 .fill(0)
                 .map((_, idx) => (
@@ -69,18 +69,18 @@ const ServiceCard = ({ name, breakdown, href }: Omit<ServiceCardProps, 'videoUrl
           />
         </div>
         <div className="lg:group-hover:-translate-y-3 trasition-all duration-300 ease-out">
-          <ul className="grid md:hidden lg:grid">
+          <ul className="grid md:hidden lg:grid gap-1.5">
             {[...breakdown, '...'].map((item, idx) => (
               <BreakdownSingle key={idx} text={item} className="text-dark/65" noDecorationInXL />
             ))}
           </ul>
           <div className="w-full hidden md:grid lg:hidden grid-cols-2 gap-8">
-            <ul className="grid md:border-r border-dark/25">
+            <ul className="grid gap-1.5 md:border-r border-dark/25">
               {firstHalfOfBreakdown.map((item, idx) => (
                 <BreakdownSingle key={idx} text={item as string} className="text-dark/65" />
               ))}
             </ul>
-            <ul className="grid">
+            <ul className="grid gap-1.5">
               {secondHalfOfBreakdown.map((item, idx) => (
                 <BreakdownSingle key={idx} text={item as string} className="text-dark/65" />
               ))}

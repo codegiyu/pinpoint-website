@@ -4,6 +4,7 @@
 @import 'swiper/css';
 @import 'swiper/css/pagination';
 @import 'swiper/css/navigation';
+@import 'swiper/css/mousewheel';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -368,6 +369,27 @@
   }
   .transform-origin-center {
     transform-origin: center center;
+  }
+
+  .three-cols-grid > :nth-child(3n+1) {
+    @apply xl:mr-auto xl:ml-0;
+  }
+  .three-cols-grid > :nth-child(3n+2) {
+    @apply xl:mx-auto;
+  }
+  .three-cols-grid > :nth-child(3n+3) {
+    @apply xl:ml-auto xl:mr-0;
+  }
+
+  /* .three-cols-grid > :nth-child(2n+1) {
+    @apply lg:mr-auto lg:ml-0;
+  }
+  .three-cols-grid > :nth-child(2n+2) {
+    @apply lg:ml-auto lg:mr-0;
+  } */
+
+  .three-cols-grid > div {
+    @apply mx-auto;
   }
 
   /* Give any select/dropdown trigger caret the .trigger-caret class to make it rotate when the dropdown is open */

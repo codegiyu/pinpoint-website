@@ -95,7 +95,7 @@ const ServiceExpertiseGroup = ({
       <h3 className="typo-h5 text-dark/90">
         {index}. {title}
       </h3>
-      <ul className="">
+      <ul className="grid gap-1.5">
         {services.map((service, idx) => (
           <BreakdownSingle key={idx} text={service} className="text-dark/80" />
         ))}

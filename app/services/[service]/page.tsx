@@ -3,6 +3,7 @@ import { MainLayout } from '@/components/layout/MainLayout';
 import { DescriptionTextSection } from '@/components/sections/home/GetToKnowUs';
 import { WhatWeDo } from '@/components/sections/home/WhatWeDo';
 import { ServiceExpertise } from '@/components/sections/services/Expertise';
+import { PackagePricing } from '@/components/sections/services/PackagePricing';
 import { RelatedProjects } from '@/components/sections/services/RelatedProjects';
 import { ServiceScrollManager } from '@/components/sections/services/ScrollManager';
 import { WhatMakesUsUnique } from '@/components/sections/services/WhatMakesUsUnique';
@@ -29,6 +30,7 @@ export interface FullServiceData {
   breakdownSummary: string[];
   whatMakesUsUnique: WhatMakesUsUniqueProps;
   menu: { image: string; className: string };
+  packagePricing: ServicePackageGroup[];
 }
 
 export interface ServiceExpertiseGroupProps {
@@ -41,14 +43,13 @@ export interface ServiceExpertiseGroupProps {
 
 export interface ServicePackageGroup {
   id: AvailablePackagedService;
-  name: string;
   packages: ServicePackage[];
 }
 
 export interface ServicePackage {
   id: string;
-  name: string;
-  priceRange: [number, number];
+  priceRange: [number, number] | [number];
+  priceSuffix?: string;
   benefits: string[];
 }
 
@@ -104,6 +105,7 @@ export default async function ServicePage({ params }: Props) {
     description,
     expertise,
     whatMakesUsUnique,
+    packagePricing,
     relatedProjects,
     otherServices,
   } = serviceData;
@@ -119,15 +121,16 @@ export default async function ServicePage({ params }: Props) {
       <DescriptionTextSection className="bg-dark text-white/80" text={description} />
       <ServiceExpertise {...expertise} />
       <WhatMakesUsUnique {...whatMakesUsUnique} />
+      <PackagePricing packageGroups={packagePricing} />
       <RelatedProjects projects={relatedProjects.slice(0, 7)} />
-      <CTA className="hidden md:flex" />
+      {packagePricing.length === 0 && <CTA className="hidden md:flex" />}
       <section
         id="other-services"
         className="min-h-auto lg:min-h-screen bg-gray-f2 md:bg-dark flex items-center 
         relative overflow-hidden pt-10 md:pt-0">
         <WhatWeDo sectionName="Other Services" services={otherServices} />
       </section>
-      <CTA className="md:hidden" />
+      {packagePricing.length === 0 && <CTA className="md:hidden" />}
       <PageSideDecoration caption={name} />
       <ServiceScrollManager observerTargetIds={['other-services']} />
     </MainLayout>

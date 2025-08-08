@@ -1,7 +1,7 @@
 'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Manipulation, A11y, Pagination, Navigation } from 'swiper/modules';
+import { Manipulation, A11y, Pagination, Navigation, Mousewheel } from 'swiper/modules';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { MoveLeft, MoveRight } from 'lucide-react';
 import Image from 'next/image';
@@ -11,7 +11,7 @@ import { memo } from 'react';
 
 export const RelatedProjects = ({ projects }: { projects: RelatedProjectSlideProps[] }) => {
   return (
-    <section className="w-full bg-gray-f2 pt-[3.75rem]">
+    <section className="w-full bg-gray-f2 pt-[3.75rem] pb-[3rem]">
       <div className="pinpoint-container pb-[1.875rem]">
         <h2 className="typo-caption-small uppercase">Related Projects</h2>
       </div>
@@ -26,7 +26,7 @@ export const RelatedProjectsSlider = memo(
     return (
       <div className={cn('w-full relative', className)}>
         <Swiper
-          modules={[Manipulation, A11y, Pagination, Navigation]}
+          modules={[Manipulation, A11y, Pagination, Navigation, Mousewheel]}
           mousewheel={true}
           slidesPerView={'auto'}
           speed={1200}

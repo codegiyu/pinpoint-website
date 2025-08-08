@@ -265,7 +265,16 @@ export const newProjectTexts: string[] = [
   exceed your expectations.',
 ];
 
-export const AVAILABLE_PACKAGED_SERVICE_IDS = [] as const;
+export const AVAILABLE_PACKAGED_SERVICE_IDS = [
+  'branding',
+  'brand_naming',
+  'brand_activation',
+  'professional_logo_design',
+  'campaign_branding',
+  'social_media_strategy',
+  'packaging_&_product_design',
+  'website_design_&_development',
+] as const;
 export type AvailablePackagedService = (typeof AVAILABLE_PACKAGED_SERVICE_IDS)[number];
 
 export const AVAILABLE_SERVICE_IDS = [
@@ -360,6 +369,183 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       image: '',
       className: '',
     },
+    packagePricing: [
+      {
+        id: 'branding',
+        packages: [
+          {
+            id: 'basic',
+            priceRange: [250_000],
+            benefits: [
+              'Interview',
+              'Logo Design',
+              '2-3 Concepts',
+              '2 Revisions',
+              'Stationary Design',
+              'Color Palette',
+              'Brand Font Family& Font File',
+              'Core Brand Guidelines',
+              'Branding Questionnaire Interview',
+              'Branding Summary',
+              'Branding Workshop',
+              'Values Statement',
+              'Business Card Design',
+              '1 Social Media Banner Design',
+              'Presentation Template',
+            ],
+          },
+          {
+            id: 'premium',
+            priceRange: [500_000],
+            benefits: [
+              'Interview',
+              'Logo Design',
+              '5-7 Concepts',
+              '4 Revisions',
+              'Stationary Design',
+              'Color Palette',
+              'Brand Font Family& Font File',
+              'Core Brand Guidelines',
+              'Branding Questionnaire Interview',
+              'Branding Summary',
+              'Branding Workshop',
+              'Values Statement',
+              'Business Card Design',
+              '5 Social Media Banner Designs',
+              'Presentation Template',
+              '1 Website Design',
+            ],
+          },
+          {
+            id: 'classic',
+            priceRange: [1_000_000],
+            benefits: [
+              'Interview',
+              'Logo Design',
+              '5-7 Concepts',
+              '4 Revisions',
+              'Stationary Design',
+              'Color Palette',
+              'Brand Font Family& Font File',
+              'Core Brand Guidelines',
+              'Branding Questionnaire Interview',
+              'Branding Summary',
+              'Branding Workshop',
+              'Values Statement',
+              'Business Card Design',
+              '5 Social Media Banner Designs',
+              'Presentation Template',
+              '1 Website Design',
+              'Logo Video Intro',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'brand_naming',
+        packages: [
+          {
+            id: 'basic',
+            priceRange: [200_000, 500_000],
+            benefits: ['Includes 3 name options', '1 round of revision'],
+          },
+          {
+            id: 'premium',
+            priceRange: [500_000, 1_250_000],
+            benefits: [
+              'Includes 5 name options',
+              '2 rounds of revisions',
+              'A naming strategy document',
+            ],
+          },
+          {
+            id: 'classic',
+            priceRange: [1_250_000, 1_500_000],
+            benefits: [
+              'Includes 10 name options',
+              '3 rounds of revisions',
+              'A naming strategy document',
+              'A brand guidelines document',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'brand_activation',
+        packages: [
+          {
+            id: 'basic',
+            priceRange: [500_000, 2_000_000],
+            benefits: ['Brand launch event', 'Social media campaign', 'Influencer partnerships'],
+          },
+          {
+            id: 'premium',
+            priceRange: [1_000_000, 2_500_000],
+            benefits: [
+              'Everything in Basic Package',
+              'Brand ambassador partnership',
+              'Event sponsorship',
+              'PR services',
+            ],
+          },
+          {
+            id: 'classic',
+            priceRange: [2_500_000, 10_000_000],
+            benefits: [
+              'Everything in Premium Package',
+              'Brand experience activation',
+              'Content creation',
+              'Media buying',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'professional_logo_design',
+        packages: [
+          {
+            id: 'basic',
+            priceRange: [30_000],
+            benefits: [
+              '1 Logo Review',
+              'Font/Typography',
+              'Color/Brand Pattern',
+              'High Resolution png (Basic/Grayscale)',
+              'High Resolution jpg (Basic/Grayscale)',
+            ],
+          },
+          {
+            id: 'premium',
+            priceRange: [50_000],
+            benefits: [
+              '2 Logo Reviews',
+              'Font/Typography',
+              'Color/Brand Pattern',
+              'High Resolution png (Basic/Grayscale)',
+              'High Resolution jpg (Basic/Grayscale)',
+              'Basic Logo Mockup',
+              'Letterhead & Business Card Design',
+            ],
+          },
+          {
+            id: 'classic',
+            priceRange: [100_000],
+            benefits: [
+              '3 Logo Reviews',
+              'Font/Typography',
+              'Color/Brand Pattern',
+              'High Resolution png (Basic/Grayscale)',
+              'High Resolution jpg (Basic/Grayscale)',
+              'Basic Logo Mockup',
+              'Letterhead & Business Card Design',
+              '1 Social Media Design',
+              'Tshirt Idea',
+              'Rollup Banner Design',
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'marketing_and_media',
@@ -451,6 +637,95 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       image: '',
       className: '',
     },
+    packagePricing: [
+      {
+        id: 'campaign_branding',
+        packages: [
+          {
+            id: 'starter',
+            priceRange: [100_000, 150_000],
+            benefits: [
+              'Number of products: 1-2',
+              'Campaign concept development',
+              'Key visual design',
+              'Social media assets creation (Facebook, Twitter, Instagram)',
+              'Email marketing template design',
+            ],
+          },
+          {
+            id: 'essential',
+            priceRange: [250_000, 350_000],
+            benefits: [
+              'Number of products: 3-5',
+              'Everything in Starter package',
+              'Influencer marketing assets creation',
+              'Landing page design',
+              'Campaign analytics report',
+            ],
+          },
+          {
+            id: 'advanced',
+            priceRange: [500_000, 700_000],
+            benefits: [
+              'Number of products: 6-10',
+              'Everything in Essential package',
+              'Video campaign production (up to 60 seconds)',
+              'Print materials design (brochures, flyers, posters)',
+              'Event marketing materials design',
+            ],
+          },
+          {
+            id: 'premium',
+            priceRange: [1_000_000, 1_500_000],
+            benefits: [
+              'Number of products: 11+',
+              'Everything in Advanced package',
+              'Comprehensive campaign strategy development',
+              'Quarterly campaign performance review',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'social_media_strategy',
+        packages: [
+          {
+            id: 'basic',
+            priceRange: [50_000],
+            priceSuffix: ' (per month)',
+            benefits: [
+              'Social media account setup and optimization',
+              'Monthly content calendar (2 posts per week)',
+              'Post creation and scheduling (Facebook, Instagram, Twitter)',
+              'Basic engagement (responding to comments and messages)',
+            ],
+          },
+          {
+            id: 'advanced',
+            priceRange: [200_000],
+            priceSuffix: ' (per month)',
+            benefits: [
+              'Everything in Basic Package',
+              'Increased content creation (6 posts per week)',
+              'Advanced engagement ( reviews)',
+              'Social media advertising (Facebook and Instagram, ₦20,000 budget)',
+            ],
+          },
+          {
+            id: 'premium',
+            priceRange: [300_000],
+            priceSuffix: ' (per month)',
+            benefits: [
+              'Everything in Advanced Package',
+              'High-level content creation (8 posts per week)',
+              'Premium engagement (responding to comments, messages, reviews, and mentions)',
+              'Social media advertising (Facebook, Instagram, Twitter, and LinkedIn, ₦50,000 budget)',
+              'Monthly social media strategy session',
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'packaging_and_product_design',
@@ -538,6 +813,53 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       image: '',
       className: '',
     },
+    packagePricing: [
+      {
+        id: 'packaging_&_product_design',
+        packages: [
+          {
+            id: 'basic',
+            priceRange: [20_000, 30_000],
+            benefits: [
+              'Number of products: 1',
+              'Product design concept',
+              '2D design development',
+              'Final design files (AI, PSD, Sketch)',
+            ],
+          },
+          {
+            id: 'standard',
+            priceRange: [40_000, 60_000],
+            benefits: [
+              'Number of products: 2-3',
+              'Everything in Basic package',
+              '3D design visualization',
+              'Design iterations (up to 2 rounds)',
+            ],
+          },
+          {
+            id: 'advanced',
+            priceRange: [80_000, 120_000],
+            benefits: [
+              'Number of products: 4-5',
+              'Everything in Standard package',
+              'Advanced design research',
+              'Design strategy development',
+            ],
+          },
+          {
+            id: 'premium',
+            priceRange: [150_000, 250_000],
+            benefits: [
+              'Number of products: 6+',
+              'Everything in Advanced package',
+              'Dedicated design lead',
+              'Priority project timeline',
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     id: 'offset_and_digital_printing',
@@ -622,6 +944,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       image: '',
       className: '',
     },
+    packagePricing: [],
   },
   {
     id: 'digital_products_creation',
@@ -710,6 +1033,82 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       image: '',
       className: '',
     },
+    packagePricing: [
+      {
+        id: 'website_design_&_development',
+        packages: [
+          {
+            id: 'basic',
+            priceRange: [150_000, 300_000],
+            benefits: [
+              'Up to 5 pages (home, about, contact, services, FAQ)',
+              'Simple layout and design',
+              'Limited functionality (contact form, social media links)',
+              'No e-commerce integration',
+              'No content creation (writing, images, videos)',
+            ],
+          },
+          {
+            id: 'bronze',
+            priceRange: [300_000, 600_000],
+            benefits: [
+              'Up to 10 pages (additional pages: portfolio, team, FAQ)',
+              'Custom design and layout',
+              'Basic functionality (contact form, social media integration, newsletter signup)',
+              'Limited e-commerce integration (up to 5 products)',
+              'No content creation (writing, images, videos)',
+            ],
+          },
+          {
+            id: 'silver',
+            priceRange: [600_000, 1_200_000],
+            benefits: [
+              'Up to 20 pages (additional pages: blog, resources, testimonials)',
+              'Custom design and layout',
+              'Advanced functionality (search bar, filtering, sorting)',
+              'Full e-commerce integration (70+ products)',
+              'Content creation (writing, images, videos) for up to 5 pages',
+            ],
+          },
+          {
+            id: 'gold',
+            priceRange: [1_200_000, 2_400_000],
+            benefits: [
+              'Up to 30 pages (additional pages: news, events, careers)',
+              'Custom design and layout',
+              'Advanced functionality (login/logout, user accounts, payment gateway)',
+              'Full e-commerce integration (150+ products)',
+              'Content creation (writing, images, videos) for up to 10 pages',
+            ],
+          },
+          {
+            id: 'platinum',
+            priceRange: [2_400_000, 4_800_000],
+            benefits: [
+              'Unlimited pages',
+              'Custom design and layout',
+              'Advanced functionality (custom plugins, API integration)',
+              'Full e-commerce integration (unlimited products)',
+              'Content creation (writing, images, videos) for up to 20 pages',
+            ],
+          },
+          {
+            id: 'diamond',
+            priceRange: [4_800_000],
+            priceSuffix: '+',
+            benefits: [
+              'Unlimited pages',
+              'Custom design and layout',
+              'Advanced functionality (custom plugins, API integration, complex logic)',
+              'Full e-commerce integration (unlimited products)',
+              'Content creation (writing, images, videos) for all pages',
+              'Dedicated project manager and development team',
+              'Ongoing support and maintenance',
+            ],
+          },
+        ],
+      },
+    ],
   },
 ];
 
