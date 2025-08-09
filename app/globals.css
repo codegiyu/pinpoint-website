@@ -336,6 +336,9 @@
   .typo-button { /* Button texts */
     @apply font-rubik text-[1.0625rem] md:text-[0.9375rem] xl:text-[clamp(15px,_1.119vw,_19px)] leading-[1.125rem] font-bold md:font-medium lg:font-normal tracking-[0];
   }
+  .typo-button-small { /* Small button texts */
+    @apply font-rubik text-[0.725rem] lg:text-[0.8125rem] xl:text-[clamp(13px,_1.119vw,_15px)] leading-[1.125rem] font-bold md:font-medium lg:font-normal tracking-[0];
+  }
   .typo-tiny { /* 'Filter by...' text in mobile filters in our works page */
     @apply font-rubik text-[9px] leading-[45px] tracking-[0.01em] font-bold;
   }

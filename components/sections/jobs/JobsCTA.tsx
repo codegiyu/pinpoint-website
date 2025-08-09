@@ -32,6 +32,7 @@ export const JobsCTA = ({
         initial={{ y: -60, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, delay: index && index * 0.4 }}
+        viewport={{ once: true }}
         className="pinpoint-container-mobile-w-full lg:w-[76vw] xl:w-[76vw] 2xl:w-[67vw]">
         <GhostBtn
           linkProps={{ href: href }}

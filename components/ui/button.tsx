@@ -11,17 +11,20 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-dark text-white  transition-all duration-500 ease-in-out',
         secondary:
-          'bg-dark-primary text-dark relative after:absolute after:inset-0 after:border after:border-black lg:hover:after:border-4 after:transition-all after:duration-300 after:ease-in-out',
+          'bg-transparent text-dark relative after:absolute after:inset-0 after:border after:border-black lg:hover:after:border-2 after:transition-all after:duration-300 after:ease-in-out',
         ghost: '',
       },
       size: {
         default:
           'w-full md:w-fit px-4 py-4 md:px-9 md:py-[1.025rem] xl:px-[clamp(35px,_2.612vw,_42px)] xl:py-[clamp(16px,_1.018vw,_20px)] rounded-none gap-2',
+        small:
+          'w-full md:w-fit px-4 py-2.5 md:px-6 md:py-[0.75rem] xl:px-[clamp(24px,_1.9vw,_30px)] rounded-none gap-2',
         icon: '',
         full: 'w-full px-4 py-4 md:px-9 md:py-[1.025rem] rounded-none gap-2',
       },
       typo: {
         default: 'typo-button',
+        small: '',
         custom: '',
       },
     },

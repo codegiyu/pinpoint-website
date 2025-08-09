@@ -18,11 +18,11 @@ export const OurStory = ({ storyTexts }: { storyTexts: string[] }) => {
           </div>
           <div className="w-full md:max-w-[455px] lg:max-w-none h-[100vw] max-h-[560px] lg:h-full lg:max-h-none my-[30px] md:my-0 mx-auto relative">
             <div className="absolute inset-0 w-[47vw] max-w-[270px] h-[70%] lg:w-[216px] lg:max-w-none lg:h-[325px] z-[6]">
-              <div className="w-full h-full relative">
+              <div className="w-full h-full relative overflow-hidden">
                 <Image
-                  src="https://static.pinpoint.ng/images/team/klef.jpg"
+                  src="https://static.pinpoint.ng/images/about-page/story-1.webp"
                   alt=""
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover scale-150"
                   sizes=""
                   fill
                 />
@@ -31,7 +31,7 @@ export const OurStory = ({ storyTexts }: { storyTexts: string[] }) => {
             <div className="absolute bottom-0 right-0 w-[55vw] max-w-[315px] h-[60%] lg:w-[216px] lg:max-w-none lg:h-[300px] xl:w-[264px] xl:h-[320px]">
               <div className="w-full h-full relative">
                 <Image
-                  src="https://static.pinpoint.ng/images/team/klef-2.jpg"
+                  src="https://static.pinpoint.ng/images/about-page/story-2.webp"
                   alt=""
                   className="w-full h-full object-cover"
                   sizes=""
@@ -47,7 +47,7 @@ export const OurStory = ({ storyTexts }: { storyTexts: string[] }) => {
             <div className="absolute inset-0 w-full h-[calc(100%_+_50px)] xl:h-[calc(100%_+_70px)] z-[6]">
               <div className="w-full h-full relative">
                 <Image
-                  src="https://static.pinpoint.ng/images/about-page/story-highlight.jpg"
+                  src="https://static.pinpoint.ng/images/about-page/story-highlight-2.webp"
                   alt=""
                   className="w-full h-full object-cover"
                   sizes=""
@@ -81,7 +81,7 @@ export const OurStory = ({ storyTexts }: { storyTexts: string[] }) => {
       <div className="lg:hidden w-screen h-[100vw] md:h-[460px] mb-[6.25rem] relative">
         <div className="w-full h-full relative">
           <Image
-            src="https://static.pinpoint.ng/images/about-page/story-highlight.jpg"
+            src="https://static.pinpoint.ng/images/about-page/story-highlight-2.webp"
             alt=""
             className="w-full h-full object-cover"
             sizes=""

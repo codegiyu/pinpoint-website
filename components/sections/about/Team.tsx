@@ -113,7 +113,7 @@ const TeamSlide = ({ name, title, mainImage, subImage }: TeamSlideProps) => {
   const alt = `${name} - ${title}`;
 
   return (
-    <div className="group w-full h-[clamp(425px,_133vw,_598px)] md:h-[480px] lg:h-[450px] relative overflow-hidden">
+    <div className="group w-full h-[clamp(425px,_133vw,_598px)] md:h-[480px] lg:h-[450px] 2xl:h-[500px] relative overflow-hidden">
       <h4 className="sr-only">{alt}</h4>
       <div className="w-full h-full scale-120 group-hover:scale-100 transition-all duration-700 ease-out relative z-[1]">
         <Image src={mainImage} alt={alt} className="w-full h-full object-cover z-[3]" fill />

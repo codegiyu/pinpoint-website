@@ -201,8 +201,8 @@ export const OUR_TEAM: TeamSlideProps[] = [
   {
     name: 'Adepoju Olayode',
     title: 'CEO',
-    mainImage: 'https://static.pinpoint.ng/images/team/klef.jpg',
-    subImage: 'https://static.pinpoint.ng/images/team/klef-2.jpg',
+    mainImage: 'https://static.pinpoint.ng/images/team/klef-main.webp',
+    subImage: 'https://static.pinpoint.ng/images/team/klef-sub.webp',
   },
   {
     name: 'Chidi Collins',
@@ -287,11 +287,15 @@ export const AVAILABLE_PACKAGED_SERVICE_IDS = [
   'branding',
   'brand_naming',
   'brand_activation',
+  'rebranding',
   'professional_logo_design',
   'campaign_branding',
   'social_media_strategy',
   'packaging_&_product_design',
+  'stickers',
   'website_design_&_development',
+  'make_a_custom_request',
+  'make_an_enquiry',
 ] as const;
 export type AvailablePackagedService = (typeof AVAILABLE_PACKAGED_SERVICE_IDS)[number];
 

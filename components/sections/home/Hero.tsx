@@ -6,6 +6,7 @@ import { HeroArrow } from '@/components/general/HeroArrow';
 import { SmartVideo } from '@/components/general/SmartVideo';
 import { MacaronTextEn, MacaronTextePlayEn } from '@/components/icons';
 import { changingHeroTitleModifiers } from '@/lib/constants/texts';
+import { motion } from 'motion/react';
 
 export const HomeHero = () => {
   return (
@@ -18,7 +19,12 @@ export const HomeHero = () => {
       <div className="hero-content w-full h-full bg-black/15 absolute inset-0 touch-events-none">
         <div className="pinpoint-container h-full">
           <div className="w-full h-full grid place-items-center relative lg:static">
-            <div className="w-full grid gap-0">
+            <motion.div
+              initial={{ opacity: 0, translateY: 50 }}
+              whileInView={{ opacity: 1, translateY: 0 }}
+              transition={{ duration: 1, delay: 0.7 }}
+              viewport={{ once: true }}
+              className="w-full grid gap-0">
               <span className="typo-subtitle">
                 Your Branding, Marketing, and Packaging Solution
               </span>
@@ -45,16 +51,21 @@ export const HomeHero = () => {
                 lg:not-italic break-words text-wrap">
                 Because beauty&apos;s better with purpose.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
-      <div className="hidden lg:flex lg:w-4/5 max-w-[1600px] lg:absolute lg:bottom-[2.5vh] lg:left-1/2 lg:-translate-x-1/2 justify-end">
+      <motion.div
+        initial={{ opacity: 0, translateX: -50 }}
+        whileInView={{ opacity: 1, translateX: 0 }}
+        transition={{ duration: 1, delay: 1.2 }}
+        viewport={{ once: true }}
+        className="hidden lg:flex lg:w-4/5 max-w-[1600px] lg:absolute lg:bottom-[2.5vh] lg:left-1/2 lg:-translate-x-1/2 justify-end">
         <p className="typo-caption-large md:italic lg:not-italic break-words text-wrap">
           <span className="hidden lg:block">Because beauty&apos;s</span>
           <span className="hidden lg:block">better with purpose</span>
         </p>
-      </div>
+      </motion.div>
       <HeroArrow
         id="move-down-arrow"
         className="block md:hidden lg:block text-white absolute lg:fixed 

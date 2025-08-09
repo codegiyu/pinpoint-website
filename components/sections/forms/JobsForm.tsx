@@ -118,6 +118,7 @@ export const JobsForm = memo(
           initial={{ opacity: 0, translateY: -50 }}
           whileInView={{ opacity: 1, translateY: 0 }}
           transition={{ duration: 0.7, delay: transitionDelay }}
+          viewport={{ once: true }}
           onSubmit={handleSubmit}
           className="form-page-container pb-12 grid gap-8 md:gap-14">
           <h2 className={cn('typo-h3 pt-4', heading.className)}>{heading.text}</h2>

@@ -27,6 +27,7 @@ export const CTA = ({ variant = 'white', className }: CTAProps) => {
         initial={{ opacity: 0, translateY: 50 }}
         whileInView={{ opacity: 1, translateY: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
+        viewport={{ once: true }}
         className="pinpoint-container-mobile-w-full">
         <GhostBtn
           linkProps={{ href: '/starting-a-new-project' }}

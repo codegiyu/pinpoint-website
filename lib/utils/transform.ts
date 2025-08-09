@@ -6,6 +6,7 @@ import {
   ALL_JOBS_DATA,
   ALL_PROJECTS_DATA,
   ALL_SERVICES_DATA,
+  AVAILABLE_PACKAGED_SERVICE_IDS,
   AvailableProject,
   AvailableService,
   DEFAULT_WORKS_DISPLAYED,
@@ -94,6 +95,12 @@ export const getServiceById = (id: string) => {
     otherServices,
     relatedProjects,
   };
+};
+
+export const getPackagedServicesList = () => {
+  return AVAILABLE_PACKAGED_SERVICE_IDS.filter(
+    item => !new Set(['make_a_custom_request', 'make_an_enquiry']).has(item)
+  );
 };
 
 export const getProjectsLookup = () =>

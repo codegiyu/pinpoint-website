@@ -100,6 +100,7 @@ export const CommonHeroTextSection = ({
           initial={{ y: 60, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, delay: 2 }}
+          viewport={{ once: true }}
           className={`${leanUI ? '' : 'min-h-[34vh] md:min-h-auto'} typo-h2-hero md:text-[clamp(51px,_3.933vw,_88px)]`}>
           {title}
         </motion.h1>
@@ -138,6 +139,7 @@ export const FormPageHeadingSection = ({
       initial={{ opacity: 0, translateY: 50 }}
       animate={{ opacity: 1, translateY: 0 }}
       transition={{ duration: 1, delay: 2.3 }}
+      viewport={{ once: true }}
       className={cn(
         'form-page-container grid gap-6 xl:gap-[clamp(48px,_3.582vw,_62px)] \
         pt-[164px] pb-[42px] md:pt-[234px] md:pb-[80px] lg:pt-[230px] \

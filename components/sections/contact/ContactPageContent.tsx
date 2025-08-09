@@ -25,6 +25,7 @@ export default function ContactPageContent() {
             initial={{ opacity: 0, translateY: 60 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ duration: 1, delay: 1.8 }}
+            viewport={{ once: true }}
             className="w-full lg:w-3/7 grid gap-2">
             <h1 className="typo-h1 h-[5rem] md:h-[7rem] lg:mb-10">
               <ChangingModifier textsArray={changingContactTitleModifiers} />
@@ -34,6 +35,7 @@ export default function ContactPageContent() {
               initial={{ opacity: 0, translateY: 60 }}
               animate={{ opacity: 1, translateY: 0 }}
               transition={{ duration: 1, delay: 2.1 }}
+              viewport={{ once: true }}
               className="bottom-[3.125rem] md:bottom-0 left-0 w-full lg:pt-0 text-[1.15rem] typo-body-3 md:typo-body-1 md:text-[1.4rem] md:tracking-wider leading-6.5 md:leading-normal break-words text-wrap">
               Transform your ideas into reality with our{' '}
               <br className="hidden md:block lg:hidden" /> branding, marketing and packaging agency.
@@ -42,6 +44,7 @@ export default function ContactPageContent() {
               initial={{ opacity: 0, translateY: 60 }}
               animate={{ opacity: 1, translateY: 0 }}
               transition={{ duration: 1, delay: 2.3 }}
+              viewport={{ once: true }}
               className="bottom-[3.125rem] md:bottom-0 left-0 w-fit md:w-4/5 lg:w-full lg:pt-0 typo-body-7 break-words text-wrap">
               Our mission is to empower brands globally by providing innovative, strategic branding
               solutions that solve complex challenges and create memorable, lasting impressions. We
@@ -53,6 +56,7 @@ export default function ContactPageContent() {
               initial={{ opacity: 0, translateY: 60 }}
               animate={{ opacity: 1, translateY: 0 }}
               transition={{ duration: 1, delay: 2.5 }}
+              viewport={{ once: true }}
               className="grid md:flex gap-6 pt-4 md:pt-8">
               <PinpointBtn
                 variant="default"

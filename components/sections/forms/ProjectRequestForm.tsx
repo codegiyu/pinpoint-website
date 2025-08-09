@@ -123,6 +123,7 @@ export const ProjectRequestForm = memo(
           initial={{ opacity: 0, translateY: 50 }}
           whileInView={{ opacity: 1, translateY: 0 }}
           transition={{ duration: 1, delay: 0.7 }}
+          viewport={{ once: true }}
           onSubmit={handleSubmit}
           className="form-page-container grid gap-14">
           <div className="inputs-wrap grid gap-5">

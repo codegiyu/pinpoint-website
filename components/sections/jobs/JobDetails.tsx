@@ -31,6 +31,7 @@ export default function JobDetails({
         initial={{ opacity: 0, translateY: -50 }}
         whileInView={{ opacity: 1, translateY: 0 }}
         transition={{ duration: 0.7, delay: 0.2 }}
+        viewport={{ once: true }}
         className="pinpoint-container lg:pl-30 grid gap-12 md:gap-16">
         {profile.length > 0 && <ListUI heading="Profile we are looking for:" list={profile} />}
         {offer.length > 0 && <ListUI heading="Our Offer" list={offer} />}
