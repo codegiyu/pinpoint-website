@@ -241,7 +241,7 @@ export const OUR_TEAM: TeamSlideProps[] = [
   //   subImage: 'https://static.pinpoint.ng/images/team/akeem.jpg',
   // },
   {
-    name: 'Olivia Onyeagorom',
+    name: 'Olivia U. Onyeagoro',
     title: 'HR Manager',
     mainImage: 'https://static.pinpoint.ng/images/team/olivia.jpg',
     subImage: 'https://static.pinpoint.ng/images/team/olivia.jpg',
