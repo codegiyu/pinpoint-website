@@ -242,3 +242,14 @@ export function createFileList(files: File[]): FileList {
   files.forEach(file => dataTransfer.items.add(file));
   return dataTransfer.files;
 }
+
+export function fixedPick<TObj, TKeys extends keyof TObj>(
+  obj: TObj,
+  keys: TKeys[]
+): Pick<TObj, TKeys> {
+  const result = {} as Pick<TObj, TKeys>;
+  for (const key of keys) {
+    result[key] = obj[key];
+  }
+  return result;
+}

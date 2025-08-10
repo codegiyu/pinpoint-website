@@ -29,7 +29,7 @@ export interface UseFormReturn<TSchema extends ZodType<any>> {
   formErrors: Partial<Record<keyof z.TypeOf<TSchema>, string[] | undefined>>;
   setFormValues: Dispatch<SetStateAction<z.TypeOf<TSchema>>>;
   setFormErrors: (
-    errors: Partial<Partial<Record<keyof z.TypeOf<TSchema>, string[] | undefined>>>,
+    errors: Partial<Record<keyof z.TypeOf<TSchema> | 'root', string[] | undefined>>,
     options?: {
       clearFields?: (keyof z.TypeOf<TSchema>)[];
       noShow?: boolean;
@@ -107,7 +107,7 @@ export const useForm = <TSchema extends ZodType<any>>({
     const result = formSchema.safeParse(formValues);
     const error = result.success ? [] : (z.flattenError(result.error).fieldErrors[name] ?? []);
 
-    setFormErrors(prev => ({ ...prev, [name]: error }));
+    setFormErrors(prev => ({ ...prev, root: undefined, [name]: error }));
     setIsValid(result.success);
   };
 

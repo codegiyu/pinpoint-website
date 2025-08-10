@@ -8,6 +8,7 @@ import { getAllIndividualServices, getPackagedServicesList } from '@/lib/utils/t
 import { Metadata } from 'next';
 import { FormSwitches } from '@/components/sections/forms/FormSwitches';
 import { Suspense } from 'react';
+import { isAvailablePackagedService } from '@/lib/utils/typechecks';
 
 interface Props {
   searchParams: Promise<{
@@ -16,13 +17,16 @@ interface Props {
   }>;
 }
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Starting A New Project?',
 };
 
-export default function StartingANewProject({}: Props) {
+export default async function StartingANewProject({ searchParams }: Props) {
   const servicesList = getAllIndividualServices();
   const packagesServicesList = getPackagedServicesList();
+  const { service, package: selectedPackage } = await searchParams;
 
   return (
     <MainLayout pageName="Starting a new project?">
@@ -30,7 +34,13 @@ export default function StartingANewProject({}: Props) {
       <Suspense fallback={null}>
         <FormSwitches servicesList={packagesServicesList} />
       </Suspense>
-      <ProjectRequestForm servicesList={servicesList} />
+      {service && isAvailablePackagedService(service) && (
+        <ProjectRequestForm
+          servicesList={servicesList}
+          service={service}
+          selectedPackage={selectedPackage ?? ''}
+        />
+      )}
       <Footer />
       <PageSideDecoration caption="Starting a new project?" />
     </MainLayout>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HeroArrow } from './HeroArrow';
 import { PageSideCaption } from './PageSideCaption';
 import { cn } from '@/lib/utils';
@@ -10,6 +10,7 @@ const FULL_HEIGHT_SWITCH_OFFSET = 250;
 export const PageSideDecoration = ({ caption }: { caption: string }) => {
   const [showCaption, setShowCaption] = useState(false);
   const [heights, setHeights] = useState({ scrollHeight: 0, innerHeight: 0 });
+  const observerRef = useRef<IntersectionObserver>(null);
 
   useEffect(() => {
     const trigger = document.querySelector('.page-side-decorator-observer-trigger');
@@ -19,14 +20,18 @@ export const PageSideDecoration = ({ caption }: { caption: string }) => {
       return;
     }
 
-    const observer = new IntersectionObserver(entries => {
+    if (observerRef.current) observerRef.current.disconnect();
+
+    observerRef.current = new IntersectionObserver(entries => {
       setShowCaption(entries[0].isIntersecting);
     }, {});
+
+    const observer = observerRef.current;
 
     observer.observe(trigger);
 
     return () => {
-      observer.unobserve(trigger);
+      if (observer) observer.unobserve(trigger);
     };
   }, [heights]);
 
@@ -47,7 +52,7 @@ export const PageSideDecoration = ({ caption }: { caption: string }) => {
         noDefaultOpacity
       />
       <div
-        className="page-side-decorator-observer-trigger absolute bottom-0"
+        className="page-side-decorator-observer-trigger absolute top-[110dvh]"
         style={{
           height: `${heights.scrollHeight - heights.innerHeight - FULL_HEIGHT_SWITCH_OFFSET}px`,
         }}

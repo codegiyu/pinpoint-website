@@ -39,7 +39,7 @@ export type OneCharString<T extends string> = T extends `${infer First}${infer R
 
 export type NumberInString = `${number}`;
 
-export type FormErrors<T extends object> = Partial<Record<keyof T, string[] | undefined>>;
+export type FormErrors<T extends object> = Partial<Record<keyof T | 'root', string[] | undefined>>;
 
 export type ValidObjectTypeKey<T extends object, K> = {
   [X in keyof T]: T[X] extends K ? X : never;

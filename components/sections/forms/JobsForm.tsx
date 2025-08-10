@@ -89,7 +89,6 @@ export const JobsForm = memo(
         formData.append('files', file);
       });
 
-      console.log('Making request to backend');
       const res = await fetch('/api/send-company-mail', {
         method: 'POST',
         body: formData,

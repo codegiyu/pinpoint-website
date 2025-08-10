@@ -17,7 +17,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { SelectOption } from '@/lib/types/general';
 import { GhostBtn } from './GhostBtn';
 
-interface MultiSelectProps {
+export interface MultiSelectProps {
   options: SelectOption[];
   selected: string[];
   onChange: (values: string[]) => void;
@@ -40,19 +40,19 @@ export function MultiSelect({
   const [inputValue, setInputValue] = React.useState('');
 
   function toggleSelect(value: string) {
-    if (selected.includes(value)) {
-      onChange(selected.filter(v => v !== value));
+    if ((selected || []).includes(value)) {
+      onChange((selected || []).filter(v => v !== value));
     } else {
       onChange([...selected, value]);
     }
   }
 
   function removeSelected(value: string) {
-    onChange(selected.filter(v => v !== value));
+    onChange((selected || []).filter(v => v !== value));
   }
 
   const selectedLabels = options
-    .filter(opt => selected.includes(opt.value))
+    .filter(opt => (selected || []).includes(opt.value))
     .map(opt => ({ ...opt }));
 
   const filteredOptions = options.filter(opt =>
@@ -60,7 +60,7 @@ export function MultiSelect({
   );
 
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn('space-y-2 pt-6', className)}>
       {selectedLabels.length > 0 && (
         <div className="flex flex-wrap gap-1">
           {selectedLabels.map(item => (
@@ -124,13 +124,15 @@ export function MultiSelect({
                       onSelect={() => toggleSelect(option.value)}
                       className="cursor-pointer"
                       role="option"
-                      aria-selected={selected.includes(option.value)}>
+                      aria-selected={(selected || []).includes(option.value)}>
                       <div
                         className={cn(
                           'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-muted',
-                          selected.includes(option.value) ? 'bg-green-500' : 'opacity-50'
+                          (selected || []).includes(option.value) ? 'bg-green-500' : 'opacity-50'
                         )}>
-                        {selected.includes(option.value) && <Check className="size-3 text-white" />}
+                        {(selected || []).includes(option.value) && (
+                          <Check className="size-3 text-white" />
+                        )}
                       </div>
                       <span className="typo-body-7">{option.text}</span>
                     </CommandItem>

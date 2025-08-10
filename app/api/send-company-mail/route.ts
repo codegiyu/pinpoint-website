@@ -7,6 +7,7 @@ import fs from 'fs';
 import { mailTemplate, MailTemplateData } from '../utils/mailTemplate';
 import { getNodeRequest } from '../utils/getNodeRequest';
 import { formatCamelCaseName } from '@/lib/utils/general';
+import { ALL_FIELDS_DEFAULT } from '@/lib/constants/forms';
 
 dotenv.config();
 
@@ -130,6 +131,7 @@ export async function POST(req: NextRequest) {
 }
 
 const allowedFields = new Set([
+  ...Object.keys(ALL_FIELDS_DEFAULT),
   'formName',
   'name',
   'firstName',
