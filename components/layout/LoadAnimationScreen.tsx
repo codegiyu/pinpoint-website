@@ -5,12 +5,15 @@ import { memo, useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { debounce } from '@/lib/utils/general';
 import { BASE_LOAD_TIME, TRANSITION_DURATION } from '@/lib/constants/routing';
+import { usePathname } from 'next/navigation';
 
 export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
   const {
-    actions: { setPageLoaded },
+    lastPathname,
+    actions: { setPageLoaded, setLastPathname },
   } = usePageStore(state => state);
   const [localPageLoaded, setLocalPageLoaded] = useState(false);
+  const pathname = usePathname();
   const { allowScroll, blockScroll } = useScrollBlock();
   const screenRef = useRef<HTMLElement>(null);
 
@@ -22,11 +25,23 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
     if (localPageLoaded) {
       setTimeout(() => {
         body.classList.remove('load-animation-open');
+        setLastPathname(pathname);
       }, TRANSITION_DURATION * 1000);
     } else {
+      // body.classList.add('load-animation-open');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localPageLoaded, pathname]);
+
+  useEffect(() => {
+    const body = document.body;
+
+    if (!body) return;
+
+    if (pathname !== lastPathname) {
       body.classList.add('load-animation-open');
     }
-  }, [localPageLoaded]);
+  }, [pathname, lastPathname]);
 
   useEffect(() => {
     blockScroll();
@@ -59,13 +74,16 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (pathname === lastPathname) return null;
+
   return (
     <motion.section
       ref={screenRef}
       className="w-full h-screen overflow-hidden bg-dark grid place-items-center"
       initial={{ maxHeight: '100vh' }}
-      animate={{ maxHeight: localPageLoaded ? '0px' : '100vh' }}
-      transition={{ duration: TRANSITION_DURATION, ease: 'easeIn' }}>
+      animate={{ maxHeight: !localPageLoaded ? '100dvh' : '0px' }}
+      transition={{ duration: TRANSITION_DURATION, ease: 'easeIn' }}
+      viewport={{ once: true }}>
       <h2 className="typo-h3 text-white">{name}</h2>
     </motion.section>
   );

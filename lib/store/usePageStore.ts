@@ -4,8 +4,10 @@ import { useShallow } from 'zustand/react/shallow';
 
 export interface PageStore {
   pageLoaded: boolean;
+  lastPathname: string;
   actions: {
     setPageLoaded: (val: boolean) => void;
+    setLastPathname: (val: string) => void;
   };
 }
 type InitialPageStore = Omit<PageStore, 'actions'>;
@@ -13,6 +15,7 @@ export type PageStoreKey = keyof InitialPageStore;
 
 const initialData: InitialPageStore = {
   pageLoaded: false,
+  lastPathname: '-12',
 };
 
 export const useInitPageStore = create<PageStore>()(set => ({
@@ -20,6 +23,9 @@ export const useInitPageStore = create<PageStore>()(set => ({
   actions: {
     setPageLoaded: pageLoaded => {
       set({ pageLoaded });
+    },
+    setLastPathname: lastPathname => {
+      set({ lastPathname });
     },
   },
 }));
