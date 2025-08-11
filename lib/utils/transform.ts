@@ -7,6 +7,7 @@ import {
   ALL_PROJECTS_DATA,
   ALL_SERVICES_DATA,
   AVAILABLE_PACKAGED_SERVICE_IDS,
+  AvailablePackagedService,
   AvailableProject,
   AvailableService,
   DEFAULT_WORKS_DISPLAYED,
@@ -14,7 +15,7 @@ import {
 } from '../constants/texts';
 import { FullProjectData } from '@/app/projects/[projectId]/page';
 import { RelatedProjectSlideProps } from '@/components/sections/services/RelatedProjects';
-import { debounce } from './general';
+import { debounce, formatSlugToText } from './general';
 
 export const getServicesSummary = (): ServiceCardProps[] => {
   return ALL_SERVICES_DATA.map((service, idx, arr) => ({
@@ -57,6 +58,21 @@ export const getAllIndividualServices = () => {
 
 export const getAllServiceIds = () => {
   return ALL_SERVICES_DATA.map(service => ({ service: service.id }));
+};
+
+export const getPackageOptionsForService = (
+  id: AvailablePackagedService,
+  group: AvailableService
+) => {
+  const serviceGroup = getServiceById(group);
+  const packageGroup = serviceGroup?.packagePricing.find(item => item.id === id);
+
+  if (!packageGroup) return [];
+
+  return packageGroup.packages.map(
+    item =>
+      `${formatSlugToText(item.id)} (₦${item.priceRange[0].toLocaleString()}${item.priceRange[1] ? ' - ' + item.priceRange[1].toLocaleString() : ''}) ${item.priceSuffix ? item.priceSuffix : ''}`
+  );
 };
 
 export const getServiceById = (id: string) => {

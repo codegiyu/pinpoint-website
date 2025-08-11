@@ -82,26 +82,26 @@ export const changingContactTitleModifiers: string[] = [
 export const contactInformation: ContactsGroupProps[] = [
   {
     location: 'Abuja',
-    address: 'No.18 Aba Close Area 8 Garki, Abuja.',
+    address: 'No. 18 Aba Close, Area 8, Garki, Abuja.',
     tel: ['+234 912 323 2389', '+234 912 323 2397'],
     email: 'abuja@pinpoint.ng',
   },
   {
     location: 'Kano',
-    address: 'MTN Office. Civic Center',
+    address: 'MTN Office, Civic Center',
     tel: ['+234 812 222 1489', '+234 812 222 6489'],
     email: 'kano@pinpoint.ng',
   },
   {
     location: 'Benue',
-    address: 'No. 8, 7th Avenue Inikpi street, High level.',
+    address: 'No. 8 7th Avenue, Inikpi street, High level, Makurdi',
     tel: [],
     email: 'benue@pinpoint.ng',
   },
   {
     location: 'China',
     address:
-      'No. 36, Qingyuan Road, Jinfeng Town Zhangjiagang, \
+      'No. 36, Qingyuan Road, Jinfeng Town, Zhangjiagang, \
       Suzhou City, Jiangsu Province, China.',
     tel: ['+86 1958 7410 572'],
     email: 'china@pinpoint.ng',

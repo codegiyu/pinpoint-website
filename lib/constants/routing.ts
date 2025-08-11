@@ -41,7 +41,7 @@ export const navlinks: NavLinkGroupProps[] = [
     links: [
       {
         text: 'Starting a new project',
-        href: '/starting-a-new-project',
+        href: '/starting-a-new-project?service=make_a_custom_request',
         img: '',
         imgClass: '',
       },

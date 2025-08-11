@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@/lib/utils';
 import { Input, type InputProps } from '../ui/input';
-import { FocusEvent, useState } from 'react';
+import { FocusEvent, ReactNode, useState } from 'react';
 import { InputWrapper } from '../general/InputWrapper';
 
 export interface RegularInputProps extends InputProps {
@@ -10,6 +10,7 @@ export interface RegularInputProps extends InputProps {
   labelClassName?: string;
   wrapClassName?: string;
   errors?: string[];
+  bottomText?: ReactNode;
 }
 
 export const RegularInput = ({

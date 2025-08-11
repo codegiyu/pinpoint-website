@@ -30,7 +30,7 @@ export const CTA = ({ variant = 'white', className }: CTAProps) => {
         viewport={{ once: true }}
         className="pinpoint-container-mobile-w-full">
         <GhostBtn
-          linkProps={{ href: '/starting-a-new-project' }}
+          linkProps={{ href: '/starting-a-new-project?service=make_a_custom_request' }}
           className={`w-full flex-none bg-transparent py-10 md:py-[3.125rem] lg:py-[4.25rem] xl:p-[clamp(80px,_5.97vw,_120px)]`}
           wrapClassName={`relative z-[2] before:w-full before:h-full ${bgClass} before:absolute before:inset-0 before:z-[1] before:transition-all before:duration-1000 before:ease-in-out md:hover:before:scale-[0.92] before:cursor-pointer`}>
           <div className="flex-none w-[85.8vw] max-w-[495px] md:w-[28.4375rem] md:max-w-none lg:w-[38.25rem] xl:w-[48.875rem] 2xl:w-[59.375rem] grid lg:grid-cols-[1fr_auto] gap-6 items-center lg:justify-between mx-auto relative z-[3]">
