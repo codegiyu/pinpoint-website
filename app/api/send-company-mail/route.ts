@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
 
     const transporter = nodemailer.createTransport({
       port: 465,
-      host: 'smtp.zoho.com',
+      host: process.env.emailHost,
       auth: {
         user: process.env.fromEmail,
         pass: process.env.password,
@@ -97,17 +97,19 @@ export async function POST(req: NextRequest) {
       information is needed.',
     });
 
-    const attachments = Array.isArray(files.files)
-      ? files.files.map((file: any) => ({
-          filename: file.originalFilename,
-          content: fs.createReadStream(file.filepath),
-        }))
-      : [
-          {
-            filename: files.files.originalFilename,
-            content: fs.createReadStream(files.files.filepath),
-          },
-        ];
+    const attachments = !files.files
+      ? []
+      : Array.isArray(files.files)
+        ? files.files.map((file: any) => ({
+            filename: file.originalFilename,
+            content: fs.createReadStream(file.filepath),
+          }))
+        : [
+            {
+              filename: files.files.originalFilename,
+              content: fs.createReadStream(files.files.filepath),
+            },
+          ];
 
     const data = await transporter.sendMail({
       from: process.env.fromEmail,
