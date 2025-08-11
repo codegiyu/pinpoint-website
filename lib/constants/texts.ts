@@ -10,7 +10,7 @@ import { ContactsGroupProps } from '@/components/general/PinpointContacts';
 import { TiktokIcon } from '@/components/icons';
 import { FullJobProps } from '@/app/jobs/[job]/page';
 
-const liveUrl = process.env.live_url || 'https://beta.pinpoint.ng';
+const liveUrl = process.env.live_url || 'https://pinpoint.ng';
 
 export const SEO_DETAILS = {
   title: {
