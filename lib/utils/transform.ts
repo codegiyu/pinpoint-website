@@ -11,11 +11,12 @@ import {
   AvailableProject,
   AvailableService,
   DEFAULT_WORKS_DISPLAYED,
+  MORE_REFERENCES,
   selectedCaseStudies,
 } from '../constants/texts';
 import { FullProjectData } from '@/app/projects/[projectId]/page';
 import { RelatedProjectSlideProps } from '@/components/sections/services/RelatedProjects';
-import { debounce, formatSlugToText } from './general';
+import { chunkArray, debounce, formatSlugToText } from './general';
 
 export const getServicesSummary = (): ServiceCardProps[] => {
   return ALL_SERVICES_DATA.map((service, idx, arr) => ({
@@ -269,4 +270,8 @@ export const getAllJobIds = () => {
 
 export const getJobById = (id: string) => {
   return ALL_JOBS_DATA.find(job => job.id === id);
+};
+
+export const getMoreReferences = () => {
+  return chunkArray(MORE_REFERENCES, 10);
 };

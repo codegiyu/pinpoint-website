@@ -223,7 +223,7 @@ const NavLink = ({ text, href, isSelected, img, imgClass }: NavLinkProps) => {
             <Image
               src={img}
               alt=""
-              className={cn('w-full h-full object-cover opacity-95 z-[51]')}
+              className={cn('w-full h-full object-cover opacity-99 z-[51]')}
               sizes=""
               fill
             />
