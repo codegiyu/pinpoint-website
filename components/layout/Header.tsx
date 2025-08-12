@@ -9,6 +9,8 @@ import { usePathname } from 'next/navigation';
 import { navlinks } from '@/lib/constants/routing';
 import { FlipText } from '../general/ChangingModifier';
 import PinpointContacts from '../general/PinpointContacts';
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 export interface HeaderProps {
   whiteTextStart?: boolean;
@@ -97,11 +99,11 @@ export const Header = memo(({ whiteTextStart }: HeaderProps) => {
               View navigation menu and our contact links
             </DialogDescription>
           </VisuallyHidden>
-          <div className="menu-container grid lg:grid-cols-2 gap-[6.75rem]">
+          <div className="menu-container grid lg:grid-cols-2 gap-[6.75rem] relative z-[51]">
             <div className="w-full h-full hidden lg:grid place-items-center text-white/35">
               {menuOpen && <PinpointContacts fullWidth inDarkBg noTransitionDelay />}
             </div>
-            <div className="w-full h-full flex items-center lg:pr-[5.27vw] relative">
+            <div className="w-full h-full flex items-center lg:pr-[5.27vw] relative z-[52]">
               <div className="w-full grid gap-0">
                 {/* <nav className="h-[3.75rem] flex items-center lg:absolute lg:top-5 left-0">
                   <ul className="flex">
@@ -115,7 +117,7 @@ export const Header = memo(({ whiteTextStart }: HeaderProps) => {
                     ))}
                   </ul>
                 </nav> */}
-                <nav className="w-full grid">
+                <nav className="w-full grid relative z-[55]">
                   {allNavLinks.map((item, idx) => (
                     <NavLinkGroup key={idx} {...item} isLast={idx === allNavLinks.length - 1} />
                   ))}
@@ -174,26 +176,32 @@ export interface NavLinkProps {
 
 const NavLinkGroup = ({ name, links, isLast }: NavLinkGroupProps) => {
   return (
-    <ul className={`w-full grid py-6 ${isLast ? '' : 'border-b border-white/25'} relative`}>
-      {links.map((item, idx) => (
-        <NavLink key={idx} {...item} />
-      ))}
-      {name && (
-        <p className="absolute -right-6 top-1/2 -translate-y-1/2 -rotate-90 transform-origin-center text-[0.6875rem] xl:text-[clamp(0.6875rem,_3.582vw,_0.875rem)] leading-[1.2] tracking-[0.3em] text-white/65 font-light uppercase">
-          {name}
-        </p>
-      )}
-    </ul>
+    <div
+      className={`w-full grid lg:grid-cols-[1fr_60px] items-stretch ${isLast ? '' : 'border-b border-white/25'}`}>
+      <ul className={`w-full grid py-6`}>
+        {links.map((item, idx) => (
+          <NavLink key={idx} {...item} />
+        ))}
+      </ul>
+      <div className="hidden lg:block w-full h-full relative">
+        {name && (
+          <p className="absolute -right-6 top-1/2 -translate-y-1/2 -rotate-90 transform-origin-center text-[0.6875rem] xl:text-[clamp(0.6875rem,_3.582vw,_0.875rem)] leading-[1.2] tracking-[0.3em] text-white/65 font-light uppercase">
+            {name}
+          </p>
+        )}
+      </div>
+    </div>
   );
 };
 
-const NavLink = ({ text, href, isSelected }: NavLinkProps) => {
+const NavLink = ({ text, href, isSelected, img, imgClass }: NavLinkProps) => {
   return (
-    <li className="">
+    <li className="group">
       <GhostBtn
         linkProps={{ href }}
-        className={`text-[1rem] md:text-[1.3125rem] xl:text-[1.5rem] leading-[1] font-bold xl:font-medium py-[5px]
-        ${isSelected ? 'text-white' : 'text-white/25 hover:text-white'} relative`}>
+        className={`justify-start text-[1rem] md:text-[1.3125rem] xl:text-[1.5rem] leading-[1] font-bold xl:font-medium py-[5px]
+        ${isSelected ? 'text-white' : 'text-white/25 hover:text-white'} relative`}
+        wrapClassName="group peer relative z-[56]">
         <span className="">{text}</span>
         {isSelected && (
           <div className="w-fit h-fit hidden lg:flex items-center gap-4 absolute top-1/2 right-full -translate-y-1/2">
@@ -202,6 +210,26 @@ const NavLink = ({ text, href, isSelected }: NavLinkProps) => {
           </div>
         )}
       </GhostBtn>
+      {!isSelected && (
+        <div
+          className={cn(
+            'hidden lg:block absolute top-[-25px] left-0 -translate-x-1/2\
+            h-[calc(100%_+_50px)] aspect-[0.7] opacity-0 scale-80\
+            peer-hover:opacity-100 z-[51]\
+            peer-hover:scale-100 transition-all duration-1000 ease-in-out',
+            imgClass
+          )}>
+          <div className="w-full h-full relative z-[51]">
+            <Image
+              src={img}
+              alt=""
+              className={cn('w-full h-full object-cover opacity-95 z-[51]')}
+              sizes=""
+              fill
+            />
+          </div>
+        </div>
+      )}
     </li>
   );
 };
