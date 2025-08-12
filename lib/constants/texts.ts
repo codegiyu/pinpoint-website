@@ -205,35 +205,29 @@ export const OUR_TEAM: TeamSlideProps[] = [
     subImage: 'https://static.pinpoint.ng/images/team/klef-sub.webp',
   },
   {
-    name: 'Chidi Collins',
-    title: 'Accountant',
-    mainImage: 'https://static.pinpoint.ng/images/team/chidi.jpg',
-    subImage: 'https://static.pinpoint.ng/images/team/chidi.jpg',
-  },
-  // {
-  //   name: 'Gaba Mary',
-  //   title: 'Head of Marketing',
-  //   mainImage: 'https://static.pinpoint.ng/images/team/mary.jpg',
-  //   subImage: 'https://static.pinpoint.ng/images/team/mary.jpg',
-  // },
-  {
     name: 'Onoja Enemona Isaac',
     title: 'Head of Design',
     mainImage: 'https://static.pinpoint.ng/images/team/isaac.jpg',
     subImage: 'https://static.pinpoint.ng/images/team/isaac.jpg',
   },
-  // {
-  //   name: "Fahad Ya'u Deba",
-  //   title: 'Animator',
-  //   mainImage: 'https://static.pinpoint.ng/images/team/fahad.jpg',
-  //   subImage: 'https://static.pinpoint.ng/images/team/fahad.jpg',
-  // },
-  // {
-  //   name: 'Nansel Dauda Joseph',
-  //   title: 'Project Manager',
-  //   mainImage: 'https://static.pinpoint.ng/images/team/dauda.jpg',
-  //   subImage: 'https://static.pinpoint.ng/images/team/dauda.jpg',
-  // },
+  {
+    name: "Fahad Ya'u Deba",
+    title: 'Animator',
+    mainImage: 'https://static.pinpoint.ng/images/team/fahad.jpg',
+    subImage: 'https://static.pinpoint.ng/images/team/fahad.jpg',
+  },
+  {
+    name: 'Gaba Mary',
+    title: 'Head of Marketing',
+    mainImage: 'https://static.pinpoint.ng/images/team/mary.jpg',
+    subImage: 'https://static.pinpoint.ng/images/team/mary.jpg',
+  },
+  {
+    name: 'Nansel Dauda Joseph',
+    title: 'Project Manager',
+    mainImage: 'https://static.pinpoint.ng/images/team/dauda.jpg',
+    subImage: 'https://static.pinpoint.ng/images/team/dauda.jpg',
+  },
   // {
   //   name: 'Akeem Ayoola Aremu',
   //   title: 'Logistics Manager',
@@ -245,6 +239,12 @@ export const OUR_TEAM: TeamSlideProps[] = [
     title: 'HR Manager',
     mainImage: 'https://static.pinpoint.ng/images/team/olivia.jpg',
     subImage: 'https://static.pinpoint.ng/images/team/olivia.jpg',
+  },
+  {
+    name: 'Chidi Collins',
+    title: 'Accountant',
+    mainImage: 'https://static.pinpoint.ng/images/team/chidi.jpg',
+    subImage: 'https://static.pinpoint.ng/images/team/chidi.jpg',
   },
   {
     name: 'Panam Mbamo',
@@ -388,8 +388,8 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       ],
     },
     menu: {
-      image: '',
-      className: '',
+      image: 'https://static.pinpoint.ng/images/team/waju.jpg',
+      className: 'rotate-8 peer-hover:-rotate-6',
     },
     packagePricing: [
       {
@@ -656,8 +656,8 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       ],
     },
     menu: {
-      image: '',
-      className: '',
+      image: 'https://static.pinpoint.ng/images/team/daniel.jpg',
+      className: '-rotate-6 peer-hover:rotate-10',
     },
     packagePricing: [
       {
@@ -832,8 +832,8 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       ],
     },
     menu: {
-      image: '',
-      className: '',
+      image: 'https://static.pinpoint.ng/images/team/abdul.jpg',
+      className: 'rotate-20 peer-hover:rotate-5',
     },
     packagePricing: [
       {
@@ -963,8 +963,8 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       ],
     },
     menu: {
-      image: '',
-      className: '',
+      image: 'https://static.pinpoint.ng/images/team/michael.jpg',
+      className: '-rotate-4 peer-hover:rotate-6',
     },
     packagePricing: [],
   },
@@ -1052,8 +1052,8 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       ],
     },
     menu: {
-      image: '',
-      className: '',
+      image: 'https://static.pinpoint.ng/images/team/edward.jpg',
+      className: 'rotate-7 peer-hover:-rotate-4',
     },
     packagePricing: [
       {
