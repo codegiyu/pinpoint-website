@@ -300,9 +300,11 @@ export const customRequestFormData: RequestFormProps<typeof customFormSchema> = 
       name: 'services',
       kind: 'multiselect',
       multiSelectProps: {
+        label: 'Select all services you may require',
+        subtext: '(Select at least one)',
         options: [],
-        label: 'Please select services you may need',
         useServiceOptions: true,
+        required: true,
       },
     },
     {
@@ -591,7 +593,7 @@ export const brandNamingRequestFormData: RequestFormProps<typeof brandNamingForm
       name: 'brandNameSameWithCompanyName',
       kind: 'select',
       selectProps: {
-        label: 'Select an option',
+        label: 'Do you want your brand name to be the same as your company name?',
         options: generateOptionsFromArray({
           arr: ['Same', 'Different'],
         }),
@@ -689,8 +691,11 @@ export const brandingActivationRequestFormData: RequestFormProps<typeof brandAct
         name: 'services',
         kind: 'multiselect',
         multiSelectProps: {
+          label: 'Select all services you may require',
+          subtext: '(Select at least one)',
           options: [],
           useServiceOptions: true,
+          required: true,
         },
       },
       {
@@ -869,8 +874,11 @@ export const campaignBrandingRequestFormData: RequestFormProps<typeof campaignBr
         name: 'services',
         kind: 'multiselect',
         multiSelectProps: {
+          label: 'Select all services you may require',
+          subtext: '(Select at least one)',
           options: [],
           useServiceOptions: true,
+          required: true,
         },
       },
       {
@@ -888,7 +896,7 @@ export const campaignBrandingRequestFormData: RequestFormProps<typeof campaignBr
     ],
   };
 export const productDesignRequestFormData: RequestFormProps<typeof productDesignFormSchema> = {
-  serviceId: 'packaging_&_product_design',
+  serviceId: 'packaging_and_product_design',
   formName: 'Packaging & Product Design Request',
   formSchema: productDesignFormSchema,
   defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
@@ -1059,7 +1067,7 @@ export const productDesignRequestFormData: RequestFormProps<typeof productDesign
         label: 'Choose a package',
         options: generateOptionsFromArray({
           arr: getPackageOptionsForService(
-            'packaging_&_product_design',
+            'packaging_and_product_design',
             'packaging_and_product_design'
           ),
         }),
@@ -1070,9 +1078,11 @@ export const productDesignRequestFormData: RequestFormProps<typeof productDesign
       name: 'services',
       kind: 'multiselect',
       multiSelectProps: {
+        label: 'Select all services you may require',
+        subtext: '(Select at least one)',
         options: [],
-        label: 'Please select services you may need',
         useServiceOptions: true,
+        required: true,
       },
     },
     {
@@ -1144,9 +1154,11 @@ export const socialMediaRequestFormData: RequestFormProps<typeof socialMediaForm
       name: 'services',
       kind: 'multiselect',
       multiSelectProps: {
+        label: 'Select all services you may require',
+        subtext: '(Select at least one)',
         options: [],
-        label: 'Please select services you may need',
         useServiceOptions: true,
+        required: true,
       },
     },
     {
@@ -1319,7 +1331,7 @@ export const stickerRequestFormData: RequestFormProps<typeof stickerFormSchema> 
   ],
 };
 export const digitalProductsRequestFormData: RequestFormProps<typeof digitalProductsFormSchema> = {
-  serviceId: 'website_design_&_development',
+  serviceId: 'website_design_and_development',
   formName: 'Web Design & Development Request',
   formSchema: digitalProductsFormSchema,
   defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
@@ -1418,7 +1430,7 @@ export const digitalProductsRequestFormData: RequestFormProps<typeof digitalProd
           label: 'Choose a package',
           options: generateOptionsFromArray({
             arr: getPackageOptionsForService(
-              'website_design_&_development',
+              'website_design_and_development',
               'digital_products_creation'
             ),
           }),

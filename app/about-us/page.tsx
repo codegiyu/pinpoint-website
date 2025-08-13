@@ -27,14 +27,14 @@ export default function AboutUsPage() {
         title="Creative by Nature, Strategic by Design"
         imageProps={{
           src: 'https://static.pinpoint.ng/images/about-page/hero-2.jpg',
-          alt: 'Pinpoint design team',
+          alt: 'Pinpoint team',
           priority: true,
         }}
       />
       <OurStory storyTexts={ourStoryTexts} />
       <Services servicesSummary={servicesSummary} />
       <MarqueeTextSection
-        text="Repitition makes reputation and reputation makes customers."
+        text="Repetition makes reputation, and reputation makes customers."
         wrapClassName="hidden md:block md:bg-white"
         scrollContainerClassName=""
       />

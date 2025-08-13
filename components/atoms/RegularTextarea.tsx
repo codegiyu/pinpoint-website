@@ -15,6 +15,7 @@ export interface RegularTextareaProps extends TextareaProps {
 export const RegularTextarea = ({
   className,
   label,
+  subtext,
   labelClassName,
   wrapClassName,
   placeholder,
@@ -31,12 +32,17 @@ export const RegularTextarea = ({
     <InputWrapper
       wrapClassName={wrapClassName}
       label={label}
+      subtext={subtext}
       labelTextClassName={labelClassName}
       labelOnTop={isFocused || !!props.value}
       required={required}
       errors={errors}>
       <Textarea
-        placeholder={isFocused ? '' : placeholder || label + (required ? ' *' : '')}
+        placeholder={
+          isFocused
+            ? ''
+            : placeholder || label + (required ? ' *' : '') + (subtext ? ` ${subtext}` : '')
+        }
         className={cn('py-5 min-h-[14rem]', className)}
         ref={ref}
         {...props}
