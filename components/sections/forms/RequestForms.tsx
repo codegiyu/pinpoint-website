@@ -34,7 +34,7 @@ export const CustomRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -56,7 +56,7 @@ export const EnquiryRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -78,7 +78,7 @@ export const BrandingRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -100,7 +100,7 @@ export const RebrandingRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -122,7 +122,7 @@ export const BrandNamingRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -144,7 +144,7 @@ export const BrandActivationRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -166,7 +166,7 @@ export const LogoDesignRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -188,7 +188,7 @@ export const CampaignBrandingRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -210,7 +210,7 @@ export const ProductDesignRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -232,7 +232,7 @@ export const SocialMediaRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -254,7 +254,7 @@ export const StickerRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -276,7 +276,7 @@ export const DigitalProductsRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
-      {...packageInURL}
+      packageInURL={packageInURL}
     />
   );
 };
@@ -308,8 +308,8 @@ export const REQUEST_FORMS: Partial<
   brand_activation: BrandActivationRequestForm,
   professional_logo_design: LogoDesignRequestForm,
   campaign_branding: CampaignBrandingRequestForm,
-  'packaging_&_product_design': ProductDesignRequestForm,
+  packaging_and_product_design: ProductDesignRequestForm,
   social_media_strategy: SocialMediaRequestForm,
   stickers: StickerRequestForm,
-  'website_design_&_development': DigitalProductsRequestForm,
+  website_design_and_development: DigitalProductsRequestForm,
 };

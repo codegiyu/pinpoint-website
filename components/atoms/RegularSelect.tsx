@@ -14,6 +14,7 @@ import { ComponentPropsWithRef, FocusEvent, useState } from 'react';
 
 export interface RegularSelectProps extends Omit<ComponentPropsWithRef<'div'>, 'className'> {
   label?: string;
+  subtext?: string;
   labelClassName?: string;
   value: string;
   placeholder?: string;
@@ -32,6 +33,7 @@ export interface RegularSelectProps extends Omit<ComponentPropsWithRef<'div'>, '
 
 export const RegularSelect = ({
   label = '',
+  subtext,
   labelClassName = '',
   value,
   placeholder = '',
@@ -51,11 +53,15 @@ export const RegularSelect = ({
   ...props
 }: RegularSelectProps) => {
   const [isFocused, setIsFocused] = useState(false);
+  // if (label.toLowerCase().includes('package')) {
+  //   console.log({ value, loc: 'select' });
+  // }
 
   return (
     <InputWrapper
       wrapClassName={wrapClassName}
       label={label}
+      subtext={subtext}
       labelTextClassName={labelClassName}
       labelOnTop={isFocused || !!value}
       required={required}
@@ -89,7 +95,10 @@ export const RegularSelect = ({
               className={cn('typo-body-3 capitalize', valueClassName)}
               placeholder={
                 <span className="block text-start text-gray-66">
-                  {isFocused ? placeholder : label || placeholder}
+                  {isFocused
+                    ? placeholder
+                    : label + (required ? ' *' : '') + (subtext ? ` ${subtext}` : '') ||
+                      placeholder}
                 </span>
               }
             />

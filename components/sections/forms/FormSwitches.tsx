@@ -4,7 +4,7 @@ import { PinpointBtn } from '@/components/atoms/PinpointBtn';
 import { AVAILABLE_PACKAGED_SERVICE_IDS, AvailablePackagedService } from '@/lib/constants/texts';
 import { formatSlugToText } from '@/lib/utils/general';
 import { motion } from 'motion/react';
-import { parseAsStringLiteral, useQueryState } from 'nuqs';
+import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs';
 
 const alternatives = [
   'make_a_custom_request',
@@ -12,10 +12,10 @@ const alternatives = [
 ] satisfies AvailablePackagedService[];
 
 export const FormSwitches = ({ servicesList }: { servicesList: AvailablePackagedService[] }) => {
-  const [selectedService, setSelectedService] = useQueryState(
-    'service',
-    parseAsStringLiteral(AVAILABLE_PACKAGED_SERVICE_IDS)
-  );
+  const [queries, setQueries] = useQueryStates({
+    service: parseAsStringLiteral(AVAILABLE_PACKAGED_SERVICE_IDS),
+    package: parseAsString.withDefault(''),
+  });
 
   return (
     <section className="w-full bg-white pb-16">
@@ -33,11 +33,11 @@ export const FormSwitches = ({ servicesList }: { servicesList: AvailablePackaged
             {servicesList.map((service, idx) => (
               <PinpointBtn
                 key={idx}
-                variant={selectedService === service ? 'default' : 'secondary'}
+                variant={queries.service === service ? 'default' : 'secondary'}
                 size="small"
                 typo="small"
                 text={formatSlugToText(service)}
-                onClick={() => setSelectedService(service, { shallow: false })}
+                onClick={() => setQueries({ service, package: '' }, { shallow: false })}
                 animate
               />
             ))}
@@ -49,11 +49,11 @@ export const FormSwitches = ({ servicesList }: { servicesList: AvailablePackaged
             {alternatives.map((service, idx) => (
               <PinpointBtn
                 key={idx}
-                variant={selectedService === service ? 'default' : 'secondary'}
+                variant={queries.service === service ? 'default' : 'secondary'}
                 size="small"
                 typo="small"
                 text={formatSlugToText(service)}
-                onClick={() => setSelectedService(service, { shallow: false })}
+                onClick={() => setQueries({ service, package: '' }, { shallow: false })}
                 animate
               />
             ))}

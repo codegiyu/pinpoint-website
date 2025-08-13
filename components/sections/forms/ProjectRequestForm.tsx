@@ -5,7 +5,7 @@ import { RegularInput, RegularInputProps } from '@/components/atoms/RegularInput
 import { RegularTextarea, RegularTextareaProps } from '@/components/atoms/RegularTextarea';
 import { toast } from '@/components/atoms/Toast';
 import { useForm } from '@/lib/hooks/use-form';
-import { ChangeEvent, Dispatch, SetStateAction, useMemo, useState } from 'react';
+import { ChangeEvent, Dispatch, memo, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { output, z, ZodArray, ZodEmail, ZodObject, ZodString } from 'zod';
 import FormAlert from './FormAlert';
 import { CheckCheck } from 'lucide-react';
@@ -134,160 +134,197 @@ export type FormArrayItem<TSchema extends ZodObject<Record<string, StringOrStrin
   | FormMultiSelectItem<TSchema>
   | FormFileItem<TSchema>;
 
-export const RequestForm = <TSchema extends ZodObject<Record<string, StringOrStringArraySchema>>>({
-  formName,
-  formSchema,
-  defaultFormValues,
-  files,
-  setFiles,
-  inputsArr,
-  serviceOptions,
-  filesRequired,
-}: RequestFormProps<TSchema> & {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
-  const {
-    formValues,
-    formErrors,
-    loading,
-    isValid,
-    errorsVisible,
-    submitted,
-    resetForm,
-    handleInputChange,
-    onChange,
-    setFormErrors,
-    handleSubmit,
-    validateForm,
-  } = useForm({
+export const RequestForm = memo(
+  <TSchema extends ZodObject<Record<string, StringOrStringArraySchema>>>({
+    formName,
     formSchema,
     defaultFormValues,
-    onSubmit,
-    validateOnChange: true,
-  });
+    files,
+    setFiles,
+    inputsArr,
+    serviceOptions,
+    filesRequired,
+    serviceId,
+    packageInURL,
+  }: RequestFormProps<TSchema> & {
+    files: File[];
+    setFiles: Dispatch<SetStateAction<File[]>>;
+    serviceOptions: SelectOption<string>[];
+    packageInURL?: { service: AvailablePackagedService; package: string };
+  }) => {
+    const {
+      formValues,
+      formErrors,
+      loading,
+      isValid,
+      errorsVisible,
+      submitted,
+      resetForm,
+      handleInputChange,
+      onChange,
+      setFormErrors,
+      setFormValues,
+      handleSubmit,
+      validateForm,
+    } = useForm({
+      formSchema,
+      defaultFormValues,
+      onSubmit,
+      validateOnChange: true,
+    });
 
-  const formValid = useMemo(
-    () => (isValid && filesRequired ? !!files.length : true),
-    [isValid, files, filesRequired]
-  );
+    const formValid = useMemo(
+      () => (isValid && filesRequired ? !!files.length : true),
+      [isValid, files, filesRequired]
+    );
 
-  const generalValidation = () => {
-    if (filesRequired && !files.length) {
-      toast({ title: 'Please upload at least one file', variant: 'error' });
-    }
-
-    return validateForm() && filesRequired ? !!files.length : true;
-  };
-
-  async function onSubmit(values: z.infer<typeof formSchema>): Promise<boolean> {
-    if (!generalValidation()) return false;
-
-    const formData = new FormData();
-
-    formData.append('formName', formName);
-    Object.entries(values).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach(val => formData.append(key, val));
-      } else {
-        formData.append(key, value);
+    const generalValidation = () => {
+      if (filesRequired && !files.length) {
+        toast({ title: 'Please upload at least one file', variant: 'error' });
       }
-    });
-    files.forEach(file => {
-      formData.append('files', file);
-    });
 
-    const res = await fetch('/api/send-company-mail', {
-      method: 'POST',
-      body: formData,
-    });
+      return validateForm() && filesRequired ? !!files.length : true;
+    };
 
-    const parsedRes = await res.json();
+    async function onSubmit(values: z.infer<typeof formSchema>): Promise<boolean> {
+      if (!generalValidation()) return false;
 
-    toast({ title: parsedRes.message, variant: parsedRes.success ? 'success' : 'error' });
+      const formData = new FormData();
 
-    if (parsedRes.error) {
-      setFormErrors({ root: [String(parsedRes.error)] } as Partial<
-        Record<keyof output<TSchema> | 'root', string[] | undefined>
-      >);
+      formData.append('formName', formName);
+      Object.entries(values).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          value.forEach(val => formData.append(key, val));
+        } else {
+          formData.append(key, value);
+        }
+      });
+      files.forEach(file => {
+        formData.append('files', file);
+      });
+
+      const res = await fetch('/api/send-company-mail', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const parsedRes = await res.json();
+
+      toast({ title: parsedRes.message, variant: parsedRes.success ? 'success' : 'error' });
+
+      if (parsedRes.error) {
+        setFormErrors({ root: [String(parsedRes.error)] } as Partial<
+          Record<keyof output<TSchema> | 'root', string[] | undefined>
+        >);
+      }
+
+      if (parsedRes.success) {
+        resetForm();
+        setFiles([]);
+        return true;
+      }
+
+      return false;
     }
 
-    if (parsedRes.success) {
-      resetForm();
-      setFiles([]);
-      return true;
-    }
+    useEffect(() => {
+      if (!packageInURL) return;
+      if (packageInURL.service !== serviceId) return;
+      if (!('package' in defaultFormValues)) return;
 
-    return false;
+      const packageInputData = inputsArr
+        .flat()
+        .find(input => input.kind === 'select' && input.name === 'package');
+
+      if (!packageInputData) return;
+
+      const options = packageInputData.selectProps?.options;
+      // console.log({ options });
+
+      if (!options) return;
+
+      const packageOptionValue = options.find(option =>
+        option.value.toLowerCase().includes(packageInURL.package.toLowerCase())
+      )?.value;
+      // console.log({ packageInURL, serviceId, packageOptionValue });
+
+      setFormValues(prev =>
+        'package' in prev ? { ...prev, package: packageOptionValue || '' } : prev
+      );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [serviceId, packageInURL, inputsArr, defaultFormValues]);
+
+    // useEffect(() => {
+    //   console.log({ formValues });
+    // }, [formValues]);
+
+    return (
+      <section className="w-full pb-20 md:pb-[95px]">
+        <motion.form
+          initial={{ opacity: 0, translateY: 50 }}
+          whileInView={{ opacity: 1, translateY: 0 }}
+          transition={{ duration: 1, delay: 0.7 }}
+          viewport={{ once: true }}
+          onSubmit={handleSubmit}
+          className="form-page-container grid gap-14">
+          <div className="inputs-wrap grid gap-5">
+            {inputsArr.map((item, idx) => (
+              <div key={idx} className="w-full">
+                {Array.isArray(item) ? (
+                  <div className="w-full grid items-end gap-x-4 gap-y-8 md:grid-cols-2">
+                    {item.map((input, index) => (
+                      <FormInputItem
+                        key={index}
+                        {...input}
+                        {...{
+                          files,
+                          setFiles,
+                          serviceOptions,
+                          formValues,
+                          formErrors,
+                          handleInputChange,
+                          onChange,
+                          errorsVisible,
+                        }}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <FormInputItem
+                    key={idx}
+                    {...item}
+                    {...{
+                      files,
+                      setFiles,
+                      serviceOptions,
+                      formValues,
+                      formErrors,
+                      handleInputChange,
+                      onChange,
+                      errorsVisible,
+                    }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="w-full flex items-center justify-center pt-4 gap-2">
+            <PinpointBtn
+              text="Submit"
+              loading={loading}
+              disabled={!formValid}
+              onDisabledClick={generalValidation}
+              RightIcon={submitted ? CheckCheck : undefined}
+              rightIconProps={{ className: 'size-4 text-green-600' }}
+            />
+            <FormAlert />
+          </div>
+        </motion.form>
+      </section>
+    );
   }
-
-  return (
-    <section className="w-full pb-20 md:pb-[95px]">
-      <motion.form
-        initial={{ opacity: 0, translateY: 50 }}
-        whileInView={{ opacity: 1, translateY: 0 }}
-        transition={{ duration: 1, delay: 0.7 }}
-        viewport={{ once: true }}
-        onSubmit={handleSubmit}
-        className="form-page-container grid gap-14">
-        <div className="inputs-wrap grid gap-5">
-          {inputsArr.map((item, idx) => (
-            <div key={idx} className="w-full">
-              {Array.isArray(item) ? (
-                <div className="w-full grid gap-x-4 gap-y-8 md:grid-cols-2">
-                  {item.map((input, index) => (
-                    <FormInputItem
-                      key={index}
-                      {...input}
-                      {...{
-                        files,
-                        setFiles,
-                        serviceOptions,
-                        formValues,
-                        formErrors,
-                        handleInputChange,
-                        onChange,
-                        errorsVisible,
-                      }}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <FormInputItem
-                  key={idx}
-                  {...item}
-                  {...{
-                    files,
-                    setFiles,
-                    serviceOptions,
-                    formValues,
-                    formErrors,
-                    handleInputChange,
-                    onChange,
-                    errorsVisible,
-                  }}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="w-full flex items-center justify-center pt-4 gap-2">
-          <PinpointBtn
-            text="Submit"
-            loading={loading}
-            disabled={!formValid}
-            onDisabledClick={generalValidation}
-            RightIcon={submitted ? CheckCheck : undefined}
-            rightIconProps={{ className: 'size-4 text-green-600' }}
-          />
-          <FormAlert />
-        </div>
-      </motion.form>
-    </section>
-  );
-};
+);
+RequestForm.displayName = 'RequestForm';
 
 interface BaseInputItemProps<TSchema extends ZodObject<Record<string, StringOrStringArraySchema>>>
   extends BaseFormArrayItem<TSchema> {
@@ -354,6 +391,9 @@ const FormInputItem = <TSchema extends ZodObject<Record<string, StringOrStringAr
   }
 
   if (kind === 'select' && name && selectProps) {
+    // if (name === 'package') {
+    //   console.log({ value: formValues[name], loc: 'form input and kind is select' });
+    // }
     return (
       <RegularSelect
         value={formValues[name] as string}

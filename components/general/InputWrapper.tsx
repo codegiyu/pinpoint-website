@@ -4,6 +4,7 @@ import { ComponentPropsWithRef, PropsWithChildren } from 'react';
 export type InputWrapperProps = PropsWithChildren<{
   wrapClassName?: string;
   label?: string;
+  subtext?: string;
   labelTextClassName?: string;
   labelOnTop?: boolean;
   required?: boolean;
@@ -15,6 +16,7 @@ export const InputWrapper = ({
   children,
   wrapClassName,
   label,
+  subtext,
   labelTextClassName,
   otherLabelProps,
   labelOnTop,
@@ -35,6 +37,7 @@ export const InputWrapper = ({
             )}>
             {label}
             {required ? ' *' : ''}
+            {subtext ? ` ${subtext}` : ''}
           </span>
         )}
         <div className="relative w-full">{children}</div>

@@ -291,9 +291,9 @@ export const AVAILABLE_PACKAGED_SERVICE_IDS = [
   'professional_logo_design',
   'campaign_branding',
   'social_media_strategy',
-  'packaging_&_product_design',
+  'packaging_and_product_design',
   'stickers',
-  'website_design_&_development',
+  'website_design_and_development',
   'make_a_custom_request',
   'make_an_enquiry',
 ] as const;
@@ -837,7 +837,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
     },
     packagePricing: [
       {
-        id: 'packaging_&_product_design',
+        id: 'packaging_and_product_design',
         packages: [
           {
             id: 'basic',
@@ -1057,7 +1057,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
     },
     packagePricing: [
       {
-        id: 'website_design_&_development',
+        id: 'website_design_and_development',
         packages: [
           {
             id: 'basic',

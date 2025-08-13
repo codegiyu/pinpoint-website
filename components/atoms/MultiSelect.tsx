@@ -26,6 +26,7 @@ export interface MultiSelectProps {
   groupClassName?: string;
   wrapClassName?: string;
   label?: string;
+  subtext?: string;
   labelClassName?: string;
   errors?: string[];
   required?: boolean;
@@ -38,7 +39,8 @@ export function MultiSelect({
   placeholder = 'Select options...',
   groupClassName,
   wrapClassName,
-  label,
+  label = '',
+  subtext,
   labelClassName,
   errors = [],
   required,
@@ -89,8 +91,9 @@ export function MultiSelect({
       <InputWrapper
         wrapClassName={wrapClassName}
         label={label}
+        subtext={subtext}
         labelTextClassName={labelClassName}
-        labelOnTop={isFocused}
+        labelOnTop={isFocused || !!selectedLabels.length}
         required={required}
         errors={errors}
         otherLabelProps={{
@@ -118,7 +121,8 @@ export function MultiSelect({
                     ? 'Change selection'
                     : isFocused
                       ? placeholder
-                      : label || placeholder}
+                      : label + (required ? ' *' : '') + (subtext ? ` ${subtext}` : '') ||
+                        placeholder}
                 </span>
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </div>

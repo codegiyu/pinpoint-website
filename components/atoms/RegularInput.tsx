@@ -17,6 +17,7 @@ export const RegularInput = ({
   className,
   type,
   label,
+  subtext,
   labelClassName,
   wrapClassName,
   placeholder,
@@ -33,12 +34,17 @@ export const RegularInput = ({
     <InputWrapper
       wrapClassName={wrapClassName}
       label={label}
+      subtext={subtext}
       labelTextClassName={labelClassName}
       labelOnTop={isFocused || !!props.value}
       required={required}
       errors={errors}>
       <Input
-        placeholder={isFocused ? placeholder : label + (required ? ' *' : '') || placeholder}
+        placeholder={
+          isFocused
+            ? placeholder
+            : label + (required ? ' *' : '') + (subtext ? ` ${subtext}` : '') || placeholder
+        }
         type={type}
         className={cn('py-5', className)}
         ref={ref}
