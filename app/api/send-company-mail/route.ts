@@ -111,10 +111,18 @@ export async function POST(req: NextRequest) {
             },
           ];
 
+    const senderName =
+      fields.name ||
+      fields.brandName ||
+      fields.company ||
+      `${fields.firstName || ''} ${fields.lastName || ''}`.trim() ||
+      'Pinpoint Website';
+
     const data = await transporter.sendMail({
-      from: process.env.fromEmail,
-      to: process.env.toEmail,
-      subject: `Web Submission For ${fields.formName.trim()} Form`,
+      from: `${senderName} <${process.env.fromEmail}>`,
+      to: `Pinpoint Global <${process.env.toEmail}>`,
+      ...(fields.email && { replyTo: fields.email }),
+      subject: `${fields.formName.trim()} Form Submission`,
       html,
       attachments,
     });
