@@ -116,9 +116,9 @@ export async function POST(req: NextRequest) {
           ];
 
     const senderName =
+      fields.name ||
       fields.brandName ||
       fields.company ||
-      fields.name ||
       fields.contactPerson ||
       `${fields.firstName || ''} ${fields.lastName || ''}`.trim() ||
       'Pinpoint Website';
