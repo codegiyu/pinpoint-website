@@ -1,0 +1,20 @@
+
+    ============================
+    Date: 2025-08-15T13:07:28.723Z
+    To: Pinpoint Global <codegiyu@zohomail.com>
+    Subject: Enquiry Form Submission
+    Message ID: <92572e84-209e-76e2-0e42-6f76327df09f@pinpoint.ng>
+    Preview URL: N/A
+    ----------------------------
+    Name: Edward-Precious Omegbu\nEmail: eomegbu@gmail.com\nPhone: 08140629487\nCompany: EyeConnect\nServices: I'm just making enquiries\nRequest details: Test for mail logger to file
+    ============================
+
+    ============================
+    Date: 2025-08-15T13:17:40.364Z
+    To: Pinpoint Global <codegiyu@zohomail.com>
+    Subject: Enquiry Form Submission
+    Message ID: <80c4b003-672a-d0e9-bdc1-bc7c8954c600@pinpoint.ng>
+    Preview URL: N/A
+    ----------------------------
+    Name: Codegiyu\nEmail: eomegbu@gmail.com\nPhone: 08140629487\nCompany: Pinpoint\nServices: 3D Product Visualization\nRequest details: Sent with no-reply@pinpoint.ng to test mail logging to file
+    ============================
