@@ -5,7 +5,7 @@ export interface MailTemplateData {
 
 export interface MailTemplateProps {
   title: string;
-  top: string[];
+  top: string[][];
   data: MailTemplateData[];
   end: string;
 }
@@ -19,7 +19,7 @@ export const mailTemplate = ({ title, top, data, end }: MailTemplateProps) => {
     </tr>
     <!--== Start Separator ==-->
     <tr>
-      <td height="50" style="font-size:10px; line-height:10px;">&nbsp;</td>
+      <td height="40" style="font-size:10px; line-height:10px;">&nbsp;</td>
     </tr>
     <!--== End Separator ==-->
   `;
@@ -28,7 +28,7 @@ export const mailTemplate = ({ title, top, data, end }: MailTemplateProps) => {
     let itemEl = `
       <tr>
         <td width="100%" class="mobile" align="left" valign="middle">
-          <p>${curr}</p>
+          ${curr.map(str => `<p>${str}</p>`).join('')}
         </td>
       </tr>
     `;
@@ -37,7 +37,7 @@ export const mailTemplate = ({ title, top, data, end }: MailTemplateProps) => {
       itemEl += `
         <!--== Start Separator ==-->
         <tr>
-          <td height="30" style="font-size:10px; line-height:10px;">&nbsp;</td>
+          <td height="15" style="font-size:10px; line-height:10px;">&nbsp;</td>
         </tr>
         <!--== End Separator ==-->
       `;

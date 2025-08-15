@@ -8,6 +8,7 @@ import { mailTemplate, MailTemplateData } from '../utils/mailTemplate';
 import { getNodeRequest } from '../utils/getNodeRequest';
 import { formatCamelCaseName } from '@/lib/utils/general';
 import { ALL_FIELDS_DEFAULT } from '@/lib/constants/forms';
+// import { logMailToFile } from './logMailToFile';
 
 dotenv.config();
 
@@ -74,14 +75,16 @@ export async function POST(req: NextRequest) {
         user: process.env.fromEmail,
         pass: process.env.password,
       },
-      secure: true,
+      secure: process.env.secureMail === undefined ? true : Boolean(process.env.secureMail),
     });
 
-    const html = mailTemplate({
+    const mailTemplateOptions = {
       title: fields.formName,
       top: [
-        `You've received a new submission through the website ${fields.formName} \
-        form. The details provided by the sender are included below for your review.`,
+        [
+          `You've received a new submission through the website ${fields.formName} \
+          form. The details provided by the sender are included below for your review.`,
+        ],
       ],
       data: Object.entries(fields).reduce<MailTemplateData[]>((acc, [property, value]) => {
         if (property !== 'formName') {
@@ -95,7 +98,8 @@ export async function POST(req: NextRequest) {
       }, []),
       end: 'Please feel free to follow up with the sender if any further \
       information is needed.',
-    });
+    };
+    const html = mailTemplate(mailTemplateOptions);
 
     const attachments = !files.files
       ? []
@@ -112,20 +116,70 @@ export async function POST(req: NextRequest) {
           ];
 
     const senderName =
-      fields.name ||
       fields.brandName ||
       fields.company ||
+      fields.name ||
+      fields.contactPerson ||
       `${fields.firstName || ''} ${fields.lastName || ''}`.trim() ||
       'Pinpoint Website';
+    const replyName = senderName === 'Pinpoint Website' ? '' : senderName;
 
-    const data = await transporter.sendMail({
-      from: `${senderName} <${process.env.fromEmail}>`,
+    const mailOptions = {
+      from: `${senderName} (From Pinpoint Website) <${process.env.fromEmail}>`,
       to: `Pinpoint Global <${process.env.toEmail}>`,
-      ...(fields.email && { replyTo: fields.email }),
+      ...(fields.email && { replyTo: `${replyName || fields.email} <${fields.email}>` }),
       subject: `${fields.formName.trim()} Form Submission`,
       html,
       attachments,
-    });
+    };
+
+    const data = await transporter.sendMail(mailOptions);
+
+    // const formattedMailDetails = mailTemplateOptions.data
+    //   .map(item => `${item.property}: ${item.value}`)
+    //   .join('\\n');
+
+    // const logEntry = `
+    // ============================
+    // Date: ${new Date().toISOString()}
+    // To: ${mailOptions.to}
+    // Subject: ${mailOptions.subject}
+    // Message ID: ${data.messageId}
+    // Preview URL: ${nodemailer.getTestMessageUrl(data) || 'N/A'}
+    // ----------------------------
+    // ${formattedMailDetails}
+    // ============================\n`;
+
+    // logMailToFile(logEntry);
+
+    if (fields.email) {
+      const html = mailTemplate({
+        title: `Your Form Submission Has Been Received`,
+        top: [
+          [
+            'Thank you for reaching out to us via our website. We have successfully received \
+            your submission and our team is currently reviewing the details.',
+          ],
+          [
+            'A member of our team will be in touch with you shortly to provide further \
+            assistance and address your request.',
+          ],
+          [
+            'We appreciate your interest in Pinpoint Global and look forward to \
+            connecting with you soon.',
+          ],
+          ['Warm regards', 'Adepoju Olayode', 'CEO', 'Pinpoint Global'],
+        ],
+        data: [],
+        end: '',
+      });
+      transporter.sendMail({
+        from: `Pinpoint (no-reply) <${process.env.fromEmail}>`,
+        to: `${replyName || fields.email} <${fields.email}>`,
+        subject: `${fields.formName.trim()} Form Submission Received`,
+        html,
+      });
+    }
 
     return NextResponse.json(
       { success: true, data, message: 'Mail sent successfully' },
