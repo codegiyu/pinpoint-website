@@ -397,7 +397,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
         packages: [
           {
             id: 'basic',
-            priceRange: [250_000],
+            priceRange: [500_000],
             benefits: [
               'Interview',
               'Logo Design',
@@ -418,7 +418,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           },
           {
             id: 'premium',
-            priceRange: [500_000],
+            priceRange: [1_000_000],
             benefits: [
               'Interview',
               'Logo Design',
@@ -440,7 +440,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           },
           {
             id: 'classic',
-            priceRange: [1_000_000],
+            priceRange: [4_000_000],
             benefits: [
               'Interview',
               'Logo Design',
@@ -527,7 +527,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
         packages: [
           {
             id: 'basic',
-            priceRange: [30_000],
+            priceRange: [100_000],
             benefits: [
               '1 Logo Review',
               'Font/Typography',
@@ -538,7 +538,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           },
           {
             id: 'premium',
-            priceRange: [50_000],
+            priceRange: [150_000],
             benefits: [
               '2 Logo Reviews',
               'Font/Typography',
@@ -551,7 +551,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           },
           {
             id: 'classic',
-            priceRange: [100_000],
+            priceRange: [250_000],
             benefits: [
               '3 Logo Reviews',
               'Font/Typography',
@@ -841,7 +841,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
         packages: [
           {
             id: 'basic',
-            priceRange: [20_000, 30_000],
+            priceRange: [50_000, 100_000],
             benefits: [
               'Number of products: 1',
               'Product design concept',
@@ -851,7 +851,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           },
           {
             id: 'standard',
-            priceRange: [40_000, 60_000],
+            priceRange: [100_000, 150_000],
             benefits: [
               'Number of products: 2-3',
               'Everything in Basic package',
@@ -861,7 +861,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           },
           {
             id: 'advanced',
-            priceRange: [80_000, 120_000],
+            priceRange: [200_000, 500_000],
             benefits: [
               'Number of products: 4-5',
               'Everything in Standard package',
@@ -871,7 +871,7 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
           },
           {
             id: 'premium',
-            priceRange: [150_000, 250_000],
+            priceRange: [500_000, 1_000_000],
             benefits: [
               'Number of products: 6+',
               'Everything in Advanced package',
