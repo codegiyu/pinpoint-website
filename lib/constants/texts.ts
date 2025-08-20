@@ -14,7 +14,7 @@ const liveUrl = process.env.live_url || 'https://pinpoint.ng';
 
 export const SEO_DETAILS = {
   title: {
-    default: 'Your Branding, Marketing, and Packaging Solution',
+    default: 'Pinpoint Global Limited - Your Branding, Marketing, and Packaging Solution',
     template: '%s | Pinpoint Global',
   },
   description:
