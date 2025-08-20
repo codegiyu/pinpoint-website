@@ -136,6 +136,12 @@ export const pinpointSocials: SocialBtnProps[] = [
   },
 ];
 
+export const footerCompanyDescription = `
+  We are a creative brand consultancy specializing in design, branding and packaging. 
+  Since 2020, we've partnered with leading organizations to solve brand and business challenges. 
+  With a diverse team across multiple locations, we harness the power of creativity to help businesses grow, stand out, and connect better with their audiences.
+`;
+
 export const selectedCaseStudies: AvailableProject[] = ['tahwil_solutions', 'gusto', 'afropay'];
 
 export const ourStoryTexts: string[] = [

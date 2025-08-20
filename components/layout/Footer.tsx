@@ -1,5 +1,5 @@
 'use client';
-import { contactInformation } from '@/lib/constants/texts';
+import { contactInformation, footerCompanyDescription } from '@/lib/constants/texts';
 import { PinpointSocials } from '@/components/general/Socials';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { PinpointFull } from '@/components/icons';
@@ -22,12 +22,7 @@ export default function Footer() {
                 <PinpointFull id="footer-logo" className="logo" />
               </div>
             </GhostBtn>
-            <p className="typo-body-7 text-gray-59/90">
-              We are a creative brand consultancy into design, branding and packaging. We&apos;ve
-              been collaborating with leading organizations to solve brand and business challenges
-              since 2020. Our team across different locations uses the power of creativity to
-              transform businesses for the better.
-            </p>
+            <p className="typo-body-7 text-gray-59/90">{footerCompanyDescription}</p>
           </div>
           <div className="w-full grid gap-8 sm:grid-cols-2 1400:grid-cols-4 text-dark/80">
             {contactInformation.map((group, idx) => (

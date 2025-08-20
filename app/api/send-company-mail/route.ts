@@ -137,7 +137,7 @@ export async function POST(req: NextRequest) {
 
     // const formattedMailDetails = mailTemplateOptions.data
     //   .map(item => `${item.property}: ${item.value}`)
-    //   .join('\\n');
+    //   .join('\n');
 
     // const logEntry = `
     // ============================
