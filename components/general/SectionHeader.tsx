@@ -6,6 +6,7 @@ export interface SectionHeaderProps {
   caption: string;
   className?: string;
   titleClassName?: string;
+  captionClassName?: string;
 }
 
 export const SectionHeader = ({
@@ -13,10 +14,11 @@ export const SectionHeader = ({
   caption,
   className,
   titleClassName,
+  captionClassName,
 }: SectionHeaderProps) => {
   return (
     <div className={cn('w-full grid gap-5', className)}>
-      <h2 className="typo-caption-small uppercase">{caption}</h2>
+      <h2 className={cn('typo-caption-small uppercase', captionClassName)}>{caption}</h2>
       <p className={cn('typo-h2', titleClassName)}>{title}</p>
     </div>
   );

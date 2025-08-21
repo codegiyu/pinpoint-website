@@ -88,7 +88,7 @@ export const contactInformation: ContactsGroupProps[] = [
   },
   {
     location: 'Kano',
-    address: 'MTN Office, Civic Center',
+    address: 'Shop 23 Rima House, Zoo Road',
     tel: ['+234 812 222 1489', '+234 812 222 6489'],
     email: 'kano@pinpoint.ng',
   },

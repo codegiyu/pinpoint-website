@@ -10,7 +10,7 @@ export const OurStory = ({ storyTexts }: { storyTexts: string[] }) => {
           <div className="w-full h-fit md:max-w-[455px] lg:max-w-none mx-auto">
             <SectionHeader
               caption="Words became worlds..."
-              title="And brands found their place in them"
+              title="...and brands found their place in them"
             />
             <div className="w-full xl:w-[450px] pt-5 pb-10 md:pt-11 md:pb-[3.75rem] lg:pt-[3.75rem] lg:pb-0 xl:pt-[45px] xl:pb-[75px] xl:ml-auto xl:mr-7">
               <p className="typo-body-7 text-gray-59">{storyTexts[0]}</p>
@@ -78,7 +78,7 @@ export const OurStory = ({ storyTexts }: { storyTexts: string[] }) => {
         </div>
       </div>
 
-      <div className="lg:hidden w-screen h-[100vw] md:h-[460px] mb-[6.25rem] relative">
+      <div className="lg:hidden w-screen h-[100vw] md:h-[460px] mb-0 relative">
         <div className="w-full h-full relative">
           <Image
             src="https://static.pinpoint.ng/images/about-page/story-highlight-2.webp"
@@ -90,7 +90,7 @@ export const OurStory = ({ storyTexts }: { storyTexts: string[] }) => {
         </div>
       </div>
 
-      <div className="w-full h-[21.875rem] xl:h-[450px] hidden md:block absolute -bottom-[15rem] z-0">
+      <div className="w-full h-[21.875rem] xl:h-[450px] hidden lg:block absolute -bottom-[15rem] z-0">
         <div className="w-full h-[150%] bg-white" />
       </div>
     </section>

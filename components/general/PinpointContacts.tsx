@@ -69,7 +69,7 @@ export const ContactsGroup = ({
           <p
             key={idx}
             className={`flex ${showOpacity ? 'opacity-75 hover:opacity-100' : ''} hover:underline ${inDarkBg ? 'hover:text-white' : 'hover:scale-105'} transition-all duration-500 ease-out`}>
-            <Link href={`tel:${phone}`}>{phone}</Link>
+            <Link href={`tel:${phone.replaceAll(' ', '')}`}>{phone}</Link>
           </p>
         ))}
       </div>
