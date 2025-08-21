@@ -9,8 +9,45 @@ export const Services = ({ servicesSummary }: { servicesSummary: ServiceCardProp
   const modulusByThree = servicesSummary.length % 3;
 
   return (
-    <section className="w-full bg-white pt-[3.75rem] md:pt-0 md:pb-[5.375rem] lg:pb-16 xl:pb-[clamp(64px,_3.731vw,_116px)]">
-      <div className="pinpoint-container grid gap-10 md:gap-20 xl:gap-[11rem]">
+    <section className="w-full bg-white pt-[3.75rem] md:pb-[5.375rem] lg:pt-[1rem] lg:pb-16 xl:pb-[clamp(64px,_3.731vw,_116px)]">
+      <div
+        className="w-[85.8vw] max-w-[495px] md:max-w-none md:w-[90vw] lg:w-[828px] 
+        xl:w-[1024px] 2xl:w-[1200px] 3xl:w-[1300px] mx-auto grid md:grid-cols-2 
+        gap-8 md:gap-12 lg:gap-6 py-8 relative z-[2]">
+        <div className="w-full bg-gray-f2 p-6 lg:p-8 xl:py-10">
+          <div className="w-full grid gap-4">
+            <SectionHeader
+              caption="Our Mission"
+              title=""
+              captionClassName="font-bold tracking-[0.08em]"
+            />
+            <p className="typo-body-7 text-dark font-light leading-[1.85]">
+              At Pinpoint Global, our mission is to transform brands through strategic creativity,
+              cutting-edge design, and impactful packaging. We are committed to helping businesses,
+              from SMEs to global enterprises, stand out by delivering exceptional quality,
+              fostering innovation, and building partnerships that drive mutual success. Our goal is
+              to be a catalyst for brand eleveation and sustainable growth across industries
+            </p>
+          </div>
+        </div>
+
+        <div className="w-full bg-gray-f2 p-6 lg:p-8 xl:py-10">
+          <div className="w-full grid gap-4">
+            <SectionHeader
+              caption="Our Vision"
+              title=""
+              captionClassName="font-bold tracking-[0.08em]"
+            />
+            <p className="typo-body-7 text-dark font-light leading-[1.85]">
+              To be the leading branding and packaging solutions provider in Africa, empowering
+              businesses with innovative, sustainable and globally recognized brand identities that
+              drive long-term growth and market leadership.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="pinpoint-container grid gap-10 md:gap-20 xl:gap-[11rem] mt-14 md:mt-14">
         <div className="w-full lg:max-w-[720px] xl:max-w-[782px] 1400:max-w-[950px] grid gap-5 mx-auto px-0">
           <SectionHeader caption="Pinpoint Services" title="" />
           <p className="typo-body-1 text-dark/75 font-light">

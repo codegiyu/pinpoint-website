@@ -1,7 +1,7 @@
 'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Manipulation, A11y, Pagination, Navigation } from 'swiper/modules';
+import { Manipulation, A11y, Pagination, Navigation, Mousewheel } from 'swiper/modules';
 import { SectionHeader } from '@/components/general/SectionHeader';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { MoveLeft, MoveRight } from 'lucide-react';
@@ -21,7 +21,7 @@ export const Team = memo(({ team }: { team: TeamSlideProps[] }) => {
 
       <div className="w-full mt-10 md:mt-[3.125rem] md:pb-[5.625rem] lg:mt-16 xl:mt-20 relative">
         <Swiper
-          modules={[Manipulation, A11y, Pagination, Navigation]}
+          modules={[Manipulation, A11y, Pagination, Navigation, Mousewheel]}
           mousewheel={true}
           slidesPerView={'auto'}
           speed={1200}
