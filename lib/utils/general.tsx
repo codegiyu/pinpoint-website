@@ -13,6 +13,16 @@ export const debounce = (ms: number): Promise<void> => {
   });
 };
 
+export const assertENV = (variable: string | undefined, options?: { message: string }) => {
+  const { message = 'Required Environment variable is missing or undefined' } = options ?? {};
+
+  if (!variable) {
+    throw new Error(message);
+  }
+
+  return variable;
+};
+
 export function findHalfPointOfArray(arr: Array<unknown>) {
   return Math.ceil(arr.length / 2);
 }
