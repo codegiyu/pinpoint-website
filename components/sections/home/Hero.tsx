@@ -5,10 +5,9 @@ import { ChangingModifier } from '@/components/general/ChangingModifier';
 import { HeroArrow } from '@/components/general/HeroArrow';
 import { SmartVideo } from '@/components/general/SmartVideo';
 import { MacaronTextEn, MacaronTextePlayEn } from '@/components/icons';
-import { changingHeroTitleModifiers } from '@/lib/constants/texts';
 import { motion } from 'motion/react';
 
-export const HomeHero = () => {
+export const HomeHero = ({ textsArray }: { textsArray: string[] }) => {
   return (
     <section id="hero" className="w-full h-screen bg-dark text-white relative overflow-hidden">
       <SmartVideo
@@ -33,7 +32,7 @@ export const HomeHero = () => {
                   <div className="w-full inline-grid md:grid-cols-[auto_1fr] items-center md:gap-2 lg:gap-4">
                     <p className="inline-block">We build </p>
                     <ChangingModifier
-                      textsArray={changingHeroTitleModifiers}
+                      textsArray={textsArray}
                       wrapClassName="h-[calc((10vw_+_3px)_*_1.2)] sm:h-[calc(3.3125rem_*_1.2)] md:h-full"
                     />
                   </div>

@@ -66,9 +66,9 @@ const structure: StructureResolver = s =>
     ]);
 
 export default defineConfig({
-  basePath: '/admin',
+  basePath: '/studio',
   name: 'pinpoint-global',
-  title: 'Pinpoint Admin',
+  title: 'Pinpoint CMS',
   projectId: SANITY_PROJECT_ID,
   dataset: SANITY_DATASET,
   document: {

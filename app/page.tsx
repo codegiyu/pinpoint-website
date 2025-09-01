@@ -6,8 +6,10 @@ import { HomeHero } from '@/components/sections/home/Hero';
 import { CTA } from '@/components/sections/shared/Cta';
 import { WhatWeDo } from '@/components/sections/home/WhatWeDo';
 import { getHomeCaseStudySamples, getServicesSummary } from '@/lib/utils/transform';
+import { callApi } from '@/lib/services/callApi';
 
-export default function Home() {
+export default async function Home() {
+  const { data } = await callApi('GET_HERO_TITLE_MODIFIERS', {});
   const caseStudies = getHomeCaseStudySamples();
   const services = getServicesSummary();
 
@@ -17,7 +19,7 @@ export default function Home() {
       headerProps={{
         whiteTextStart: true,
       }}>
-      <HomeHero />
+      <HomeHero textsArray={data?.heroTitleModifiers ?? ['brands']} />
       <GetToKnowUs />
       <CaseStudies samples={caseStudies} />
       <WhatWeDo services={services} />

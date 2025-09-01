@@ -1,13 +1,12 @@
 'use client';
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
 import { PageSideCaption } from '@/components/general/PageSideCaption';
-import { changingContactTitleModifiers } from '@/lib/constants/texts';
 import PinpointContacts from '../../general/PinpointContacts';
 import { ChangingModifier } from '@/components/general/ChangingModifier';
 import { SmartVideo } from '@/components/general/SmartVideo';
 import { motion } from 'motion/react';
 
-export default function ContactPageContent() {
+export default function ContactPageContent({ textsArray }: { textsArray: string[] }) {
   return (
     <section className="w-full min-h-screen pb-4 text-white relative overflow-hidden">
       <SmartVideo
@@ -28,7 +27,7 @@ export default function ContactPageContent() {
             viewport={{ once: true }}
             className="w-full lg:w-3/7 grid gap-2">
             <h1 className="typo-h1 h-[5rem] md:h-[7rem] lg:mb-10">
-              <ChangingModifier textsArray={changingContactTitleModifiers} />
+              <ChangingModifier textsArray={textsArray} />
             </h1>
 
             <motion.p

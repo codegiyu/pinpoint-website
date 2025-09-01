@@ -1,5 +1,7 @@
 import { SelectOption } from '../types/general';
 import capitalize from 'lodash/capitalize';
+import { CallApiResponse, ResponseMessage } from '../types/http';
+import { AllEndpoints } from '../constants/endpoints';
 
 /**
  * @param ms number of milliseconds you want your process to be delayed by
@@ -273,3 +275,36 @@ export function chunkArray<T>(arr: T[], size: number): T[][] {
   }
   return result;
 }
+
+export const getDataFromRequest = <T extends keyof AllEndpoints>(
+  response: CallApiResponse<T>,
+  requestName: T
+): ResponseMessage<T> => {
+  if (!response.data) {
+    let message = '';
+
+    if (response.error) {
+      message = response.error.error.description;
+      console.error({ error: message });
+    }
+
+    return {
+      message,
+      type: 'error',
+      error: response.error ?? {
+        error: {
+          query: '',
+          description: 'Strange error',
+          start: 0,
+          end: 0,
+          type: 'AxiosError',
+        },
+      },
+      requestName,
+    };
+  }
+
+  const { result: data } = response.data;
+
+  return { message: 'Successful', type: 'success', data, requestName };
+};
