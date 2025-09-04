@@ -41,6 +41,7 @@ export const SEO_DETAILS = {
   authors: [{ name: 'Edward-Precious Omegbu', url: 'https://portfolio-codegiyu.vercel.app' }],
   keywords: [
     'pinpoint',
+    'pinpoint global',
     'branding',
     'marketing',
     'packaging',
@@ -52,9 +53,8 @@ export const SEO_DETAILS = {
     'animations',
     'motion graphics',
     'graphic design',
-    'logo',
+    'logo design',
     'web design',
-    'mobile apps',
   ],
   generator: 'Next.js',
   // referrer: 'no-referrer',
@@ -142,7 +142,7 @@ export const footerCompanyDescription = `
   With a diverse team across multiple locations, we harness the power of creativity to help businesses grow, stand out, and connect better with their audiences.
 `;
 
-export const selectedCaseStudies: AvailableProject[] = ['tahwil_solutions', 'gusto', 'afropay'];
+export const selectedCaseStudies: AvailableProject[] = ['afropay', 'teamo-foods', 'zhoikha'];
 
 export const ourStoryTexts: string[] = [
   'Founded in 2020, Pinpoint Global was born from the desire to provide brands \
@@ -234,12 +234,6 @@ export const OUR_TEAM: TeamSlideProps[] = [
     mainImage: 'https://static.pinpoint.ng/images/team/dauda.jpg',
     subImage: 'https://static.pinpoint.ng/images/team/dauda.jpg',
   },
-  // {
-  //   name: 'Akeem Ayoola Aremu',
-  //   title: 'Logistics Manager',
-  //   mainImage: 'https://static.pinpoint.ng/images/team/akeem.jpg',
-  //   subImage: 'https://static.pinpoint.ng/images/team/akeem.jpg',
-  // },
   {
     name: 'Olivia U. Onyeagoro',
     title: 'HR Manager',
@@ -275,6 +269,12 @@ export const OUR_TEAM: TeamSlideProps[] = [
     title: 'Quality Control Manager',
     mainImage: 'https://static.pinpoint.ng/images/team/collins.jpg',
     subImage: 'https://static.pinpoint.ng/images/team/collins.jpg',
+  },
+  {
+    name: 'Akeem Ayoola Aremu',
+    title: 'Logistics Manager',
+    mainImage: 'https://static.pinpoint.ng/images/team/akeem.webp',
+    subImage: 'https://static.pinpoint.ng/images/team/akeem.webp',
   },
 ];
 
@@ -1147,9 +1147,116 @@ export const AVAILABLE_PROJECT_IDS = [
   'pegrov',
   'damsy',
   'zhoikha',
+  'teamo-foods',
 ] as const;
 export type AvailableProject = (typeof AVAILABLE_PROJECT_IDS)[number];
 export const ALL_PROJECTS_DATA: FullProjectData[] = [
+  {
+    id: 'teamo-foods',
+    name: 'TeAmo Foods',
+    pageTitle: 'Crafting flavor and presence with packaging, marketing, and media',
+    descSummary: 'Bringing bold African flavors to life with natural, eco-friendly spices.',
+    bannerURL: { image: "https://static.pinpoint.ng/images/projects/te'amo-card.webp" },
+    cardImage: "https://static.pinpoint.ng/images/projects/te'amo-packaging-1.webp",
+    descriptionBg: 'bg-[#DF510F]',
+    textColorClass: 'text-white',
+    description:
+      'TeAmo Foods offers top-quality African spices made without MSG. The goal is to \
+      bring the best of African cuisine while promoting eco-friendly practices and \
+      supporting local farmers. Their spices will please chefs, foodies, and anyone \
+      looking for bold, natural flavors.',
+    descriptionHighlightPhotos: [],
+    services: ['packaging_and_product_design', 'marketing_and_media'],
+    extraServices: [
+      'Packaging Design',
+      'Campaign Concept & Planning',
+      'Audience Research & Targeting',
+      'Cross-channel Strategy for Video & Motion Content',
+      'Media Adaptation for Various Formats',
+      'Video Content',
+    ],
+    sectors: ['Food'],
+    createdWebsite: '',
+    renderedServices: [
+      {
+        caption: 'Vibrant packaging design',
+        title: 'Showcasing flavour beyond the label',
+        sectionBg: '',
+        textColorClass: '',
+        description: [
+          [
+            'For TeAmo Foods, we created packaging that mirrors the vibrancy of African \
+            cuisine itself. Each pouch carries its own bold personality — from the fiery \
+            orange of Suya Spice to the fresh greens of Multipurpose Seasoning and the \
+            sunny yellow of Pepper Soup Spice. The clean typography and striking color \
+            palette ensure instant recognition, while the transparent windows give a \
+            glimpse of the natural, MSG-free goodness inside.',
+            'This packaging design does more than hold spices; it tells a story of \
+            authenticity, freshness, and cultural pride, inviting chefs and food lovers \
+            alike to experience the richness of Africa in every meal.',
+          ],
+        ],
+        images: [
+          {
+            src: "https://static.pinpoint.ng/images/projects/te'amo-packaging-1.webp",
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: "https://static.pinpoint.ng/images/projects/te'amo-packaging-2.webp",
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+        ],
+      },
+      {
+        caption: 'Immersive brand storytelling',
+        title: "Bringing TeAmo's spices to life through story, sound, and screen",
+        sectionBg: 'bg-dark',
+        textColorClass: 'text-white',
+        description: [
+          [
+            "Beyond packaging, we crafted a multi-sensory marketing experience that \
+            showcased TeAmo's spices in action. Through a series of vibrant videos, \
+            we told stories rooted in authenticity: a suya vendor seasoning skewers \
+            by the street, a home cook bringing family meals to life in her kitchen, \
+            and rural moments that highlight the cultural roots of African cuisine. \
+            Each narrative revealed how TeAmo spices fit seamlessly into everyday \
+            cooking while celebrating their heritage.",
+            "To deepen the brand's connection with its audience, we produced striking \
+            photography, a signature jingle that echoes TeAmo's flavor and energy, \
+            and a marketing strategy designed to amplify reach across channels. \
+            Together, these elements built not just awareness, but an emotional \
+            bond — making TeAmo Foods more than a spice brand, but a flavorful \
+            part of people's stories.",
+          ],
+        ],
+        images: [
+          {
+            src: "https://static.pinpoint.ng/images/projects/te'amo-marketing-1.webp",
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: "https://static.pinpoint.ng/images/projects/te'amo-marketing-2.webp",
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: "https://static.pinpoint.ng/images/projects/te'amo-marketing-3.jpg",
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: "https://static.pinpoint.ng/images/projects/te'amo-marketing-4.webp",
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+        ],
+      },
+    ],
+    relatedProjects: ['gusto', 'damsy'],
+  },
   {
     id: 'tahwil_solutions',
     name: 'Tahwil Solutions',
@@ -1242,7 +1349,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         ],
       },
     ],
-    relatedProjects: [],
+    relatedProjects: ['afropay', 'zhoikha'],
   },
   {
     id: 'afropay',
@@ -1321,7 +1428,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         ],
       },
     ],
-    relatedProjects: [],
+    relatedProjects: ['tahwil_solutions', 'pegrov'],
   },
   {
     id: 'gusto',
@@ -1426,7 +1533,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         ],
       },
     ],
-    relatedProjects: [],
+    relatedProjects: ['teamo-foods', 'damsy'],
   },
   {
     id: 'pegrov',
@@ -1508,7 +1615,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         images: [],
       },
     ],
-    relatedProjects: [],
+    relatedProjects: ['tahwil_solutions', 'zhoikha'],
   },
   {
     id: 'damsy',
@@ -1609,7 +1716,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         ],
       },
     ],
-    relatedProjects: [],
+    relatedProjects: ['teamo-foods', 'gusto'],
   },
   {
     id: 'zhoikha',
@@ -1621,7 +1728,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
     descriptionBg: '',
     textColorClass: '',
     description:
-      "The lifestyle brand, Zhoikha, embodies elegance, soqhistication and modernity. \
+      "The lifestyle brand, Zhoikha, embodies elegance, sophistication and modernity. \
       Pinpoint Design and Packaging, renowned for their expertise in visual \
       storytelling, eagerly took on the task of designing a logo representing the \
       brand's core values and identity.",
@@ -1693,7 +1800,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         ],
       },
     ],
-    relatedProjects: [],
+    relatedProjects: ['afropay', 'tahwil_solutions'],
   },
 ];
 
