@@ -2,6 +2,7 @@
 import { defineConfig } from 'sanity';
 // import { deskTool } from 'sanity/desk';
 import { StructureResolver, structureTool } from 'sanity/structure';
+import { visionTool } from '@sanity/vision';
 import { assertENV } from './lib/utils/general';
 import { sanitySchemaTypes } from './lib/schemas';
 
@@ -13,8 +14,8 @@ const SANITY_DATASET = assertENV(process.env.NEXT_PUBLIC_SANITY_DATASET, {
 });
 
 // array of document types that only publishing should be allowed on.
-// makes no sence to have 'create' or 'duplicate'
-export const publishOnlyDocuments = ['staticSiteData'];
+// makes no sense to have 'create' or 'duplicate'
+export const publishOnlyDocuments = ['staticSiteData', 'contactData'];
 
 // Determins the actions that appear in the Publish bar
 const actions = (actions: any, { schemaType }: any) => {
@@ -53,9 +54,27 @@ const structure: StructureResolver = s =>
     .title('Content')
     .items([
       // Single item for Site Settings
-      s.listItem().title('Site Data').child(
-        s.editor().id('staticSiteData').schemaType('staticSiteData').documentId('staticSiteData') // fixed ID
-      ),
+      s
+        .listItem()
+        .title('Site Data')
+        .child(
+          s
+            .list()
+            .title('Site Data')
+            .items([
+              // Static site data singleton
+              s
+                .listItem()
+                .title('Static Site Data')
+                .child(s.document().schemaType('staticSiteData').documentId('staticSiteData')),
+
+              // Contact data singleton
+              s
+                .listItem()
+                .title('Contact Data')
+                .child(s.document().schemaType('contactData').documentId('contactData')),
+            ])
+        ),
 
       // Divider
       s.divider(),
@@ -75,8 +94,26 @@ export default defineConfig({
     actions,
     newDocumentOptions,
   },
-  plugins: [structureTool({ structure })],
+  plugins: [
+    structureTool({ structure }),
+    visionTool({
+      defaultApiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION ?? 'v2025-08-25',
+      defaultDataset: 'development',
+    }),
+  ],
   schema: {
     types: sanitySchemaTypes,
+    templates: prev => [
+      ...prev,
+      {
+        id: 'contactData',
+        title: 'Contact Data Singleton',
+        schemaType: 'contactData',
+        value: {
+          _id: 'contactData',
+          _type: 'contactData',
+        },
+      },
+    ],
   },
 });
