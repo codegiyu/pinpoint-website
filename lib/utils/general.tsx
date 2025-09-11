@@ -263,3 +263,16 @@ export function chunkArray<T>(arr: T[], size: number): T[][] {
   }
   return result;
 }
+
+export function splitArray<T>(arr: T[], size: number): T[][] {
+  if (size <= 0) return [];
+
+  const result: T[][] = [];
+  const subArraysLength = Math.ceil(arr.length / size);
+
+  for (let i = 0; i < size; i++) {
+    result.push(arr.slice(i * subArraysLength, (i + 1) * subArraysLength));
+  }
+
+  return result;
+}

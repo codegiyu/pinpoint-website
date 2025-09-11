@@ -8,8 +8,14 @@ import { Services } from '@/components/sections/about/Services';
 import { Team } from '@/components/sections/about/Team';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
-import { OUR_ACHIEVEMENTS, OUR_REFERENCES, OUR_TEAM, ourStoryTexts } from '@/lib/constants/texts';
-import { getMoreReferences, getServicesSummary } from '@/lib/utils/transform';
+import {
+  MORE_REFERENCES,
+  OUR_ACHIEVEMENTS,
+  OUR_REFERENCES,
+  OUR_TEAM,
+  ourStoryTexts,
+} from '@/lib/constants/texts';
+import { getServicesSummary } from '@/lib/utils/transform';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -18,7 +24,6 @@ export const metadata: Metadata = {
 
 export default function AboutUsPage() {
   const servicesSummary = getServicesSummary();
-  const moreReferences = getMoreReferences();
 
   return (
     <MainLayout pageName="About us">
@@ -40,7 +45,7 @@ export default function AboutUsPage() {
       />
       <OurAchievements achievements={OUR_ACHIEVEMENTS} />
       <Team team={OUR_TEAM} />
-      <OurReferences references={OUR_REFERENCES} moreReferences={moreReferences} />
+      <OurReferences references={OUR_REFERENCES} moreReferences={MORE_REFERENCES} />
       <CTA />
       <PageSideDecoration caption="About Us" />
     </MainLayout>

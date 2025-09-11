@@ -7,15 +7,23 @@ import { MoveRight } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { motion } from 'motion/react';
 import { Accordion, AccordionContent, AccordionItem } from '@/components/ui/accordion';
+import { useMediaQuery } from '@/lib/hooks/use-media-query';
+import { splitArray } from '@/lib/utils/general';
 
 export const OurReferences = ({
   references,
   moreReferences,
 }: {
   references: ReferenceProps[];
-  moreReferences: string[][];
+  moreReferences: string[];
 }) => {
   const [moreVisible, setMoreVisible] = useState(false);
+  const isTabletScreenAndAbove = useMediaQuery('(min-width: 768px)');
+
+  const moreReferencesRows = useMemo(
+    () => splitArray(moreReferences, isTabletScreenAndAbove ? 5 : 9),
+    [isTabletScreenAndAbove, moreReferences]
+  );
 
   return (
     <section className="w-full bg-gray-f2 pt-[3.75rem] pb-11 md:py-0 relative z-[5]">
@@ -34,7 +42,7 @@ export const OurReferences = ({
           <AccordionItem value="more" className="border-none">
             <AccordionContent>
               <div className={`w-full h-full py-6 md:py-8 lg:py-12 grid gap-6 md:gap-8`}>
-                {moreReferences.map((clientsArr, idx) => (
+                {moreReferencesRows.map((clientsArr, idx) => (
                   <ReferencesMarqueeRow key={idx} clientsArr={clientsArr} index={idx} />
                 ))}
               </div>
@@ -92,12 +100,12 @@ const ReferencesMarqueeRow = ({ clientsArr, index }: { clientsArr: string[]; ind
     ...clientsArr,
     ...clientsArr,
     ...clientsArr,
-    ...clientsArr,
-    ...clientsArr,
-    ...clientsArr,
-    ...clientsArr,
+    // ...clientsArr,
+    // ...clientsArr,
+    // ...clientsArr,
+    // ...clientsArr,
   ];
-  const duration = useMemo(() => Math.floor(Math.random() * 50) + 30, []);
+  // const duration = useMemo(() => Math.floor(Math.random() * 50) + 50, []);
 
   return (
     <div
@@ -107,12 +115,12 @@ const ReferencesMarqueeRow = ({ clientsArr, index }: { clientsArr: string[]; ind
           'linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 15%, rgb(0, 0, 0) 85%, rgba(0, 0, 0, 0) 100%)',
       }}>
       <motion.ul
-        className="w-full h-full flex items-center justify-center gap-8 md:gap-11 lg:gap-16 xl:gap-[5.25rem]"
+        className="w-[1000%] h-full flex items-center justify-center gap-8 md:gap-11 lg:gap-16 xl:gap-[5.25rem]"
         animate={{
           x: index % 2 ? ['0%', '-100%'] : ['0%', '100%'],
           transition: {
             ease: 'linear',
-            duration,
+            duration: 300,
             repeat: Infinity,
           },
         }}>
@@ -121,7 +129,7 @@ const ReferencesMarqueeRow = ({ clientsArr, index }: { clientsArr: string[]; ind
             <img
               src={`https://static.pinpoint.ng/images/more-references/${imgName}`}
               alt=""
-              className="max-w-[300px] h-full max-h-10 md:max-h-16 lg:max-h-20 xl:max-h-[6.25rem] aspect-auto object-contain"
+              className="max-w-[250px] h-full max-h-10 md:max-h-16 lg:max-h-20 xl:max-h-[6.25rem] aspect-auto object-contain"
             />
           </li>
         ))}
