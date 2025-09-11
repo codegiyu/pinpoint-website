@@ -59,3 +59,4 @@ interface JustVideoURL extends BaseImageOrVideoUrl {
 }
 
 export type ImageOrVideoURL = JustImageURL | JustVideoURL;
+export type ImgFormat = 'png' | 'jgp' | 'webp' | 'jpeg';
