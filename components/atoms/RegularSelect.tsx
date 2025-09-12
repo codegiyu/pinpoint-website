@@ -82,7 +82,7 @@ export const RegularSelect = ({
           className
         )}
         {...props}>
-        <Select value={value} onValueChange={value => onSelectChange(value)}>
+        <Select value={value} onValueChange={value => value && onSelectChange(value)}>
           <SelectTrigger
             disabled={disabled}
             hideCaretIfDisabled={hideCaretIfDisabled}
