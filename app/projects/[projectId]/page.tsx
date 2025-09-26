@@ -6,6 +6,7 @@ import { RelatedProjects } from '@/components/sections/works/RelatedProjects';
 import { RenderedService } from '@/components/sections/works/RenderedService';
 import { AvailableProject, AvailableService } from '@/lib/constants/texts';
 import { ImageOrVideoURL } from '@/lib/types/general';
+import { formatSlugToText } from '@/lib/utils/general';
 import { getAllProjectIds, getProjectById } from '@/lib/utils/transform';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -28,6 +29,7 @@ export interface FullProjectData {
   createdWebsite: string;
   renderedServices: RenderedServiceProps[];
   relatedProjects: AvailableProject[];
+  keywords?: string[];
 }
 
 export interface RenderedServiceProps {
@@ -58,6 +60,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${project.name} | Our Works`,
     description: project.description.slice(0, 160),
+    keywords: [
+      project.name,
+      formatSlugToText(project.id).toLowerCase(),
+      ...(project.keywords ?? []),
+      ...project.extraServices,
+      ...project.services.map(item => formatSlugToText(item).toLowerCase()),
+    ],
     openGraph: {
       title: `${project.name} | Our Works`,
       description: project.description,

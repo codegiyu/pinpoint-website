@@ -75,14 +75,14 @@ export const CaseStudySummary = ({
           className="w-full h-fit"
           wrapClassName="w-[70.2vw] max-w-[405px] md:max-w-none md:w-full mx-auto">
           <div
-            className={`w-full md:w-[13.625rem] lg:w-[18.25rem] xl:w-[19.25rem] 2xl:w-[25rem] min-h-[160px] flex flex-col justify-between md:justify-start gap-[1.375rem] text-left ${imgOnRight ? 'md:text-right ml-auto' : 'md:text-left mr-auto'} relative`}>
+            className={`w-full md:w-[13.625rem] lg:w-[18.25rem] xl:w-[19.25rem] 2xl:w-[25rem] min-h-[160px] pb-[50px] md:pb-0 flex flex-col justify-between md:justify-start gap-[1.375rem] text-left ${imgOnRight ? 'md:text-right ml-auto' : 'md:text-left mr-auto'} relative`}>
             <div
               className={`w-full hidden xl:flex items-center gap-5 ${imgOnRight ? 'flex-row-reverse' : ''}`}>
               <span className="text-gray-66/80">{String(index).padStart(2, '0')}</span>
               <div className="w-11 h-[1px] bg-gray-b3" />
             </div>
             <div className="w-full h-fit grid gap-3 lg:gap-[1.375rem]">
-              <h3 className="typo-h3">{title}</h3>
+              <h3 className="typo-h3 text-wrap break-words">{title}</h3>
               <p className="typo-body-2 text-gray-66/80 text-wrap break-words">{description}</p>
             </div>
             <span className="hidden md:block text-[1rem] xl:text-[clamp(16px,_1.194vw,_20px)] font-medium">

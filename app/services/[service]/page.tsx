@@ -82,6 +82,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${service.name} | Our Services`,
     description: service.description.slice(0, 160),
+    keywords: [
+      service.name,
+      ...service.breakdownSummary,
+      ...service.expertise.breakdown.flatMap(s => s.services),
+    ],
     openGraph: {
       title: `${service.name} | Our Services`,
       description: service.description,
