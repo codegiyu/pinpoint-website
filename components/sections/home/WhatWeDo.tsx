@@ -105,7 +105,7 @@ const ServiceCard = memo(
           </div>
         </GhostBtn>
         <div className="video-box w-full h-full absolute inset-0 opacity-100 md:opacity-0 lg:peer-hover:opacity-100 transition-opacity duration-300 peer-hover:duration-100 ease-linear">
-          <SmartVideo
+          {/* <SmartVideo
             src={videoUrl}
             wrapClassName="h-full mobile-video md:hidden"
             className={`scale-110 relative z-[4]
@@ -115,7 +115,11 @@ const ServiceCard = memo(
                 : ''
             }`}
             threshold={1}
-          />
+          /> */}
+          <div className="w-full h-full md:hidden relative z-[3]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={posterUrl} alt="" className="w-full h-full object-cover" />
+          </div>
           <SmartVideo
             src={videoUrl}
             poster={posterUrl}

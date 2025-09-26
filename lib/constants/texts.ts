@@ -56,6 +56,7 @@ export const SEO_DETAILS = {
     'graphic design',
     'logo design',
     'web design',
+    'abuja',
   ],
   generator: 'Next.js',
   // referrer: 'no-referrer',
@@ -143,7 +144,11 @@ export const footerCompanyDescription = `
   With a diverse team across multiple locations, we harness the power of creativity to help businesses grow, stand out, and connect better with their audiences.
 `;
 
-export const selectedCaseStudies: AvailableProject[] = ['afropay', 'teamo-foods', 'zhoikha'];
+export const selectedCaseStudies: AvailableProject[] = [
+  'the-solace-healing-and-empowerment-initiative',
+  'teamo-foods',
+  'moon-by-me',
+];
 
 export const ourStoryTexts: string[] = [
   'Founded in 2020, Pinpoint Global was born from the desire to provide brands \
@@ -339,27 +344,29 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
             'Typography & Color Systems',
             'Visual Identity Development',
             'Iconography & Brand Assets',
-            'Brand Guidelines',
+            'Email Signature Design',
+            'Rebranding',
           ],
         },
         {
           title: 'We build meaningful brands',
           services: [
+            'Brand Guidelines',
             'Brand Strategy & Positioning',
             'Naming & Tagline Creation',
             'Brand Personality Development',
             'Competitive & Market Analysis',
+            'Brand Activation',
           ],
         },
         {
           title: 'We bring your brand to life',
           services: [
+            'Signages',
             'Business Card & Stationery Design',
+            'Metal Plate Engraving',
             'Pitch Decks & Templates',
-            'Email Signature Design',
             'Brand Audit & Refresh',
-            'Rebranding',
-            'Brand Activation',
           ],
         },
       ],
@@ -367,11 +374,11 @@ export const ALL_SERVICES_DATA: FullServiceData[] = [
       marqueeText: 'Define, differentiate & stand out.',
     },
     breakdownSummary: [
-      'Brand strategy & positioning',
       'Professional logo design',
-      'Visual identity design',
       'Brand naming & taglines',
-      'Stationery design',
+      'Visual identity design',
+      'Brand strategy & positioning',
+      'Signages',
     ],
     whatMakesUsUnique: {
       title: 'Our long-term and qualitative vision',
@@ -1149,9 +1156,202 @@ export const AVAILABLE_PROJECT_IDS = [
   'damsy',
   'zhoikha',
   'teamo-foods',
+  'moon-by-me',
+  // 'jesam',
+  // 'chop-burger',
+  'kazaville',
+  // 'zooki',
+  'the-solace-healing-and-empowerment-initiative',
 ] as const;
 export type AvailableProject = (typeof AVAILABLE_PROJECT_IDS)[number];
 export const ALL_PROJECTS_DATA: FullProjectData[] = [
+  {
+    id: 'the-solace-healing-and-empowerment-initiative',
+    name: 'The Solace Healing and Empowerment Initiative',
+    pageTitle: "Designing identity and presence for women's empowerment",
+    descSummary:
+      'Empowering girls and young women with a strong identity, clear voice, and purposeful online presence.',
+    bannerURL: {
+      image: 'https://static.pinpoint.ng/images/projects/the-she-initiative-card.webp',
+    },
+    cardImage: 'https://static.pinpoint.ng/images/projects/the-she-initiative-card.webp',
+    descriptionBg: 'bg-[#B11289]',
+    textColorClass: 'text-white',
+    description:
+      'The Solace Healing and Empowerment Initiative is a nonprofit organization dedicated to \
+      supporting girls and young women. Their mission is to respond to gender-based violence, \
+      provide access to education, and equip women with financial and life skills that foster independence. With a focus on empowerment, compassion, and safety, they aim to create a society where every girl and young woman is free from violence, educated, and empowered to reach her full potential.',
+    descriptionHighlightPhotos: [],
+    services: ['branding_and_identity', 'digital_products_creation'],
+    extraServices: [
+      'Logo Design',
+      'Typography & Color Systems',
+      'Visual Identity Development',
+      'Brand Guidelines',
+      'Brand Personality Development',
+      'Website Development',
+    ],
+    sectors: ['Women', 'NGO'],
+    createdWebsite: 'https://thesolaceinitiative.org',
+    renderedServices: [
+      {
+        caption: 'Empowering identity design',
+        title: 'A visual voice for safety and strength',
+        sectionBg: '',
+        textColorClass: '',
+        description: [
+          [
+            'For The SHE Initiative, we developed a visual identity that reflects their values of \
+            empowerment, compassion, and integrity. The logo and color palette were carefully \
+            chosen to balance warmth and strength — evoking trust, safety, and inclusivity.',
+            'This identity ensures the NGO communicates clearly across all platforms, giving a \
+            recognizable face to their mission of protecting and uplifting girls and young women.',
+          ],
+        ],
+        images: [
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-logo-1.webp',
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-logo-2.webp',
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-visual-identity-1.webp',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-visual-identity-2.webp',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-visual-identity-3.webp',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
+        ],
+      },
+      {
+        caption: 'Consistent brand language',
+        title: 'Guiding every touchpoint with clarity',
+        sectionBg: 'bg-grey-d9',
+        textColorClass: 'text-dark',
+        description: [
+          [
+            "We created comprehensive brand guidelines to maintain consistency across all communications. \
+            From logo usage and typography to tone of voice and color applications, the guidelines serve \
+            as a blueprint for expressing the NGO's mission authentically.",
+            'These guidelines ensure that whether on social media, in print, or at events, The SHE \
+            Initiative always presents a cohesive and professional brand presence.',
+          ],
+        ],
+        images: [
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-brand-1.webp',
+            alt: '',
+            className: 'w-full',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-brand-2.webp',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-brand-3.webp',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-brand-4.webp',
+            alt: '',
+            className: 'w-full md:w-1/3',
+          },
+        ],
+      },
+      // {
+      //   caption: 'Extending identity into experience',
+      //   title: 'Bringing the brand to life through materials',
+      //   sectionBg: '',
+      //   textColorClass: '',
+      //   description: [
+      //     [
+      //       "We designed branded t-shirts and materials that carry The SHE Initiative's identity into the \
+      //       real world. These pieces create visibility, unity, and pride among volunteers, staff, and supporters.",
+      //       'Every element — from the typography to the choice of colors — reinforces the message of \
+      //       empowerment and safety, making the brand tangible and memorable in community settings.',
+      //     ],
+      //   ],
+      //   images: [
+      //     {
+      //       src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-branded-materials-1.webp',
+      //       alt: '',
+      //       className: 'w-full md:w-1/2',
+      //     },
+      //     {
+      //       src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-branded-materials-2.webp',
+      //       alt: '',
+      //       className: 'w-full md:w-1/2',
+      //     },
+      //   ],
+      // },
+      {
+        caption: 'Digital presence with purpose',
+        title: 'A safe online space for support and empowerment',
+        sectionBg: 'bg-[#b11289]/75',
+        textColorClass: 'text-white',
+        description: [
+          [
+            "We designed and built a website that reflects The SHE Initiative's mission and vision. The site \
+            serves as both an information hub and a point of connection, providing resources for victims of \
+            gender-based violence and opportunities for supporters to get involved.",
+            "With clear navigation, thoughtful design, and responsive functionality, the website ensures \
+            accessibility while reinforcing the NGO's role as a safe, trustworthy, and empowering presence online.",
+          ],
+        ],
+        images: [
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-website-1.webp',
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-website-2.webp',
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-website-3.webp',
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-website-4.webp',
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/the-she-initiative-website-5.webp',
+            alt: '',
+            className: 'w-full',
+          },
+        ],
+      },
+    ],
+    relatedProjects: ['moon-by-me', 'teamo-foods'],
+    keywords: [
+      'the solace initiative',
+      'the she initiative',
+      'Barr. Maryam Gimba Esq.',
+      'women empowerment',
+      'women ngo in abuja',
+      'gbv response',
+    ],
+  },
   {
     id: 'teamo-foods',
     name: 'TeAmo Foods',
@@ -1246,17 +1446,140 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
           {
             src: "https://static.pinpoint.ng/images/projects/te'amo-marketing-3.jpg",
             alt: '',
-            className: 'w-full md:w-1/2',
+            className: 'w-full md:w-1/2 max-h-[500px]',
           },
           {
             src: "https://static.pinpoint.ng/images/projects/te'amo-marketing-4.webp",
+            alt: '',
+            className: 'w-full md:w-1/2 max-h-[500px]',
+          },
+        ],
+      },
+    ],
+    relatedProjects: ['gusto', 'kazaville'],
+    keywords: [],
+  },
+  {
+    id: 'moon-by-me',
+    name: 'Moon By Me',
+    pageTitle: 'Elevating luxury identity with bespoke signage',
+    descSummary: "Showcasing Moon By Me's refined elegance through premium signage.",
+    bannerURL: { image: 'https://static.pinpoint.ng/images/projects/moon-by-me-card.webp' },
+    cardImage: 'https://static.pinpoint.ng/images/projects/moon-by-me-card.webp',
+    descriptionBg: 'bg-[#D2AE6D]',
+    textColorClass: 'text-[#2C2A26]',
+    description: `Moon By Me is a Nigerian luxury ready-to-wear and accessories brand known for \
+      its vibrant colors and timeless designs. Based in Abuja and featured in Arise \
+      Fashion Week's "30 Under 30", the brand brings bold hues and refined style to \
+      elevate every wardrobe and mood.`,
+    descriptionHighlightPhotos: [],
+    services: ['branding_and_identity'],
+    extraServices: ['Signage', 'Metal Plate Engraving'],
+    sectors: ['Clothing'],
+    createdWebsite: '',
+    renderedServices: [
+      {
+        caption: 'Elegant metal plate engravings',
+        title: 'Refined signage that reflects timeless luxury',
+        sectionBg: 'bg-[#d9d9d9]',
+        textColorClass: '',
+        description: [
+          [
+            "For Moon By Me, we crafted bespoke silver and gold metal plate engravings that \
+            embody the brand's sophisticated aesthetic. The polished finishes and precise \
+            lettering mirror the elegance of Moon By Me's high-end fashion pieces, offering \
+            signage that feels as luxurious as the garments themselves.",
+            'These engraved plates do more than identify the brand — they elevate its physical \
+            presence, blending function with artistry to create a lasting impression in every \
+            space they adorn.',
+          ],
+        ],
+        images: [
+          {
+            src: 'https://static.pinpoint.ng/images/projects/moon-by-me-engraving.webp',
+            alt: '',
+            className: 'w-full md:w-1/2',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/moon-by-me-card.webp',
             alt: '',
             className: 'w-full md:w-1/2',
           },
         ],
       },
     ],
-    relatedProjects: ['gusto', 'damsy'],
+    relatedProjects: ['zhoikha', 'the-solace-healing-and-empowerment-initiative'],
+  },
+  {
+    id: 'kazaville',
+    name: 'Kazaville',
+    pageTitle: 'Serving bold identity with flavor-packed design',
+    descSummary: 'Bringing the crispy side of Arewa to life with local fried and grilled chicken.',
+    bannerURL: { image: 'https://static.pinpoint.ng/images/projects/kazaville-card.webp' },
+    cardImage: 'https://static.pinpoint.ng/images/projects/kazaville-card.webp',
+    descriptionBg: 'bg-[#F21D2F]',
+    textColorClass: 'text-white',
+    description: `Kazaville is an Abuja-based eatery specializing in crispy fried and grilled chicken. \
+    Celebrated as "the crispy side of Arewa," the brand is rooted in local flavors with a bold, \
+    modern twist. Known for its vibrant energy and passion for quality, Kazaville delivers an \
+    experience that's as irresistible as its signature crunch.`,
+    descriptionHighlightPhotos: [],
+    services: ['branding_and_identity'],
+    extraServices: ['Logo Design'],
+    sectors: ['Food'],
+    createdWebsite: '',
+    renderedServices: [
+      {
+        caption: 'Bold logo design',
+        title: 'Capturing the crispy side of Arewa',
+        sectionBg: '',
+        textColorClass: '',
+        description: [
+          [
+            "For Kazaville, we designed a bold and memorable logo that highlights their \
+            signature offering — crispy fried and grilled chicken. The playful silhouette \
+            of the chicken against a vibrant splash of red evokes flavor, energy, and \
+            excitement, perfectly capturing the brand's personality.",
+            "This logo doesn't just identify the restaurant; it tells a story of local taste \
+            and bold character, standing out across signage, packaging, and digital platforms \
+            to make Kazaville instantly recognizable.",
+          ],
+        ],
+        images: [
+          {
+            src: 'https://static.pinpoint.ng/images/projects/kazaville-logo-1.webp',
+            alt: '',
+            className: 'w-full md:w-1/2 lg:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/kazaville-logo-2.webp',
+            alt: '',
+            className: 'w-full md:w-1/2 lg:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/kazaville-logo-3.webp',
+            alt: '',
+            className: 'w-full md:w-1/2 lg:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/kazaville-logo-4.webp',
+            alt: '',
+            className: 'w-full md:w-1/2 lg:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/kazaville-logo-5.webp',
+            alt: '',
+            className: 'w-full md:w-1/2 lg:w-1/3',
+          },
+          {
+            src: 'https://static.pinpoint.ng/images/projects/kazaville-card.webp',
+            alt: '',
+            className: 'w-full md:w-1/2 lg:w-1/3',
+          },
+        ],
+      },
+    ],
+    relatedProjects: ['teamo-foods', 'gusto'],
   },
   {
     id: 'tahwil_solutions',
@@ -1534,7 +1857,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         ],
       },
     ],
-    relatedProjects: ['teamo-foods', 'damsy'],
+    relatedProjects: ['kazaville', 'damsy'],
   },
   {
     id: 'pegrov',
@@ -1717,7 +2040,7 @@ export const ALL_PROJECTS_DATA: FullProjectData[] = [
         ],
       },
     ],
-    relatedProjects: ['teamo-foods', 'gusto'],
+    relatedProjects: ['teamo-foods', 'kazaville'],
   },
   {
     id: 'zhoikha',
