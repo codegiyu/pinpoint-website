@@ -254,10 +254,6 @@ export const RequestForm = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [serviceId, packageInURL, inputsArr, defaultFormValues]);
 
-    // useEffect(() => {
-    //   console.log({ formValues });
-    // }, [formValues]);
-
     return (
       <section className="w-full pb-20 md:pb-[95px]">
         <motion.form
