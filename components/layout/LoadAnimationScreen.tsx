@@ -1,5 +1,5 @@
 'use client';
-import useScrollBlock from '@/lib/hooks/use-scroll-block';
+// import useScrollBlock from '@/lib/hooks/use-scroll-block';
 import { usePageStore } from '@/lib/store/usePageStore';
 import { memo, useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
@@ -14,7 +14,7 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
   } = usePageStore(state => state);
   const [localPageLoaded, setLocalPageLoaded] = useState(false);
   const pathname = usePathname();
-  const { allowScroll, blockScroll } = useScrollBlock();
+  // const { allowScroll, blockScroll } = useScrollBlock();
   const screenRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -44,7 +44,13 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
   }, [pathname, lastPathname]);
 
   useEffect(() => {
-    blockScroll();
+    // blockScroll();
+    // Prevent scroll when loading screen is open
+    if (!localPageLoaded) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
     const start = Date.now();
 
     const handleLoad = async () => {
@@ -56,7 +62,7 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
       setLocalPageLoaded(true);
 
       setTimeout(() => {
-        allowScroll();
+        // allowScroll();
         setPageLoaded(false);
       }, TRANSITION_DURATION * 1000); // Based off of exit animation duration of this screen
     };
@@ -69,6 +75,7 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
     }
 
     return () => {
+      document.body.style.overflow = 'unset';
       window.removeEventListener('load', handleLoad);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
