@@ -60,8 +60,14 @@ export interface RequestFormProps<
   formName: string;
   formSchema: TSchema;
   defaultFormValues: z.infer<TSchema>;
-  inputsArr: (FormArrayItem<TSchema> | [FormArrayItem<TSchema>, FormArrayItem<TSchema>])[];
+  formSections: FormSection<TSchema>[];
   filesRequired?: boolean;
+}
+
+export interface FormSection<TSchema extends ZodObject<Record<string, StringOrStringArraySchema>>> {
+  name?: string;
+  desc?: string;
+  inputsArr: (FormArrayItem<TSchema> | [FormArrayItem<TSchema>, FormArrayItem<TSchema>])[];
 }
 interface BaseFormArrayItem<TSchema extends ZodObject<Record<string, StringOrStringArraySchema>>> {
   name?: keyof z.TypeOf<TSchema>;
@@ -141,7 +147,7 @@ export const RequestForm = memo(
     defaultFormValues,
     files,
     setFiles,
-    inputsArr,
+    formSections,
     serviceOptions,
     filesRequired,
     serviceId,
@@ -232,8 +238,9 @@ export const RequestForm = memo(
       if (packageInURL.service !== serviceId) return;
       if (!('package' in defaultFormValues)) return;
 
-      const packageInputData = inputsArr
-        .flat()
+      const packageInputData = formSections
+        .flatMap(section => section.inputsArr) // get all inputs arrays from all sections
+        .flat() // flatten any tuples [a, b]
         .find(input => input.kind === 'select' && input.name === 'package');
 
       if (!packageInputData) return;
@@ -252,7 +259,7 @@ export const RequestForm = memo(
         'package' in prev ? { ...prev, package: packageOptionValue || '' } : prev
       );
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [serviceId, packageInURL, inputsArr, defaultFormValues]);
+    }, [serviceId, packageInURL, formSections, defaultFormValues]);
 
     return (
       <section className="w-full pb-20 md:pb-[95px]">
@@ -263,47 +270,29 @@ export const RequestForm = memo(
           viewport={{ once: true }}
           onSubmit={handleSubmit}
           className="form-page-container grid gap-14">
-          <div className="inputs-wrap grid gap-5">
-            {inputsArr.map((item, idx) => (
-              <div key={idx} className="w-full">
-                {Array.isArray(item) ? (
-                  <div className="w-full grid items-end gap-x-4 gap-y-8 md:grid-cols-2">
-                    {item.map((input, index) => (
-                      <FormInputItem
-                        key={index}
-                        {...input}
-                        {...{
-                          files,
-                          setFiles,
-                          serviceOptions,
-                          formValues,
-                          formErrors,
-                          handleInputChange,
-                          onChange,
-                          errorsVisible,
-                        }}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <FormInputItem
-                    key={idx}
-                    {...item}
-                    {...{
-                      files,
-                      setFiles,
-                      serviceOptions,
-                      formValues,
-                      formErrors,
-                      handleInputChange,
-                      onChange,
-                      errorsVisible,
-                    }}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
+          {formSections.map(({ name, desc, inputsArr }, idx) => (
+            <div key={idx} className="w-full grid gap-3">
+              {(name || desc) && (
+                <div className="grid gap-2">
+                  <h3 className="typo-h5 text-wrap break-words">{name}</h3>
+                  <p className="typo-body-7 text-gray-59/90">{desc}</p>
+                </div>
+              )}
+              <FormInputSection
+                {...{
+                  inputsArr,
+                  files,
+                  setFiles,
+                  serviceOptions,
+                  formValues,
+                  formErrors,
+                  handleInputChange,
+                  onChange,
+                  errorsVisible,
+                }}
+              />
+            </div>
+          ))}
           <div className="w-full flex items-center justify-center pt-4 gap-2">
             <PinpointBtn
               text="Submit"
@@ -321,6 +310,87 @@ export const RequestForm = memo(
   }
 );
 RequestForm.displayName = 'RequestForm';
+
+function FormInputSection<TSchema extends ZodObject<Record<string, StringOrStringArraySchema>>>({
+  inputsArr,
+  files,
+  setFiles,
+  serviceOptions,
+  formValues,
+  formErrors,
+  handleInputChange,
+  onChange,
+  errorsVisible,
+}: {
+  inputsArr: (FormArrayItem<TSchema> | [FormArrayItem<TSchema>, FormArrayItem<TSchema>])[];
+  files: File[];
+  setFiles: Dispatch<SetStateAction<File[]>>;
+  serviceOptions: SelectOption<string>[];
+  formValues: output<TSchema>;
+  formErrors: Partial<Record<keyof output<TSchema>, string[] | undefined>>;
+  handleInputChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    options?:
+      | {
+          clearFields?: (keyof output<TSchema>)[] | undefined;
+        }
+      | undefined
+  ) => void;
+  onChange: (
+    name: keyof output<TSchema>,
+    value: string | string[] | number | boolean,
+    options?:
+      | {
+          clearFields?: (keyof output<TSchema>)[] | undefined;
+        }
+      | undefined
+  ) => void;
+  errorsVisible: boolean;
+}) {
+  return (
+    <div className="inputs-wrap grid gap-5">
+      {inputsArr.map((item, idx) => (
+        <div key={idx} className="w-full">
+          {Array.isArray(item) ? (
+            <div className="w-full grid items-end gap-x-4 gap-y-8 md:grid-cols-2">
+              {item.map((input, index) => (
+                <FormInputItem
+                  key={index}
+                  {...input}
+                  {...{
+                    files,
+                    setFiles,
+                    serviceOptions,
+                    formValues,
+                    formErrors,
+                    handleInputChange,
+                    onChange,
+                    errorsVisible,
+                  }}
+                />
+              ))}
+            </div>
+          ) : (
+            <FormInputItem
+              key={idx}
+              {...item}
+              {...{
+                files,
+                setFiles,
+                serviceOptions,
+                formValues,
+                formErrors,
+                handleInputChange,
+                onChange,
+                errorsVisible,
+              }}
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 interface BaseInputItemProps<TSchema extends ZodObject<Record<string, StringOrStringArraySchema>>>
   extends BaseFormArrayItem<TSchema> {
