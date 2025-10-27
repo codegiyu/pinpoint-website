@@ -5,6 +5,7 @@ import { AVAILABLE_PACKAGED_SERVICE_IDS, AvailablePackagedService } from '@/lib/
 import { formatSlugToText } from '@/lib/utils/general';
 import { motion } from 'motion/react';
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs';
+import { useEffect } from 'react';
 
 const alternatives = [
   'make_a_custom_request',
@@ -16,6 +17,13 @@ export const FormSwitches = ({ servicesList }: { servicesList: AvailablePackaged
     service: parseAsStringLiteral(AVAILABLE_PACKAGED_SERVICE_IDS),
     package: parseAsString.withDefault(''),
   });
+
+  useEffect(() => {
+    if (!queries.service) {
+      setQueries({ service: 'make_an_enquiry', package: '' }, { shallow: false });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queries.service]);
 
   return (
     <section className="w-full bg-white pb-16">
