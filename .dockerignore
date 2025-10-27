@@ -1,0 +1,12 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+README.md
+# .next
+.next/cache
+# !.next/static
+# !.next/standalone
+.git
+.env.local
+.env

@@ -1,13 +1,13 @@
 'use client';
 // import useScrollBlock from '@/lib/hooks/use-scroll-block';
 import { usePageStore } from '@/lib/store/usePageStore';
-import { memo, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { debounce } from '@/lib/utils/general';
 import { BASE_LOAD_TIME, TRANSITION_DURATION } from '@/lib/constants/routing';
 import { usePathname } from 'next/navigation';
 
-export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
+export const LoadAnimationScreen = ({ name }: { name: string }) => {
   const {
     lastPathname,
     actions: { setPageLoaded, setLastPathname },
@@ -40,17 +40,14 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
 
     if (pathname !== lastPathname) {
       body.classList.add('load-animation-open');
+      document.body.style.overflow = 'hidden';
     }
   }, [pathname, lastPathname]);
 
   useEffect(() => {
     // blockScroll();
+
     // Prevent scroll when loading screen is open
-    if (!localPageLoaded) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
     const start = Date.now();
 
     const handleLoad = async () => {
@@ -60,6 +57,7 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
 
       setPageLoaded(true);
       setLocalPageLoaded(true);
+      document.body.style.overflow = 'unset';
 
       setTimeout(() => {
         // allowScroll();
@@ -94,5 +92,5 @@ export const LoadAnimationScreen = memo(({ name }: { name: string }) => {
       <h2 className="typo-h3 text-white">{name}</h2>
     </motion.section>
   );
-});
+};
 LoadAnimationScreen.displayName = 'LoadAnimationScreen';
