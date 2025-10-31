@@ -252,12 +252,12 @@ export const OUR_TEAM: TeamSlideProps[] = [
     mainImage: 'https://static.pinpoint.ng/images/team/chidi.jpg',
     subImage: 'https://static.pinpoint.ng/images/team/chidi.jpg',
   },
-  {
-    name: 'Panam Mbamo',
-    title: 'Social Media Manager',
-    mainImage: 'https://static.pinpoint.ng/images/team/panam.jpg',
-    subImage: 'https://static.pinpoint.ng/images/team/panam.jpg',
-  },
+  // {
+  //   name: 'Panam Mbamo',
+  //   title: 'Social Media Manager',
+  //   mainImage: 'https://static.pinpoint.ng/images/team/panam.jpg',
+  //   subImage: 'https://static.pinpoint.ng/images/team/panam.jpg',
+  // },
   {
     name: 'Bilqis Abdurrahman',
     title: 'Front Desk',
