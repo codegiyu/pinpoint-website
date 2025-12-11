@@ -131,8 +131,10 @@ export async function generateColorPDF(colors: ColorData[]): Promise<Blob> {
 
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
-  const marginSide = 120; // Triple the side margins (120mm)
-  const marginTopBottom = 120; // 1.5x the top/bottom margins (120mm)
+  // PNG: MARGIN_SIDE = 350px at 300 DPI = 350/300 * 25.4mm = 29.63mm
+  // PNG: MARGIN_TOP_BOTTOM = 450px at 300 DPI = 450/300 * 25.4mm = 38.1mm
+  const marginSide = 29.63; // mm (matching PNG proportions)
+  const marginTopBottom = 38.1; // mm (matching PNG proportions)
 
   // Add background pattern
   try {
@@ -153,6 +155,9 @@ export async function generateColorPDF(colors: ColorData[]): Promise<Blob> {
     pdf.rect(0, 0, pageWidth, pageHeight, 'F');
   }
 
+  // PNG: logoHeight = 120px at 300 DPI = 120/300 * 25.4mm = 10.16mm
+  const logoHeight = 10.16; // mm (matching PNG proportions)
+
   // Add full logo
   try {
     const logoResponse = await fetch('/icons/pinpoint-full.svg');
@@ -164,7 +169,6 @@ export async function generateColorPDF(colors: ColorData[]): Promise<Blob> {
       reader.readAsDataURL(logoBlob);
     });
 
-    const logoHeight = 30; // mm
     const logoWidth = (logoHeight * 584) / 123; // Maintain aspect ratio (584:123 from viewBox)
     pdf.addImage(
       logoDataUrl,
@@ -180,9 +184,17 @@ export async function generateColorPDF(colors: ColorData[]): Promise<Blob> {
     console.warn('Could not load logo:', error);
   }
 
-  // Calculate color boxes area (middle section) - with more spacing
-  const contentAreaTop = marginTopBottom + 30 + 50; // logo + double the spacing
-  const contentAreaBottom = pageHeight - marginTopBottom - 80; // Double the space before "COLOUR PALETTE" text
+  // Calculate color boxes area (middle section) - matching PNG spacing
+  // PNG: contentAreaTop = MARGIN_TOP_BOTTOM + logoHeight + 400
+  // PNG MARGIN_TOP_BOTTOM = 450px at 300 DPI = 450/300 * 25.4mm = 38.1mm
+  // PNG logoHeight = 120px at 300 DPI = 120/300 * 25.4mm = 10.16mm
+  // PNG spacing = 400px at 300 DPI = 400/300 * 25.4mm = 33.87mm
+  // PNG: contentAreaBottom = A4_HEIGHT - MARGIN_TOP_BOTTOM - 600
+  // PNG spacing before text = 600px at 300 DPI = 600/300 * 25.4mm = 50.8mm
+  const spacingAfterLogo = 33.87; // mm (matching PNG 400px spacing)
+  const spacingBeforeText = 50.8; // mm (matching PNG 600px spacing)
+  const contentAreaTop = marginTopBottom + logoHeight + spacingAfterLogo; // Double the space after logo (matching PNG)
+  const contentAreaBottom = pageHeight - marginTopBottom - spacingBeforeText; // Double the space before "COLOUR PALETTE" text (matching PNG)
   const contentAreaHeight = contentAreaBottom - contentAreaTop;
   const contentAreaWidth = pageWidth - marginSide * 2;
 
@@ -204,13 +216,16 @@ export async function generateColorPDF(colors: ColorData[]): Promise<Blob> {
 
     pdf.setTextColor(textColor[0], textColor[1], textColor[2]);
     pdf.setFont('courier', 'bold');
+    // PNG: 48px at 300 DPI = 48/300 * 25.4mm = 4.064mm = 11.52pt
     pdf.setFontSize(12);
 
     // Center text in box
     const centerX = x + boxWidth / 2;
     const centerY = y + boxHeight / 2;
 
-    pdf.text(color.hex, centerX, centerY - 8, { align: 'center' });
+    // PNG: centerY - 80px = 80/300 * 25.4mm = 6.77mm
+    pdf.text(color.hex, centerX, centerY - 6.77, { align: 'center' });
+    // PNG: 36px at 300 DPI = 36/300 * 25.4mm = 3.048mm = 8.64pt
     pdf.setFontSize(9);
     pdf.setFont('courier', 'normal');
     pdf.text(`RGB(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`, centerX, centerY, {
@@ -219,18 +234,20 @@ export async function generateColorPDF(colors: ColorData[]): Promise<Blob> {
     pdf.text(
       `CMYK(${color.cmyk.c}, ${color.cmyk.m}, ${color.cmyk.y}, ${color.cmyk.k})`,
       centerX,
-      centerY + 8,
+      centerY + 6.77,
       { align: 'center' }
     );
   });
 
   // Draw "COLOUR PALETTE" at bottom right with more letter spacing and bolder text
+  // PNG: 72px at 300 DPI = 72/300 * 25.4mm = 6.096mm = 17.28pt, 900 weight, letter spacing 20px = 20/300 * 25.4mm = 1.69mm
   pdf.setTextColor(20, 20, 20);
   pdf.setFont('courier', 'bold');
-  pdf.setFontSize(20); // Slightly larger and bolder
+  pdf.setFontSize(18); // Matching PNG's 72px relative size (17.28pt rounded up)
   const text = 'COLOUR PALETTE';
   // Draw each character with spacing for letter spacing effect
-  const letterSpacing = 3; // mm between letters
+  // PNG: 20px letter spacing = ~1.69mm at 300 DPI
+  const letterSpacing = 1.7; // mm between letters (matching PNG)
   let x = pageWidth - marginSide;
   const y = pageHeight - marginTopBottom;
   // Draw characters from right to left

@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies (only production deps for speed)
-RUN npm ci
+RUN npm ci --include=dev
 
 # ---- Build Stage ----
 FROM base AS builder
