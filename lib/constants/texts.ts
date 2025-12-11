@@ -110,6 +110,32 @@ export const contactInformation: ContactsGroupProps[] = [
   },
 ];
 
+export const quicklinks: ContactsGroupProps = {
+  location: 'Quick Links',
+  links: [
+    {
+      label: 'Color Picker',
+      href: '/misc/color-picker',
+    },
+    {
+      label: 'Join the Team',
+      href: '/join-our-team',
+    },
+    {
+      label: 'Jobs',
+      href: '/jobs',
+    },
+    {
+      label: 'Starting a New Project',
+      href: '/starting-a-new-project',
+    },
+    {
+      label: 'Legal Notice',
+      href: '/privacy-policy',
+    },
+  ],
+};
+
 export const pinpointSocials: SocialBtnProps[] = [
   {
     title: 'Instagram',

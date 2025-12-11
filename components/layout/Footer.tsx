@@ -1,5 +1,5 @@
 'use client';
-import { contactInformation, footerCompanyDescription } from '@/lib/constants/texts';
+import { contactInformation, footerCompanyDescription, quicklinks } from '@/lib/constants/texts';
 import { PinpointSocials } from '@/components/general/Socials';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { PinpointFull } from '@/components/icons';
@@ -24,10 +24,15 @@ export default function Footer() {
             </GhostBtn>
             <p className="typo-body-7 text-gray-59/90">{footerCompanyDescription}</p>
           </div>
+
           <div className="w-full grid gap-8 sm:grid-cols-2 1400:grid-cols-4 text-dark/80">
             {contactInformation.map((group, idx) => (
               <ContactsGroup key={idx} {...group} showOpacity />
             ))}
+          </div>
+
+          <div className="w-full grid gap-8 sm:grid-cols-2 1400:grid-cols-4 text-dark/80 mt-10">
+            <ContactsGroup {...quicklinks} showOpacity />
           </div>
 
           <div className="w-full flex lg:justify-center pt-3 md:pt-6 text-dark/80">

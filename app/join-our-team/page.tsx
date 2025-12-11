@@ -1,7 +1,6 @@
 import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { JobsForm } from '@/components/sections/forms/JobsForm';
-import Footer from '@/components/layout/Footer';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -27,7 +26,6 @@ export default function JoinOurTeamPage() {
           transitionDelay={0.7}
         />
       </div>
-      <Footer />
       <PageSideDecoration caption="Join our team" />
     </MainLayout>
   );

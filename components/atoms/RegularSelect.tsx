@@ -87,7 +87,7 @@ export const RegularSelect = ({
             disabled={disabled}
             hideCaretIfDisabled={hideCaretIfDisabled}
             className={cn(
-              `w-full h-full px-0 py-0 rounded-[0px] grid grid-cols-[1fr_auto] items-center gap-2
+              `w-full h-full px-0 py-[3px] rounded-[0px] grid grid-cols-[1fr_auto] items-center gap-2
             ${disabled && !hideCaretIfDisabled ? 'bg-gray-f2/70' : 'bg-transparent'} outline-none border-none`,
               triggerClassName
             )}>

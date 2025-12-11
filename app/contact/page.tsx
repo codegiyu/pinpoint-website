@@ -12,7 +12,8 @@ export default function ContactPage() {
       pageName="Contact"
       headerProps={{
         whiteTextStart: true,
-      }}>
+      }}
+      hideFooter>
       <ContactPageContent />
     </MainLayout>
   );

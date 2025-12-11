@@ -2,7 +2,6 @@ import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { JobsForm } from '@/components/sections/forms/JobsForm';
 import JobDetails, { JobDescription } from '@/components/sections/jobs/JobDetails';
-import Footer from '@/components/layout/Footer';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { notFound } from 'next/navigation';
 import { getAllJobIds, getJobById } from '@/lib/utils/transform';
@@ -60,7 +59,6 @@ export default async function JobOpportunityPage({ params }: Props) {
       />
 
       <JobsForm heading={{ text: 'Apply Now' }} formName={jobData.title} />
-      <Footer />
       <PageSideDecoration caption="JOIN THE TEAM" />
     </MainLayout>
   );

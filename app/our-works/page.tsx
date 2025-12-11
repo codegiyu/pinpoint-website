@@ -1,5 +1,4 @@
 import { PageSideDecoration } from '@/components/general/PageSideDecoration';
-import Footer from '@/components/layout/Footer';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { CommonHeroTextSection } from '@/components/sections/shared/CommonHero';
 import { WorksDisplay } from '@/components/sections/works/WorksDisplay';
@@ -41,7 +40,6 @@ export default async function OurWorksPage({ searchParams }: Props) {
           provenServices={provenServices}
         />
       </Suspense>
-      <Footer />
       <PageSideDecoration caption="Our Case Studies" />
     </MainLayout>
   );
