@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { type ColorData, parseColor } from '@/lib/utils/color';
 import {
   generateColorPNG,
-  generateColorPDF,
+  // generateColorPDF,
   downloadFile,
   shareToWhatsApp,
   formatColorCaption,
@@ -100,15 +100,15 @@ export default function ColorPickerPage() {
     }
   };
 
-  const handleDownloadPDF = async () => {
-    if (colors.length === 0) return;
-    try {
-      const blob = await generateColorPDF(colors);
-      downloadFile(blob, `color-palette-${Date.now()}.pdf`);
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
+  // const handleDownloadPDF = async () => {
+  //   if (colors.length === 0) return;
+  //   try {
+  //     const blob = await generateColorPDF(colors);
+  //     downloadFile(blob, `color-palette-${Date.now()}.pdf`);
+  //   } catch (error) {
+  //     console.error('Error generating PDF:', error);
+  //   }
+  // };
 
   const handleCopyCaption = async () => {
     if (colors.length === 0) return;
@@ -210,14 +210,14 @@ export default function ColorPickerPage() {
                       <Download className="w-4 h-4 mr-2" />
                       Download PNG
                     </Button>
-                    <Button
+                    {/* <Button
                       variant="default"
                       size="default"
                       onClick={handleDownloadPDF}
                       className="w-full md:w-fit">
                       <Download className="w-4 h-4 mr-2" />
                       Download PDF
-                    </Button>
+                    </Button> */}
                     <Button
                       variant="secondary"
                       size="default"
