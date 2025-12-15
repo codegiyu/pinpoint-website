@@ -35,8 +35,6 @@ export async function generateColorPNG(colors: ColorData[]): Promise<Blob> {
     'https://static.pinpoint.ng/images/pinpoint-pattern.png'
   );
 
-  console.log({ backgroundPattern, loc: 'generateColorPNG' });
-
   // Draw background pattern
   ctx.drawImage(backgroundPattern, 0, 0, A4_WIDTH, A4_HEIGHT);
 

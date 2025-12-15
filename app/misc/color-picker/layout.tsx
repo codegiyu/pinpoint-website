@@ -14,5 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default function ColorPickerLayout({ children }: { children: React.ReactNode }) {
-  return <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>;
+  return <Suspense fallback={<></>}>{children}</Suspense>;
 }

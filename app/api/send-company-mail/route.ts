@@ -29,14 +29,21 @@ export async function POST(req: NextRequest) {
     const { fields, files } = formData;
 
     if (!fields.formName) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'Mail sending failed',
-          error: 'Please include a subject for the mail',
-        },
-        { status: 400 }
-      );
+    const response = NextResponse.json(
+      {
+        success: false,
+        message: 'Mail sending failed',
+        error: 'Please include a subject for the mail',
+      },
+      { status: 400 }
+    );
+    
+    // Add no-cache headers
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    
+    return response;
     }
 
     const invalidFields: string[] = [];
@@ -58,7 +65,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (invalidFields.length) {
-      return NextResponse.json(
+      const response = NextResponse.json(
         {
           success: false,
           message: 'Mail sending failed',
@@ -66,6 +73,13 @@ export async function POST(req: NextRequest) {
         },
         { status: 400 }
       );
+      
+      // Add no-cache headers
+      response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+      response.headers.set('Pragma', 'no-cache');
+      response.headers.set('Expires', '0');
+      
+      return response;
     }
 
     const transporter = nodemailer.createTransport({
@@ -181,16 +195,30 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       { success: true, data, message: 'Mail sent successfully' },
       { status: 200 }
     );
+    
+    // Add no-cache headers
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    
+    return response;
   } catch (err) {
     console.error(err);
-    return NextResponse.json(
+    const response = NextResponse.json(
       { success: false, error: err, message: 'Error sending mail' },
       { status: 500 }
     );
+    
+    // Add no-cache headers
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    
+    return response;
   }
 }
 

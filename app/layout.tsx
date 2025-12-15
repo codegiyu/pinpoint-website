@@ -20,6 +20,11 @@ export const metadata: Metadata = {
     creator: '@TheLonerider20',
     images: SEO_DETAILS.image,
   },
+  other: {
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+    Pragma: 'no-cache',
+    Expires: '0',
+  },
 };
 
 export const viewport: Viewport = {
