@@ -296,12 +296,12 @@ export const OUR_TEAM: TeamSlideProps[] = [
     mainImage: 'https://static.pinpoint.ng/images/team/holiness.jpg',
     subImage: 'https://static.pinpoint.ng/images/team/holiness.jpg',
   },
-  {
-    name: 'Collins Bassey',
-    title: 'Quality Control Manager',
-    mainImage: 'https://static.pinpoint.ng/images/team/collins.jpg',
-    subImage: 'https://static.pinpoint.ng/images/team/collins.jpg',
-  },
+  // {
+  //   name: 'Collins Bassey',
+  //   title: 'Quality Control Manager',
+  //   mainImage: 'https://static.pinpoint.ng/images/team/collins.jpg',
+  //   subImage: 'https://static.pinpoint.ng/images/team/collins.jpg',
+  // },
   {
     name: 'Akeem Ayoola Aremu',
     title: 'Logistics Manager',
