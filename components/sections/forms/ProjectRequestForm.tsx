@@ -12,20 +12,22 @@ import { CheckCheck } from 'lucide-react';
 import { MultiSelect, MultiSelectProps } from '@/components/atoms/MultiSelect';
 import { generateOptionsFromArray } from '@/lib/utils/general';
 import { motion } from 'motion/react';
-import { AvailablePackagedService } from '@/lib/constants/texts';
+import type { PublicService } from '@/lib/api/pinpoint-public-types';
 import { SelectOption } from '@/lib/types/general';
 import { default as omit } from 'lodash/omit';
 import { RegularSelect, RegularSelectProps } from '@/components/atoms/RegularSelect';
-import { REQUEST_FORMS } from './RequestForms';
+import { PackagedServiceId, REQUEST_FORMS } from './RequestForms';
 
 export const ProjectRequestForm = ({
   servicesList,
   service,
   selectedPackage,
+  servicesCatalog,
 }: {
   servicesList: string[];
-  service: AvailablePackagedService;
+  service: PackagedServiceId;
   selectedPackage: string;
+  servicesCatalog: PublicService[];
 }) => {
   const [files, setFiles] = useState<File[]>([]);
 
@@ -44,6 +46,7 @@ export const ProjectRequestForm = ({
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
+      services={servicesCatalog}
       {...(selectedPackage &&
         service && {
           packageInURL: { service, package: selectedPackage },
@@ -56,7 +59,7 @@ export type StringOrStringArraySchema = ZodString | ZodEmail | ZodArray<ZodStrin
 export interface RequestFormProps<
   TSchema extends ZodObject<Record<string, StringOrStringArraySchema>>,
 > {
-  serviceId: AvailablePackagedService;
+  serviceId: PackagedServiceId;
   formName: string;
   formSchema: TSchema;
   defaultFormValues: z.infer<TSchema>;
@@ -156,7 +159,7 @@ export const RequestForm = memo(
     files: File[];
     setFiles: Dispatch<SetStateAction<File[]>>;
     serviceOptions: SelectOption<string>[];
-    packageInURL?: { service: AvailablePackagedService; package: string };
+    packageInURL?: { service: PackagedServiceId; package: string };
   }) => {
     const {
       formValues,

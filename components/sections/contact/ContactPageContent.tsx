@@ -1,13 +1,22 @@
 'use client';
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
 import { PageSideCaption } from '@/components/general/PageSideCaption';
-import { changingContactTitleModifiers } from '@/lib/constants/texts';
 import PinpointContacts from '../../general/PinpointContacts';
+import type { ContactsGroupProps } from '@/components/general/PinpointContactsTypes';
+import type { PinpointSocialApiItem } from '@/components/general/Socials';
 import { ChangingModifier } from '@/components/general/ChangingModifier';
 import { SmartVideo } from '@/components/general/SmartVideo';
 import { motion } from 'motion/react';
 
-export default function ContactPageContent() {
+export default function ContactPageContent({
+  changingContactTitleModifiers,
+  contactInformation,
+  pinpointSocials,
+}: {
+  changingContactTitleModifiers: string[];
+  contactInformation: ContactsGroupProps[];
+  pinpointSocials: PinpointSocialApiItem[];
+}) {
   return (
     <section className="w-full min-h-screen pb-4 text-white relative overflow-hidden">
       <SmartVideo
@@ -77,7 +86,10 @@ export default function ContactPageContent() {
               />
             </motion.div>
           </motion.div>
-          <PinpointContacts />
+          <PinpointContacts
+            contactInformation={contactInformation}
+            pinpointSocials={pinpointSocials}
+          />
         </div>
       </div>
 

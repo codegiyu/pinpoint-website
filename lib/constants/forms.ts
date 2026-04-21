@@ -5,7 +5,8 @@ import {
 import { z } from 'zod';
 import { default as pick } from 'lodash/pick';
 import { generateOptionsFromArray } from '../utils/general';
-import { getPackageOptionsForService } from '../utils/transform';
+import type { PublicService } from '@/lib/api/pinpoint-public-types';
+import { getPackageOptionsForServiceSync } from '../utils/cms-mappers';
 
 const ALL_FIELDS_SCHEMA: Record<string, StringOrStringArraySchema> = {
   name: z.string().min(3, { error: 'Please enter at least 3 characters' }),
@@ -284,91 +285,100 @@ export const digitalProductsFormSchema = z.object({
   additionalInfo: ALL_FIELDS_SCHEMA.additionalInfo,
 });
 
-export const customRequestFormData: RequestFormProps<typeof customFormSchema> = {
-  serviceId: 'make_a_custom_request',
-  formName: 'Custom Project Request',
-  formSchema: customFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'name',
-    'email',
-    'phone',
-    'company',
-    'services',
-    'requestDetails',
-  ]),
-  formSections: [
-    {
-      inputsArr: [
-        [
+export const customRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof customFormSchema> => {
+  void services;
+  return {
+    serviceId: 'make_a_custom_request',
+    formName: 'Custom Project Request',
+    formSchema: customFormSchema,
+    defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
+      'name',
+      'email',
+      'phone',
+      'company',
+      'services',
+      'requestDetails',
+    ]),
+    formSections: [
+      {
+        inputsArr: [
+          [
+            {
+              name: 'name',
+              kind: 'input',
+              inputProps: {
+                label: 'Name',
+                required: true,
+              },
+            },
+            {
+              name: 'email',
+              kind: 'input',
+              inputProps: {
+                label: 'Email',
+                type: 'email',
+                required: true,
+              },
+            },
+          ],
+          [
+            {
+              name: 'phone',
+              kind: 'input',
+              inputProps: {
+                label: 'Phone Number',
+                required: true,
+              },
+            },
+            {
+              name: 'company',
+              kind: 'input',
+              inputProps: {
+                label: 'Company',
+                required: true,
+              },
+            },
+          ],
           {
-            name: 'name',
-            kind: 'input',
-            inputProps: {
-              label: 'Name',
+            name: 'services',
+            kind: 'multiselect',
+            multiSelectProps: {
+              label: 'Select all services you may require',
+              subtext: '(Select at least one)',
+              options: [],
+              useServiceOptions: true,
               required: true,
             },
           },
           {
-            name: 'email',
-            kind: 'input',
-            inputProps: {
-              label: 'Email',
-              type: 'email',
+            kind: 'file',
+            fileProps: { inputProps: { required: false }, label: 'Select Files' },
+          },
+          {
+            name: 'requestDetails',
+            kind: 'textarea',
+            textareaProps: {
+              label: 'Additional Info',
               required: true,
             },
           },
         ],
-        [
-          {
-            name: 'phone',
-            kind: 'input',
-            inputProps: {
-              label: 'Phone Number',
-              required: true,
-            },
-          },
-          {
-            name: 'company',
-            kind: 'input',
-            inputProps: {
-              label: 'Company',
-              required: true,
-            },
-          },
-        ],
-        {
-          name: 'services',
-          kind: 'multiselect',
-          multiSelectProps: {
-            label: 'Select all services you may require',
-            subtext: '(Select at least one)',
-            options: [],
-            useServiceOptions: true,
-            required: true,
-          },
-        },
-        {
-          kind: 'file',
-          fileProps: { inputProps: { required: false }, label: 'Select Files' },
-        },
-        {
-          name: 'requestDetails',
-          kind: 'textarea',
-          textareaProps: {
-            label: 'Additional Info',
-            required: true,
-          },
-        },
-      ],
-    },
-  ],
+      },
+    ],
+  };
 };
-export const enquiryFormData: RequestFormProps<typeof customFormSchema> = {
-  ...customRequestFormData,
+export const enquiryFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof customFormSchema> => ({
+  ...customRequestFormData(services),
   serviceId: 'make_an_enquiry',
   formName: 'Enquiry',
-};
-export const brandingRequestFormData: RequestFormProps<typeof brandingFormSchema> = {
+});
+export const brandingRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof brandingFormSchema> => ({
   serviceId: 'branding',
   formName: 'Branding Request',
   formSchema: brandingFormSchema,
@@ -439,7 +449,7 @@ export const brandingRequestFormData: RequestFormProps<typeof brandingFormSchema
             selectProps: {
               label: 'Choose a package',
               options: generateOptionsFromArray({
-                arr: getPackageOptionsForService('branding', 'branding_and_identity'),
+                arr: getPackageOptionsForServiceSync(services, 'branding', 'branding_and_identity'),
               }),
               required: true,
             },
@@ -468,85 +478,92 @@ export const brandingRequestFormData: RequestFormProps<typeof brandingFormSchema
       ],
     },
   ],
-};
-export const rebrandingRequestFormData: RequestFormProps<typeof rebrandingFormSchema> = {
-  serviceId: 'rebranding',
-  formName: 'Rebranding Request',
-  formSchema: rebrandingFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'firstName',
-    'lastName',
-    'phone',
-    'email',
-    'rebrandingServices',
-    'requestDetails',
-  ]),
-  formSections: [
-    {
-      inputsArr: [
-        [
+});
+export const rebrandingRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof rebrandingFormSchema> => {
+  void services;
+  return {
+    serviceId: 'rebranding',
+    formName: 'Rebranding Request',
+    formSchema: rebrandingFormSchema,
+    defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
+      'firstName',
+      'lastName',
+      'phone',
+      'email',
+      'rebrandingServices',
+      'requestDetails',
+    ]),
+    formSections: [
+      {
+        inputsArr: [
+          [
+            {
+              name: 'firstName',
+              kind: 'input',
+              inputProps: {
+                label: 'First Name',
+                required: true,
+              },
+            },
+            {
+              name: 'lastName',
+              kind: 'input',
+              inputProps: {
+                label: 'Last Name',
+                required: true,
+              },
+            },
+          ],
+          [
+            {
+              name: 'phone',
+              kind: 'input',
+              inputProps: {
+                label: 'Phone Number',
+                required: true,
+              },
+            },
+            {
+              name: 'email',
+              kind: 'input',
+              inputProps: {
+                label: 'Email',
+                type: 'email',
+                required: true,
+              },
+            },
+          ],
           {
-            name: 'firstName',
-            kind: 'input',
-            inputProps: {
-              label: 'First Name',
-              required: true,
+            name: 'rebrandingServices',
+            kind: 'multiselect',
+            multiSelectProps: {
+              options: [],
+              label: 'Please select services you may need',
+              useServiceOptions: true,
             },
           },
           {
-            name: 'lastName',
-            kind: 'input',
-            inputProps: {
-              label: 'Last Name',
+            kind: 'file',
+            fileProps: { inputProps: { required: false }, label: 'Select Files' },
+          },
+          {
+            name: 'requestDetails',
+            kind: 'textarea',
+            textareaProps: {
+              label: 'Details and request',
               required: true,
             },
           },
         ],
-        [
-          {
-            name: 'phone',
-            kind: 'input',
-            inputProps: {
-              label: 'Phone Number',
-              required: true,
-            },
-          },
-          {
-            name: 'email',
-            kind: 'input',
-            inputProps: {
-              label: 'Email',
-              type: 'email',
-              required: true,
-            },
-          },
-        ],
-        {
-          name: 'rebrandingServices',
-          kind: 'multiselect',
-          multiSelectProps: {
-            options: [],
-            label: 'Please select services you may need',
-            useServiceOptions: true,
-          },
-        },
-        {
-          kind: 'file',
-          fileProps: { inputProps: { required: false }, label: 'Select Files' },
-        },
-        {
-          name: 'requestDetails',
-          kind: 'textarea',
-          textareaProps: {
-            label: 'Details and request',
-            required: true,
-          },
-        },
-      ],
-    },
-  ],
+      },
+    ],
+  };
 };
-export const brandNamingRequestFormData: RequestFormProps<typeof brandNamingFormSchema> = {
+export const brandNamingRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof brandNamingFormSchema> => ({
   serviceId: 'brand_naming',
   formName: 'Brand Naming Request',
   formSchema: brandNamingFormSchema,
@@ -675,7 +692,11 @@ export const brandNamingRequestFormData: RequestFormProps<typeof brandNamingForm
           selectProps: {
             label: 'Choose a package',
             options: generateOptionsFromArray({
-              arr: getPackageOptionsForService('brand_naming', 'branding_and_identity'),
+              arr: getPackageOptionsForServiceSync(
+                services,
+                'brand_naming',
+                'branding_and_identity'
+              ),
             }),
             required: true,
           },
@@ -691,85 +712,88 @@ export const brandNamingRequestFormData: RequestFormProps<typeof brandNamingForm
       ],
     },
   ],
-};
-export const brandingActivationRequestFormData: RequestFormProps<typeof brandActivationFormSchema> =
-  {
-    serviceId: 'brand_activation',
-    formName: 'Branding Activation Request',
-    formSchema: brandActivationFormSchema,
-    defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-      'company',
-      'email',
-      'phone',
-      'whatBrandAimsToAchieve',
-      'services',
-      'package',
-    ]),
-    formSections: [
-      {
-        inputsArr: [
+});
+export const brandingActivationRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof brandActivationFormSchema> => ({
+  serviceId: 'brand_activation',
+  formName: 'Branding Activation Request',
+  formSchema: brandActivationFormSchema,
+  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
+    'company',
+    'email',
+    'phone',
+    'whatBrandAimsToAchieve',
+    'services',
+    'package',
+  ]),
+  formSections: [
+    {
+      inputsArr: [
+        {
+          name: 'company',
+          kind: 'input',
+          inputProps: {
+            label: 'Company Name',
+            required: true,
+          },
+        },
+        [
           {
-            name: 'company',
+            name: 'email',
             kind: 'input',
             inputProps: {
-              label: 'Company Name',
-              required: true,
-            },
-          },
-          [
-            {
-              name: 'email',
-              kind: 'input',
-              inputProps: {
-                label: 'Email',
-                type: 'email',
-                required: true,
-              },
-            },
-            {
-              name: 'phone',
-              kind: 'input',
-              inputProps: {
-                label: 'Phone Number',
-                required: true,
-              },
-            },
-          ],
-          {
-            name: 'whatBrandAimsToAchieve',
-            kind: 'textarea',
-            textareaProps: {
-              label: 'What does your brand aim to achieve?',
+              label: 'Email',
+              type: 'email',
               required: true,
             },
           },
           {
-            name: 'services',
-            kind: 'multiselect',
-            multiSelectProps: {
-              label: 'Select all services you may require',
-              subtext: '(Select at least one)',
-              options: [],
-              useServiceOptions: true,
-              required: true,
-            },
-          },
-          {
-            name: 'package',
-            kind: 'select',
-            selectProps: {
-              label: 'Choose a package',
-              options: generateOptionsFromArray({
-                arr: getPackageOptionsForService('branding', 'branding_and_identity'),
-              }),
+            name: 'phone',
+            kind: 'input',
+            inputProps: {
+              label: 'Phone Number',
               required: true,
             },
           },
         ],
-      },
-    ],
-  };
-export const logoDesignRequestFormData: RequestFormProps<typeof logoDesignFormSchema> = {
+        {
+          name: 'whatBrandAimsToAchieve',
+          kind: 'textarea',
+          textareaProps: {
+            label: 'What does your brand aim to achieve?',
+            required: true,
+          },
+        },
+        {
+          name: 'services',
+          kind: 'multiselect',
+          multiSelectProps: {
+            label: 'Select all services you may require',
+            subtext: '(Select at least one)',
+            options: [],
+            useServiceOptions: true,
+            required: true,
+          },
+        },
+        {
+          name: 'package',
+          kind: 'select',
+          selectProps: {
+            label: 'Choose a package',
+            options: generateOptionsFromArray({
+              arr: getPackageOptionsForServiceSync(services, 'branding', 'branding_and_identity'),
+            }),
+            required: true,
+          },
+        },
+      ],
+    },
+  ],
+});
+export const logoDesignRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof logoDesignFormSchema> => ({
   serviceId: 'professional_logo_design',
   formName: 'Logo Design Request',
   formSchema: logoDesignFormSchema,
@@ -864,7 +888,11 @@ export const logoDesignRequestFormData: RequestFormProps<typeof logoDesignFormSc
           selectProps: {
             label: 'Choose a package',
             options: generateOptionsFromArray({
-              arr: getPackageOptionsForService('professional_logo_design', 'branding_and_identity'),
+              arr: getPackageOptionsForServiceSync(
+                services,
+                'professional_logo_design',
+                'branding_and_identity'
+              ),
             }),
             required: true,
           },
@@ -880,89 +908,96 @@ export const logoDesignRequestFormData: RequestFormProps<typeof logoDesignFormSc
       ],
     },
   ],
-};
-export const campaignBrandingRequestFormData: RequestFormProps<typeof campaignBrandingFormSchema> =
-  {
-    serviceId: 'campaign_branding',
-    formName: 'Campaign Branding Request',
-    formSchema: campaignBrandingFormSchema,
-    defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-      'brandName',
-      'email',
-      'phone',
-      'package',
-      'services',
-      'additionalInfo',
-    ]),
-    formSections: [
-      {
-        inputsArr: [
+});
+export const campaignBrandingRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof campaignBrandingFormSchema> => ({
+  serviceId: 'campaign_branding',
+  formName: 'Campaign Branding Request',
+  formSchema: campaignBrandingFormSchema,
+  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
+    'brandName',
+    'email',
+    'phone',
+    'package',
+    'services',
+    'additionalInfo',
+  ]),
+  formSections: [
+    {
+      inputsArr: [
+        {
+          name: 'brandName',
+          kind: 'input',
+          inputProps: {
+            label: 'Brand Name',
+            required: true,
+          },
+        },
+        [
           {
-            name: 'brandName',
+            name: 'email',
             kind: 'input',
             inputProps: {
-              label: 'Brand Name',
-              required: true,
-            },
-          },
-          [
-            {
-              name: 'email',
-              kind: 'input',
-              inputProps: {
-                label: 'Email',
-                type: 'email',
-                required: true,
-              },
-            },
-            {
-              name: 'phone',
-              kind: 'input',
-              inputProps: {
-                label: 'Phone Number',
-                required: true,
-              },
-            },
-          ],
-          {
-            name: 'package',
-            kind: 'select',
-            selectProps: {
-              label: 'Choose a package',
-              options: generateOptionsFromArray({
-                arr: getPackageOptionsForService('campaign_branding', 'marketing_and_media'),
-              }),
+              label: 'Email',
+              type: 'email',
               required: true,
             },
           },
           {
-            name: 'services',
-            kind: 'multiselect',
-            multiSelectProps: {
-              label: 'Select all services you may require',
-              subtext: '(Select at least one)',
-              options: [],
-              useServiceOptions: true,
+            name: 'phone',
+            kind: 'input',
+            inputProps: {
+              label: 'Phone Number',
               required: true,
-            },
-          },
-          {
-            kind: 'file',
-            fileProps: { inputProps: { required: false }, label: 'Select Files' },
-          },
-          {
-            name: 'additionalInfo',
-            kind: 'textarea',
-            textareaProps: {
-              label: 'Additional Info',
-              required: false,
             },
           },
         ],
-      },
-    ],
-  };
-export const productDesignRequestFormData: RequestFormProps<typeof productDesignFormSchema> = {
+        {
+          name: 'package',
+          kind: 'select',
+          selectProps: {
+            label: 'Choose a package',
+            options: generateOptionsFromArray({
+              arr: getPackageOptionsForServiceSync(
+                services,
+                'campaign_branding',
+                'marketing_and_media'
+              ),
+            }),
+            required: true,
+          },
+        },
+        {
+          name: 'services',
+          kind: 'multiselect',
+          multiSelectProps: {
+            label: 'Select all services you may require',
+            subtext: '(Select at least one)',
+            options: [],
+            useServiceOptions: true,
+            required: true,
+          },
+        },
+        {
+          kind: 'file',
+          fileProps: { inputProps: { required: false }, label: 'Select Files' },
+        },
+        {
+          name: 'additionalInfo',
+          kind: 'textarea',
+          textareaProps: {
+            label: 'Additional Info',
+            required: false,
+          },
+        },
+      ],
+    },
+  ],
+});
+export const productDesignRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof productDesignFormSchema> => ({
   serviceId: 'packaging_and_product_design',
   formName: 'Packaging & Product Design Request',
   formSchema: productDesignFormSchema,
@@ -1135,7 +1170,8 @@ export const productDesignRequestFormData: RequestFormProps<typeof productDesign
           selectProps: {
             label: 'Choose a package',
             options: generateOptionsFromArray({
-              arr: getPackageOptionsForService(
+              arr: getPackageOptionsForServiceSync(
+                services,
                 'packaging_and_product_design',
                 'packaging_and_product_design'
               ),
@@ -1169,8 +1205,10 @@ export const productDesignRequestFormData: RequestFormProps<typeof productDesign
       ],
     },
   ],
-};
-export const socialMediaRequestFormData: RequestFormProps<typeof socialMediaFormSchema> = {
+});
+export const socialMediaRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof socialMediaFormSchema> => ({
   serviceId: 'social_media_strategy',
   formName: 'Social Media Strategy Request',
   formSchema: socialMediaFormSchema,
@@ -1218,7 +1256,11 @@ export const socialMediaRequestFormData: RequestFormProps<typeof socialMediaForm
           selectProps: {
             label: 'Choose a package',
             options: generateOptionsFromArray({
-              arr: getPackageOptionsForService('social_media_strategy', 'marketing_and_media'),
+              arr: getPackageOptionsForServiceSync(
+                services,
+                'social_media_strategy',
+                'marketing_and_media'
+              ),
             }),
             required: true,
           },
@@ -1249,8 +1291,10 @@ export const socialMediaRequestFormData: RequestFormProps<typeof socialMediaForm
       ],
     },
   ],
-};
-export const stickerRequestFormData: RequestFormProps<typeof stickerFormSchema> = {
+});
+export const stickerRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof stickerFormSchema> => ({
   serviceId: 'stickers',
   formName: 'Stickers Request',
   formSchema: stickerFormSchema,
@@ -1388,7 +1432,11 @@ export const stickerRequestFormData: RequestFormProps<typeof stickerFormSchema> 
           selectProps: {
             label: 'Choose a package',
             options: generateOptionsFromArray({
-              arr: getPackageOptionsForService('stickers', 'packaging_and_product_design'),
+              arr: getPackageOptionsForServiceSync(
+                services,
+                'stickers',
+                'packaging_and_product_design'
+              ),
             }),
             required: true,
           },
@@ -1408,8 +1456,10 @@ export const stickerRequestFormData: RequestFormProps<typeof stickerFormSchema> 
       ],
     },
   ],
-};
-export const digitalProductsRequestFormData: RequestFormProps<typeof digitalProductsFormSchema> = {
+});
+export const digitalProductsRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof digitalProductsFormSchema> => ({
   serviceId: 'website_design_and_development',
   formName: 'Web Design & Development Request',
   formSchema: digitalProductsFormSchema,
@@ -1718,7 +1768,8 @@ export const digitalProductsRequestFormData: RequestFormProps<typeof digitalProd
             selectProps: {
               label: 'Choose a package',
               options: generateOptionsFromArray({
-                arr: getPackageOptionsForService(
+                arr: getPackageOptionsForServiceSync(
+                  services,
                   'website_design_and_development',
                   'digital_products_creation'
                 ),
@@ -1755,4 +1806,4 @@ export const digitalProductsRequestFormData: RequestFormProps<typeof digitalProd
       ],
     },
   ],
-};
+});

@@ -2,30 +2,24 @@ import type { Metadata, Viewport } from 'next';
 import { ScrollRestorationHandler } from '@/components/general/ScrollRestorationHandler';
 import './globals.css';
 import { Providers } from './Providers';
-import { SEO_DETAILS } from '@/lib/constants/texts';
+import { getGlobalConfig, globalSeoToMetadata } from '@/lib/api/pinpoint-public';
 
-export const metadata: Metadata = {
-  ...SEO_DETAILS,
-  openGraph: {
-    title: SEO_DETAILS.title,
-    description: SEO_DETAILS.description,
-    type: 'website',
-    url: SEO_DETAILS.metadataBase.toString(),
-    siteName: 'Pinpoint Global',
-    images: [{ url: SEO_DETAILS.image }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    // site: '@site',
-    creator: '@TheLonerider20',
-    images: SEO_DETAILS.image,
-  },
-  other: {
-    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
-    Pragma: 'no-cache',
-    Expires: '0',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const { content } = await getGlobalConfig();
+    return globalSeoToMetadata(content);
+  } catch {
+    const liveUrl = process.env.live_url || 'https://pinpoint.ng';
+    return {
+      title: {
+        default: 'Pinpoint Global',
+        template: '%s | Pinpoint Global',
+      },
+      description: 'Branding, marketing, and packaging.',
+      metadataBase: new URL(liveUrl),
+    };
+  }
+}
 
 export const viewport: Viewport = {
   width: 'device-width',

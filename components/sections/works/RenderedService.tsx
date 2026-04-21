@@ -2,6 +2,7 @@
 import { RenderedServiceProps } from '@/app/projects/[projectId]/page';
 import { Article } from '@/components/general/Article';
 import { cn } from '@/lib/utils';
+import { getStyleVars, hasStructuredStyle } from '@/lib/utils/public-style';
 import { omit } from 'lodash';
 
 export const RenderedService = ({
@@ -11,15 +12,19 @@ export const RenderedService = ({
   description,
   sectionBg,
   textColorClass,
+  textStyle,
   images,
 }: RenderedServiceProps) => {
+  const usesStructuredTextStyle = hasStructuredStyle(textStyle);
+
   return (
     <section
       className={cn(
-        'w-full relative z-[2]',
+        'w-full relative z-[2] cms-style',
         sectionBg || 'bg-white',
-        textColorClass || 'text-dark'
-      )}>
+        !usesStructuredTextStyle && (textColorClass || 'text-dark')
+      )}
+      style={getStyleVars(textStyle)}>
       <div className="pinpoint-container py-[12vw] md:py-[6.75rem] lg:py-[8.375rem] xl:py-[9.375rem]">
         <div className="w-full max-w-[75ch] mx-auto">
           <div className="w-full relative mb-[30px]">
@@ -50,8 +55,13 @@ export const RenderedService = ({
           <img
             key={idx}
             alt={img.alt}
-            className={cn('flex-none aspect-auto object-cover', img.className)}
-            {...omit(img, ['className', 'alt'])}
+            className={cn(
+              'flex-none aspect-auto object-cover',
+              'cms-style',
+              !hasStructuredStyle(img.styleSpec) && img.className
+            )}
+            style={getStyleVars(img.styleSpec)}
+            {...omit(img, ['className', 'alt', 'styleSpec'])}
           />
         ))}
       </div>

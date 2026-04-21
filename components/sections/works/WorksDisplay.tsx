@@ -15,15 +15,26 @@ import {
 import capitalize from 'lodash/capitalize';
 import { Loader2, X } from 'lucide-react';
 import { DropdownOption, HoverDropdown } from '@/components/atoms/HoverDropdown';
-import { AvailableService, DEFAULT_WORKS_DISPLAYED } from '@/lib/constants/texts';
-
-export interface WorksDisplayProps {
-  provenServices: string[];
-  provenSectors: string[];
-  projects: WorkCardProps[];
+export interface ServiceFilterOption {
+  slug: string;
+  label: string;
 }
 
-export const WorksDisplay = ({ provenSectors, provenServices, projects }: WorksDisplayProps) => {
+export interface WorksDisplayProps {
+  serviceFilterOptions: ServiceFilterOption[];
+  provenSectors: string[];
+  projects: WorkCardProps[];
+  defaultWorksDisplayed: number;
+  defaultLimit: number;
+}
+
+export const WorksDisplay = ({
+  provenSectors,
+  serviceFilterOptions,
+  projects,
+  defaultWorksDisplayed,
+  defaultLimit,
+}: WorksDisplayProps) => {
   const [openfilter, setOpenFilter] = useState('');
   const [filterLoading, setFilterLoading] = useState<string[]>([]);
   const [moreLoading, setMoreLoading] = useState(false);
@@ -31,18 +42,23 @@ export const WorksDisplay = ({ provenSectors, provenServices, projects }: WorksD
   const [activeFilters, setActiveFilters] = useQueryStates({
     service: parseAsString.withDefault(''),
     sector: parseAsString.withDefault(''),
-    limit: parseAsInteger.withDefault(0),
+    limit: parseAsInteger.withDefault(defaultLimit),
   });
 
   const isFirstLoadRef = useRef(true);
 
-  const { allProvenServices, allProvenSectors } = useMemo(
+  const { allProvenServiceSlugs, allProvenSectors } = useMemo(
     () => ({
-      allProvenServices: new Set(provenServices),
+      allProvenServiceSlugs: new Set(serviceFilterOptions.map(o => o.slug)),
       allProvenSectors: new Set(provenSectors),
     }),
-    [provenSectors, provenServices]
+    [provenSectors, serviceFilterOptions]
   );
+
+  const serviceLabel = useMemo(() => {
+    const m = new Map(serviceFilterOptions.map(o => [o.slug, o.label]));
+    return (slug: string) => m.get(slug) ?? slug;
+  }, [serviceFilterOptions]);
 
   const hideMoreButton = useMemo(() => {
     return (
@@ -55,9 +71,9 @@ export const WorksDisplay = ({ provenSectors, provenServices, projects }: WorksD
 
   const { serviceDropdownOptions, sectorDropdownOptions } = useMemo(() => {
     return {
-      serviceDropdownOptions: provenServices.map(service => ({
-        text: service,
-        onClick: () => handleFilterOptionClick('service', service),
+      serviceDropdownOptions: serviceFilterOptions.map(({ slug, label }) => ({
+        text: label,
+        onClick: () => handleFilterOptionClick('service', slug),
       })) satisfies DropdownOption[],
       sectorDropdownOptions: provenSectors.map(sector => ({
         text: sector,
@@ -65,13 +81,13 @@ export const WorksDisplay = ({ provenSectors, provenServices, projects }: WorksD
       })) satisfies DropdownOption[],
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [provenServices, provenSectors]);
+  }, [serviceFilterOptions, provenSectors]);
 
   const giveMeMore = async () => {
     setMoreLoading(true);
     await debounce(1000);
 
-    setActiveFilters(prev => ({ ...prev, limit: prev.limit + DEFAULT_WORKS_DISPLAYED }), {
+    setActiveFilters(prev => ({ ...prev, limit: prev.limit + defaultWorksDisplayed }), {
       history: 'replace',
       shallow: false,
     });
@@ -117,7 +133,7 @@ export const WorksDisplay = ({ provenSectors, provenServices, projects }: WorksD
       }
 
       if (
-        (service && !allProvenServices.has(service)) ||
+        (service && !allProvenServiceSlugs.has(service)) ||
         (sector && !allProvenSectors.has(sector))
       ) {
         setFilterLoading([]);
@@ -145,7 +161,7 @@ export const WorksDisplay = ({ provenSectors, provenServices, projects }: WorksD
               className="mobile-filters grid md:hidden gap-2">
               <MobileFilterBtn
                 name="service"
-                options={provenServices}
+                options={serviceFilterOptions}
                 onOptionClick={handleFilterOptionClick}
                 isFiltering={!!filterLoading.find(item => item === 'service')}
                 setOpenFilter={setOpenFilter}
@@ -171,7 +187,7 @@ export const WorksDisplay = ({ provenSectors, provenServices, projects }: WorksD
             <div
               className={`w-full ${activeFilters.sector || activeFilters.service ? 'max-h-auto' : 'animate-[hide-filters-wrap_1s_linear_forwards]'} flex flex-col md:flex-row flex-wrap gap-4 overflow-hidden transition-all duration-1000 linear`}>
               <FilterValueDisplay
-                value={activeFilters.service}
+                value={activeFilters.service ? serviceLabel(activeFilters.service) : ''}
                 onClose={() => clearAFilter('service')}
                 isActive={!!activeFilters.service}
               />
@@ -221,7 +237,7 @@ export interface WorkCardProps {
   id: string;
   name: string;
   image: string;
-  services: AvailableService[];
+  services: string[];
   servicesListString: string;
   extraServices: string[];
   sectors: string[];
@@ -257,7 +273,7 @@ const WorkCard = ({ name, id, image, servicesListString }: WorkCardProps) => {
 
 export interface FilterBtnProps {
   name: string;
-  options: string[];
+  options: string[] | ServiceFilterOption[];
   onOptionClick: (category: string, val: string) => void;
   isFiltering: boolean;
   setOpenFilter: Dispatch<SetStateAction<string>>;
@@ -288,16 +304,20 @@ const MobileFilterBtn = ({
       </AccordionTrigger>
       <AccordionContent className="py-0">
         <ul className="grid">
-          {options.map((option, idx) => (
-            <button
-              key={idx}
-              className="w-full h-[35px] flex items-center justify-start cursor-pointer"
-              onClick={() => onOptionClick(name, option)}>
-              <span className="text-[0.6875rem] leading-none font-semibold uppercase">
-                {option}
-              </span>
-            </button>
-          ))}
+          {options.map((option, idx) => {
+            const val = typeof option === 'string' ? option : option.slug;
+            const label = typeof option === 'string' ? option : option.label;
+            return (
+              <button
+                key={idx}
+                className="w-full h-[35px] flex items-center justify-start cursor-pointer"
+                onClick={() => onOptionClick(name, val)}>
+                <span className="text-[0.6875rem] leading-none font-semibold uppercase">
+                  {label}
+                </span>
+              </button>
+            );
+          })}
         </ul>
       </AccordionContent>
     </AccordionItem>

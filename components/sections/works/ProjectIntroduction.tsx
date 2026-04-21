@@ -2,14 +2,18 @@
 import { FullProjectData } from '@/app/projects/[projectId]/page';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { cn } from '@/lib/utils';
+import { getStyleVars, hasStructuredStyle } from '@/lib/utils/public-style';
+import { omit } from 'lodash';
 import { MoveRight } from 'lucide-react';
 
 export type ProjectIntroductionProps = Pick<
   FullProjectData,
   | 'description'
   | 'descriptionBg'
+  | 'descriptionStyle'
   | 'descriptionHighlightPhotos'
   | 'textColorClass'
+  | 'textStyle'
   | 'extraServices'
   | 'createdWebsite'
 > & {
@@ -19,19 +23,26 @@ export type ProjectIntroductionProps = Pick<
 export const ProjectIntroduction = ({
   description,
   descriptionBg,
+  descriptionStyle,
   descriptionHighlightPhotos,
   textColorClass,
+  textStyle,
   serviceBreakdown,
   extraServices,
   createdWebsite,
 }: ProjectIntroductionProps) => {
+  const usesStructuredStyle = hasStructuredStyle(textStyle);
+  const textStyleVars = getStyleVars(textStyle);
+  const descriptionStyleVars = getStyleVars(descriptionStyle);
+
   return (
     <section
       className={cn(
-        'w-full relative z-[2]',
-        descriptionBg || 'bg-gray-f2',
-        textColorClass || 'text-dark'
-      )}>
+        'w-full relative z-[2] cms-style',
+        !hasStructuredStyle(descriptionStyle) && (descriptionBg || 'bg-gray-f2'),
+        !usesStructuredStyle && (textColorClass || 'text-dark')
+      )}
+      style={{ ...descriptionStyleVars, ...textStyleVars }}>
       <div className="pinpoint-container py-[3.75rem] md:py-[6.75rem] lg:py-[8.375rem] xl:[9.375rem]">
         <div className="w-full grid lg:grid-cols-[1fr_auto] lg:gap-16">
           <div className="text-section xl:pl-24 2xl:pl-32 3xl:pl-40">
@@ -75,7 +86,7 @@ export const ProjectIntroduction = ({
                 ))}
               </ul>
             </div>
-            {createdWebsite && (
+            {createdWebsite && createdWebsite !== '#' && (
               <GhostBtn
                 linkProps={{ href: createdWebsite, target: '_blank', rel: 'noopener noreferrer' }}
                 wrapClassName="group relative">
@@ -96,9 +107,13 @@ export const ProjectIntroduction = ({
         descriptionHighlightPhotos.map((photo, idx) => (
           <img
             key={idx}
-            src={photo}
-            alt={'Highlight Image ' + idx + 1}
-            className="w-full aspect-auto object-cover"
+            alt={photo.alt}
+            className={cn(
+              'w-full aspect-auto object-cover cms-style',
+              !hasStructuredStyle(photo.styleSpec) && photo.className
+            )}
+            style={getStyleVars(photo.styleSpec)}
+            {...omit(photo, ['alt', 'className', 'styleSpec'])}
           />
         ))}
     </section>

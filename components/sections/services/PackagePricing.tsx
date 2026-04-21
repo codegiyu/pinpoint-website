@@ -1,6 +1,5 @@
 import { ServicePackage, ServicePackageGroup } from '@/app/services/[service]/page';
 import { SectionHeader } from '@/components/general/SectionHeader';
-import { AvailablePackagedService } from '@/lib/constants/texts';
 import { formatSlugToText } from '@/lib/utils/general';
 import { BreakdownSingle } from '../home/WhatWeDo';
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
@@ -67,7 +66,7 @@ const PackagePricingGroup = ({ id, packages }: ServicePackageGroup) => {
 };
 
 interface PackageCardProps extends ServicePackage {
-  groupId: AvailablePackagedService;
+  groupId: string;
   // rowLength: 'three' | 'four';
 }
 

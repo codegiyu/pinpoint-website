@@ -41,7 +41,7 @@ export const CommonHero = ({
 }: CommonHeroProps) => {
   return (
     <motion.section
-      initial={{ opacity: 0, translateY: -50 }}
+      initial={{ opacity: 0, translateY: 50 }}
       animate={{ opacity: 1, translateY: 0 }}
       transition={{ duration: 1.4, delay: 2 }}
       className="w-full relative">

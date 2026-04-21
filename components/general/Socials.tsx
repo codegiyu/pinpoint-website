@@ -1,8 +1,11 @@
 'use client';
-import { pinpointSocials } from '@/lib/constants/texts';
+import SvgFacebookIcon from '@/components/icons/FacebookIcon';
+import SvgInstagramIcon from '@/components/icons/InstagramIcon';
+import { TiktokIcon } from '@/components/icons';
 import Link from 'next/link';
-import { ComponentType, SVGProps } from 'react';
+import { ComponentType, SVGProps, useMemo } from 'react';
 import { cn } from '@/lib/utils';
+import { Link2 } from 'lucide-react';
 
 export interface SocialBtnProps {
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -10,15 +13,37 @@ export interface SocialBtnProps {
   title: string;
 }
 
+export type PinpointSocialApiItem = { title: string; url: string };
+
 interface SocialBtnVariant extends SocialBtnProps {
   variant?: 'black' | 'white';
 }
 
-export const PinpointSocials = ({ variant = 'white' }: Pick<SocialBtnVariant, 'variant'>) => {
+function iconForSocialTitle(title: string): ComponentType<SVGProps<SVGSVGElement>> {
+  const t = title.toLowerCase();
+  if (t.includes('instagram')) return SvgInstagramIcon;
+  if (t.includes('facebook')) return SvgFacebookIcon;
+  if (t.includes('tiktok')) return TiktokIcon;
+  return Link2;
+}
+
+export const PinpointSocials = ({
+  variant = 'white',
+  items,
+}: Pick<SocialBtnVariant, 'variant'> & { items: PinpointSocialApiItem[] }) => {
+  const resolved = useMemo(
+    () =>
+      items.map(item => ({
+        ...item,
+        Icon: iconForSocialTitle(item.title),
+      })),
+    [items]
+  );
+
   return (
     <div className="w-fit flex gap-2">
-      {pinpointSocials.map((item, index) => (
-        <SocialBtn {...item} key={index} variant={variant} />
+      {resolved.map((item, index) => (
+        <SocialBtn {...item} key={`${item.url}-${index}`} variant={variant} />
       ))}
     </div>
   );

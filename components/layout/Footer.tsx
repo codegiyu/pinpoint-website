@@ -1,12 +1,21 @@
 'use client';
-import { contactInformation, footerCompanyDescription, quicklinks } from '@/lib/constants/texts';
-import { PinpointSocials } from '@/components/general/Socials';
+import { PinpointSocials, PinpointSocialApiItem } from '@/components/general/Socials';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { PinpointFull } from '@/components/icons';
-import { ContactsGroup } from '@/components/general/PinpointContacts';
+import { ContactsGroup, ContactsGroupProps } from '@/components/general/PinpointContacts';
 import { motion } from 'motion/react';
 
-export default function Footer() {
+export default function Footer({
+  contactInformation,
+  footerCompanyDescription,
+  quicklinks,
+  pinpointSocials,
+}: {
+  contactInformation: ContactsGroupProps[];
+  footerCompanyDescription: string;
+  quicklinks: ContactsGroupProps;
+  pinpointSocials: PinpointSocialApiItem[];
+}) {
   return (
     <footer className="footer bg-gray-f2 w-full py-10 lg:py-28">
       <motion.section
@@ -36,7 +45,7 @@ export default function Footer() {
           </div>
 
           <div className="w-full flex lg:justify-center pt-3 md:pt-6 text-dark/80">
-            <PinpointSocials variant="black" />
+            <PinpointSocials variant="black" items={pinpointSocials} />
           </div>
         </div>
       </motion.section>

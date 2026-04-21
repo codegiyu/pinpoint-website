@@ -1,20 +1,27 @@
 'use client';
 
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
-import { AVAILABLE_PACKAGED_SERVICE_IDS, AvailablePackagedService } from '@/lib/constants/texts';
 import { formatSlugToText } from '@/lib/utils/general';
 import { motion } from 'motion/react';
-import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs';
-import { useEffect } from 'react';
+import { parseAsString, useQueryStates } from 'nuqs';
+import { useEffect, useMemo } from 'react';
 
-const alternatives = [
-  'make_a_custom_request',
-  'make_an_enquiry',
-] satisfies AvailablePackagedService[];
+const alternatives = ['make_a_custom_request', 'make_an_enquiry'] as const;
 
-export const FormSwitches = ({ servicesList }: { servicesList: AvailablePackagedService[] }) => {
+export const FormSwitches = ({
+  servicesList,
+  allowedPackagedServiceIds,
+}: {
+  servicesList: string[];
+  allowedPackagedServiceIds: string[];
+}) => {
+  const allowedSet = useMemo(
+    () => new Set<string>([...allowedPackagedServiceIds, ...alternatives]),
+    [allowedPackagedServiceIds]
+  );
+
   const [queries, setQueries] = useQueryStates({
-    service: parseAsStringLiteral(AVAILABLE_PACKAGED_SERVICE_IDS),
+    service: parseAsString.withDefault('make_an_enquiry'),
     package: parseAsString.withDefault(''),
   });
 
@@ -24,6 +31,12 @@ export const FormSwitches = ({ servicesList }: { servicesList: AvailablePackaged
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queries.service]);
+
+  useEffect(() => {
+    if (queries.service && !allowedSet.has(queries.service)) {
+      setQueries({ service: 'make_an_enquiry', package: '' }, { shallow: false });
+    }
+  }, [allowedSet, queries.service, setQueries]);
 
   return (
     <section className="w-full bg-white pb-16">

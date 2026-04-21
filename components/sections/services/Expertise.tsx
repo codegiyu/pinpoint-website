@@ -1,5 +1,7 @@
 import { FullServiceData, ServiceExpertiseGroupProps } from '@/app/services/[service]/page';
 import { SectionHeader } from '@/components/general/SectionHeader';
+import { cn } from '@/lib/utils';
+import { getStyleVars, hasStructuredStyle } from '@/lib/utils/public-style';
 import { BreakdownSingle } from '../home/WhatWeDo';
 import Image from 'next/image';
 import { useMemo } from 'react';
@@ -33,7 +35,7 @@ export const ServiceExpertise = ({
                 {...item}
                 index={idx + 1}
                 isLast={idx === arr.length - 1}
-                className={onlyTwoGroups && idx === 1 ? 'md:order-3' : ''}
+                layoutClassName={onlyTwoGroups && idx === 1 ? 'md:order-3' : ''}
               />
             ))}
             <div
@@ -86,12 +88,22 @@ const ServiceExpertiseGroup = ({
   index,
   title,
   services,
+  style,
   isLast,
   className = '',
+  layoutClassName = '',
 }: ServiceExpertiseGroupProps) => {
   return (
     <div
-      className={`w-full h-fit grid gap-6  border-dark/25 md:border-t ${isLast ? '' : 'border-b md:border-b-0'}  ${index === 1 ? '' : 'pt-10'} pb-10 md:pt-10 ${className}`}>
+      className={cn(
+        'w-full h-fit grid gap-6 border-dark/25 md:border-t pb-10 md:pt-10',
+        !isLast && 'border-b md:border-b-0',
+        index === 1 ? '' : 'pt-10',
+        'cms-style',
+        layoutClassName,
+        !hasStructuredStyle(style) && className
+      )}
+      style={getStyleVars(style)}>
       <h3 className="typo-h5 text-dark/90">
         {index}. {title}
       </h3>

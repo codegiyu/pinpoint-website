@@ -3,8 +3,9 @@ import { MainLayout } from '@/components/layout/MainLayout';
 import { JobsForm } from '@/components/sections/forms/JobsForm';
 import JobDetails, { JobDescription } from '@/components/sections/jobs/JobDetails';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
+import { getJobBySlugOrNull } from '@/lib/api/pinpoint-public';
+import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
 import { notFound } from 'next/navigation';
-import { getAllJobIds, getJobById } from '@/lib/utils/transform';
 import { Metadata } from 'next';
 
 export interface FullJobProps {
@@ -24,15 +25,13 @@ interface Props {
   }>;
 }
 
-export async function generateStaticParams() {
-  return getAllJobIds();
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const job = getJobById((await params).job);
-
+  const slug = (await params).job;
+  const job = await getJobBySlugOrNull(slug);
   if (!job) return {};
-
+  if (job.seo) {
+    return metadataFromRouteSeo(job.seo, `${job.title} | Jobs`);
+  }
   return {
     title: `${job.title} | Jobs`,
     description: job.description.slice(0, 160),
@@ -44,7 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function JobOpportunityPage({ params }: Props) {
-  const jobData = getJobById((await params).job);
+  const slug = (await params).job;
+  const jobData = await getJobBySlugOrNull(slug);
 
   if (!jobData) return notFound();
 

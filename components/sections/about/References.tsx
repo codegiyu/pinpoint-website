@@ -73,19 +73,25 @@ export const OurReferences = ({
 
 export interface ReferenceProps {
   logo: string;
-  link: string;
+  link?: string;
 }
 
 const Reference = ({ logo, link }: ReferenceProps) => {
-  return (
-    <GhostBtn
-      linkProps={{ href: link, target: '_blank', rel: 'noopener noreferrer' }}
-      className="w-full">
-      <div className="w-full flex justify-center">
-        <img src={logo} alt="" className="max-w-4/5 xl:max-w-[70%] aspect-[2] object-contain" />
-      </div>
-    </GhostBtn>
+  const inner = (
+    <div className="w-full flex justify-center">
+      <img src={logo} alt="" className="max-w-4/5 xl:max-w-[70%] aspect-[2] object-contain" />
+    </div>
   );
+  if (link) {
+    return (
+      <GhostBtn
+        linkProps={{ href: link, target: '_blank', rel: 'noopener noreferrer' }}
+        className="w-full">
+        {inner}
+      </GhostBtn>
+    );
+  }
+  return <div className="w-full">{inner}</div>;
 };
 
 const ReferencesMarqueeRow = ({ clientsArr, index }: { clientsArr: string[]; index: number }) => {
@@ -124,10 +130,14 @@ const ReferencesMarqueeRow = ({ clientsArr, index }: { clientsArr: string[]; ind
             repeat: Infinity,
           },
         }}>
-        {duplicatedSlides.map((imgName, idx) => (
+        {duplicatedSlides.map((logoSrc, idx) => (
           <li key={idx} className="w-full h-full grid place-items-center">
             <img
-              src={`https://static.pinpoint.ng/images/more-references/${imgName}`}
+              src={
+                logoSrc.startsWith('http://') || logoSrc.startsWith('https://')
+                  ? logoSrc
+                  : `https://static.pinpoint.ng/images/more-references/${logoSrc}`
+              }
               alt=""
               className="max-w-[250px] h-full max-h-10 md:max-h-16 lg:max-h-20 xl:max-h-[6.25rem] aspect-auto object-contain"
             />

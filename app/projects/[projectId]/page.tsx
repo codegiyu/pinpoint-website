@@ -4,32 +4,42 @@ import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { ProjectIntroduction } from '@/components/sections/works/ProjectIntroduction';
 import { RelatedProjects } from '@/components/sections/works/RelatedProjects';
 import { RenderedService } from '@/components/sections/works/RenderedService';
-import { AvailableProject, AvailableService } from '@/lib/constants/texts';
+import { RelatedProjectSlideProps } from '@/components/sections/services/RelatedProjects';
+import { getProjectBySlugOrNull, listServices } from '@/lib/api/pinpoint-public';
+import type { PublicStyleSpec } from '@/lib/api/pinpoint-public-types';
 import { ImageOrVideoURL } from '@/lib/types/general';
 import { formatSlugToText } from '@/lib/utils/general';
-import { getAllProjectIds, getProjectById } from '@/lib/utils/transform';
+import {
+  buildServiceBreakdown,
+  buildServicesLookup,
+  mapPublicProjectToFullData,
+} from '@/lib/utils/cms-mappers';
+import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ComponentPropsWithoutRef } from 'react';
 
 export interface FullProjectData {
-  id: AvailableProject;
+  id: string;
   name: string;
   pageTitle: string;
   descSummary: string;
   bannerURL: ImageOrVideoURL;
   cardImage: string;
-  descriptionBg: string;
-  textColorClass: string;
-  descriptionHighlightPhotos: string[];
+  descriptionBg?: string;
+  descriptionStyle?: PublicStyleSpec;
+  textColorClass?: string;
+  textStyle?: PublicStyleSpec;
+  descriptionHighlightPhotos: RenderedServiceProps['images'];
   description: string;
-  services: AvailableService[];
+  services: string[];
   extraServices: string[];
   sectors: string[];
   createdWebsite: string;
   renderedServices: RenderedServiceProps[];
-  relatedProjects: AvailableProject[];
+  relatedProjects: RelatedProjectSlideProps[];
   keywords?: string[];
+  serviceBreakdown?: { href: string; text: string }[];
 }
 
 export interface RenderedServiceProps {
@@ -38,8 +48,9 @@ export interface RenderedServiceProps {
   title: string;
   description: string[][];
   sectionBg: string;
-  textColorClass: string;
-  images: (ComponentPropsWithoutRef<'img'> & { alt: string })[];
+  textColorClass?: string;
+  textStyle?: PublicStyleSpec;
+  images: (ComponentPropsWithoutRef<'img'> & { alt: string; styleSpec?: PublicStyleSpec })[];
 }
 
 interface Props {
@@ -48,21 +59,19 @@ interface Props {
   }>;
 }
 
-export async function generateStaticParams() {
-  return getAllProjectIds();
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = getProjectById((await params).projectId);
-
+  const slug = (await params).projectId;
+  const project = await getProjectBySlugOrNull(slug);
   if (!project) return {};
-
+  if (project.seo) {
+    return metadataFromRouteSeo(project.seo, `${project.name} | Our Works`);
+  }
   return {
     title: `${project.name} | Our Works`,
     description: project.description.slice(0, 160),
     keywords: [
       project.name,
-      formatSlugToText(project.id).toLowerCase(),
+      formatSlugToText(project.slug).toLowerCase(),
       ...(project.keywords ?? []),
       ...project.extraServices,
       ...project.services.map(item => formatSlugToText(item).toLowerCase()),
@@ -79,16 +88,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProjectPage({ params }: Props) {
-  const projectData = getProjectById((await params).projectId);
+  const slug = (await params).projectId;
+  const [project, { services }] = await Promise.all([getProjectBySlugOrNull(slug), listServices()]);
 
-  if (!projectData) return notFound();
+  if (!project) return notFound();
+
+  const lookup = buildServicesLookup(services);
+  const breakdown = buildServiceBreakdown(project, lookup);
+
+  const relatedSlides: RelatedProjectSlideProps[] = [];
+  for (const relSlug of project.relatedProjects) {
+    const rel = await getProjectBySlugOrNull(relSlug);
+    if (rel) {
+      relatedSlides.push({
+        projectId: rel.slug,
+        name: rel.name,
+        image: rel.cardImage,
+        description: rel.pageTitle,
+      });
+    }
+  }
+
+  const projectData = mapPublicProjectToFullData(project, relatedSlides, breakdown);
 
   const {
     name,
     pageTitle,
     bannerURL,
     descriptionBg,
+    descriptionStyle,
     textColorClass,
+    textStyle,
     descriptionHighlightPhotos,
     description,
     serviceBreakdown,
@@ -112,11 +142,13 @@ export default async function ProjectPage({ params }: Props) {
         {...{
           description,
           descriptionBg,
+          descriptionStyle,
           descriptionHighlightPhotos,
-          serviceBreakdown,
+          serviceBreakdown: serviceBreakdown ?? [],
           extraServices,
           createdWebsite,
           textColorClass,
+          textStyle,
         }}
       />
       {renderedServices.map((item, idx) => (

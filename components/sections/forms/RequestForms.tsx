@@ -12,25 +12,31 @@ import {
   socialMediaRequestFormData,
   stickerRequestFormData,
 } from '@/lib/constants/forms';
+import type { PublicService } from '@/lib/api/pinpoint-public-types';
 import { RequestForm } from './ProjectRequestForm';
 import { Dispatch, JSX, SetStateAction } from 'react';
 import { SelectOption } from '@/lib/types/general';
-import { AvailablePackagedService } from '@/lib/constants/texts';
+
+export type PackagedServiceId = string;
+
+export type ProjectRequestFormWrapperProps = {
+  files: File[];
+  setFiles: Dispatch<SetStateAction<File[]>>;
+  serviceOptions: SelectOption<string>[];
+  packageInURL?: { service: PackagedServiceId; package: string };
+  services: PublicService[];
+};
 
 export const CustomRequestForm = ({
   files,
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...customRequestFormData}
+      {...customRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -44,15 +50,11 @@ export const EnquiryRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...enquiryFormData}
+      {...enquiryFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -66,15 +68,11 @@ export const BrandingRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...brandingRequestFormData}
+      {...brandingRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -88,15 +86,11 @@ export const RebrandingRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...rebrandingRequestFormData}
+      {...rebrandingRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -110,15 +104,11 @@ export const BrandNamingRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...brandNamingRequestFormData}
+      {...brandNamingRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -132,15 +122,11 @@ export const BrandActivationRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...brandingActivationRequestFormData}
+      {...brandingActivationRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -154,15 +140,11 @@ export const LogoDesignRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...logoDesignRequestFormData}
+      {...logoDesignRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -176,15 +158,11 @@ export const CampaignBrandingRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...campaignBrandingRequestFormData}
+      {...campaignBrandingRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -198,15 +176,11 @@ export const ProductDesignRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...productDesignRequestFormData}
+      {...productDesignRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -220,15 +194,11 @@ export const SocialMediaRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...socialMediaRequestFormData}
+      {...socialMediaRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -242,15 +212,11 @@ export const StickerRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...stickerRequestFormData}
+      {...stickerRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -264,15 +230,11 @@ export const DigitalProductsRequestForm = ({
   setFiles,
   serviceOptions,
   packageInURL,
-}: {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
-  serviceOptions: SelectOption<string>[];
-  packageInURL?: { service: AvailablePackagedService; package: string };
-}) => {
+  services,
+}: ProjectRequestFormWrapperProps) => {
   return (
     <RequestForm
-      {...digitalProductsRequestFormData}
+      {...digitalProductsRequestFormData(services)}
       files={files}
       setFiles={setFiles}
       serviceOptions={serviceOptions}
@@ -282,23 +244,7 @@ export const DigitalProductsRequestForm = ({
 };
 
 export const REQUEST_FORMS: Partial<
-  Record<
-    AvailablePackagedService,
-    ({
-      files,
-      setFiles,
-      serviceOptions,
-      packageInURL,
-    }: {
-      files: File[];
-      setFiles: Dispatch<SetStateAction<File[]>>;
-      serviceOptions: SelectOption<string>[];
-      packageInURL?: {
-        service: AvailablePackagedService;
-        package: string;
-      };
-    }) => JSX.Element
-  >
+  Record<PackagedServiceId, (p: ProjectRequestFormWrapperProps) => JSX.Element>
 > = {
   make_a_custom_request: CustomRequestForm,
   make_an_enquiry: EnquiryRequestForm,

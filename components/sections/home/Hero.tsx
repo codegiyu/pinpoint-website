@@ -5,10 +5,13 @@ import { ChangingModifier } from '@/components/general/ChangingModifier';
 import { HeroArrow } from '@/components/general/HeroArrow';
 import { SmartVideo } from '@/components/general/SmartVideo';
 import { MacaronTextEn, MacaronTextePlayEn } from '@/components/icons';
-import { changingHeroTitleModifiers } from '@/lib/constants/texts';
 import { motion } from 'motion/react';
 
-export const HomeHero = () => {
+export const HomeHero = ({
+  changingHeroTitleModifiers,
+}: {
+  changingHeroTitleModifiers: string[];
+}) => {
   return (
     <section id="hero" className="w-full h-screen bg-dark text-white relative overflow-hidden">
       <SmartVideo

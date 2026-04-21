@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next';
 
+const cmsImageHost = process.env.NEXT_PUBLIC_CMS_IMAGE_HOSTNAME;
+
 const nextConfig: NextConfig = {
   async redirects() {
     return [
@@ -61,6 +63,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'static.pinpoint.ng',
       },
+      ...(cmsImageHost
+        ? [
+            {
+              protocol: 'https' as const,
+              hostname: cmsImageHost,
+            },
+          ]
+        : []),
     ],
   },
 };

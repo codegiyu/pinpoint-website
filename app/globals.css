@@ -269,6 +269,13 @@
     fill: #fe7702;
   }
 
+  .page-transition-overlay-logo path.black-text {
+    fill: #fff;
+  }
+  .page-transition-overlay-logo path.coloured-text {
+    fill: #fe7702;
+  }
+
   /* Typography */
   .typo-h1 { /* Home hero */
     @apply font-rubik text-[calc(10vw_+_3px)] sm:text-[3.3125rem] md:text-[calc(7.7821011673vw_-_19.6887159533px)] lg:text-[clamp(calc(5.5vw_-_10px),_50%,_calc(7.5vw_-_10px))] leading-[1.2] -tracking-[0.25px] font-bold;
@@ -372,6 +379,98 @@
   }
   .transform-origin-center {
     transform-origin: center center;
+  }
+
+  .cms-style {
+    width: var(--cms-base-width, initial);
+    max-height: var(--cms-base-max-height, initial);
+    display: var(--cms-base-display, initial);
+    color: var(--cms-base-color, inherit);
+    background-color: var(--cms-base-background-color, transparent);
+    transform: rotate(var(--cms-base-rotate, 0deg));
+    grid-column-start: var(--cms-base-grid-column-start, auto);
+    grid-column-end: var(--cms-base-grid-column-end, auto);
+    grid-row-start: var(--cms-base-grid-row-start, auto);
+    grid-row-end: var(--cms-base-grid-row-end, auto);
+  }
+
+  .peer:hover .cms-style {
+    transform: rotate(var(--cms-peer-hover-rotate, var(--cms-base-rotate, 0deg)));
+  }
+
+  @media (min-width: 500px) {
+    .cms-style {
+      width: var(--cms-sm-width, var(--cms-base-width, initial));
+      max-height: var(--cms-sm-max-height, var(--cms-base-max-height, initial));
+      display: var(--cms-sm-display, var(--cms-base-display, initial));
+      color: var(--cms-sm-color, var(--cms-base-color, inherit));
+      background-color: var(--cms-sm-background-color, var(--cms-base-background-color, transparent));
+      transform: rotate(var(--cms-sm-rotate, var(--cms-base-rotate, 0deg)));
+      grid-column-start: var(--cms-sm-grid-column-start, var(--cms-base-grid-column-start, auto));
+      grid-column-end: var(--cms-sm-grid-column-end, var(--cms-base-grid-column-end, auto));
+      grid-row-start: var(--cms-sm-grid-row-start, var(--cms-base-grid-row-start, auto));
+      grid-row-end: var(--cms-sm-grid-row-end, var(--cms-base-grid-row-end, auto));
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cms-style {
+      width: var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width, initial)));
+      max-height: var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height, initial)));
+      display: var(--cms-md-display, var(--cms-sm-display, var(--cms-base-display, initial)));
+      color: var(--cms-md-color, var(--cms-sm-color, var(--cms-base-color, inherit)));
+      background-color: var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color, transparent)));
+      transform: rotate(var(--cms-md-rotate, var(--cms-sm-rotate, var(--cms-base-rotate, 0deg))));
+      grid-column-start: var(--cms-md-grid-column-start, var(--cms-sm-grid-column-start, var(--cms-base-grid-column-start, auto)));
+      grid-column-end: var(--cms-md-grid-column-end, var(--cms-sm-grid-column-end, var(--cms-base-grid-column-end, auto)));
+      grid-row-start: var(--cms-md-grid-row-start, var(--cms-sm-grid-row-start, var(--cms-base-grid-row-start, auto)));
+      grid-row-end: var(--cms-md-grid-row-end, var(--cms-sm-grid-row-end, var(--cms-base-grid-row-end, auto)));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .cms-style {
+      width: var(--cms-lg-width, var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width, initial))));
+      max-height: var(--cms-lg-max-height, var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height, initial))));
+      display: var(--cms-lg-display, var(--cms-md-display, var(--cms-sm-display, var(--cms-base-display, initial))));
+      color: var(--cms-lg-color, var(--cms-md-color, var(--cms-sm-color, var(--cms-base-color, inherit))));
+      background-color: var(--cms-lg-background-color, var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color, transparent))));
+      transform: rotate(var(--cms-lg-rotate, var(--cms-md-rotate, var(--cms-sm-rotate, var(--cms-base-rotate, 0deg)))));
+      grid-column-start: var(--cms-lg-grid-column-start, var(--cms-md-grid-column-start, var(--cms-sm-grid-column-start, var(--cms-base-grid-column-start, auto))));
+      grid-column-end: var(--cms-lg-grid-column-end, var(--cms-md-grid-column-end, var(--cms-sm-grid-column-end, var(--cms-base-grid-column-end, auto))));
+      grid-row-start: var(--cms-lg-grid-row-start, var(--cms-md-grid-row-start, var(--cms-sm-grid-row-start, var(--cms-base-grid-row-start, auto))));
+      grid-row-end: var(--cms-lg-grid-row-end, var(--cms-md-grid-row-end, var(--cms-sm-grid-row-end, var(--cms-base-grid-row-end, auto))));
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .cms-style {
+      width: var(--cms-xl-width, var(--cms-lg-width, var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width, initial)))));
+      max-height: var(--cms-xl-max-height, var(--cms-lg-max-height, var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height, initial)))));
+      display: var(--cms-xl-display, var(--cms-lg-display, var(--cms-md-display, var(--cms-sm-display, var(--cms-base-display, initial)))));
+      color: var(--cms-xl-color, var(--cms-lg-color, var(--cms-md-color, var(--cms-sm-color, var(--cms-base-color, inherit)))));
+      background-color: var(--cms-xl-background-color, var(--cms-lg-background-color, var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color, transparent)))));
+      transform: rotate(var(--cms-xl-rotate, var(--cms-lg-rotate, var(--cms-md-rotate, var(--cms-sm-rotate, var(--cms-base-rotate, 0deg))))));
+      grid-column-start: var(--cms-xl-grid-column-start, var(--cms-lg-grid-column-start, var(--cms-md-grid-column-start, var(--cms-sm-grid-column-start, var(--cms-base-grid-column-start, auto)))));
+      grid-column-end: var(--cms-xl-grid-column-end, var(--cms-lg-grid-column-end, var(--cms-md-grid-column-end, var(--cms-sm-grid-column-end, var(--cms-base-grid-column-end, auto)))));
+      grid-row-start: var(--cms-xl-grid-row-start, var(--cms-lg-grid-row-start, var(--cms-md-grid-row-start, var(--cms-sm-grid-row-start, var(--cms-base-grid-row-start, auto)))));
+      grid-row-end: var(--cms-xl-grid-row-end, var(--cms-lg-grid-row-end, var(--cms-md-grid-row-end, var(--cms-sm-grid-row-end, var(--cms-base-grid-row-end, auto)))));
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .cms-style {
+      width: var(--cms-2xl-width, var(--cms-xl-width, var(--cms-lg-width, var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width, initial))))));
+      max-height: var(--cms-2xl-max-height, var(--cms-xl-max-height, var(--cms-lg-max-height, var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height, initial))))));
+      display: var(--cms-2xl-display, var(--cms-xl-display, var(--cms-lg-display, var(--cms-md-display, var(--cms-sm-display, var(--cms-base-display, initial))))));
+      color: var(--cms-2xl-color, var(--cms-xl-color, var(--cms-lg-color, var(--cms-md-color, var(--cms-sm-color, var(--cms-base-color, inherit))))));
+      background-color: var(--cms-2xl-background-color, var(--cms-xl-background-color, var(--cms-lg-background-color, var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color, transparent))))));
+      transform: rotate(var(--cms-2xl-rotate, var(--cms-xl-rotate, var(--cms-lg-rotate, var(--cms-md-rotate, var(--cms-sm-rotate, var(--cms-base-rotate, 0deg)))))));
+      grid-column-start: var(--cms-2xl-grid-column-start, var(--cms-xl-grid-column-start, var(--cms-lg-grid-column-start, var(--cms-md-grid-column-start, var(--cms-sm-grid-column-start, var(--cms-base-grid-column-start, auto))))));
+      grid-column-end: var(--cms-2xl-grid-column-end, var(--cms-xl-grid-column-end, var(--cms-lg-grid-column-end, var(--cms-md-grid-column-end, var(--cms-sm-grid-column-end, var(--cms-base-grid-column-end, auto))))));
+      grid-row-start: var(--cms-2xl-grid-row-start, var(--cms-xl-grid-row-start, var(--cms-lg-grid-row-start, var(--cms-md-grid-row-start, var(--cms-sm-grid-row-start, var(--cms-base-grid-row-start, auto))))));
+      grid-row-end: var(--cms-2xl-grid-row-end, var(--cms-xl-grid-row-end, var(--cms-lg-grid-row-end, var(--cms-md-grid-row-end, var(--cms-sm-grid-row-end, var(--cms-base-grid-row-end, auto))))));
+    }
   }
 
   .three-cols-grid > :nth-child(3n+1) {
@@ -519,6 +618,19 @@
     to {
       transform: scale(100%);
     }
+  }
+}
+
+.animate-loader {
+  animation: site-loader 2s ease-in-out infinite;
+}
+@keyframes site-loader {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
   }
 }
 

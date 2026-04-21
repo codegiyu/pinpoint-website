@@ -1,16 +1,22 @@
-import { PinpointSocials } from '@/components/general/Socials';
+import { PinpointSocials, PinpointSocialApiItem } from '@/components/general/Socials';
 import Link from 'next/link';
-import { contactInformation } from '@/lib/constants/texts';
 import { motion } from 'motion/react';
+import type { ContactsGroupProps } from './PinpointContactsTypes';
+
+export type { ContactsGroupProps } from './PinpointContactsTypes';
 
 export default function PinpointContacts({
   fullWidth,
   inDarkBg,
   noTransitionDelay,
+  contactInformation,
+  pinpointSocials,
 }: {
   fullWidth?: boolean;
   inDarkBg?: boolean;
   noTransitionDelay?: boolean;
+  contactInformation: ContactsGroupProps[];
+  pinpointSocials: PinpointSocialApiItem[];
 }) {
   return (
     <div
@@ -26,30 +32,15 @@ export default function PinpointContacts({
         ))}
       </div>
 
-      {/* <div className="mt-8 md:mt-12 lg:mt-16">
-        <ContactsGroup {...quicklinks} inDarkBg={inDarkBg} noTransitionDelay={noTransitionDelay} />
-      </div> */}
-
       <motion.div
         initial={{ opacity: 0, translateY: noTransitionDelay ? 50 : 100 }}
         animate={{ opacity: 1, translateY: 0 }}
         transition={{ duration: 1, delay: noTransitionDelay ? 0 : 2.6 }}
         className="flex lg:justify-center pt-3 md:pt-6">
-        <PinpointSocials />
+        <PinpointSocials items={pinpointSocials} />
       </motion.div>
     </div>
   );
-}
-
-export interface ContactsGroupProps {
-  location: string;
-  address?: string;
-  tel?: string[];
-  email?: string;
-  links?: Array<{ label: string; href: string }>;
-  inDarkBg?: boolean;
-  showOpacity?: boolean;
-  noTransitionDelay?: boolean;
 }
 
 export const ContactsGroup = ({

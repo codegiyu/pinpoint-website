@@ -3,7 +3,9 @@ import { MainLayout } from '@/components/layout/MainLayout';
 import { JobsCTA } from '@/components/sections/jobs/JobsCTA';
 import JobsFooter from '@/components/sections/jobs/JobsFooter';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
-import { getJobCards } from '@/lib/utils/transform';
+import { getPage, listJobs } from '@/lib/api/pinpoint-public';
+import { mapJobToCard } from '@/lib/utils/cms-mappers';
+import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
 import { Metadata } from 'next';
 
 const heroDescription = (
@@ -23,12 +25,31 @@ const mobileHeroDescription = (
   </>
 );
 
-export const metadata: Metadata = {
-  title: 'Jobs',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const page = await getPage('jobs');
+    return metadataFromRouteSeo(page.content.seo, 'Jobs');
+  } catch {
+    return { title: 'Jobs' };
+  }
+}
 
-export default function JobsPage() {
-  const jobCards = getJobCards();
+async function fetchAllJobCards() {
+  const aggregated: ReturnType<typeof mapJobToCard>[] = [];
+  let page = 1;
+  while (true) {
+    const res = await listJobs({ page, limit: 100 });
+    for (const j of res.jobs) {
+      aggregated.push(mapJobToCard(j));
+    }
+    if (page >= res.pagination.pages) break;
+    page += 1;
+  }
+  return aggregated;
+}
+
+export default async function JobsPage() {
+  const jobCards = await fetchAllJobCards();
 
   return (
     <MainLayout pageName="Jobs" className="pt-6 md:pt-20 lg:pt-0">
@@ -48,7 +69,7 @@ export default function JobsPage() {
         {jobCards.length ? (
           <>
             {jobCards.map((card, index) => (
-              <JobsCTA {...card} index={index} key={index} />
+              <JobsCTA {...card} index={index} key={card.href} />
             ))}
           </>
         ) : (

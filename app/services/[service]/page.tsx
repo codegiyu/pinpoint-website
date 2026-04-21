@@ -9,13 +9,15 @@ import { ServiceScrollManager } from '@/components/sections/services/ScrollManag
 import { WhatMakesUsUnique } from '@/components/sections/services/WhatMakesUsUnique';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
-import { AvailablePackagedService, AvailableService } from '@/lib/constants/texts';
-import { getAllServiceIds, getServiceById } from '@/lib/utils/transform';
+import { getServiceBySlugOrNull, listServices } from '@/lib/api/pinpoint-public';
+import type { PublicStyleSpec } from '@/lib/api/pinpoint-public-types';
+import { mapServicesToSummaryCards } from '@/lib/utils/cms-mappers';
+import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 export interface FullServiceData {
-  id: AvailableService;
+  id: string;
   name: string;
   pageTitle: string;
   videoUrl: string;
@@ -29,20 +31,28 @@ export interface FullServiceData {
   };
   breakdownSummary: string[];
   whatMakesUsUnique: WhatMakesUsUniqueProps;
-  menu: { image: string; className: string };
+  menu: {
+    image: string;
+    stylePreset?: string;
+    style?: PublicStyleSpec;
+    styleAdvanced?: Record<string, unknown>;
+    className?: string;
+  };
   packagePricing: ServicePackageGroup[];
 }
 
 export interface ServiceExpertiseGroupProps {
   title: string;
   services: string[];
+  style?: PublicStyleSpec;
   index?: number;
   isLast?: boolean;
   className?: string;
+  layoutClassName?: string;
 }
 
 export interface ServicePackageGroup {
-  id: AvailablePackagedService;
+  id: string;
   packages: ServicePackage[];
 }
 
@@ -70,15 +80,13 @@ interface Props {
   }>;
 }
 
-export async function generateStaticParams() {
-  return getAllServiceIds();
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const service = getServiceById((await params).service);
-
+  const slug = (await params).service;
+  const service = await getServiceBySlugOrNull(slug);
   if (!service) return {};
-
+  if (service.seo) {
+    return metadataFromRouteSeo(service.seo, `${service.name} | Our Services`);
+  }
   return {
     title: `${service.name} | Our Services`,
     description: service.description.slice(0, 160),
@@ -99,21 +107,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ServicePage({ params }: Props) {
-  const serviceData = getServiceById((await params).service);
+  const slug = (await params).service;
+  const [serviceData, { services: allServices }] = await Promise.all([
+    getServiceBySlugOrNull(slug),
+    listServices(),
+  ]);
 
   if (!serviceData) return notFound();
 
-  const {
-    name,
-    pageTitle,
-    videoUrl,
-    description,
-    expertise,
-    whatMakesUsUnique,
-    packagePricing,
-    relatedProjects,
-    otherServices,
-  } = serviceData;
+  const otherServicesCards = mapServicesToSummaryCards(
+    allServices.filter(s => s.slug !== serviceData.slug)
+  );
+
+  const relatedProjects = serviceData.featuredProjectsForService.map(p => ({
+    projectId: p.slug,
+    name: p.name,
+    image: p.cardImage,
+    description: p.pageTitle,
+  }));
+
+  const { name, pageTitle, videoUrl, description, expertise, whatMakesUsUnique, packagePricing } =
+    serviceData;
 
   return (
     <MainLayout pageName={name}>
@@ -133,7 +147,7 @@ export default async function ServicePage({ params }: Props) {
         id="other-services"
         className="min-h-auto lg:min-h-screen bg-gray-f2 md:bg-dark flex items-center 
         relative overflow-hidden pt-10 md:pt-0">
-        <WhatWeDo sectionName="Other Services" services={otherServices} />
+        <WhatWeDo sectionName="Other Services" services={otherServicesCards} />
       </section>
       {packagePricing.length === 0 && <CTA className="md:hidden" />}
       <PageSideDecoration caption={name} />

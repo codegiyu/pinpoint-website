@@ -9,21 +9,40 @@ import { Team } from '@/components/sections/about/Team';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
 import {
-  MORE_REFERENCES,
-  OUR_ACHIEVEMENTS,
-  OUR_REFERENCES,
-  OUR_TEAM,
-  ourStoryTexts,
-} from '@/lib/constants/texts';
-import { getServicesSummary } from '@/lib/utils/transform';
-import { Metadata } from 'next';
+  getAchievements,
+  getPage,
+  getReferences,
+  getTeam,
+  listServices,
+} from '@/lib/api/pinpoint-public';
+import { mapServicesToSummaryCards, mapTeamMemberToSlide } from '@/lib/utils/cms-mappers';
+import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
+import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'About Us',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const page = await getPage('about-us');
+    return metadataFromRouteSeo(page.content.seo, 'About Us');
+  } catch {
+    return { title: 'About Us' };
+  }
+}
 
-export default function AboutUsPage() {
-  const servicesSummary = getServicesSummary();
+export default async function AboutUsPage() {
+  const [aboutPage, teamRes, references, achievements, { services }] = await Promise.all([
+    getPage('about-us'),
+    getTeam(),
+    getReferences(),
+    getAchievements(),
+    listServices(),
+  ]);
+
+  const servicesSummary = mapServicesToSummaryCards(services);
+  const ourStoryTexts = aboutPage.content.ourStoryTexts ?? [];
+  const teamSlides = [...teamRes.team]
+    .sort((a, b) => a.order - b.order)
+    .map(m => mapTeamMemberToSlide(m));
+  const moreReferenceLogos = references.marquee.map(m => m.logo);
 
   return (
     <MainLayout pageName="About us">
@@ -43,9 +62,19 @@ export default function AboutUsPage() {
         wrapClassName="hidden md:block md:bg-white"
         scrollContainerClassName=""
       />
-      <OurAchievements achievements={OUR_ACHIEVEMENTS} />
-      <Team team={OUR_TEAM} />
-      <OurReferences references={OUR_REFERENCES} moreReferences={MORE_REFERENCES} />
+      <OurAchievements
+        achievements={[...achievements.achievements]
+          .sort((a, b) => a.order - b.order)
+          .map(({ number, numberSuffix, desc, className, style }) => ({
+            number,
+            numberSuffix,
+            desc,
+            className,
+            style,
+          }))}
+      />
+      <Team team={teamSlides} />
+      <OurReferences references={references.featured} moreReferences={moreReferenceLogos} />
       <CTA />
       <PageSideDecoration caption="About Us" />
     </MainLayout>
