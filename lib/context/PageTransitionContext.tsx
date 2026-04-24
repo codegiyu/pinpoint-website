@@ -22,6 +22,7 @@ const REVEAL_DURATION = 1.6;
 const TITLE_FADE_DELAY = 0.36;
 const TITLE_REVEAL_DURATION = 2;
 const ROUTE_READY_EXTRA_MS = 360;
+const READY_WAIT_TIMEOUT_MS = 6000;
 
 type Phase = 'idle' | 'covering' | 'awaitingRoute' | 'revealing';
 
@@ -37,6 +38,47 @@ function currentFullLocation(pathname: string, search: string): string {
 
 function isModifiedClick(e: MouseEvent) {
   return e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0;
+}
+
+function nextPaint(): Promise<void> {
+  return new Promise(resolve =>
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+  );
+}
+
+function timeout(ms: number): Promise<void> {
+  return new Promise(resolve => window.setTimeout(resolve, ms));
+}
+
+async function waitForImage(img: HTMLImageElement): Promise<void> {
+  if (img.complete && img.naturalWidth > 0) return;
+  await new Promise<void>(resolve => {
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      img.removeEventListener('load', finish);
+      img.removeEventListener('error', finish);
+      resolve();
+    };
+    img.addEventListener('load', finish, { once: true });
+    img.addEventListener('error', finish, { once: true });
+  });
+}
+
+async function waitForCriticalAssets(): Promise<void> {
+  const eagerImages = Array.from(
+    document.querySelectorAll('img[loading="eager"], img[data-page-transition-wait="true"]')
+  );
+  const imageWaits = eagerImages.map(img => waitForImage(img as HTMLImageElement));
+  const fontsReady =
+    'fonts' in document
+      ? (document as Document & { fonts: FontFaceSet }).fonts.ready
+      : Promise.resolve();
+  await Promise.race([
+    Promise.allSettled([...imageWaits, fontsReady]).then(() => undefined),
+    timeout(READY_WAIT_TIMEOUT_MS),
+  ]);
 }
 
 interface PageTransitionContextValue {
@@ -64,6 +106,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const [phase, setPhase] = useState<Phase>('idle');
   const [displayTitle, setDisplayTitle] = useState('');
   const targetRef = useRef<string | null>(null);
+  const routeReadyRunRef = useRef(0);
   const phaseRef = useRef<Phase>('idle');
   phaseRef.current = phase;
 
@@ -91,11 +134,23 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
     if (phase !== 'awaitingRoute' || !targetRef.current) return;
     const current = currentFullLocation(pathname, search);
     if (current !== targetRef.current) return;
+    let cancelled = false;
+    const runId = ++routeReadyRunRef.current;
 
-    const t = window.setTimeout(() => {
+    const run = async () => {
+      await timeout(ROUTE_READY_EXTRA_MS);
+      await nextPaint();
+      await waitForCriticalAssets();
+      if (cancelled) return;
+      if (phaseRef.current !== 'awaitingRoute') return;
+      if (routeReadyRunRef.current !== runId) return;
       setPhase('revealing');
-    }, ROUTE_READY_EXTRA_MS);
-    return () => window.clearTimeout(t);
+    };
+
+    void run();
+    return () => {
+      cancelled = true;
+    };
   }, [phase, pathname, search]);
 
   useEffect(() => {

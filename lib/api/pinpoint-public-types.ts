@@ -200,6 +200,10 @@ export interface PublicJobListItem {
   slug: string;
   title: string;
   description: string;
+  /** Optional image for cards, listings, and social previews. */
+  flyerImage?: string;
+  /** Optional wide hero image for the job detail page. */
+  bannerImage?: string;
 }
 
 export interface PublicJob extends PublicJobListItem {
@@ -218,6 +222,7 @@ export interface TeamMember {
   title: string;
   mainImage: string;
   subImage: string;
+  isFeatured?: boolean;
 }
 
 export interface ReferenceLogo {

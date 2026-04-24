@@ -8,9 +8,20 @@ import { useForm } from '@/lib/hooks/use-form';
 import { memo, useMemo, useState } from 'react';
 import { z } from 'zod';
 import FormAlert from './FormAlert';
+import { FormSubmissionProgress } from './FormSubmissionProgress';
 import { cn } from '@/lib/utils';
 import { CheckCheck } from 'lucide-react';
 import { motion } from 'motion/react';
+import {
+  submitPublicFormSubmission,
+  uploadAttachmentsToR2,
+} from '@/lib/api/public-form-submission';
+import {
+  buildJobApplicationSubmissionSteps,
+  completeStepActivateNext,
+  markActiveStepError,
+  type SubmissionStep,
+} from '@/lib/utils/form-submission-progress';
 
 const formSchema = z.object({
   firstName: z.string().min(3, { error: 'Please enter at least 3 characters' }),
@@ -34,6 +45,7 @@ const defaultFormValues: FormSchema = {
 
 type JobsFormProps = {
   formName: string;
+  jobSlug?: string;
   heading: {
     text: string;
     className?: string;
@@ -44,7 +56,14 @@ type JobsFormProps = {
 };
 
 export const JobsForm = memo(
-  ({ heading, description, useFirstRef, formName, transitionDelay = 0.2 }: JobsFormProps) => {
+  ({
+    heading,
+    description,
+    useFirstRef,
+    formName,
+    jobSlug,
+    transitionDelay = 0.2,
+  }: JobsFormProps) => {
     const [files, setFiles] = useState<File[]>([]);
     const {
       formValues,
@@ -68,6 +87,12 @@ export const JobsForm = memo(
 
     const formValid = useMemo(() => isValid && !!files.length, [isValid, files]);
 
+    const [submissionPanel, setSubmissionPanel] = useState<{
+      visible: boolean;
+      steps: SubmissionStep[];
+      uploadPercent: number | null;
+    }>({ visible: false, steps: [], uploadPercent: null });
+
     const generalValidation = () => {
       if (!files.length) {
         toast({ title: 'Please upload at least one file', variant: 'error' });
@@ -79,36 +104,108 @@ export const JobsForm = memo(
     async function onSubmit(values: FormSchema): Promise<boolean> {
       if (!generalValidation()) return false;
 
-      const formData = new FormData();
-
-      formData.append('formName', formName);
-      Object.entries(values).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
-      files.forEach(file => {
-        formData.append('files', file);
+      setSubmissionPanel({
+        visible: true,
+        steps: buildJobApplicationSubmissionSteps(),
+        uploadPercent: 0,
       });
 
-      const res = await fetch('/api/send-company-mail', {
-        method: 'POST',
-        body: formData,
-      });
+      let clearPanelAfterDelay = false;
 
-      const parsedRes = await res.json();
+      try {
+        const attachments = await uploadAttachmentsToR2(files, pct =>
+          setSubmissionPanel(p => ({ ...p, uploadPercent: pct }))
+        );
 
-      toast({ title: parsedRes.message, variant: parsedRes.success ? 'success' : 'error' });
+        setSubmissionPanel(p => ({
+          ...p,
+          steps: completeStepActivateNext(p.steps, 'upload'),
+          uploadPercent: 100,
+        }));
 
-      if (parsedRes.error) {
-        setFormErrors({ message: [parsedRes.error] });
-      }
+        await submitPublicFormSubmission({
+          formType: jobSlug ? 'jobApplication' : 'spontaneousApplication',
+          formName,
+          ...(jobSlug ? { jobSlug } : {}),
+          fields: Object.entries(values).reduce<Record<string, string | string[]>>(
+            (acc, [key, value]) => {
+              acc[key] = value;
+              return acc;
+            },
+            {}
+          ),
+          attachments,
+        });
 
-      if (parsedRes.success) {
+        setSubmissionPanel(p => ({
+          ...p,
+          steps: completeStepActivateNext(p.steps, 'save'),
+        }));
+
+        const mailBody = JSON.stringify({
+          formName,
+          ...(jobSlug ? { jobSlug } : {}),
+          ...values,
+          ...(attachments.length ? { attachments } : {}),
+        });
+
+        setSubmissionPanel(p => ({
+          ...p,
+          steps: completeStepActivateNext(p.steps, 'compile'),
+        }));
+
+        const mailRes = await fetch('/api/send-company-mail', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: mailBody,
+        });
+
+        const parsedRes = await mailRes.json();
+        toast({ title: parsedRes.message, variant: parsedRes.success ? 'success' : 'error' });
+
+        if (!parsedRes.success) {
+          setSubmissionPanel(p => ({
+            ...p,
+            steps: p.steps.map(s =>
+              s.key === 'send' && s.status === 'active' ? { ...s, status: 'error' as const } : s
+            ),
+          }));
+          setFormErrors({ message: [String(parsedRes.error || parsedRes.message)] });
+          window.setTimeout(
+            () => setSubmissionPanel({ visible: false, steps: [], uploadPercent: null }),
+            2800
+          );
+          return false;
+        }
+
+        setSubmissionPanel(p => ({
+          ...p,
+          steps: p.steps.map(s => (s.key === 'send' ? { ...s, status: 'done' as const } : s)),
+        }));
+
         resetForm();
         setFiles([]);
+        clearPanelAfterDelay = true;
         return true;
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Could not submit form';
+        toast({ title: message, variant: 'error' });
+        setSubmissionPanel(p => ({
+          ...p,
+          steps: markActiveStepError(p.steps),
+        }));
+        setFormErrors({ message: [message] });
+        window.setTimeout(
+          () => setSubmissionPanel({ visible: false, steps: [], uploadPercent: null }),
+          2800
+        );
+        return false;
+      } finally {
+        if (clearPanelAfterDelay) {
+          await new Promise<void>(resolve => window.setTimeout(resolve, 900));
+          setSubmissionPanel({ visible: false, steps: [], uploadPercent: null });
+        }
       }
-
-      return false;
     }
 
     return (
@@ -207,16 +304,23 @@ export const JobsForm = memo(
               wrapClassName=""
             />
           </div>
-          <div className="w-full flex items-center justify-center pt-4 gap-2">
-            <PinpointBtn
-              text="Submit"
-              loading={loading}
-              disabled={!formValid}
-              onDisabledClick={generalValidation}
-              RightIcon={submitted ? CheckCheck : undefined}
-              rightIconProps={{ className: 'size-4 text-green-600' }}
+          <div className="w-full flex flex-col items-center pt-4 gap-2">
+            <div className="flex items-center justify-center gap-2">
+              <PinpointBtn
+                text="Submit"
+                loading={loading}
+                disabled={!formValid}
+                onDisabledClick={generalValidation}
+                RightIcon={submitted ? CheckCheck : undefined}
+                rightIconProps={{ className: 'size-4 text-green-600' }}
+              />
+              <FormAlert />
+            </div>
+            <FormSubmissionProgress
+              visible={submissionPanel.visible}
+              steps={submissionPanel.steps}
+              uploadAveragePercent={submissionPanel.uploadPercent}
             />
-            <FormAlert />
           </div>
         </motion.form>
       </section>

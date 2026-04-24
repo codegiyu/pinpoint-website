@@ -84,23 +84,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = (await params).service;
   const service = await getServiceBySlugOrNull(slug);
   if (!service) return {};
-  if (service.seo) {
-    return metadataFromRouteSeo(service.seo, `${service.name} | Our Services`);
-  }
+
+  const serviceSEO = service.seo
+    ? metadataFromRouteSeo(service.seo, `${service.name} | Our Services`)
+    : null;
+
   return {
-    title: `${service.name} | Our Services`,
-    description: service.description.slice(0, 160),
-    keywords: [
-      service.name,
-      ...service.breakdownSummary,
-      ...service.expertise.breakdown.flatMap(s => s.services),
-    ],
+    title: serviceSEO?.title ?? `${service.name} | Our Services`,
+    description: serviceSEO?.description ?? service.description.slice(0, 160),
+    keywords:
+      (serviceSEO?.keywords ?? []).length > 0
+        ? serviceSEO?.keywords
+        : [
+            service.name,
+            ...service.breakdownSummary,
+            ...service.expertise.breakdown.flatMap(s => s.services),
+          ],
     openGraph: {
-      title: `${service.name} | Our Services`,
-      description: service.description,
+      title: serviceSEO?.title ?? `${service.name} | Our Services`,
+      description: serviceSEO?.description ?? service.description,
       images: [service.posterUrl],
     },
     twitter: {
+      title: serviceSEO?.title ?? `${service.name} | Our Services`,
+      description: serviceSEO?.description ?? service.description,
       images: service.posterUrl,
     },
   } satisfies Metadata;

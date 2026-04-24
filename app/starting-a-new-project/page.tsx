@@ -36,14 +36,20 @@ export default async function StartingANewProject({ searchParams }: Props) {
     listServices(),
     getPage('starting-a-new-project'),
   ]);
+
   const servicesList = getAllIndividualServicesFromCatalog(services);
+
   const cmsPackaged = startPage.content.AVAILABLE_PACKAGED_SERVICE_IDS ?? [];
+
   const packagesServicesList = getPackagedServicesListFromAllowed(cmsPackaged);
+
   const allowedPackaged = [
     ...new Set([...cmsPackaged, 'make_a_custom_request', 'make_an_enquiry']),
   ];
+
   const newProjectTexts = startPage.content.newProjectTexts ?? [];
-  const { service, package: selectedPackage } = await searchParams;
+
+  const { service = 'make_an_enquiry', package: selectedPackage } = await searchParams;
 
   return (
     <MainLayout pageName="Starting a new project?">

@@ -12,6 +12,8 @@ export interface JobsCTAProps {
   btnText?: string;
   href: string;
   index?: number;
+  /** Optional listing thumbnail from site content `flyerImage`. */
+  flyerImage?: string;
 }
 
 export const JobsCTA = ({
@@ -21,6 +23,7 @@ export const JobsCTA = ({
   btnText = 'Discover the opportunity',
   href,
   index,
+  flyerImage,
 }: JobsCTAProps) => {
   const containerBgClass = variant === 'gray' ? 'bg-gray-f2' : 'bg-gray-f2 md:bg-gray-f2';
   const bgClass = variant === 'white' ? 'before:bg-white ' : 'before:bg-gray-f2 md:before:bg-white';
@@ -38,7 +41,11 @@ export const JobsCTA = ({
           linkProps={{ href: href }}
           className={`w-full  bg-transparent flex-none py-10 md:py-[3.125rem] px-14 lg:px-[clamp(5rem,_1.557vw,_55px)] lg:py-[clamp(5rem,_1.557vw,_45px)] xl:p-[clamp(80px,_4.97vw,_120px)] 2xl:py-[6rem] `}
           wrapClassName={`relative z-[2] before:w-full before:h-full ${bgClass} before:absolute before:inset-0 before:z-[1] before:transition-all before:duration-1500 before:ease-in-out md:hover:before:scale-[0.92] before:cursor-pointer`}>
-          <div className="flex-none w-[76vw] max-w-[495px] md:w-[28.4375rem] md:max-w-none lg:w-full grid lg:grid-cols-[1fr_auto] gap-8 md:gap-6 lg:gap-[3rem] xl:gap-[clamp(120px,_4.97vw,_80px)]  items-center lg:justify-between mx-auto relative z-[3]">
+          <div
+            className={cn(
+              'flex-none w-[76vw] max-w-[495px] md:w-[28.4375rem] md:max-w-none lg:w-full grid gap-8 md:gap-6 lg:gap-[3rem] xl:gap-[clamp(120px,_4.97vw,_80px)] items-center lg:justify-between mx-auto relative z-[3]',
+              flyerImage ? 'lg:grid-cols-[1fr_auto_auto]' : 'lg:grid-cols-[1fr_auto]'
+            )}>
             <div className="w-full lg:w-fit grid gap-6 text-start">
               <h2 className="typo-h3 2xl:mb-2 font-[600] tracking-[0.015] md:tracking-normal break-words text-wrap w-full">
                 {title}
@@ -47,6 +54,12 @@ export const JobsCTA = ({
                 {description}
               </p>
             </div>
+            {flyerImage ? (
+              <div className="hidden lg:block relative h-[140px] w-[200px] shrink-0 overflow-hidden rounded-md border border-dark/10 bg-muted/30">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={flyerImage} alt={title} className="h-full w-full object-cover" />
+              </div>
+            ) : null}
             <div
               className={cn(
                 buttonVariants({ variant: 'default', size: 'default', typo: 'default' }),

@@ -224,6 +224,7 @@ export const uploadFileWithProgress = (
     // Resolve or reject the promise based on the response
     xhr.onload = () => {
       if (xhr.status === 200) {
+        onProgress(100);
         resolve('Image successfully uploaded');
       } else {
         reject(new Error('Upload failed'));

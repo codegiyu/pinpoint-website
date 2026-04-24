@@ -149,11 +149,13 @@ export function mapJobToCard(job: {
   slug: string;
   title: string;
   description: string;
+  flyerImage?: string;
 }): JobsCTAProps {
   return {
     title: job.title,
     description: job.description,
     href: `/jobs/${job.slug}`,
+    ...(job.flyerImage?.trim() ? { flyerImage: job.flyerImage.trim() } : {}),
   };
 }
 

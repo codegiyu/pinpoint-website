@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   RequestFormProps,
   StringOrStringArraySchema,
@@ -6,7 +7,42 @@ import { z } from 'zod';
 import { default as pick } from 'lodash/pick';
 import { generateOptionsFromArray } from '../utils/general';
 import type { PublicService } from '@/lib/api/pinpoint-public-types';
-import { getPackageOptionsForServiceSync } from '../utils/cms-mappers';
+import {
+  getAllIndividualServicesFromCatalog,
+  getPackageOptionsForServiceSync,
+} from '../utils/cms-mappers';
+
+const ENQUIRY_CATALOG_LINE = "I'm just making enquiries";
+
+/** Individual service ids offered in project-request multiselects (from CMS catalog). */
+function individualServiceSlugsFromCatalog(services: PublicService[]): string[] {
+  return getAllIndividualServicesFromCatalog(services).filter(
+    slug => slug !== ENQUIRY_CATALOG_LINE
+  );
+}
+
+function serviceSlugsListedUnderPackage(services: PublicService[], packageSlug: string): string[] {
+  const group = services.find(s => s.slug === packageSlug);
+  if (!group) return [];
+  return [...new Set(group.expertise.breakdown.flatMap(b => b.services))];
+}
+
+/**
+ * Pre-select a few services for smoother UX: prefer items listed under the primary service group,
+ * then fall back to any catalog offerings so `min(1)` validation still passes when CMS data exists.
+ */
+function defaultMultiselectServiceIds(
+  services: PublicService[],
+  primaryPackageSlug: string,
+  max = 3
+): string[] {
+  const allowed = new Set(individualServiceSlugsFromCatalog(services));
+  const preferred = serviceSlugsListedUnderPackage(services, primaryPackageSlug)
+    .filter(slug => allowed.has(slug))
+    .slice(0, max);
+  if (preferred.length) return preferred;
+  return Array.from(allowed).slice(0, Math.min(max, Math.max(1, allowed.size)));
+}
 
 const ALL_FIELDS_SCHEMA: Record<string, StringOrStringArraySchema> = {
   name: z.string().min(3, { error: 'Please enter at least 3 characters' }),
@@ -286,21 +322,23 @@ export const digitalProductsFormSchema = z.object({
 });
 
 export const customRequestFormData = (
-  services: PublicService[]
+  _services: PublicService[]
 ): RequestFormProps<typeof customFormSchema> => {
-  void services;
   return {
     serviceId: 'make_a_custom_request',
     formName: 'Custom Project Request',
     formSchema: customFormSchema,
-    defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-      'name',
-      'email',
-      'phone',
-      'company',
-      'services',
-      'requestDetails',
-    ]),
+    defaultFormValues: {
+      ...pick(ALL_FIELDS_DEFAULT, [
+        'name',
+        'email',
+        'phone',
+        'company',
+        'services',
+        'requestDetails',
+      ]),
+      services: [ENQUIRY_CATALOG_LINE],
+    },
     formSections: [
       {
         inputsArr: [
@@ -369,6 +407,7 @@ export const customRequestFormData = (
     ],
   };
 };
+
 export const enquiryFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof customFormSchema> => ({
@@ -376,6 +415,7 @@ export const enquiryFormData = (
   serviceId: 'make_an_enquiry',
   formName: 'Enquiry',
 });
+
 export const brandingRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof brandingFormSchema> => ({
@@ -479,22 +519,25 @@ export const brandingRequestFormData = (
     },
   ],
 });
+
 export const rebrandingRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof rebrandingFormSchema> => {
-  void services;
   return {
     serviceId: 'rebranding',
     formName: 'Rebranding Request',
     formSchema: rebrandingFormSchema,
-    defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-      'firstName',
-      'lastName',
-      'phone',
-      'email',
-      'rebrandingServices',
-      'requestDetails',
-    ]),
+    defaultFormValues: {
+      ...pick(ALL_FIELDS_DEFAULT, [
+        'firstName',
+        'lastName',
+        'phone',
+        'email',
+        'rebrandingServices',
+        'requestDetails',
+      ]),
+      rebrandingServices: defaultMultiselectServiceIds(services, 'branding_and_identity', 3),
+    },
     formSections: [
       {
         inputsArr: [
@@ -561,6 +604,7 @@ export const rebrandingRequestFormData = (
     ],
   };
 };
+
 export const brandNamingRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof brandNamingFormSchema> => ({
@@ -713,20 +757,24 @@ export const brandNamingRequestFormData = (
     },
   ],
 });
+
 export const brandingActivationRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof brandActivationFormSchema> => ({
   serviceId: 'brand_activation',
   formName: 'Branding Activation Request',
   formSchema: brandActivationFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'company',
-    'email',
-    'phone',
-    'whatBrandAimsToAchieve',
-    'services',
-    'package',
-  ]),
+  defaultFormValues: {
+    ...pick(ALL_FIELDS_DEFAULT, [
+      'company',
+      'email',
+      'phone',
+      'whatBrandAimsToAchieve',
+      'services',
+      'package',
+    ]),
+    services: defaultMultiselectServiceIds(services, 'branding_and_identity', 3),
+  },
   formSections: [
     {
       inputsArr: [
@@ -791,6 +839,7 @@ export const brandingActivationRequestFormData = (
     },
   ],
 });
+
 export const logoDesignRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof logoDesignFormSchema> => ({
@@ -909,20 +958,24 @@ export const logoDesignRequestFormData = (
     },
   ],
 });
+
 export const campaignBrandingRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof campaignBrandingFormSchema> => ({
   serviceId: 'campaign_branding',
   formName: 'Campaign Branding Request',
   formSchema: campaignBrandingFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'brandName',
-    'email',
-    'phone',
-    'package',
-    'services',
-    'additionalInfo',
-  ]),
+  defaultFormValues: {
+    ...pick(ALL_FIELDS_DEFAULT, [
+      'brandName',
+      'email',
+      'phone',
+      'package',
+      'services',
+      'additionalInfo',
+    ]),
+    services: defaultMultiselectServiceIds(services, 'marketing_and_media', 3),
+  },
   formSections: [
     {
       inputsArr: [
@@ -995,33 +1048,37 @@ export const campaignBrandingRequestFormData = (
     },
   ],
 });
+
 export const productDesignRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof productDesignFormSchema> => ({
   serviceId: 'packaging_and_product_design',
   formName: 'Packaging & Product Design Request',
   formSchema: productDesignFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'company',
-    'contactPerson',
-    'phone',
-    'email',
-    'productName',
-    'productType',
-    'designProjectPurpose',
-    'designProjectMessage',
-    'targetAudience',
-    'targetAudienceValuesAndInterests',
-    'favouriteDesignStyles',
-    'designElementsInMind',
-    'designRequirements',
-    'existingBrandGuidelines',
-    'designFormatsNeeded',
-    'numberOfDesignConceptsExpected',
-    'package',
-    'services',
-    'additionalInfo',
-  ]),
+  defaultFormValues: {
+    ...pick(ALL_FIELDS_DEFAULT, [
+      'company',
+      'contactPerson',
+      'phone',
+      'email',
+      'productName',
+      'productType',
+      'designProjectPurpose',
+      'designProjectMessage',
+      'targetAudience',
+      'targetAudienceValuesAndInterests',
+      'favouriteDesignStyles',
+      'designElementsInMind',
+      'designRequirements',
+      'existingBrandGuidelines',
+      'designFormatsNeeded',
+      'numberOfDesignConceptsExpected',
+      'package',
+      'services',
+      'additionalInfo',
+    ]),
+    services: defaultMultiselectServiceIds(services, 'packaging_and_product_design', 3),
+  },
   formSections: [
     {
       inputsArr: [
@@ -1206,20 +1263,24 @@ export const productDesignRequestFormData = (
     },
   ],
 });
+
 export const socialMediaRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof socialMediaFormSchema> => ({
   serviceId: 'social_media_strategy',
   formName: 'Social Media Strategy Request',
   formSchema: socialMediaFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'brandName',
-    'email',
-    'phone',
-    'package',
-    'services',
-    'additionalInfo',
-  ]),
+  defaultFormValues: {
+    ...pick(ALL_FIELDS_DEFAULT, [
+      'brandName',
+      'email',
+      'phone',
+      'package',
+      'services',
+      'additionalInfo',
+    ]),
+    services: defaultMultiselectServiceIds(services, 'marketing_and_media', 3),
+  },
   formSections: [
     {
       inputsArr: [
@@ -1292,6 +1353,7 @@ export const socialMediaRequestFormData = (
     },
   ],
 });
+
 export const stickerRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof stickerFormSchema> => ({
@@ -1457,6 +1519,7 @@ export const stickerRequestFormData = (
     },
   ],
 });
+
 export const digitalProductsRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof digitalProductsFormSchema> => ({

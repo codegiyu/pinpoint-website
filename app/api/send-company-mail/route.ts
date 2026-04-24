@@ -1,91 +1,79 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import formidable from 'formidable';
-import dotenv from 'dotenv';
-import fs from 'fs';
 import { mailTemplate, MailTemplateData } from '../utils/mailTemplate';
-import { getNodeRequest } from '../utils/getNodeRequest';
 import { formatCamelCaseName } from '@/lib/utils/general';
 import { ALL_FIELDS_DEFAULT } from '@/lib/constants/forms';
-// import { logMailToFile } from './logMailToFile';
+import type { PublicFormAttachment } from '@/lib/api/public-form-submission';
 
-dotenv.config();
-
-export const config = {
-  api: { bodyParser: false }, // So formidable can function properly
+type MailPayload = {
+  formName?: string;
+  attachments?: PublicFormAttachment[];
+  [key: string]: string | string[] | PublicFormAttachment[] | undefined;
 };
+
+function withNoCacheHeaders(response: NextResponse) {
+  response.headers.set(
+    'Cache-Control',
+    'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0'
+  );
+  response.headers.set('Pragma', 'no-cache');
+  response.headers.set('Expires', '0');
+  return response;
+}
+
+function normalizeFields(payload: MailPayload) {
+  return Object.entries(payload).reduce<Record<string, string | string[]>>((acc, [key, value]) => {
+    if (key === 'attachments' || value == null) return acc;
+    if (Array.isArray(value)) {
+      acc[key] = value.filter(item => typeof item === 'string').map(item => String(item));
+      return acc;
+    }
+    acc[key] = String(value);
+    return acc;
+  }, {});
+}
+
+function firstString(value: string | string[] | undefined): string {
+  if (Array.isArray(value)) return value[0] || '';
+  return value || '';
+}
 
 export async function POST(req: NextRequest) {
   try {
-    const nodeReq = await getNodeRequest(req);
-    const form = formidable({ multiples: true, keepExtensions: true });
-    const formData = await new Promise<{ fields: any; files: any }>((resolve, reject) => {
-      form.parse(nodeReq as any, (err, fields, files) => {
-        if (err) reject(err);
-        else resolve({ fields, files });
-      });
-    });
-    const { fields, files } = formData;
+    const payload = (await req.json()) as MailPayload;
+    const fields = normalizeFields(payload);
+    const attachments = Array.isArray(payload.attachments) ? payload.attachments : [];
+    const formName = firstString(fields.formName);
 
-    if (!fields.formName) {
-      const response = NextResponse.json(
-        {
-          success: false,
-          message: 'Mail sending failed',
-          error: 'Please include a subject for the mail',
-        },
-        { status: 400 }
+    if (!formName) {
+      return withNoCacheHeaders(
+        NextResponse.json(
+          {
+            success: false,
+            message: 'Mail sending failed',
+            error: 'Please include a subject for the mail',
+          },
+          { status: 400 }
+        )
       );
-
-      // Add no-cache headers
-      response.headers.set(
-        'Cache-Control',
-        'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0'
-      );
-      response.headers.set('Pragma', 'no-cache');
-      response.headers.set('Expires', '0');
-
-      return response;
     }
 
     const invalidFields: string[] = [];
-
-    for (const key in fields) {
-      if (Array.isArray(fields[key]) && fields[key].length < 2) {
-        fields[key] = fields[key][0] ?? '';
-      }
-
-      if (!allowedFields.has(key)) {
-        invalidFields.push(key);
-      }
-    }
-
-    for (const key in files) {
-      if (!allowedFields.has(key)) {
-        invalidFields.push(key);
-      }
+    for (const key of Object.keys(fields)) {
+      if (!allowedFields.has(key)) invalidFields.push(key);
     }
 
     if (invalidFields.length) {
-      const response = NextResponse.json(
-        {
-          success: false,
-          message: 'Mail sending failed',
-          error: `The field(s) ${invalidFields.map(item => `"${item}"`).join(', ')} are invalid`,
-        },
-        { status: 400 }
+      return withNoCacheHeaders(
+        NextResponse.json(
+          {
+            success: false,
+            message: 'Mail sending failed',
+            error: `The field(s) ${invalidFields.map(item => `"${item}"`).join(', ')} are invalid`,
+          },
+          { status: 400 }
+        )
       );
-
-      // Add no-cache headers
-      response.headers.set(
-        'Cache-Control',
-        'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0'
-      );
-      response.headers.set('Pragma', 'no-cache');
-      response.headers.set('Expires', '0');
-
-      return response;
     }
 
     const transporter = nodemailer.createTransport({
@@ -98,82 +86,61 @@ export async function POST(req: NextRequest) {
       secure: process.env.secureMail === undefined ? true : Boolean(process.env.secureMail),
     });
 
+    const attachmentLines = attachments
+      .map(att => `${att.filename || 'Attachment'}: ${att.url || 'No URL'}`)
+      .join('\n');
+
     const mailTemplateOptions = {
-      title: fields.formName,
+      title: formName,
       top: [
         [
-          `You've received a new submission through the website ${fields.formName} \
+          `You've received a new submission through the website ${formName} \
           form. The details provided by the sender are included below for your review.`,
         ],
       ],
-      data: Object.entries(fields).reduce<MailTemplateData[]>((acc, [property, value]) => {
-        if (property !== 'formName') {
-          acc.push({
-            property: formatCamelCaseName(property),
-            value: (Array.isArray(value) ? value.join(', ') : value) as string,
-          });
-        }
-
-        return acc;
-      }, []),
+      data: [
+        ...Object.entries(fields).reduce<MailTemplateData[]>((acc, [property, value]) => {
+          if (property !== 'formName') {
+            acc.push({
+              property: formatCamelCaseName(property),
+              value: Array.isArray(value) ? value.join(', ') : value,
+            });
+          }
+          return acc;
+        }, []),
+        ...(attachmentLines ? [{ property: 'Attachments', value: attachmentLines }] : []),
+      ],
       end: 'Please feel free to follow up with the sender if any further \
       information is needed.',
     };
     const html = mailTemplate(mailTemplateOptions);
 
-    const attachments = !files.files
-      ? []
-      : Array.isArray(files.files)
-        ? files.files.map((file: any) => ({
-            filename: file.originalFilename,
-            content: fs.createReadStream(file.filepath),
-          }))
-        : [
-            {
-              filename: files.files.originalFilename,
-              content: fs.createReadStream(files.files.filepath),
-            },
-          ];
-
     const senderName =
-      fields.name ||
-      fields.brandName ||
-      fields.company ||
-      fields.contactPerson ||
-      `${fields.firstName || ''} ${fields.lastName || ''}`.trim() ||
+      firstString(fields.name) ||
+      firstString(fields.brandName) ||
+      firstString(fields.company) ||
+      firstString(fields.contactPerson) ||
+      `${firstString(fields.firstName)} ${firstString(fields.lastName)}`.trim() ||
       'Pinpoint Website';
     const replyName = senderName === 'Pinpoint Website' ? '' : senderName;
+    const senderEmail = firstString(fields.email);
 
     const mailOptions = {
       from: `${senderName} (From Pinpoint Website) <${process.env.fromEmail}>`,
       to: `Pinpoint Global <${process.env.toEmail}>`,
-      ...(fields.email && { replyTo: `${replyName || fields.email} <${fields.email}>` }),
-      subject: `${fields.formName.trim()} Form Submission`,
+      ...(senderEmail
+        ? {
+            replyTo: `${replyName || senderEmail} <${senderEmail}>`,
+          }
+        : {}),
+      subject: `${formName.trim()} Form Submission`,
       html,
-      attachments,
     };
 
     const data = await transporter.sendMail(mailOptions);
 
-    // const formattedMailDetails = mailTemplateOptions.data
-    //   .map(item => `${item.property}: ${item.value}`)
-    //   .join('\n');
-
-    // const logEntry = `
-    // ============================
-    // Date: ${new Date().toISOString()}
-    // To: ${mailOptions.to}
-    // Subject: ${mailOptions.subject}
-    // Message ID: ${data.messageId}
-    // Preview URL: ${nodemailer.getTestMessageUrl(data) || 'N/A'}
-    // ----------------------------
-    // ${formattedMailDetails}
-    // ============================\n`;
-
-    // logMailToFile(logEntry);
-
-    if (fields.email) {
-      const html = mailTemplate({
+    if (senderEmail) {
+      const senderAckHtml = mailTemplate({
         title: `Your Form Submission Has Been Received`,
         top: [
           [
@@ -195,42 +162,27 @@ export async function POST(req: NextRequest) {
       });
       transporter.sendMail({
         from: `Pinpoint (no-reply) <${process.env.fromEmail}>`,
-        to: `${replyName || fields.email} <${fields.email}>`,
-        subject: `${fields.formName.trim()} Form Submission Received`,
-        html,
+        to: `${replyName || senderEmail} <${senderEmail}>`,
+        subject: `${formName.trim()} Form Submission Received`,
+        html: senderAckHtml,
       });
     }
 
-    const response = NextResponse.json(
-      { success: true, data, message: 'Mail sent successfully' },
-      { status: 200 }
+    return withNoCacheHeaders(
+      NextResponse.json({ success: true, data, message: 'Mail sent successfully' }, { status: 200 })
     );
-
-    // Add no-cache headers
-    response.headers.set(
-      'Cache-Control',
-      'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0'
-    );
-    response.headers.set('Pragma', 'no-cache');
-    response.headers.set('Expires', '0');
-
-    return response;
   } catch (err) {
     console.error(err);
-    const response = NextResponse.json(
-      { success: false, error: err, message: 'Error sending mail' },
-      { status: 500 }
+    return withNoCacheHeaders(
+      NextResponse.json(
+        {
+          success: false,
+          error: err instanceof Error ? err.message : 'Unknown error',
+          message: 'Error sending mail',
+        },
+        { status: 500 }
+      )
     );
-
-    // Add no-cache headers
-    response.headers.set(
-      'Cache-Control',
-      'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0'
-    );
-    response.headers.set('Pragma', 'no-cache');
-    response.headers.set('Expires', '0');
-
-    return response;
   }
 }
 
@@ -248,5 +200,7 @@ const allowedFields = new Set([
   'message',
   'portfolio',
   'linkedin',
-  'files',
+  'formType',
+  'jobSlug',
+  'attachments',
 ]);
