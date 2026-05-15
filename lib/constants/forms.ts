@@ -26,6 +26,8 @@ import {
   logoBrandIdentityDefaultValues,
   logoBrandIdentityFormSchema,
   logoBrandIdentityFormSections,
+  rebrandingDefaultValues,
+  rebrandingIntakeFormSchema,
   packIntakeDefaults,
   packIntakeFormSchema,
   packIntakeFormSections,
@@ -223,14 +225,7 @@ export const customFormSchema = z.object({
   requestDetails: ALL_FIELDS_SCHEMA.requestDetails,
 });
 export const brandingFormSchema = logoBrandIdentityFormSchema;
-export const rebrandingFormSchema = z.object({
-  firstName: ALL_FIELDS_SCHEMA.firstName,
-  lastName: ALL_FIELDS_SCHEMA.lastName,
-  phone: ALL_FIELDS_SCHEMA.phone,
-  email: ALL_FIELDS_SCHEMA.email,
-  rebrandingServices: ALL_FIELDS_SCHEMA.rebrandingServices,
-  requestDetails: ALL_FIELDS_SCHEMA.requestDetails,
-});
+export const rebrandingFormSchema = rebrandingIntakeFormSchema;
 export const brandNamingFormSchema = z.object({
   company: ALL_FIELDS_SCHEMA.company,
   industryOrCategory: ALL_FIELDS_SCHEMA.industryOrCategory,
@@ -426,88 +421,18 @@ export const brandingRequestFormData = (
 
 export const rebrandingRequestFormData = (
   services: PublicService[]
-): RequestFormProps<typeof rebrandingFormSchema> => {
-  return {
-    serviceId: 'rebranding',
-    formName: 'Rebranding Request',
-    formSchema: rebrandingFormSchema,
-    defaultFormValues: {
-      ...pick(ALL_FIELDS_DEFAULT, [
-        'firstName',
-        'lastName',
-        'phone',
-        'email',
-        'rebrandingServices',
-        'requestDetails',
-      ]),
-      rebrandingServices: defaultMultiselectServiceIds(services, 'branding_and_identity', 3),
-    },
-    formSections: [
-      {
-        inputsArr: [
-          [
-            {
-              name: 'firstName',
-              kind: 'input',
-              inputProps: {
-                label: 'First Name',
-                required: true,
-              },
-            },
-            {
-              name: 'lastName',
-              kind: 'input',
-              inputProps: {
-                label: 'Last Name',
-                required: true,
-              },
-            },
-          ],
-          [
-            {
-              name: 'phone',
-              kind: 'input',
-              inputProps: {
-                label: 'Phone Number',
-                required: true,
-              },
-            },
-            {
-              name: 'email',
-              kind: 'input',
-              inputProps: {
-                label: 'Email',
-                type: 'email',
-                required: true,
-              },
-            },
-          ],
-          {
-            name: 'rebrandingServices',
-            kind: 'multiselect',
-            multiSelectProps: {
-              options: [],
-              label: 'Please select services you may need',
-              useServiceOptions: true,
-            },
-          },
-          {
-            kind: 'file',
-            fileProps: { inputProps: { required: false }, label: 'Select Files' },
-          },
-          {
-            name: 'requestDetails',
-            kind: 'textarea',
-            textareaProps: {
-              label: 'Details and request',
-              required: true,
-            },
-          },
-        ],
-      },
-    ],
-  };
-};
+): RequestFormProps<typeof rebrandingFormSchema> => ({
+  serviceId: 'rebranding',
+  formName: 'Rebranding Request',
+  formSchema: rebrandingFormSchema,
+  defaultFormValues: rebrandingDefaultValues(),
+  formSections: logoBrandIdentityFormSections(
+    services,
+    'rebranding',
+    'branding_and_identity',
+    false
+  ),
+});
 
 export const brandNamingRequestFormData = (
   services: PublicService[]

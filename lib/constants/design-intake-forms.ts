@@ -108,6 +108,11 @@ export const logoBrandIdentityFormSchema = z.object({
 
 export type LogoBrandIdentityFormValues = z.infer<typeof logoBrandIdentityFormSchema>;
 
+/** Rebranding — same intake as logo/brand identity, no package tier. */
+export const rebrandingIntakeFormSchema = logoBrandIdentityFormSchema.omit({ package: true });
+
+export type RebrandingIntakeFormValues = z.infer<typeof rebrandingIntakeFormSchema>;
+
 export function logoBrandIdentityDefaultValues(): LogoBrandIdentityFormValues {
   return {
     email: '',
@@ -130,16 +135,38 @@ export function logoBrandIdentityDefaultValues(): LogoBrandIdentityFormValues {
   };
 }
 
+export function rebrandingDefaultValues(): RebrandingIntakeFormValues {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { package: _package, ...rest } = logoBrandIdentityDefaultValues();
+
+  return rest;
+}
+
 export function logoBrandIdentityFormSections(
   services: PublicService[],
   packagedId: string,
-  serviceGroupSlug: string
+  serviceGroupSlug: string,
+  includePackage = true
 ) {
   const packageOptions = generateOptionsFromArray({
     arr: getPackageOptionsForServiceSync(services, packagedId, serviceGroupSlug),
   });
 
-  return [
+  const packageBlock = includePackage
+    ? [
+        {
+          name: 'package' as const,
+          kind: 'select' as const,
+          selectProps: {
+            label: 'Choose a package',
+            options: packageOptions,
+            required: true,
+          },
+        },
+      ]
+    : [];
+
+  const sections = [
     {
       name: 'Company overview',
       desc: NIL_HINT,
@@ -225,19 +252,15 @@ export function logoBrandIdentityFormSections(
             required: true,
           },
         },
-        {
-          name: 'package',
-          kind: 'select',
-          selectProps: {
-            label: 'Choose a package',
-            options: packageOptions,
-            required: true,
-          },
-        },
+        ...packageBlock,
         ...fileBeforeNotes(),
       ],
     },
-  ] as unknown as RequestFormProps<typeof logoBrandIdentityFormSchema>['formSections'];
+  ];
+
+  return includePackage
+    ? (sections as unknown as RequestFormProps<typeof logoBrandIdentityFormSchema>['formSections'])
+    : (sections as unknown as RequestFormProps<typeof rebrandingIntakeFormSchema>['formSections']);
 }
 
 const eventFlyerSharedFields = {
