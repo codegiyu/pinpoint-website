@@ -15,15 +15,21 @@ export function getPackageOptionsForServiceSync(
   groupSlug: string
 ): string[] {
   const service = services.find(s => s.slug === groupSlug);
+
   if (!service) return [];
+
   const packageGroup = service.packagePricing.find(item => item.id === packagedId);
+
   if (!packageGroup) return [];
+
   return packageGroup.packages.map(item => {
-    const low = item.priceRange[0]?.toLocaleString() ?? '';
-    const high = item.priceRange[1] != null ? item.priceRange[1].toLocaleString() : '';
+    const low = '₦ ' + item.priceRange[0].toLocaleString();
+    const high = item.priceRange[1] != null ? '₦ ' + item.priceRange[1].toLocaleString() : '';
+
     const range =
-      item.priceRange.length > 1 && item.priceRange[1] != null ? `${low} - ${high}` : low;
-    return `${formatSlugToText(item.id)} (₦${range})${item.priceSuffix ? ` ${item.priceSuffix}` : ''}`;
+      item.priceRange.length > 1 && item.priceRange[1] != null ? `${low}  ->  ${high}` : low;
+
+    return `${formatSlugToText(item.id)} (${range}${item.priceSuffix ?? ''})`;
   });
 }
 
