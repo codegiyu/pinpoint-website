@@ -34,26 +34,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!job) return {};
 
-  const jobSEO = job.seo ? metadataFromRouteSeo(job.seo, `${job.title} | Jobs`) : null;
+  if (job.seo) {
+    return metadataFromRouteSeo(job.seo, `${job.title} | Jobs`);
+  }
 
   return {
-    title: jobSEO?.title ?? `${job.title} | Jobs`,
-    description: jobSEO?.description ?? job.description.slice(0, 160),
-    keywords:
-      (jobSEO?.keywords ?? []).length > 0
-        ? jobSEO?.keywords
-        : [job.title, formatSlugToText(job.slug).toLowerCase(), ...job.profile],
-    openGraph: {
-      title: jobSEO?.title ?? `${job.title} | Jobs`,
-      description: jobSEO?.description ?? job.description,
-      images: job.flyerImage ? [{ url: job.flyerImage }] : undefined,
-    },
-    twitter: {
-      title: jobSEO?.title ?? `${job.title} | Jobs`,
-      description: jobSEO?.description ?? job.description,
-      ...(job.flyerImage && { images: job.flyerImage }),
-    },
-  } satisfies Metadata;
+    title: `${job.title} | Jobs`,
+    description: job.description.slice(0, 160),
+    keywords: [job.title, formatSlugToText(job.slug).toLowerCase(), ...job.profile],
+  };
 }
 
 export default async function JobOpportunityPage({ params }: Props) {
