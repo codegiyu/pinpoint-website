@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import 'swiper/css';
@@ -76,6 +75,26 @@
   src: url('/fonts/rubik/Rubik-BoldItalic.woff2') format('woff2'),
       url('/fonts/rubik/Rubik-BoldItalic.woff') format('woff');
   font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Local fonts: we don't ship Rubik "Black" weights.
+   Map weight 900 to the closest available Bold files to avoid missing font-face requests. */
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Bold.woff2') format('woff2'),
+      url('/fonts/rubik/Rubik-Bold.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-BoldItalic.woff2') format('woff2'),
+      url('/fonts/rubik/Rubik-BoldItalic.woff') format('woff');
+  font-weight: 900;
   font-style: italic;
   font-display: swap;
 }
