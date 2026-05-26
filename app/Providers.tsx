@@ -7,20 +7,29 @@ import { Toaster } from '@/components/ui/sonner';
 import { SiteLoadingProvider } from '@/lib/context/SiteLoadingContext';
 import { PageTransitionProvider } from '@/lib/context/PageTransitionContext';
 import { SiteLoadAnimationScreen } from '@/components/general/SiteLoadAnimationScreen';
+import { ConsentProvider } from '@/lib/telemetry/ConsentContext';
+import { CookieConsentBanner } from '@/components/consent/CookieConsentBanner';
+import { TelemetryRoot } from '@/components/telemetry/TelemetryRoot';
 
 export const Providers = ({ children }: PropsWithChildren) => {
   return (
     <NuqsAdapter>
       <TooltipProvider delayDuration={700} skipDelayDuration={300}>
-        <SiteLoadingProvider>
-          <Suspense fallback={null}>
-            <PageTransitionProvider>
-              <SiteLoadAnimationScreen />
-              {children}
-            </PageTransitionProvider>
-          </Suspense>
-          <Toaster />
-        </SiteLoadingProvider>
+        <ConsentProvider>
+          <SiteLoadingProvider>
+            <Suspense fallback={null}>
+              <PageTransitionProvider>
+                <SiteLoadAnimationScreen />
+                {children}
+              </PageTransitionProvider>
+            </Suspense>
+            <Suspense fallback={null}>
+              <TelemetryRoot />
+            </Suspense>
+            <CookieConsentBanner />
+            <Toaster />
+          </SiteLoadingProvider>
+        </ConsentProvider>
       </TooltipProvider>
     </NuqsAdapter>
   );

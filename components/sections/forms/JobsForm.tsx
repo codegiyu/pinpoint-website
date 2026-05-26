@@ -5,7 +5,8 @@ import { RegularInput } from '@/components/atoms/RegularInput';
 import { RegularTextarea } from '@/components/atoms/RegularTextarea';
 import { toast } from '@/components/atoms/Toast';
 import { useForm } from '@/lib/hooks/use-form';
-import { memo, useMemo, useState } from 'react';
+import { trackFormStart, trackFormSubmit } from '@/lib/telemetry/track-form';
+import { ChangeEvent, memo, useCallback, useMemo, useState } from 'react';
 import { z } from 'zod';
 import FormAlert from './FormAlert';
 import { FormSubmissionProgress } from './FormSubmissionProgress';
@@ -93,6 +94,8 @@ export const JobsForm = memo(
       uploadPercent: number | null;
     }>({ visible: false, steps: [], uploadPercent: null });
 
+    const formType = jobSlug ? 'jobApplication' : 'spontaneousApplication';
+
     const generalValidation = () => {
       if (!files.length) {
         toast({ title: 'Please upload at least one file', variant: 'error' });
@@ -100,6 +103,14 @@ export const JobsForm = memo(
 
       return validateForm() && !!files.length;
     };
+
+    const wrappedHandleInputChange = useCallback(
+      (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        trackFormStart(formName, formType);
+        handleInputChange(e);
+      },
+      [formName, formType, handleInputChange]
+    );
 
     async function onSubmit(values: FormSchema): Promise<boolean> {
       if (!generalValidation()) return false;
@@ -185,6 +196,7 @@ export const JobsForm = memo(
 
         resetForm();
         setFiles([]);
+        trackFormSubmit(formName, formType);
         clearPanelAfterDelay = true;
         return true;
       } catch (err) {
@@ -228,7 +240,7 @@ export const JobsForm = memo(
                 type="text"
                 name="firstName"
                 value={formValues.firstName}
-                onChange={handleInputChange}
+                onChange={wrappedHandleInputChange}
                 errors={errorsVisible ? formErrors.firstName : undefined}
                 wrapClassName=""
                 required
@@ -239,7 +251,7 @@ export const JobsForm = memo(
                 type="text"
                 name="lastName"
                 value={formValues.lastName}
-                onChange={handleInputChange}
+                onChange={wrappedHandleInputChange}
                 errors={errorsVisible ? formErrors.email : undefined}
                 wrapClassName=""
                 required
@@ -251,7 +263,7 @@ export const JobsForm = memo(
                 type="email"
                 name="email"
                 value={formValues.email}
-                onChange={handleInputChange}
+                onChange={wrappedHandleInputChange}
                 errors={errorsVisible ? formErrors.email : undefined}
                 wrapClassName=""
                 required
@@ -261,7 +273,7 @@ export const JobsForm = memo(
                 type="phone"
                 name="phone"
                 value={formValues.phone}
-                onChange={handleInputChange}
+                onChange={wrappedHandleInputChange}
                 errors={errorsVisible ? formErrors.phone : undefined}
                 wrapClassName=""
                 required
@@ -273,7 +285,7 @@ export const JobsForm = memo(
                 type="url"
                 name="portfolio"
                 value={formValues.portfolio}
-                onChange={handleInputChange}
+                onChange={wrappedHandleInputChange}
                 errors={errorsVisible ? formErrors.portfolio : undefined}
                 wrapClassName=""
                 required
@@ -283,7 +295,7 @@ export const JobsForm = memo(
                 type="url"
                 name="linkedin"
                 value={formValues.linkedin}
-                onChange={handleInputChange}
+                onChange={wrappedHandleInputChange}
                 errors={errorsVisible ? formErrors.linkedin : undefined}
                 wrapClassName=""
                 required
@@ -299,7 +311,7 @@ export const JobsForm = memo(
               placeholder="Message"
               name="message"
               value={formValues.message}
-              onChange={handleInputChange}
+              onChange={wrappedHandleInputChange}
               errors={errorsVisible ? formErrors.message : undefined}
               wrapClassName=""
             />
