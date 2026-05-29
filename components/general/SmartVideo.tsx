@@ -10,6 +10,8 @@ type SmartVideoProps = {
   wrapClassName?: string;
   poster?: string;
   threshold?: number;
+  preload?: 'none' | 'metadata' | 'auto';
+  deferSrcUntilInView?: boolean;
 };
 const DEFAULT_THRESHOLD = 0.4;
 
@@ -19,33 +21,36 @@ export function SmartVideo({
   wrapClassName,
   poster,
   threshold = DEFAULT_THRESHOLD,
+  preload = 'metadata',
+  deferSrcUntilInView = false,
 }: SmartVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const { ref, inView } = useInView({
-    threshold: threshold > 1 ? DEFAULT_THRESHOLD : threshold <= 0 ? DEFAULT_THRESHOLD : threshold, // play only if at least `${threshold}` is visible
+    threshold: threshold > 1 ? DEFAULT_THRESHOLD : threshold <= 0 ? DEFAULT_THRESHOLD : threshold,
   });
+  const resolvedSrc = deferSrcUntilInView && !inView ? undefined : src;
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !resolvedSrc) return;
 
     if (inView) {
-      video.play().catch(() => {}); // silently fail on autoplay restrictions
+      video.play().catch(() => {});
     } else {
       video.pause();
     }
-  }, [inView]);
+  }, [inView, resolvedSrc]);
 
   return (
     <div ref={ref} className={cn('', wrapClassName)}>
       <video
         ref={videoRef}
-        src={src}
+        src={resolvedSrc}
         poster={poster}
         muted
         playsInline
         loop
-        preload="metadata"
+        preload={preload}
         width="100%"
         className={cn('', className)}
         style={{ height: '100%', objectFit: 'cover' }}

@@ -1,103 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import 'swiper/css';
-@import 'swiper/css/pagination';
-@import 'swiper/css/navigation';
-@import 'swiper/css/mousewheel';
 
 @custom-variant dark (&:is(.dark *));
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-Light.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-LightItalic.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-LightItalic.woff') format('woff');
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-Regular.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Italic.woff2') format('woff2'),
-      url('/fonts/rubik/Italic.woff') format('woff');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-Medium.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-MediumItalic.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-MediumItalic.woff') format('woff');
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-Bold.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-BoldItalic.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-BoldItalic.woff') format('woff');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Local fonts: we don't ship Rubik "Black" weights.
-   Map weight 900 to the closest available Bold files to avoid missing font-face requests. */
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-Bold.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-Bold.woff') format('woff');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-BoldItalic.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-BoldItalic.woff') format('woff');
-  font-weight: 900;
-  font-style: italic;
-  font-display: swap;
-}
 
 @theme inline {
   --color-background: var(--background);
@@ -251,13 +155,6 @@
   .section-block-padding {
     @apply py-[3.375rem] md:py-20 lg:py-[6.5rem];
   }
-
-  /* Swiper */
-  .mySwiper .swiper-wrapper {
-    @apply !w-[85.8vw] !max-w-[495px] md:!max-w-none md:!w-[595px] lg:!w-[828px] xl:!w-[1024px] 2xl:!w-[1200px] 3xl:!w-[1300px] !mx-auto;
-  }
-  /* .swiper-button-next,
-  .swiper-button-prev {} */
 
   body.load-animation-open #visible-header.blend-normal .pinpoint-logo path.coloured-text,
   body.load-animation-open #visible-header.blend-difference .pinpoint-logo path.coloured-text {

@@ -82,6 +82,26 @@ export async function getProjectBySlugOrNull(slug: string): Promise<PublicProjec
   }
 }
 
+export const getProjectsBySlugs = cache(async (slugs: string[]): Promise<PublicProject[]> => {
+  const uniqueSlugs = [...new Set(slugs.filter(Boolean))];
+  if (uniqueSlugs.length === 0) return [];
+
+  const q = new URLSearchParams();
+  for (const slug of uniqueSlugs) {
+    q.append('slugs', slug);
+  }
+
+  const data = await pinpointGet<{ projects: PublicProject[] }>(`/projects?${q.toString()}`, {
+    tags: uniqueSlugs.map(slug => `pg-project:${slug}`),
+  });
+
+  const bySlug = new Map(data.projects.map(project => [project.slug, project]));
+
+  return uniqueSlugs
+    .map(slug => bySlug.get(slug))
+    .filter((project): project is PublicProject => project != null);
+});
+
 export const listProjects = cache(
   async (query: {
     page?: number;

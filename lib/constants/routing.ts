@@ -2,9 +2,6 @@ import { LangChangeLinkProps, NavLinkGroupProps } from '@/components/layout/Head
 import type { PublicService } from '@/lib/api/pinpoint-public-types';
 import capitalize from 'lodash/capitalize';
 
-export const BASE_LOAD_TIME = 1500; // ms
-export const TRANSITION_DURATION = 0.8; // s
-
 export const langChangeOptions: LangChangeLinkProps[] = [
   { lang: 'fr', href: '/fr' },
   { lang: 'en', href: '/' },

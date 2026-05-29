@@ -15,6 +15,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { PinpointFull } from '@/components/icons';
 import { useSiteLoading } from '@/lib/context/SiteLoadingContext';
 import { routeTransitionLabel } from '@/lib/utils/route-transition-label';
+import { shouldDisableHeavyRouteTransitions } from '@/lib/utils/lightweight-navigation';
 
 const COVER_DURATION = 1.1;
 const REVEAL_DURATION = 1.6;
@@ -100,7 +101,14 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { siteLoading } = useSiteLoading();
-  const reduceMotion = useReducedMotion();
+  const reduceMotionPreference = useReducedMotion();
+  const [heavyTransitionsDisabled, setHeavyTransitionsDisabled] = useState(false);
+
+  useEffect(() => {
+    setHeavyTransitionsDisabled(shouldDisableHeavyRouteTransitions());
+  }, []);
+
+  const reduceMotion = reduceMotionPreference || heavyTransitionsDisabled;
 
   const [phase, setPhase] = useState<Phase>('idle');
   const [displayTitle, setDisplayTitle] = useState('');
