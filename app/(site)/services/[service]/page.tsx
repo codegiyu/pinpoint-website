@@ -9,7 +9,8 @@ import { ServiceScrollManager } from '@/components/sections/services/ScrollManag
 import { WhatMakesUsUnique } from '@/components/sections/services/WhatMakesUsUnique';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
-import { getServiceBySlugOrNull, listServices } from '@/lib/api/pinpoint-public';
+import { getServiceBySlugOrNull } from '@/lib/api/pinpoint-public';
+import { getSiteShellData } from '@/lib/site-shell';
 import type { PublicStyleSpec } from '@/lib/api/pinpoint-public-types';
 import { mapServicesToSummaryCards } from '@/lib/utils/cms-mappers';
 import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
@@ -117,7 +118,7 @@ export default async function ServicePage({ params }: Props) {
   const slug = (await params).service;
   const [serviceData, { services: allServices }] = await Promise.all([
     getServiceBySlugOrNull(slug),
-    listServices(),
+    getSiteShellData(),
   ]);
 
   if (!serviceData) return notFound();

@@ -3,13 +3,14 @@ import {
   type KeyboardEvent,
   type SVGProps,
   MouseEvent,
+  ComponentPropsWithoutRef,
   ComponentPropsWithRef,
   useState,
 } from 'react';
 import { buttonVariants } from '../ui/button';
 import { type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import Link, { type LinkProps } from 'next/link';
+import Link from 'next/link';
 import { omit } from 'lodash';
 import { Loader } from 'lucide-react';
 import { FlipText } from '../general/ChangingModifier';
@@ -31,7 +32,7 @@ export interface PinpointBtnProps
   onDisabledClick?: () => void;
   onClick?: (e?: MouseEvent<HTMLButtonElement>) => void;
   wrapClassName?: string;
-  linkProps?: Omit<LinkProps, 'onClick' | 'className' | 'children'> & {
+  linkProps?: Omit<ComponentPropsWithoutRef<typeof Link>, 'onClick' | 'className' | 'children'> & {
     preventdefault?: string;
   };
   animate?:

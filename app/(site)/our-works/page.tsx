@@ -2,7 +2,8 @@ import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { CommonHeroTextSection } from '@/components/sections/shared/CommonHero';
 import { WorksDisplay } from '@/components/sections/works/WorksDisplay';
-import { getGlobalConfig, getPage, listProjects, listServices } from '@/lib/api/pinpoint-public';
+import { getPage, listProjects } from '@/lib/api/pinpoint-public';
+import { getSiteShellData } from '@/lib/site-shell';
 import type { OurWorksPageResponse } from '@/lib/api/pinpoint-public-types';
 import { buildServicesLookup, mapPublicProjectToWorkCard } from '@/lib/utils/cms-mappers';
 import { formatSlugToText } from '@/lib/utils/general';
@@ -31,11 +32,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function OurWorksPage({ searchParams }: Props) {
   const search = await searchParams;
-  const [ourWorksPage, globalCfg, { services }] = await Promise.all([
-    getPage('our-works'),
-    getGlobalConfig(),
-    listServices(),
-  ]);
+  const [ourWorksPage, shell] = await Promise.all([getPage('our-works'), getSiteShellData()]);
+  const { content: globalContent, services } = shell;
 
   if (ourWorksPage.pageKey !== 'our-works') {
     throw new Error('Unexpected our-works page payload');
@@ -52,7 +50,7 @@ export default async function OurWorksPage({ searchParams }: Props) {
     }));
 
   const defaultDisplayed =
-    ow.content.DEFAULT_WORKS_DISPLAYED ?? globalCfg.content.DEFAULT_WORKS_DISPLAYED;
+    ow.content.DEFAULT_WORKS_DISPLAYED ?? globalContent.DEFAULT_WORKS_DISPLAYED;
   const limitNum =
     search.limit != null && !Number.isNaN(Number(search.limit))
       ? Number(search.limit)

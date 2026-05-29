@@ -1,4 +1,4 @@
-import { FullServiceData, UniqueGroupProps } from '@/app/services/[service]/page';
+import { FullServiceData, UniqueGroupProps } from '@/app/(site)/services/[service]/page';
 import { SectionHeader } from '@/components/general/SectionHeader';
 
 export const WhatMakesUsUnique = ({ title, groups }: FullServiceData['whatMakesUsUnique']) => {

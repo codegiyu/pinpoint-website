@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { RenderedServiceProps } from '@/app/projects/[projectId]/page';
+import { RenderedServiceProps } from '@/app/(site)/projects/[projectId]/page';
 import { Article } from '@/components/general/Article';
 import { cn } from '@/lib/utils';
 import { getStyleVars, hasStructuredStyle } from '@/lib/utils/public-style';

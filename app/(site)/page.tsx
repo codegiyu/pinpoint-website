@@ -5,7 +5,8 @@ import { HomeScrollManager } from '@/components/sections/home/HomeScrollManager'
 import { HomeHero } from '@/components/sections/home/Hero';
 import { CTA } from '@/components/sections/shared/Cta';
 import { WhatWeDo } from '@/components/sections/home/WhatWeDo';
-import { getPage, listServices } from '@/lib/api/pinpoint-public';
+import { getPage } from '@/lib/api/pinpoint-public';
+import { getSiteShellData } from '@/lib/site-shell';
 import type { HomePageResponse } from '@/lib/api/pinpoint-public-types';
 import { mapFeaturedToCaseStudies, mapServicesToSummaryCards } from '@/lib/utils/cms-mappers';
 import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
@@ -22,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [home, { services }] = await Promise.all([getPage('home'), listServices()]);
+  const [home, { services }] = await Promise.all([getPage('home'), getSiteShellData()]);
   if (home.pageKey !== 'home') {
     throw new Error('Unexpected home page payload');
   }
