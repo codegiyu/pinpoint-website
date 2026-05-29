@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 import { ColorPickerInput } from '@/components/color-picker/ColorPickerInput';
 import { ColorCard } from '@/components/color-picker/ColorCard';
 import { Button } from '@/components/ui/button';
-import { COLOR_PICKER_DEFAULT_QUERY } from '@/lib/constants/color-picker';
 import { type ColorData, parseColor } from '@/lib/utils/color';
 import {
   generateColorPNG,
@@ -46,14 +45,9 @@ const BRAND_DEFAULT_COLOR: ColorData = {
 const QUERY_STATE_OPTIONS = { shallow: true, history: 'replace' } as const;
 
 export function ColorPickerContent() {
-  const [colorsParam, setColorsParam] = useQueryState(
-    'colors',
-    parseAsString.withDefault(COLOR_PICKER_DEFAULT_QUERY)
-  );
+  const [colorsParam, setColorsParam] = useQueryState('colors', parseAsString.withDefault(''));
 
   const colors = useMemo(() => deserializeColors(colorsParam), [colorsParam]);
-
-  const pickerSlotCount = colors.length === 0 ? 1 : colors.length;
 
   const updateColors = (newColors: ColorData[]) => {
     if (newColors.length === 0) {
@@ -64,12 +58,6 @@ export function ColorPickerContent() {
   };
 
   const handleColorChange = (index: number, color: ColorData | null) => {
-    if (colors.length === 0) {
-      if (!color) return;
-      updateColors([color]);
-      return;
-    }
-
     if (!color) {
       updateColors(colors.filter((_, i) => i !== index));
       return;
@@ -81,7 +69,7 @@ export function ColorPickerContent() {
   };
 
   const handleAddColor = () => {
-    if (colors.length >= 1 && colors.length < 3) {
+    if (colors.length < 3) {
       updateColors([...colors, BRAND_DEFAULT_COLOR]);
     }
   };
@@ -134,21 +122,21 @@ export function ColorPickerContent() {
           </div>
 
           <div className="space-y-6">
-            {Array.from({ length: pickerSlotCount }, (_, index) => (
+            {colors.map((color, index) => (
               <motion.div
-                key={colors.length === 0 ? 'empty-slot' : index}
+                key={index}
                 initial={{ opacity: 0, translateX: -20 }}
                 animate={{ opacity: 1, translateX: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}>
                 <ColorPickerInput
                   label={`Color ${index + 1}`}
-                  value={colors[index] ?? null}
+                  value={color}
                   onChange={newColor => handleColorChange(index, newColor)}
                 />
               </motion.div>
             ))}
 
-            {colors.length >= 1 && colors.length < 3 && (
+            {colors.length < 3 && (
               <Button
                 variant="secondary"
                 size="default"
