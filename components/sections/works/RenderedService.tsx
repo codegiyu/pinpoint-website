@@ -19,6 +19,7 @@ export const RenderedService = ({
 
   return (
     <section
+      data-header-zone={sectionBg?.includes('bg-dark') ? 'dark' : undefined}
       className={cn(
         'w-full relative z-[2] cms-style',
         sectionBg || 'bg-white',

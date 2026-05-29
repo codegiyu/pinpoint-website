@@ -36,6 +36,7 @@ export const ProjectIntroduction = ({
 
   return (
     <section
+      data-header-zone={descriptionBg?.includes('bg-dark') ? 'dark' : undefined}
       className={cn(
         'w-full relative z-[2] cms-style',
         !descriptionStyleVars && (descriptionBg || 'bg-gray-f2')

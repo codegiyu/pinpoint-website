@@ -240,7 +240,7 @@ const NavLink = ({ text, href, isSelected, img, imgClass }: NavLinkProps) => {
       {!isSelected && (
         <div
           className={cn(
-            'absolute top-[-25px] left-0 hidden h-[calc(100%_+_50px)] -translate-x-1/2\
+            'absolute top-[-25px] left-0 hidden h-[calc(100%_+_50px)] -translate-x-[150%] \
             aspect-[0.7] scale-80 opacity-0\
             peer-hover:opacity-100 z-[51]\
             peer-hover:scale-100 transition-all duration-1000 ease-in-out lg:block',

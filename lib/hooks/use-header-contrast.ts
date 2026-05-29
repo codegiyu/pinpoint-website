@@ -1,55 +1,108 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
   DEFAULT_HEADER_CHROME_ROOT_MARGIN,
+  HEADER_DARK_ZONE_SELECTOR,
   resolveHeaderChromeColor,
+  shouldUseWhiteHeaderChrome,
   type HeaderContrastConfig,
   type HeaderChromeColor,
 } from '@/lib/utils/header-contrast';
 
+const MD_BREAKPOINT = '(min-width: 768px)';
+
+function collectDarkZoneElements(legacyIds: string[]): HTMLElement[] {
+  const seen = new Set<HTMLElement>();
+  const elements: HTMLElement[] = [];
+
+  const add = (el: HTMLElement | null) => {
+    if (el && !seen.has(el)) {
+      seen.add(el);
+      elements.push(el);
+    }
+  };
+
+  legacyIds.forEach(id => add(document.getElementById(id)));
+  document.querySelectorAll<HTMLElement>(HEADER_DARK_ZONE_SELECTOR).forEach(add);
+
+  return elements;
+}
+
 export function useHeaderContrast(config?: HeaderContrastConfig): HeaderChromeColor {
-  const darkZonesKey = config?.solidZones?.join('\0') ?? '';
+  const pathname = usePathname();
+  const legacyIdsKey = config?.solidZones?.join('\0') ?? '';
   const rootMargin = config?.rootMargin ?? DEFAULT_HEADER_CHROME_ROOT_MARGIN;
   const [color, setColor] = useState<HeaderChromeColor>('black');
 
   useEffect(() => {
-    const darkZones = darkZonesKey ? darkZonesKey.split('\0') : [];
+    const legacyIds = legacyIdsKey ? legacyIdsKey.split('\0') : [];
+    const legacyIdSet = new Set(legacyIds);
+    const intersections = new WeakMap<Element, boolean>();
+    let observer: IntersectionObserver | null = null;
+    let mutationTimer: ReturnType<typeof setTimeout> | undefined;
 
-    if (darkZones.length === 0) {
-      setColor('black');
-      return;
-    }
+    const recomputeColor = () => {
+      const elements = collectDarkZoneElements(legacyIds);
 
-    const elements = darkZones
-      .map(id => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
+      if (elements.length === 0) {
+        setColor('black');
+        return;
+      }
 
-    if (elements.length === 0) {
-      setColor('black');
-      return;
-    }
+      const flags = elements.map(el =>
+        shouldUseWhiteHeaderChrome(el, intersections.get(el) ?? false, legacyIdSet)
+      );
+      setColor(resolveHeaderChromeColor(flags));
+    };
 
-    const intersections = new Map<string, boolean>();
+    const connect = () => {
+      observer?.disconnect();
+      const elements = collectDarkZoneElements(legacyIds);
 
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.target.id) {
-            intersections.set(entry.target.id, entry.isIntersecting);
-          }
-        });
+      if (elements.length === 0) {
+        setColor('black');
+        return;
+      }
 
-        const flags = darkZones.map(id => intersections.get(id) ?? false);
-        setColor(resolveHeaderChromeColor(flags));
-      },
-      { root: null, threshold: 0, rootMargin }
-    );
+      observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            intersections.set(entry.target, entry.isIntersecting);
+          });
+          recomputeColor();
+        },
+        { root: null, threshold: 0, rootMargin }
+      );
 
-    elements.forEach(el => observer.observe(el));
+      elements.forEach(el => observer?.observe(el));
+      recomputeColor();
+    };
 
-    return () => observer.disconnect();
-  }, [darkZonesKey, rootMargin]);
+    connect();
+
+    const main = document.querySelector('main');
+    const mutationObserver =
+      main &&
+      new MutationObserver(() => {
+        clearTimeout(mutationTimer);
+        mutationTimer = setTimeout(connect, 150);
+      });
+
+    mutationObserver?.observe(main, { childList: true, subtree: true });
+
+    const mediaQuery = window.matchMedia(MD_BREAKPOINT);
+    const onBreakpointChange = () => recomputeColor();
+    mediaQuery.addEventListener('change', onBreakpointChange);
+
+    return () => {
+      observer?.disconnect();
+      mutationObserver?.disconnect();
+      mediaQuery.removeEventListener('change', onBreakpointChange);
+      clearTimeout(mutationTimer);
+    };
+  }, [legacyIdsKey, rootMargin, pathname]);
 
   return color;
 }

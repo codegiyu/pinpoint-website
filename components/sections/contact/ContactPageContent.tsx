@@ -20,6 +20,7 @@ export default function ContactPageContent({
   return (
     <section
       id="contact-hero"
+      data-header-zone="dark"
       className="w-full min-h-screen pb-4 text-white relative overflow-hidden">
       <SmartVideo
         src="https://static.pinpoint.ng/videos/contact-animation.webm"

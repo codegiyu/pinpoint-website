@@ -17,7 +17,10 @@ export const HomeHero = ({
   changingHeroTitleModifiers: string[];
 }) => {
   return (
-    <section id="hero" className="w-full h-screen bg-dark text-white relative overflow-hidden">
+    <section
+      id="hero"
+      data-header-zone="dark"
+      className="w-full h-screen bg-dark text-white relative overflow-hidden">
       <Image
         src={HERO_POSTER}
         alt=""

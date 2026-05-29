@@ -9,5 +9,5 @@ export const HEADER_CONTRAST_CONTACT: HeaderContrastConfig = {
 };
 
 export const HEADER_CONTRAST_SERVICE: HeaderContrastConfig = {
-  solidZones: ['service-hero-media', 'service-description'],
+  solidZones: ['service-description'],
 };
