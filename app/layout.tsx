@@ -3,6 +3,25 @@ import { ScrollRestorationHandler } from '@/components/general/ScrollRestoration
 import './globals.css';
 import { Providers } from './Providers';
 import { getGlobalConfig, globalSeoToMetadata } from '@/lib/api/pinpoint-public';
+// import localFont from 'next/font/local';
+
+// const rubikFont = localFont({
+//   src: [
+//     { path: '../public/fonts/rubik/Rubik-Light.woff2', weight: '300', style: 'normal' },
+//     { path: '../public/fonts/rubik/Rubik-LightItalic.woff2', weight: '300', style: 'italic' },
+//     { path: '../public/fonts/rubik/Rubik-Regular.woff2', weight: '400', style: 'normal' },
+//     { path: '../public/fonts/rubik/Rubik-Italic.woff2', weight: '400', style: 'italic' },
+//     { path: '../public/fonts/rubik/Rubik-Medium.woff2', weight: '500', style: 'normal' },
+//     { path: '../public/fonts/rubik/Rubik-MediumItalic.woff2', weight: '500', style: 'italic' },
+//     { path: '../public/fonts/rubik/Rubik-SemiBold.woff2', weight: '600', style: 'normal' },
+//     { path: '../public/fonts/rubik/Rubik-SemiBoldItalic.woff2', weight: '600', style: 'italic' },
+//     { path: '../public/fonts/rubik/Rubik-Bold.woff2', weight: '700', style: 'normal' },
+//     { path: '../public/fonts/rubik/Rubik-BoldItalic.woff2', weight: '700', style: 'italic' },
+//     { path: '../public/fonts/rubik/Rubik-Black.woff2', weight: '900', style: 'normal' },
+//     { path: '../public/fonts/rubik/Rubik-BlackItalic.woff2', weight: '900', style: 'italic' },
+//   ],
+//   display: 'swap',
+// });
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -35,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased m-0 p-0  relative`}>
+      <body className="antialiased m-0 p-0 relative">
         <ScrollRestorationHandler />
         <Providers>{children}</Providers>
       </body>

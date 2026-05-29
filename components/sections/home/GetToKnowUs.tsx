@@ -22,12 +22,16 @@ export const GetToKnowUs = () => {
 };
 
 export const DescriptionTextSection = ({
+  id,
   className,
   children,
   text,
-}: PropsWithChildren<{ className?: string; text: string }>) => {
+}: PropsWithChildren<{ id?: string; className?: string; text: string }>) => {
   return (
-    <section className={cn('section-block-padding bg-white relative z-[3]', className)}>
+    <section
+      id={id}
+      data-header-zone={className?.includes('bg-dark') ? 'dark' : undefined}
+      className={cn('section-block-padding bg-white relative z-[3]', className)}>
       <div className="pinpoint-container">
         <div className="w-full lg:max-w-[720px] xl:max-w-[782px] 1400:max-w-[950px] grid gap-16 mx-auto px-0">
           <p className="typo-body-1 font-light">{text}</p>

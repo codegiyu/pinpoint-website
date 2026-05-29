@@ -15,6 +15,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { PinpointFull } from '@/components/icons';
 import { useSiteLoading } from '@/lib/context/SiteLoadingContext';
 import { routeTransitionLabel } from '@/lib/utils/route-transition-label';
+import { shouldDisableHeavyRouteTransitions } from '@/lib/utils/lightweight-navigation';
 
 const COVER_DURATION = 1.1;
 const REVEAL_DURATION = 1.6;
@@ -100,7 +101,14 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { siteLoading } = useSiteLoading();
-  const reduceMotion = useReducedMotion();
+  const reduceMotionPreference = useReducedMotion();
+  const [heavyTransitionsDisabled, setHeavyTransitionsDisabled] = useState(false);
+
+  useEffect(() => {
+    setHeavyTransitionsDisabled(shouldDisableHeavyRouteTransitions());
+  }, []);
+
+  const reduceMotion = reduceMotionPreference || heavyTransitionsDisabled;
 
   const [phase, setPhase] = useState<Phase>('idle');
   const [displayTitle, setDisplayTitle] = useState('');
@@ -282,7 +290,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
             </div>
             <div className="absolute inset-0 grid place-items-center pointer-events-none">
               <motion.p
-                className="typo-h3 text-center text-white/95 px-6 max-w-[90vw] font-medium tracking-wide"
+                className="typo-h3 text-center text-white/95 px-6 max-w-[90vw] tracking-wide"
                 initial={{ opacity: 0, y: 0, rotate: 8 }}
                 animate={
                   panelReveal

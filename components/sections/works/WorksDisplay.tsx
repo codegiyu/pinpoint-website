@@ -3,9 +3,17 @@
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
 import Image from 'next/image';
-import { Dispatch, SetStateAction, Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
-import { debounce } from '@/lib/utils/general';
+import {
+  Dispatch,
+  SetStateAction,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { parseAsString, useQueryStates } from 'nuqs';
 import {
   Accordion,
   AccordionContent,
@@ -15,6 +23,9 @@ import {
 import capitalize from 'lodash/capitalize';
 import { Loader2, X } from 'lucide-react';
 import { DropdownOption, HoverDropdown } from '@/components/atoms/HoverDropdown';
+import type { ProjectPagination } from '@/lib/api/pinpoint-public-types';
+import { appendWorkCards, fetchOurWorksProjects } from '@/lib/api/our-works-projects-client';
+
 export interface ServiceFilterOption {
   slug: string;
   label: string;
@@ -23,29 +34,38 @@ export interface ServiceFilterOption {
 export interface WorksDisplayProps {
   serviceFilterOptions: ServiceFilterOption[];
   provenSectors: string[];
-  projects: WorkCardProps[];
-  defaultWorksDisplayed: number;
-  defaultLimit: number;
+  initialProjects: WorkCardProps[];
+  initialPagination: ProjectPagination;
+  pageSize: number;
+  initialFilters?: {
+    service?: string;
+    sector?: string;
+  };
 }
 
 export const WorksDisplay = ({
   provenSectors,
   serviceFilterOptions,
-  projects,
-  defaultWorksDisplayed,
-  defaultLimit,
+  initialProjects,
+  initialPagination,
+  pageSize,
+  initialFilters,
 }: WorksDisplayProps) => {
   const [openfilter, setOpenFilter] = useState('');
   const [filterLoading, setFilterLoading] = useState<string[]>([]);
   const [moreLoading, setMoreLoading] = useState(false);
+  const [items, setItems] = useState(initialProjects);
+  const [pagination, setPagination] = useState(initialPagination);
+  const [currentPage, setCurrentPage] = useState(1);
+  const skipFilterFetchRef = useRef(true);
 
-  const [activeFilters, setActiveFilters] = useQueryStates({
-    service: parseAsString.withDefault(''),
-    sector: parseAsString.withDefault(''),
-    limit: parseAsInteger.withDefault(defaultLimit),
-  });
-
-  const isFirstLoadRef = useRef(true);
+  const [activeFilters, setActiveFilters] = useQueryStates(
+    {
+      service: parseAsString.withDefault(initialFilters?.service ?? ''),
+      sector: parseAsString.withDefault(initialFilters?.sector ?? ''),
+    },
+    { shallow: true, history: 'replace' }
+  );
 
   const { allProvenServiceSlugs, allProvenSectors } = useMemo(
     () => ({
@@ -61,13 +81,80 @@ export const WorksDisplay = ({
   }, [serviceFilterOptions]);
 
   const hideMoreButton = useMemo(() => {
-    return (
-      filterLoading.length ||
-      !activeFilters.limit ||
-      !projects.length ||
-      projects.length <= activeFilters.limit
-    );
-  }, [projects, activeFilters.limit, filterLoading]);
+    return filterLoading.length > 0 || items.length >= pagination.total;
+  }, [items.length, pagination.total, filterLoading.length]);
+
+  const loadProjects = useCallback(
+    async (page: number, service: string, sector: string, mode: 'replace' | 'append') => {
+      const data = await fetchOurWorksProjects({
+        page,
+        limit: pageSize,
+        sector: sector || undefined,
+        service: service || undefined,
+      });
+
+      setPagination(data.pagination);
+      setCurrentPage(page);
+      setItems(prev => (mode === 'append' ? appendWorkCards(prev, data.projects) : data.projects));
+
+      return data;
+    },
+    [pageSize]
+  );
+
+  const refetchFromFilters = useCallback(
+    async (service: string, sector: string) => {
+      setFilterLoading(() => {
+        const keys: string[] = [];
+        if (service) keys.push('service');
+        if (sector) keys.push('sector');
+        return keys.length ? keys : ['remove'];
+      });
+
+      try {
+        await loadProjects(1, service, sector, 'replace');
+      } finally {
+        setFilterLoading([]);
+      }
+    },
+    [loadProjects]
+  );
+
+  const giveMeMore = async () => {
+    if (moreLoading || items.length >= pagination.total) return;
+
+    setMoreLoading(true);
+
+    try {
+      await loadProjects(currentPage + 1, activeFilters.service, activeFilters.sector, 'append');
+    } finally {
+      setMoreLoading(false);
+    }
+  };
+
+  function handleFilterOptionClick(category: string, val: string) {
+    if (category !== 'service' && category !== 'sector') return;
+
+    if (category === 'service' && !allProvenServiceSlugs.has(val)) return;
+    if (category === 'sector' && !allProvenSectors.has(val)) return;
+
+    setOpenFilter('');
+    void setActiveFilters(prev => ({ ...prev, [category]: val }));
+  }
+
+  const clearAFilter = (category: string) => {
+    if (category !== 'service' && category !== 'sector') return;
+    void setActiveFilters(prev => ({ ...prev, [category]: '' }));
+  };
+
+  useEffect(() => {
+    if (skipFilterFetchRef.current) {
+      skipFilterFetchRef.current = false;
+      return;
+    }
+
+    void refetchFromFilters(activeFilters.service, activeFilters.sector);
+  }, [activeFilters.service, activeFilters.sector, refetchFromFilters]);
 
   const { serviceDropdownOptions, sectorDropdownOptions } = useMemo(() => {
     return {
@@ -83,69 +170,8 @@ export const WorksDisplay = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serviceFilterOptions, provenSectors]);
 
-  const giveMeMore = async () => {
-    setMoreLoading(true);
-    await debounce(1000);
-
-    setActiveFilters(prev => ({ ...prev, limit: prev.limit + defaultWorksDisplayed }), {
-      history: 'replace',
-      shallow: false,
-    });
-  };
-
-  function handleFilterOptionClick(category: string, val: string) {
-    if (!(category in activeFilters)) return;
-    setOpenFilter('');
-    setActiveFilters(prev => ({ ...prev, [category]: val }), {
-      history: 'replace',
-      shallow: false,
-    });
-  }
-
-  const clearAFilter = (category: string) => {
-    if (!(category in activeFilters)) return;
-    setActiveFilters(prev => ({ ...prev, [category]: '' }), { history: 'replace', shallow: false });
-  };
-
-  useEffect(() => {
-    setFilterLoading([]);
-    setMoreLoading(false);
-  }, [projects]);
-
-  useEffect(() => {
-    const filterWorks = async () => {
-      const { service, sector } = activeFilters;
-
-      if (!isFirstLoadRef.current) {
-        setFilterLoading(() => {
-          const arr: string[] = [];
-
-          if (service) arr.push('service');
-          if (sector) arr.push('sector');
-
-          return arr.length ? arr : ['remove'];
-        });
-      }
-
-      if (!service && !sector) {
-        setFilterLoading([]);
-        return;
-      }
-
-      if (
-        (service && !allProvenServiceSlugs.has(service)) ||
-        (sector && !allProvenSectors.has(sector))
-      ) {
-        setFilterLoading([]);
-        setActiveFilters({ service: '', sector: '' }, { history: 'replace', shallow: false });
-        return;
-      }
-    };
-
-    filterWorks();
-    isFirstLoadRef.current = false;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeFilters]);
+  const listHidden = filterLoading.length > 0;
+  const showEmptyState = !listHidden && !moreLoading && items.length === 0;
 
   return (
     <Suspense fallback={null}>
@@ -202,7 +228,7 @@ export const WorksDisplay = ({
         <div
           className="w-[85.8vw] max-w-[495px] md:max-w-none md:w-[90vw] lg:w-[828px] 
           xl:w-[1024px] 2xl:w-[1200px] 3xl:w-[1300px] grid gap-5 mx-auto">
-          {!filterLoading.length && !moreLoading && !projects.length ? (
+          {showEmptyState ? (
             <div className="w-full flex justify-center py-10">
               <p className="typo-body-7 text-66">No projects available</p>
             </div>
@@ -211,9 +237,9 @@ export const WorksDisplay = ({
               className={`w-full h-auto grid md:grid-cols-2 gap-8 md:gap-8 lg:gap-x-[3.25rem] 
             lg:gap-y-8 xl:gap-y-[clamp(24px,_1.119vw,_32px)] transition-all
             lg:[&>*:nth-child(even)]:translate-y-[-150px] duration-300 ease-in-out
-            ${filterLoading.length ? 'opacity-0 max-h-0' : 'opacity-100 max-h-auto'} `}>
-              {projects.map((work, idx) => (
-                <WorkCard key={idx} {...work} />
+            ${listHidden ? 'opacity-0 max-h-0' : 'opacity-100 max-h-auto'} `}>
+              {items.map(work => (
+                <WorkCard key={work.id} {...work} />
               ))}
             </ul>
           )}

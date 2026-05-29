@@ -2,8 +2,8 @@ import { LangChangeLinkProps, NavLinkGroupProps } from '@/components/layout/Head
 import type { PublicService } from '@/lib/api/pinpoint-public-types';
 import capitalize from 'lodash/capitalize';
 
-export const BASE_LOAD_TIME = 1500; // ms
-export const TRANSITION_DURATION = 0.8; // s
+/** Disable Next.js RSC prefetch on shell/nav links to avoid backend request storms. */
+export const NAV_LINK_PREFETCH = { prefetch: false } as const;
 
 export const langChangeOptions: LangChangeLinkProps[] = [
   { lang: 'fr', href: '/fr' },

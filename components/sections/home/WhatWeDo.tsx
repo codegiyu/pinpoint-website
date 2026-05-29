@@ -17,6 +17,7 @@ export const WhatWeDo = memo(({ sectionName, services }: WhatWeDoProps) => {
   return (
     <section
       id="what-we-do"
+      data-header-zone="dark"
       className={`w-full bg-gray-f2 md:bg-dark grid gap-10 md:gap-5 
       xl:gap-[clamp(20px,_1.493vw,_30px)] py-0 md:pt-[4.375rem] overflow-hidden
       xl:pt-[clamp(70px,_5.224vw,_88px)] ${sectionName ? '' : 'relative'} z-[3]`}>
@@ -124,6 +125,8 @@ const ServiceCard = memo(
             src={videoUrl}
             poster={posterUrl}
             wrapClassName="h-full hidden md:block"
+            preload="none"
+            deferSrcUntilInView
             className={`scale-110 relative z-[4]
             ${
               !isLargeScreen || (isLargeScreen && cardHovered)

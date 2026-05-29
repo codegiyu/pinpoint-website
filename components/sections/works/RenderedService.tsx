@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { RenderedServiceProps } from '@/app/projects/[projectId]/page';
+import { RenderedServiceProps } from '@/app/(site)/projects/[projectId]/page';
 import { Article } from '@/components/general/Article';
 import { cn } from '@/lib/utils';
 import { getStyleVars, hasStructuredStyle } from '@/lib/utils/public-style';
@@ -19,6 +19,7 @@ export const RenderedService = ({
 
   return (
     <section
+      data-header-zone={sectionBg?.includes('bg-dark') ? 'dark' : undefined}
       className={cn(
         'w-full relative z-[2] cms-style',
         sectionBg || 'bg-white',

@@ -1,4 +1,4 @@
-import { ServicePackage, ServicePackageGroup } from '@/app/services/[service]/page';
+import { ServicePackage, ServicePackageGroup } from '@/app/(site)/services/[service]/page';
 import { SectionHeader } from '@/components/general/SectionHeader';
 import { formatSlugToText } from '@/lib/utils/general';
 import { BreakdownSingle } from '../home/WhatWeDo';

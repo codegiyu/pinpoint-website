@@ -3,32 +3,28 @@
 import { useSiteLoading } from '@/lib/context/SiteLoadingContext';
 import { useInitPageStore } from '@/lib/store/usePageStore';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import { BASE_LOAD_TIME, TRANSITION_DURATION } from '@/lib/constants/routing';
 
-const delay = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms));
+const SPLASH_MIN_VISIBLE_MS = 1650;
+const SPLASH_FADE_DURATION_S = 0.35;
 
 export function SiteLoadAnimationScreen() {
   const { siteLoading, setSiteLoading } = useSiteLoading();
   const setPageLoadedStore = useInitPageStore(s => s.actions.setPageLoaded);
   const [pageLoaded, setPageLoadedLocal] = useState(false);
+  const mountedAtRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const handleLoad = async () => {
-      await delay(BASE_LOAD_TIME);
-      setPageLoadedLocal(true);
-    };
-
-    if (document.readyState === 'complete') {
-      handleLoad();
-    } else {
-      window.addEventListener('load', handleLoad);
+    if (mountedAtRef.current == null) {
+      mountedAtRef.current = Date.now();
     }
 
-    return () => {
-      window.removeEventListener('load', handleLoad);
-    };
+    const elapsed = Date.now() - mountedAtRef.current;
+    const remaining = Math.max(0, SPLASH_MIN_VISIBLE_MS - elapsed);
+    const id = window.setTimeout(() => setPageLoadedLocal(true), remaining);
+
+    return () => window.clearTimeout(id);
   }, []);
 
   if (!siteLoading) return null;
@@ -37,14 +33,14 @@ export function SiteLoadAnimationScreen() {
     <motion.div
       initial={{ opacity: 1 }}
       animate={pageLoaded ? { opacity: 0 } : {}}
-      transition={{ duration: TRANSITION_DURATION, ease: 'easeInOut' }}
+      transition={{ duration: SPLASH_FADE_DURATION_S, ease: 'easeInOut' }}
       onAnimationComplete={() => {
         setSiteLoading(false);
         setPageLoadedStore(true);
       }}
       className="fixed inset-0 z-[99] grid h-screen w-full place-items-center bg-black">
       <div
-        className={`transition-all duration-[1500ms] ease-linear ${!pageLoaded ? '' : 'opacity-0'}`}>
+        className={`transition-all duration-[350ms] ease-linear ${!pageLoaded ? '' : 'opacity-0'}`}>
         <Image
           src="/icons/pinpoint-full-dark.svg"
           alt=""

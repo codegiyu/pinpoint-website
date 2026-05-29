@@ -1,5 +1,6 @@
 'use client';
 
+import '@/components/swiper/swiper-styles.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Manipulation, A11y, Pagination, Navigation, Mousewheel } from 'swiper/modules';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
@@ -101,6 +102,7 @@ export const ProjectSlide = ({ name, description, image, projectId }: RelatedPro
               alt=""
               className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
               fill
+              sizes="(max-width: 768px) 85vw, (max-width: 1280px) 410px, 528px"
             />
           </div>
         </div>
@@ -134,7 +136,9 @@ export const ProjectSlide = ({ name, description, image, projectId }: RelatedPro
 const DiscoverMoreSlide = () => {
   return (
     <GhostBtn linkProps={{ href: `/our-works` }} className="w-full" wrapClassName="group">
-      <div className="w-full xl:h-[clamp(354px,_26.418vw,_442px)] bg-dark text-white flex flex-col justify-between relative xl:p-[clamp(46px,_3.433vw,_58px)]">
+      <div
+        className="w-full xl:h-[clamp(354px,_26.418vw,_442px)] bg-dark text-white flex flex-col 
+        justify-between relative xl:p-[clamp(46px,_3.433vw,_58px)]">
         <div className="w-full h-[60vw] md:h-[200px] lg:h-[280px] xl:h-auto typo-body-6 text-start pt-10 px-6 xl:pt-0 xl:px-0">
           <p className="">Still hungry ?</p>
           <p className="text-wrap break-words">

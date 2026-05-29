@@ -5,7 +5,17 @@ import { RegularInput, RegularInputProps } from '@/components/atoms/RegularInput
 import { RegularTextarea, RegularTextareaProps } from '@/components/atoms/RegularTextarea';
 import { toast } from '@/components/atoms/Toast';
 import { useForm } from '@/lib/hooks/use-form';
-import { ChangeEvent, Dispatch, memo, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { trackFormStart, trackFormSubmit } from '@/lib/telemetry/track-form';
+import {
+  ChangeEvent,
+  Dispatch,
+  memo,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { output, z, ZodArray, ZodEmail, ZodObject, ZodString } from 'zod';
 import FormAlert from './FormAlert';
 import { FormSubmissionProgress } from './FormSubmissionProgress';
@@ -212,6 +222,33 @@ export const RequestForm = memo(
       return validateForm() && filesRequired ? !!files.length : true;
     };
 
+    const onFormEngage = useCallback(() => {
+      trackFormStart(formName, 'projectRequest');
+    }, [formName]);
+
+    const wrappedHandleInputChange = useCallback(
+      (
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        options?: { clearFields?: (keyof z.infer<TSchema>)[] }
+      ) => {
+        onFormEngage();
+        handleInputChange(e, options);
+      },
+      [handleInputChange, onFormEngage]
+    );
+
+    const wrappedOnChange = useCallback(
+      (
+        name: keyof z.infer<TSchema>,
+        value: string | string[] | number | boolean,
+        options?: { clearFields?: (keyof z.infer<TSchema>)[] }
+      ) => {
+        onFormEngage();
+        onChange(name, value, options);
+      },
+      [onChange, onFormEngage]
+    );
+
     async function onSubmit(values: z.infer<typeof formSchema>): Promise<boolean> {
       if (!generalValidation()) return false;
 
@@ -304,6 +341,7 @@ export const RequestForm = memo(
         resetForm();
         setFiles([]);
 
+        trackFormSubmit(formName, 'projectRequest');
         clearPanelAfterDelay = true;
 
         return true;
@@ -390,8 +428,8 @@ export const RequestForm = memo(
                   serviceOptions,
                   formValues,
                   formErrors,
-                  handleInputChange,
-                  onChange,
+                  handleInputChange: wrappedHandleInputChange,
+                  onChange: wrappedOnChange,
                   errorsVisible,
                 }}
               />

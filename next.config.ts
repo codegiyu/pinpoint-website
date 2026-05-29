@@ -28,18 +28,6 @@ const nextConfig: NextConfig = {
         source: '/:path*',
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
-          },
-          {
-            key: 'Pragma',
-            value: 'no-cache',
-          },
-          {
-            key: 'Expires',
-            value: '0',
-          },
-          {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
@@ -51,7 +39,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=0, must-revalidate',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
@@ -75,4 +63,20 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Optional: bundle analyzer for build-time inspection.
+// Usage: `ANALYZE=true npm run analyze`
+// Loaded only when ANALYZE=true so production images without devDependencies can start.
+function withOptionalBundleAnalyzer(config: NextConfig): NextConfig {
+  if (process.env.ANALYZE !== 'true') {
+    return config;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: true,
+  });
+
+  return withBundleAnalyzer(config);
+}
+
+export default withOptionalBundleAnalyzer(nextConfig);

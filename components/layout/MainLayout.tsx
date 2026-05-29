@@ -2,8 +2,7 @@ import { PropsWithChildren } from 'react';
 import { Header, HeaderProps } from './Header';
 import { cn } from '@/lib/utils';
 import Footer from './Footer';
-import { getGlobalConfig, listServices } from '@/lib/api/pinpoint-public';
-import { buildNavlinks } from '@/lib/constants/routing';
+import { getSiteShellData } from '@/lib/site-shell';
 
 interface MainLayoutProps {
   pageName?: string;
@@ -20,12 +19,12 @@ export const MainLayout = async ({
   hideFooter = false,
 }: PropsWithChildren<MainLayoutProps>) => {
   void pageName;
-  const [{ content }, { services }] = await Promise.all([getGlobalConfig(), listServices()]);
+  const { content, navlinkGroups } = await getSiteShellData();
 
   return (
     <>
       <Header
-        navlinkGroups={buildNavlinks(services)}
+        navlinkGroups={navlinkGroups}
         contactInformation={content.contactInformation}
         pinpointSocials={content.pinpointSocials}
         {...headerProps}
