@@ -83,14 +83,15 @@ export function useHeaderContrast(config?: HeaderContrastConfig): HeaderChromeCo
     connect();
 
     const main = document.querySelector('main');
-    const mutationObserver =
-      main &&
-      new MutationObserver(() => {
+    let mutationObserver: MutationObserver | null = null;
+
+    if (main) {
+      mutationObserver = new MutationObserver(() => {
         clearTimeout(mutationTimer);
         mutationTimer = setTimeout(connect, 150);
       });
-
-    mutationObserver?.observe(main, { childList: true, subtree: true });
+      mutationObserver.observe(main, { childList: true, subtree: true });
+    }
 
     const mediaQuery = window.matchMedia(MD_BREAKPOINT);
     const onBreakpointChange = () => recomputeColor();
