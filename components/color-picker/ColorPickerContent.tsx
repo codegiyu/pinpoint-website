@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { ColorPickerInput } from '@/components/color-picker/ColorPickerInput';
 import { ColorCard } from '@/components/color-picker/ColorCard';
 import { Button } from '@/components/ui/button';
@@ -44,6 +45,15 @@ const BRAND_DEFAULT_COLOR: ColorData = {
 
 export function ColorPickerContent() {
   const [colorsParam, setColorsParam] = useQueryState('colors', parseAsString.withDefault(''));
+  const didInitDefault = useRef(false);
+
+  useEffect(() => {
+    if (didInitDefault.current) return;
+    if (!colorsParam) {
+      void setColorsParam(serializeColors([BRAND_DEFAULT_COLOR]), { history: 'replace' });
+    }
+    didInitDefault.current = true;
+  }, [colorsParam]);
 
   const colors = useMemo(() => deserializeColors(colorsParam), [colorsParam]);
 
