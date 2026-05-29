@@ -9,6 +9,7 @@ import { getPage } from '@/lib/api/pinpoint-public';
 import { getSiteShellData } from '@/lib/site-shell';
 import type { HomePageResponse } from '@/lib/api/pinpoint-public-types';
 import { mapFeaturedToCaseStudies, mapServicesToSummaryCards } from '@/lib/utils/cms-mappers';
+import { HEADER_CONTRAST_HOME } from '@/lib/constants/header-contrast';
 import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
 import type { Metadata } from 'next';
 
@@ -36,7 +37,7 @@ export default async function Home() {
     <MainLayout
       pageName="Pinpoint Global"
       headerProps={{
-        whiteTextStart: true,
+        headerContrast: HEADER_CONTRAST_HOME,
       }}>
       <HomeHero changingHeroTitleModifiers={changingHeroTitleModifiers} />
       <GetToKnowUs />

@@ -159,14 +159,23 @@
   body.load-animation-open #visible-header .logo-accent-layer path.coloured-text {
     fill: #fe7702 !important;
   }
-  body.load-animation-open #visible-header .logo-blend-layer path.black-text {
+  body.load-animation-open #visible-header .header-logo-mono path.black-text {
     fill: #fff !important;
   }
   body.load-animation-open .menu-btn {
     color: #fff !important;
   }
 
-  #visible-header .logo-blend-layer path.black-text {
+  #visible-header .header-blend-surface {
+    color: #fff;
+  }
+  #visible-header[data-header-contrast='blend'] .header-blend-surface {
+    mix-blend-mode: difference;
+  }
+  #visible-header[data-header-contrast='solid'] .header-blend-surface {
+    mix-blend-mode: normal;
+  }
+  #visible-header .header-logo-mono path.black-text {
     fill: currentColor;
   }
   #visible-header .logo-accent-layer path.coloured-text,

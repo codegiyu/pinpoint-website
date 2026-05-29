@@ -18,7 +18,9 @@ export default function ContactPageContent({
   pinpointSocials: PinpointSocialApiItem[];
 }) {
   return (
-    <section className="w-full min-h-screen pb-4 text-white relative overflow-hidden">
+    <section
+      id="contact-hero"
+      className="w-full min-h-screen pb-4 text-white relative overflow-hidden">
       <SmartVideo
         src="https://static.pinpoint.ng/videos/contact-animation.webm"
         wrapClassName="h-full"

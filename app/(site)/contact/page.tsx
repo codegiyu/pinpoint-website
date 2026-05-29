@@ -2,6 +2,7 @@ import { MainLayout } from '@/components/layout/MainLayout';
 import ContactPageContent from '@/components/sections/contact/ContactPageContent';
 import { getPage } from '@/lib/api/pinpoint-public';
 import { getSiteShellData } from '@/lib/site-shell';
+import { HEADER_CONTRAST_CONTACT } from '@/lib/constants/header-contrast';
 import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
 import { Metadata } from 'next';
 
@@ -23,7 +24,7 @@ export default async function ContactPage() {
     <MainLayout
       pageName="Contact"
       headerProps={{
-        whiteTextStart: true,
+        headerContrast: HEADER_CONTRAST_CONTACT,
       }}
       hideFooter>
       <ContactPageContent

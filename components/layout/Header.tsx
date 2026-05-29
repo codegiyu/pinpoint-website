@@ -13,33 +13,36 @@ import type { PinpointSocialApiItem } from '@/components/general/Socials';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { NAV_LINK_PREFETCH } from '@/lib/constants/routing';
+import { useHeaderContrast } from '@/lib/hooks/use-header-contrast';
+import type { HeaderContrastConfig } from '@/lib/utils/header-contrast';
+
+export type { HeaderContrastConfig };
 
 export interface HeaderProps {
-  whiteTextStart?: boolean;
+  headerContrast?: HeaderContrastConfig;
   contactInformation: ContactsGroupProps[];
   pinpointSocials: PinpointSocialApiItem[];
   navlinkGroups: NavLinkGroupProps[];
 }
 
+const logoTextSize = 'text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]';
+
 export const Header = memo(
-  ({ whiteTextStart, contactInformation, pinpointSocials, navlinkGroups }: HeaderProps) => {
+  ({ headerContrast, contactInformation, pinpointSocials, navlinkGroups }: HeaderProps) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [flipTextKey, setFlipTextKey] = useState(0);
     const pathname = usePathname();
+    const observerContrast = useHeaderContrast(headerContrast);
+    const headerContrastMode = menuOpen ? 'solid' : observerContrast;
 
     const { allNavLinks } = useMemo(() => {
       const slugsArr = pathname.split('/');
-      const firstSlug = '/' + slugsArr.slice(0, 2).join('');
-      // const selectedLangOption = langChangeOptions.find(item => item.href === firstSlug);
-      // const selectedLang = selectedLangOption?.lang ?? 'en';
-
-      // const restOfPath = pathname.slice((selectedLangOption?.href ?? '/').length);
+      const firstSlug = '/' + slugsArr.slice(0, 2).join('/');
 
       const allNavLinks = navlinkGroups.map(group => ({
         ...group,
         links: group.links.map(item => ({
           ...item,
-          // href: `${selectedLang === 'en' ? '' : selectedLang}${item.href}`,
           href: item.href,
           isSelected:
             firstSlug === '/'
@@ -57,63 +60,66 @@ export const Header = memo(
       setMenuOpen(prev => !prev);
     };
 
-    const blendActive = !menuOpen && !whiteTextStart;
-    const blendClass = blendActive ? 'mix-blend-difference' : 'mix-blend-normal';
-
     return (
-      <header id="header" className={`header w-full text-white`}>
+      <header id="header" className="header w-full text-white">
         <div
           id="visible-header"
+          data-header-contrast={headerContrastMode}
           className={cn(
             'fixed inset-x-0 top-0 z-[99] pointer-events-none',
             menuOpen ? 'menu-open' : 'menu-closed'
           )}>
           <div
             className={cn(
-              'wide-pinpoint-container flex items-center justify-between py-6 md:py-8 pointer-events-auto',
+              'wide-pinpoint-container relative py-6 md:py-8 pointer-events-auto',
               menuOpen && 'bg-dark'
             )}>
-            <GhostBtn
-              linkProps={{ href: '/', ...NAV_LINK_PREFETCH }}
-              className="pointer-events-auto">
-              <div className="relative w-fit flex items-center text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]">
-                <div className={cn('logo-blend-layer w-fit', blendClass)}>
+            <div className="header-blend-surface flex w-full items-center justify-between">
+              <GhostBtn
+                linkProps={{ href: '/', ...NAV_LINK_PREFETCH }}
+                className="pointer-events-auto">
+                <div className={cn('header-logo-mono w-fit', logoTextSize)}>
                   <PinpointFull layer="monochrome" className="pinpoint-logo" />
                 </div>
-                <div
-                  className="logo-accent-layer absolute inset-0 mix-blend-normal pointer-events-none"
-                  aria-hidden>
-                  <PinpointFull layer="accent" className="pinpoint-logo h-full w-full" />
-                </div>
-              </div>
-            </GhostBtn>
+              </GhostBtn>
 
-            <GhostBtn
-              className="group pointer-events-auto"
-              onClick={menuHandler}
-              onMouseEnter={() => setFlipTextKey(prev => prev + 1)}>
-              <div className={cn('menu-btn w-fit flex items-center gap-3', blendClass)}>
-                <FlipText text="MENU" flipKey={flipTextKey} wrapClassName="typo-menu" />
-                <div className="w-fit grid gap-[4px]">
-                  <div
-                    className={`w-[1.25rem] h-[2px] bg-[currentColor] ${menuOpen ? 'transform-origin-top-left w-[1.125rem] rotate-45' : ''} transition-transform duration-300 ease-linear`}
-                  />
-                  <div
-                    className={`w-[1.25rem] h-[2px] bg-[currentColor] ${menuOpen ? 'opacity-0' : ''} transition-opacity duration-200 ease-linear`}
-                  />
-                  <div
-                    className={`w-[1.25rem] h-[2px] bg-[currentColor] ${menuOpen ? 'transform-origin-bottom-left w-[1.125rem] -rotate-45' : ''} transition-transform duration-300 ease-linear`}
-                  />
+              <GhostBtn
+                className="group pointer-events-auto"
+                onClick={menuHandler}
+                onMouseEnter={() => setFlipTextKey(prev => prev + 1)}>
+                <div className="menu-btn flex w-fit items-center gap-3">
+                  <FlipText text="MENU" flipKey={flipTextKey} wrapClassName="typo-menu" />
+                  <div className="grid w-fit gap-[4px]">
+                    <div
+                      className={`h-[2px] w-[1.25rem] bg-[currentColor] ${menuOpen ? 'w-[1.125rem] rotate-45 transform-origin-top-left' : ''} transition-transform duration-300 ease-linear`}
+                    />
+                    <div
+                      className={`h-[2px] w-[1.25rem] bg-[currentColor] ${menuOpen ? 'opacity-0' : ''} transition-opacity duration-200 ease-linear`}
+                    />
+                    <div
+                      className={`h-[2px] w-[1.25rem] bg-[currentColor] ${menuOpen ? 'w-[1.125rem] -rotate-45 transform-origin-bottom-left' : ''} transition-transform duration-300 ease-linear`}
+                    />
+                  </div>
                 </div>
-              </div>
-            </GhostBtn>
+              </GhostBtn>
+            </div>
+
+            <div
+              className={cn(
+                'logo-accent-layer pointer-events-none absolute top-6 mix-blend-normal md:top-8',
+                'left-[5vw] md:left-[2.27vw]',
+                logoTextSize
+              )}
+              aria-hidden>
+              <PinpointFull layer="accent" className="pinpoint-logo h-full w-full" />
+            </div>
           </div>
         </div>
 
         <Dialog open={menuOpen}>
           <DialogContent
             aria-describedby="header-dialog-title"
-            className="w-full max-w-full h-full text-white">
+            className="h-full w-full max-w-full text-white">
             <VisuallyHidden asChild>
               <DialogTitle className="">Navigation Menu</DialogTitle>
             </VisuallyHidden>
@@ -122,8 +128,8 @@ export const Header = memo(
                 View navigation menu and our contact links
               </DialogDescription>
             </VisuallyHidden>
-            <div className="menu-container grid lg:grid-cols-2 gap-[6.75rem] relative z-[51]">
-              <div className="w-full h-full hidden lg:grid place-items-center text-white/60">
+            <div className="menu-container relative z-[51] grid gap-[6.75rem] lg:grid-cols-2">
+              <div className="hidden h-full w-full place-items-center text-white/60 lg:grid">
                 {menuOpen && (
                   <PinpointContacts
                     fullWidth
@@ -134,26 +140,14 @@ export const Header = memo(
                   />
                 )}
               </div>
-              <div className="w-full h-full flex items-center lg:pr-[5.27vw] relative z-[52]">
-                <div className="w-full grid gap-0">
-                  {/* <nav className="h-[3.75rem] flex items-center lg:absolute lg:top-5 left-0">
-                  <ul className="flex">
-                    {langChangeOptions.map((item, idx) => (
-                      <LangChangeLink
-                        key={idx}
-                        {...item}
-                        isSelected={item.lang === selectedLang}
-                        isLast={idx === langChangeOptions.length - 1}
-                      />
-                    ))}
-                  </ul>
-                </nav> */}
-                  <nav className="w-full grid relative z-[55]">
+              <div className="relative z-[52] flex h-full w-full items-center lg:pr-[5.27vw]">
+                <div className="grid w-full gap-0">
+                  <nav className="relative z-[55] grid w-full">
                     {allNavLinks.map((item, idx) => (
                       <NavLinkGroup key={idx} {...item} isLast={idx === allNavLinks.length - 1} />
                     ))}
                   </nav>
-                  <div className="flex lg:absolute lg:bottom-20 left-0 mt-14 lg:mt-0">
+                  <div className="mt-14 flex lg:absolute lg:bottom-20 lg:left-0 lg:mt-0">
                     <GhostBtn linkProps={{ href: '/privacy-policy', ...NAV_LINK_PREFETCH }}>
                       <span className="typo-caption-small uppercase text-white/70 opacity-100 hover:text-white">
                         Privacy Policy
@@ -184,7 +178,7 @@ export const LangChangeLink = ({ lang, isSelected, isLast }: LangChangeLinkProps
     <li className="">
       <GhostBtn
         linkProps={{ href: '#', ...NAV_LINK_PREFETCH }}
-        className={`text-[9px] leading-[1.125rem] font-black pointer-events-auto
+        className={`pointer-events-auto text-[9px] leading-[1.125rem] font-black
         ${isSelected ? 'text-white' : 'text-white/60 hover:text-white'}
         ${isLast ? '' : 'border-r border-white/40'}`}>
         <span className="uppercase px-[0.6875rem]">{lang}</span>
@@ -210,15 +204,15 @@ export interface NavLinkProps {
 const NavLinkGroup = ({ name, links, isLast }: NavLinkGroupProps) => {
   return (
     <div
-      className={`w-full grid lg:grid-cols-[1fr_60px] items-stretch ${isLast ? '' : 'border-b border-white/40'}`}>
-      <ul className={`w-full grid py-6`}>
+      className={`grid w-full items-stretch lg:grid-cols-[1fr_60px] ${isLast ? '' : 'border-b border-white/40'}`}>
+      <ul className="grid w-full py-6">
         {links.map((item, idx) => (
           <NavLink key={idx} {...item} />
         ))}
       </ul>
-      <div className="hidden lg:block w-full h-full relative">
+      <div className="relative hidden h-full w-full lg:block">
         {name && (
-          <p className="absolute -right-6 top-1/2 -translate-y-1/2 -rotate-90 transform-origin-center text-[0.6875rem] xl:text-[clamp(0.6875rem,_3.582vw,_0.875rem)] leading-[1.2] tracking-[0.3em] text-white/75 font-light uppercase">
+          <p className="absolute -right-6 top-1/2 -translate-y-1/2 -rotate-90 transform-origin-center text-[0.6875rem] font-light uppercase leading-[1.2] tracking-[0.3em] text-white/75 xl:text-[clamp(0.6875rem,_3.582vw,_0.875rem)]">
             {name}
           </p>
         )}
@@ -232,13 +226,13 @@ const NavLink = ({ text, href, isSelected, img, imgClass }: NavLinkProps) => {
     <li className="group">
       <GhostBtn
         linkProps={{ href, ...NAV_LINK_PREFETCH }}
-        className={`justify-start text-[1rem] md:text-[1.3125rem] xl:text-[1.5rem] leading-[1] font-bold py-[5px]
+        className={`justify-start py-[5px] text-[1rem] font-bold leading-[1] md:text-[1.3125rem] xl:text-[1.5rem]
         ${isSelected ? 'text-white' : 'text-white/60 hover:text-white'} relative`}
         wrapClassName="group peer relative z-[56]">
         <span className="">{text}</span>
         {isSelected && (
-          <div className="w-fit h-fit hidden lg:flex items-center gap-4 absolute top-1/2 right-full -translate-y-1/2">
-            <div className="w-10 2xl:w-16 h-[2px] bg-current" />
+          <div className="absolute top-1/2 right-full hidden h-fit w-fit -translate-y-1/2 items-center gap-4 lg:flex">
+            <div className="h-[2px] w-10 bg-current 2xl:w-16" />
             <span></span>
           </div>
         )}
@@ -246,17 +240,17 @@ const NavLink = ({ text, href, isSelected, img, imgClass }: NavLinkProps) => {
       {!isSelected && (
         <div
           className={cn(
-            'hidden lg:block absolute top-[-25px] left-0 -translate-x-1/2\
-            h-[calc(100%_+_50px)] aspect-[0.7] opacity-0 scale-80\
+            'absolute top-[-25px] left-0 hidden h-[calc(100%_+_50px)] -translate-x-1/2\
+            aspect-[0.7] scale-80 opacity-0\
             peer-hover:opacity-100 z-[51]\
-            peer-hover:scale-100 transition-all duration-1000 ease-in-out',
+            peer-hover:scale-100 transition-all duration-1000 ease-in-out lg:block',
             imgClass
           )}>
-          <div className="w-full h-full relative z-[51]">
+          <div className="relative z-[51] h-full w-full">
             <Image
               src={img}
               alt=""
-              className={cn('w-full h-full object-cover opacity-99 z-[51]')}
+              className={cn('z-[51] h-full w-full object-cover opacity-99')}
               sizes=""
               fill
             />

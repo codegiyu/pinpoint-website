@@ -13,6 +13,7 @@ import { getServiceBySlugOrNull } from '@/lib/api/pinpoint-public';
 import { getSiteShellData } from '@/lib/site-shell';
 import type { PublicStyleSpec } from '@/lib/api/pinpoint-public-types';
 import { mapServicesToSummaryCards } from '@/lib/utils/cms-mappers';
+import { HEADER_CONTRAST_SERVICE } from '@/lib/constants/header-contrast';
 import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -138,14 +139,23 @@ export default async function ServicePage({ params }: Props) {
     serviceData;
 
   return (
-    <MainLayout pageName={name}>
+    <MainLayout
+      pageName={name}
+      headerProps={{
+        headerContrast: HEADER_CONTRAST_SERVICE,
+      }}>
       <CommonHero
         caption={name}
         title={pageTitle}
         videoURL={videoUrl}
         bottomStripBackground="bg-dark"
+        heroMediaId="service-hero-media"
       />
-      <DescriptionTextSection className="bg-dark text-white/80" text={description} />
+      <DescriptionTextSection
+        id="service-description"
+        className="bg-dark text-white/80"
+        text={description}
+      />
       <ServiceExpertise {...expertise} />
       <WhatMakesUsUnique {...whatMakesUsUnique} />
       <PackagePricing packageGroups={packagePricing} />
