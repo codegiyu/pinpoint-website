@@ -14,5 +14,16 @@ export const metadata: Metadata = {
 };
 
 export default function ColorPickerLayout({ children }: { children: React.ReactNode }) {
-  return <Suspense fallback={<></>}>{children}</Suspense>;
+  return (
+    <Suspense
+      fallback={
+        <section className="w-full py-10 md:py-20 lg:py-[6.5rem]">
+          <div className="pinpoint-container">
+            <h1 className="typo-h2-hero">Color Picker</h1>
+          </div>
+        </section>
+      }>
+      {children}
+    </Suspense>
+  );
 }

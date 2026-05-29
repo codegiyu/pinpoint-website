@@ -1,10 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import { ColorPickerInput } from '@/components/color-picker/ColorPickerInput';
 import { ColorCard } from '@/components/color-picker/ColorCard';
 import { Button } from '@/components/ui/button';
+import { COLOR_PICKER_DEFAULT_QUERY } from '@/lib/constants/color-picker';
 import { type ColorData, parseColor } from '@/lib/utils/color';
 import {
   generateColorPNG,
@@ -43,17 +43,13 @@ const BRAND_DEFAULT_COLOR: ColorData = {
   cmyk: { c: 0, m: 53, y: 99, k: 0 },
 };
 
-export function ColorPickerContent() {
-  const [colorsParam, setColorsParam] = useQueryState('colors', parseAsString.withDefault(''));
-  const didInitDefault = useRef(false);
+const QUERY_STATE_OPTIONS = { shallow: true, history: 'replace' } as const;
 
-  useEffect(() => {
-    if (didInitDefault.current) return;
-    if (!colorsParam) {
-      void setColorsParam(serializeColors([BRAND_DEFAULT_COLOR]), { history: 'replace' });
-    }
-    didInitDefault.current = true;
-  }, [colorsParam]);
+export function ColorPickerContent() {
+  const [colorsParam, setColorsParam] = useQueryState(
+    'colors',
+    parseAsString.withDefault(COLOR_PICKER_DEFAULT_QUERY)
+  );
 
   const colors = useMemo(() => deserializeColors(colorsParam), [colorsParam]);
 
@@ -61,9 +57,9 @@ export function ColorPickerContent() {
 
   const updateColors = (newColors: ColorData[]) => {
     if (newColors.length === 0) {
-      setColorsParam(null);
+      void setColorsParam(null, QUERY_STATE_OPTIONS);
     } else {
-      setColorsParam(serializeColors(newColors));
+      void setColorsParam(serializeColors(newColors), QUERY_STATE_OPTIONS);
     }
   };
 
