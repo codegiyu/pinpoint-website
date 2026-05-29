@@ -8,17 +8,8 @@ export const ServiceScrollManager = memo(
   ({ observerTargetIds }: { observerTargetIds: string[] }) => {
     useEffect(() => {
       const scrollManager = () => {
-        const header = document.getElementById('visible-header');
         const pageSideCaption = document.querySelector('.page-side-caption');
         const observerTargets = observerTargetIds.map(id => document.getElementById(id));
-
-        if (!header?.classList.contains('menu-open')) {
-          if (intersectionExists(observerTargets, header)) {
-            header?.classList.replace('mix-blend-difference', 'mix-blend-normal');
-          } else {
-            header?.classList.replace('mix-blend-normal', 'mix-blend-difference');
-          }
-        }
 
         if (intersectionExists(observerTargets, pageSideCaption as HTMLElement | null)) {
           pageSideCaption?.classList.replace('mix-blend-difference', 'mix-blend-normal');

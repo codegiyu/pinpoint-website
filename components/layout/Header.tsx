@@ -57,17 +57,16 @@ export const Header = memo(
       setMenuOpen(prev => !prev);
     };
 
+    const blendActive = !menuOpen && !whiteTextStart;
+    const blendClass = blendActive ? 'mix-blend-difference' : 'mix-blend-normal';
+
     return (
       <header id="header" className={`header w-full text-white`}>
         <div
           id="visible-header"
           className={cn(
             'fixed inset-x-0 top-0 z-[99] pointer-events-none',
-            menuOpen
-              ? 'menu-open mix-blend-normal'
-              : whiteTextStart
-                ? 'menu-closed mix-blend-normal'
-                : 'menu-closed mix-blend-difference'
+            menuOpen ? 'menu-open' : 'menu-closed'
           )}>
           <div
             className={cn(
@@ -77,8 +76,15 @@ export const Header = memo(
             <GhostBtn
               linkProps={{ href: '/', ...NAV_LINK_PREFETCH }}
               className="pointer-events-auto">
-              <div className="w-fit flex items-center text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]">
-                <PinpointFull className="pinpoint-logo" />
+              <div className="relative w-fit flex items-center text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]">
+                <div className={cn('logo-blend-layer w-fit', blendClass)}>
+                  <PinpointFull layer="monochrome" className="pinpoint-logo" />
+                </div>
+                <div
+                  className="logo-accent-layer absolute inset-0 mix-blend-normal pointer-events-none"
+                  aria-hidden>
+                  <PinpointFull layer="accent" className="pinpoint-logo h-full w-full" />
+                </div>
               </div>
             </GhostBtn>
 
@@ -86,7 +92,7 @@ export const Header = memo(
               className="group pointer-events-auto"
               onClick={menuHandler}
               onMouseEnter={() => setFlipTextKey(prev => prev + 1)}>
-              <div className="menu-btn w-fit flex items-center gap-3">
+              <div className={cn('menu-btn w-fit flex items-center gap-3', blendClass)}>
                 <FlipText text="MENU" flipKey={flipTextKey} wrapClassName="typo-menu" />
                 <div className="w-fit grid gap-[4px]">
                   <div

@@ -156,25 +156,20 @@
     @apply py-[3.375rem] md:py-20 lg:py-[6.5rem];
   }
 
-  body.load-animation-open #visible-header.mix-blend-normal .pinpoint-logo path.coloured-text,
-  body.load-animation-open #visible-header.mix-blend-difference .pinpoint-logo path.coloured-text {
+  body.load-animation-open #visible-header .logo-accent-layer path.coloured-text {
     fill: #fe7702 !important;
   }
-  body.load-animation-open .pinpoint-logo path.black-text {
+  body.load-animation-open #visible-header .logo-blend-layer path.black-text {
     fill: #fff !important;
   }
   body.load-animation-open .menu-btn {
     color: #fff !important;
   }
 
-  #visible-header .pinpoint-logo path.black-text {
+  #visible-header .logo-blend-layer path.black-text {
     fill: currentColor;
   }
-  #visible-header.mix-blend-normal .pinpoint-logo path.coloured-text {
-    fill: currentColor;
-  }
-  #visible-header.mix-blend-difference .pinpoint-logo path.coloured-text,
-  #visible-header.menu-open .pinpoint-logo path.coloured-text,
+  #visible-header .logo-accent-layer path.coloured-text,
   .footer #footer-logo path.coloured-text {
     fill: #fe7702;
   }

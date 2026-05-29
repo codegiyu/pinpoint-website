@@ -2,7 +2,6 @@
 
 import { PageSideCaption } from '@/components/general/PageSideCaption';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
-import { intersectionExists } from '@/lib/utils/general';
 import { memo, useEffect, useMemo } from 'react';
 import { default as debounce } from 'lodash/debounce';
 
@@ -16,7 +15,6 @@ export const HomeScrollManager = memo(() => {
 
   useEffect(() => {
     const scrollManager = () => {
-      const header = document.getElementById('visible-header');
       const pageSideCaption = document.querySelector('.page-side-caption');
       const observerTargets = observerTargetIds.map(id => document.getElementById(id));
 
@@ -24,14 +22,6 @@ export const HomeScrollManager = memo(() => {
       const whatWeDo = observerTargets[1];
 
       const { top: whatWeDoTop = 0 } = whatWeDo?.getBoundingClientRect() ?? {};
-
-      if (!header?.classList.contains('menu-open')) {
-        if (intersectionExists(observerTargets, header)) {
-          header?.classList.replace('mix-blend-difference', 'mix-blend-normal');
-        } else {
-          header?.classList.replace('mix-blend-normal', 'mix-blend-difference');
-        }
-      }
 
       if (scrollY > halfInnerHeight) {
         pageSideCaption?.classList.replace('opacity-0', 'opacity-100');
