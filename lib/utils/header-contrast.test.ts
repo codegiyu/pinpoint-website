@@ -1,15 +1,15 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { resolveHeaderContrast } from './header-contrast';
+import { resolveHeaderChromeColor } from './header-contrast';
 
-describe('resolveHeaderContrast', () => {
-  it('returns blend when no zones intersect', () => {
-    assert.equal(resolveHeaderContrast([]), 'blend');
-    assert.equal(resolveHeaderContrast([false, false]), 'blend');
+describe('resolveHeaderChromeColor', () => {
+  it('returns black when no dark zones intersect', () => {
+    assert.equal(resolveHeaderChromeColor([]), 'black');
+    assert.equal(resolveHeaderChromeColor([false, false]), 'black');
   });
 
-  it('returns solid when any zone intersects', () => {
-    assert.equal(resolveHeaderContrast([true]), 'solid');
-    assert.equal(resolveHeaderContrast([false, true]), 'solid');
+  it('returns white when any dark zone intersects', () => {
+    assert.equal(resolveHeaderChromeColor([true]), 'white');
+    assert.equal(resolveHeaderChromeColor([false, true]), 'white');
   });
 });

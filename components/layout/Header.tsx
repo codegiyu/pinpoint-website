@@ -32,8 +32,8 @@ export const Header = memo(
     const [menuOpen, setMenuOpen] = useState(false);
     const [flipTextKey, setFlipTextKey] = useState(0);
     const pathname = usePathname();
-    const observerContrast = useHeaderContrast(headerContrast);
-    const headerContrastMode = menuOpen ? 'solid' : observerContrast;
+    const sectionChrome = useHeaderContrast(headerContrast);
+    const headerChrome = menuOpen ? 'white' : sectionChrome;
 
     const { allNavLinks } = useMemo(() => {
       const slugsArr = pathname.split('/');
@@ -61,12 +61,13 @@ export const Header = memo(
     };
 
     return (
-      <header id="header" className="header w-full text-white">
+      <header id="header" className="header w-full">
         <div
           id="visible-header"
-          data-header-contrast={headerContrastMode}
+          data-header-chrome={headerChrome}
           className={cn(
-            'fixed inset-x-0 top-0 z-[99] pointer-events-none',
+            'fixed inset-x-0 top-0 z-[99] pointer-events-none transition-colors duration-300 ease-linear',
+            headerChrome === 'white' ? 'text-white' : 'text-dark',
             menuOpen ? 'menu-open' : 'menu-closed'
           )}>
           <div
@@ -74,7 +75,7 @@ export const Header = memo(
               'wide-pinpoint-container relative py-6 md:py-8 pointer-events-auto',
               menuOpen && 'bg-dark'
             )}>
-            <div className="header-blend-surface flex w-full items-center justify-between">
+            <div className="header-chrome flex w-full items-center justify-between">
               <GhostBtn
                 linkProps={{ href: '/', ...NAV_LINK_PREFETCH }}
                 className="pointer-events-auto">
@@ -106,8 +107,7 @@ export const Header = memo(
 
             <div
               className={cn(
-                'logo-accent-layer pointer-events-none absolute top-6 mix-blend-normal md:top-8',
-                'left-[5vw] md:left-[2.27vw]',
+                'logo-accent-layer pointer-events-none absolute top-6 left-[5vw] md:top-8 md:left-[2.27vw]',
                 logoTextSize
               )}
               aria-hidden>
@@ -240,7 +240,7 @@ const NavLink = ({ text, href, isSelected, img, imgClass }: NavLinkProps) => {
       {!isSelected && (
         <div
           className={cn(
-            'absolute top-[-25px] left-0 hidden h-[calc(100%_+_50px)] -translate-x-[150%] \
+            'absolute top-[-25px] left-0 hidden h-[calc(100%_+_50px)] -translate-x-1/2\
             aspect-[0.7] scale-80 opacity-0\
             peer-hover:opacity-100 z-[51]\
             peer-hover:scale-100 transition-all duration-1000 ease-in-out lg:block',

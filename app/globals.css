@@ -166,14 +166,11 @@
     color: #fff !important;
   }
 
-  #visible-header .header-blend-surface {
+  #visible-header[data-header-chrome='white'] {
     color: #fff;
   }
-  #visible-header[data-header-contrast='blend'] .header-blend-surface {
-    mix-blend-mode: difference;
-  }
-  #visible-header[data-header-contrast='solid'] .header-blend-surface {
-    mix-blend-mode: normal;
+  #visible-header[data-header-chrome='black'] {
+    color: #141414;
   }
   #visible-header .header-logo-mono path.black-text {
     fill: currentColor;

@@ -2,31 +2,31 @@
 
 import { useEffect, useState } from 'react';
 import {
-  DEFAULT_HEADER_CONTRAST_ROOT_MARGIN,
-  resolveHeaderContrast,
+  DEFAULT_HEADER_CHROME_ROOT_MARGIN,
+  resolveHeaderChromeColor,
   type HeaderContrastConfig,
-  type HeaderContrastMode,
+  type HeaderChromeColor,
 } from '@/lib/utils/header-contrast';
 
-export function useHeaderContrast(config?: HeaderContrastConfig): HeaderContrastMode {
-  const solidZonesKey = config?.solidZones?.join('\0') ?? '';
-  const rootMargin = config?.rootMargin ?? DEFAULT_HEADER_CONTRAST_ROOT_MARGIN;
-  const [mode, setMode] = useState<HeaderContrastMode>('blend');
+export function useHeaderContrast(config?: HeaderContrastConfig): HeaderChromeColor {
+  const darkZonesKey = config?.solidZones?.join('\0') ?? '';
+  const rootMargin = config?.rootMargin ?? DEFAULT_HEADER_CHROME_ROOT_MARGIN;
+  const [color, setColor] = useState<HeaderChromeColor>('black');
 
   useEffect(() => {
-    const solidZones = solidZonesKey ? solidZonesKey.split('\0') : [];
+    const darkZones = darkZonesKey ? darkZonesKey.split('\0') : [];
 
-    if (solidZones.length === 0) {
-      setMode('blend');
+    if (darkZones.length === 0) {
+      setColor('black');
       return;
     }
 
-    const elements = solidZones
+    const elements = darkZones
       .map(id => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
 
     if (elements.length === 0) {
-      setMode('blend');
+      setColor('black');
       return;
     }
 
@@ -40,8 +40,8 @@ export function useHeaderContrast(config?: HeaderContrastConfig): HeaderContrast
           }
         });
 
-        const flags = solidZones.map(id => intersections.get(id) ?? false);
-        setMode(resolveHeaderContrast(flags));
+        const flags = darkZones.map(id => intersections.get(id) ?? false);
+        setColor(resolveHeaderChromeColor(flags));
       },
       { root: null, threshold: 0, rootMargin }
     );
@@ -49,7 +49,7 @@ export function useHeaderContrast(config?: HeaderContrastConfig): HeaderContrast
     elements.forEach(el => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [solidZonesKey, rootMargin]);
+  }, [darkZonesKey, rootMargin]);
 
-  return mode;
+  return color;
 }
