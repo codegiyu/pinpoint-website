@@ -1,6 +1,114 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Light.woff') format('woff'),
+       url('/fonts/rubik/Rubik-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-LightItalic.woff') format('woff'),
+       url('/fonts/rubik/Rubik-LightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Regular.woff') format('woff'),
+       url('/fonts/rubik/Rubik-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Italic.woff') format('woff'),
+       url('/fonts/rubik/Rubik-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Medium.woff') format('woff'),
+       url('/fonts/rubik/Rubik-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-MediumItalic.woff') format('woff'),
+       url('/fonts/rubik/Rubik-MediumItalic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-SemiBold.woff') format('woff'),
+       url('/fonts/rubik/Rubik-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-SemiBoldItalic.woff') format('woff'),
+       url('/fonts/rubik/Rubik-SemiBoldItalic.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Bold.woff') format('woff'),
+       url('/fonts/rubik/Rubik-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-BoldItalic.woff') format('woff'),
+       url('/fonts/rubik/Rubik-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-Black.woff') format('woff'),
+       url('/fonts/rubik/Rubik-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/rubik/Rubik-BlackItalic.woff') format('woff'),
+       url('/fonts/rubik/Rubik-BlackItalic.woff2') format('woff2');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -156,9 +264,12 @@
     @apply py-[3.375rem] md:py-20 lg:py-[6.5rem];
   }
 
-  body.load-animation-open #visible-header .logo-accent-layer path.coloured-text {
+  path.coloured-text {
     fill: #fe7702 !important;
   }
+  /* body.load-animation-open #visible-header .logo-accent-layer path.coloured-text {
+    fill: #fe7702 !important;
+  } */
   body.load-animation-open #visible-header .header-logo-mono path.black-text {
     fill: #fff !important;
   }
@@ -175,17 +286,17 @@
   #visible-header .header-logo-mono path.black-text {
     fill: currentColor;
   }
-  #visible-header .logo-accent-layer path.coloured-text,
+  /* #visible-header .logo-accent-layer path.coloured-text,
   .footer #footer-logo path.coloured-text {
     fill: #fe7702;
-  }
+  } */
 
   .page-transition-overlay-logo path.black-text {
     fill: #fff;
   }
-  .page-transition-overlay-logo path.coloured-text {
+  /* .page-transition-overlay-logo path.coloured-text {
     fill: #fe7702;
-  }
+  } */
 
   /* Typography */
   .typo-h1 { /* Home hero */

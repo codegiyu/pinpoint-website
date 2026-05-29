@@ -79,8 +79,9 @@ export const Header = memo(
               <GhostBtn
                 linkProps={{ href: '/', ...NAV_LINK_PREFETCH }}
                 className="pointer-events-auto">
-                <div className={cn('header-logo-mono w-fit', logoTextSize)}>
-                  <PinpointFull layer="monochrome" className="pinpoint-logo" />
+                <div className={cn('header-logo-mono w-fit relative', logoTextSize)}>
+                  <PinpointFull layer="full" className="pinpoint-logo" />
+                  {/* <PinpointFull layer="accent" className="pinpoint-logo absolute top-0 left-0" /> */}
                 </div>
               </GhostBtn>
 
@@ -105,14 +106,14 @@ export const Header = memo(
               </GhostBtn>
             </div>
 
-            <div
+            {/* <div
               className={cn(
                 'logo-accent-layer pointer-events-none absolute top-6 left-[5vw] md:top-8 md:left-[2.27vw]',
                 logoTextSize
               )}
               aria-hidden>
               <PinpointFull layer="accent" className="pinpoint-logo h-full w-full" />
-            </div>
+            </div> */}
           </div>
         </div>
 
