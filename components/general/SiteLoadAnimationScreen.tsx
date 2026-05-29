@@ -3,27 +3,27 @@
 import { useSiteLoading } from '@/lib/context/SiteLoadingContext';
 import { useInitPageStore } from '@/lib/store/usePageStore';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 
-// Phase 1: remove the hard "wait for window load + 1500ms" delay.
-// Keep a short, low-friction splash so perceived LCP/TTI improve on first visits.
-const SPLASH_VISIBLE_MS = 300;
+const SPLASH_MIN_VISIBLE_MS = 1650;
 const SPLASH_FADE_DURATION_S = 0.35;
 
 export function SiteLoadAnimationScreen() {
   const { siteLoading, setSiteLoading } = useSiteLoading();
   const setPageLoadedStore = useInitPageStore(s => s.actions.setPageLoaded);
   const [pageLoaded, setPageLoadedLocal] = useState(false);
+  const mountedAtRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-    if (prefersReducedMotion) {
-      setPageLoadedLocal(true);
-      return;
+    if (mountedAtRef.current == null) {
+      mountedAtRef.current = Date.now();
     }
 
-    const id = window.setTimeout(() => setPageLoadedLocal(true), SPLASH_VISIBLE_MS);
+    const elapsed = Date.now() - mountedAtRef.current;
+    const remaining = Math.max(0, SPLASH_MIN_VISIBLE_MS - elapsed);
+    const id = window.setTimeout(() => setPageLoadedLocal(true), remaining);
+
     return () => window.clearTimeout(id);
   }, []);
 

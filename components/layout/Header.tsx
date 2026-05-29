@@ -60,42 +60,51 @@ export const Header = memo(
       <header id="header" className={`header w-full text-white`}>
         <div
           id="visible-header"
-          className={`h-fit wide-pinpoint-container fixed inset-0 
-        ${
-          menuOpen || whiteTextStart ? 'blend-normal' : 'blend-difference'
-        } ${menuOpen ? 'menu-open' : 'menu-closed'}
-        flex items-center justify-between py-6 md:py-8 z-[99]`}>
-          <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
-            <div className="w-fit flex items-center text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]">
-              <PinpointFull className="pinpoint-logo" />
-            </div>
-          </GhostBtn>
-
-          <GhostBtn
-            className="group pointer-events-auto"
-            onClick={menuHandler}
-            onMouseEnter={() => setFlipTextKey(prev => prev + 1)}>
-            <div className="menu-btn w-fit flex items-center gap-3">
-              <FlipText text="MENU" flipKey={flipTextKey} wrapClassName="typo-menu" />
-              <div className="w-fit grid gap-[4px]">
-                <div
-                  className={`w-[1.25rem] h-[2px] bg-[currentColor] ${menuOpen ? 'transform-origin-top-left w-[1.125rem] rotate-45' : ''} transition-transform duration-300 ease-linear`}
-                />
-                <div
-                  className={`w-[1.25rem] h-[2px] bg-[currentColor] ${menuOpen ? 'opacity-0' : ''} transition-opacity duration-200 ease-linear`}
-                />
-                <div
-                  className={`w-[1.25rem] h-[2px] bg-[currentColor] ${menuOpen ? 'transform-origin-bottom-left w-[1.125rem] -rotate-45' : ''} transition-transform duration-300 ease-linear`}
-                />
+          className={cn(
+            'fixed inset-x-0 top-0 z-[99] pointer-events-none',
+            menuOpen
+              ? 'menu-open mix-blend-normal'
+              : whiteTextStart
+                ? 'menu-closed mix-blend-normal'
+                : 'menu-closed mix-blend-difference'
+          )}>
+          <div
+            className={cn(
+              'wide-pinpoint-container flex items-center justify-between py-6 md:py-8 pointer-events-auto',
+              menuOpen && 'bg-dark'
+            )}>
+            <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
+              <div className="w-fit flex items-center text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]">
+                <PinpointFull className="pinpoint-logo" />
               </div>
-            </div>
-          </GhostBtn>
+            </GhostBtn>
+
+            <GhostBtn
+              className="group pointer-events-auto"
+              onClick={menuHandler}
+              onMouseEnter={() => setFlipTextKey(prev => prev + 1)}>
+              <div className="menu-btn w-fit flex items-center gap-3">
+                <FlipText text="MENU" flipKey={flipTextKey} wrapClassName="typo-menu" />
+                <div className="w-fit grid gap-[4px]">
+                  <div
+                    className={`w-[1.25rem] h-[2px] bg-[currentColor] ${menuOpen ? 'transform-origin-top-left w-[1.125rem] rotate-45' : ''} transition-transform duration-300 ease-linear`}
+                  />
+                  <div
+                    className={`w-[1.25rem] h-[2px] bg-[currentColor] ${menuOpen ? 'opacity-0' : ''} transition-opacity duration-200 ease-linear`}
+                  />
+                  <div
+                    className={`w-[1.25rem] h-[2px] bg-[currentColor] ${menuOpen ? 'transform-origin-bottom-left w-[1.125rem] -rotate-45' : ''} transition-transform duration-300 ease-linear`}
+                  />
+                </div>
+              </div>
+            </GhostBtn>
+          </div>
         </div>
 
         <Dialog open={menuOpen}>
           <DialogContent
             aria-describedby="header-dialog-title"
-            className="w-full max-w-full h-full text-white/25">
+            className="w-full max-w-full h-full text-white">
             <VisuallyHidden asChild>
               <DialogTitle className="">Navigation Menu</DialogTitle>
             </VisuallyHidden>
@@ -105,7 +114,7 @@ export const Header = memo(
               </DialogDescription>
             </VisuallyHidden>
             <div className="menu-container grid lg:grid-cols-2 gap-[6.75rem] relative z-[51]">
-              <div className="w-full h-full hidden lg:grid place-items-center text-white/35">
+              <div className="w-full h-full hidden lg:grid place-items-center text-white/60">
                 {menuOpen && (
                   <PinpointContacts
                     fullWidth
@@ -137,7 +146,7 @@ export const Header = memo(
                   </nav>
                   <div className="flex lg:absolute lg:bottom-20 left-0 mt-14 lg:mt-0">
                     <GhostBtn linkProps={{ href: '/privacy-policy' }}>
-                      <span className="typo-caption-small uppercase text-white/50 hover:text-white">
+                      <span className="typo-caption-small uppercase text-white/70 opacity-100 hover:text-white">
                         Privacy Policy
                       </span>
                     </GhostBtn>
@@ -167,8 +176,8 @@ export const LangChangeLink = ({ lang, isSelected, isLast }: LangChangeLinkProps
       <GhostBtn
         linkProps={{ href: '#', hrefLang: lang }}
         className={`text-[9px] leading-[1.125rem] font-black pointer-events-auto
-        ${isSelected ? 'text-white' : 'text-white/25 hover:text-white'}
-        ${isLast ? '' : 'border-r border-white/25'}`}>
+        ${isSelected ? 'text-white' : 'text-white/60 hover:text-white'}
+        ${isLast ? '' : 'border-r border-white/40'}`}>
         <span className="uppercase px-[0.6875rem]">{lang}</span>
       </GhostBtn>
     </li>
@@ -192,7 +201,7 @@ export interface NavLinkProps {
 const NavLinkGroup = ({ name, links, isLast }: NavLinkGroupProps) => {
   return (
     <div
-      className={`w-full grid lg:grid-cols-[1fr_60px] items-stretch ${isLast ? '' : 'border-b border-white/25'}`}>
+      className={`w-full grid lg:grid-cols-[1fr_60px] items-stretch ${isLast ? '' : 'border-b border-white/40'}`}>
       <ul className={`w-full grid py-6`}>
         {links.map((item, idx) => (
           <NavLink key={idx} {...item} />
@@ -200,7 +209,7 @@ const NavLinkGroup = ({ name, links, isLast }: NavLinkGroupProps) => {
       </ul>
       <div className="hidden lg:block w-full h-full relative">
         {name && (
-          <p className="absolute -right-6 top-1/2 -translate-y-1/2 -rotate-90 transform-origin-center text-[0.6875rem] xl:text-[clamp(0.6875rem,_3.582vw,_0.875rem)] leading-[1.2] tracking-[0.3em] text-white/65 font-light uppercase">
+          <p className="absolute -right-6 top-1/2 -translate-y-1/2 -rotate-90 transform-origin-center text-[0.6875rem] xl:text-[clamp(0.6875rem,_3.582vw,_0.875rem)] leading-[1.2] tracking-[0.3em] text-white/75 font-light uppercase">
             {name}
           </p>
         )}
@@ -215,7 +224,7 @@ const NavLink = ({ text, href, isSelected, img, imgClass }: NavLinkProps) => {
       <GhostBtn
         linkProps={{ href }}
         className={`justify-start text-[1rem] md:text-[1.3125rem] xl:text-[1.5rem] leading-[1] font-bold xl:font-medium py-[5px]
-        ${isSelected ? 'text-white' : 'text-white/25 hover:text-white'} relative`}
+        ${isSelected ? 'text-white' : 'text-white/60 hover:text-white'} relative`}
         wrapClassName="group peer relative z-[56]">
         <span className="">{text}</span>
         {isSelected && (

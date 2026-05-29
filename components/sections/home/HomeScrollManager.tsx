@@ -25,10 +25,12 @@ export const HomeScrollManager = memo(() => {
 
       const { top: whatWeDoTop = 0 } = whatWeDo?.getBoundingClientRect() ?? {};
 
-      if (intersectionExists(observerTargets, header)) {
-        header?.classList.replace('blend-difference', 'blend-normal');
-      } else {
-        header?.classList.replace('blend-normal', 'blend-difference');
+      if (!header?.classList.contains('menu-open')) {
+        if (intersectionExists(observerTargets, header)) {
+          header?.classList.replace('mix-blend-difference', 'mix-blend-normal');
+        } else {
+          header?.classList.replace('mix-blend-normal', 'mix-blend-difference');
+        }
       }
 
       if (scrollY > halfInnerHeight) {
