@@ -13,8 +13,12 @@ const rubikFont = localFont({
     { path: '../public/fonts/rubik/Rubik-Italic.woff2', weight: '400', style: 'italic' },
     { path: '../public/fonts/rubik/Rubik-Medium.woff2', weight: '500', style: 'normal' },
     { path: '../public/fonts/rubik/Rubik-MediumItalic.woff2', weight: '500', style: 'italic' },
+    { path: '../public/fonts/rubik/Rubik-SemiBold.woff2', weight: '600', style: 'normal' },
+    { path: '../public/fonts/rubik/Rubik-SemiBoldItalic.woff2', weight: '600', style: 'italic' },
     { path: '../public/fonts/rubik/Rubik-Bold.woff2', weight: '700', style: 'normal' },
     { path: '../public/fonts/rubik/Rubik-BoldItalic.woff2', weight: '700', style: 'italic' },
+    { path: '../public/fonts/rubik/Rubik-Black.woff2', weight: '900', style: 'normal' },
+    { path: '../public/fonts/rubik/Rubik-BlackItalic.woff2', weight: '900', style: 'italic' },
   ],
   display: 'swap',
 });

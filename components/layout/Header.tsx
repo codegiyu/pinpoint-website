@@ -223,7 +223,7 @@ const NavLink = ({ text, href, isSelected, img, imgClass }: NavLinkProps) => {
     <li className="group">
       <GhostBtn
         linkProps={{ href }}
-        className={`justify-start text-[1rem] md:text-[1.3125rem] xl:text-[1.5rem] leading-[1] font-bold xl:font-medium py-[5px]
+        className={`justify-start text-[1rem] md:text-[1.3125rem] xl:text-[1.5rem] leading-[1] font-bold py-[5px]
         ${isSelected ? 'text-white' : 'text-white/60 hover:text-white'} relative`}
         wrapClassName="group peer relative z-[56]">
         <span className="">{text}</span>
