@@ -15,11 +15,8 @@ interface Props {
   searchParams: Promise<{
     sector?: string;
     service?: string;
-    limit?: string;
   }>;
 }
-
-export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -49,24 +46,18 @@ export default async function OurWorksPage({ searchParams }: Props) {
       label: lookup[slug] ?? formatSlugToText(slug),
     }));
 
-  const defaultDisplayed =
-    ow.content.DEFAULT_WORKS_DISPLAYED ?? globalContent.DEFAULT_WORKS_DISPLAYED;
-  const limitNum =
-    search.limit != null && !Number.isNaN(Number(search.limit))
-      ? Number(search.limit)
-      : defaultDisplayed;
-
-  const sectorsQ = search.sector ? [search.sector] : [];
-  const servicesQ = search.service ? [search.service] : [];
+  const pageSize = ow.content.DEFAULT_WORKS_DISPLAYED ?? globalContent.DEFAULT_WORKS_DISPLAYED;
+  const initialSector = search.sector?.trim() ?? '';
+  const initialService = search.service?.trim() ?? '';
 
   const projectsRes = await listProjects({
     page: 1,
-    limit: limitNum,
-    sectors: sectorsQ,
-    services: servicesQ,
+    limit: pageSize,
+    sectors: initialSector ? [initialSector] : [],
+    services: initialService ? [initialService] : [],
   });
 
-  const projects = projectsRes.projects.map(p => mapPublicProjectToWorkCard(p, lookup));
+  const initialProjects = projectsRes.projects.map(p => mapPublicProjectToWorkCard(p, lookup));
   const provenSectors = ow.projectFilterOptions.sectors;
 
   return (
@@ -78,11 +69,12 @@ export default async function OurWorksPage({ searchParams }: Props) {
       />
       <Suspense fallback={null}>
         <WorksDisplay
-          projects={projects}
+          initialProjects={initialProjects}
+          initialPagination={projectsRes.pagination}
+          pageSize={pageSize}
           provenSectors={provenSectors}
           serviceFilterOptions={serviceFilterOptions}
-          defaultWorksDisplayed={defaultDisplayed}
-          defaultLimit={limitNum}
+          initialFilters={{ service: initialService, sector: initialSector }}
         />
       </Suspense>
       <PageSideDecoration caption="Our Case Studies" />
