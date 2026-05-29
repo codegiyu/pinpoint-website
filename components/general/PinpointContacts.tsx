@@ -2,6 +2,7 @@ import { PinpointSocials, PinpointSocialApiItem } from '@/components/general/Soc
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import type { ContactsGroupProps } from './PinpointContactsTypes';
+import { NAV_LINK_PREFETCH } from '@/lib/constants/routing';
 
 export type { ContactsGroupProps } from './PinpointContactsTypes';
 
@@ -66,7 +67,9 @@ export const ContactsGroup = ({
             <p
               key={idx}
               className={`flex ${showOpacity ? 'opacity-75 hover:opacity-100' : ''} hover:underline ${inDarkBg ? 'hover:text-white' : 'hover:scale-105'} transition-all duration-500 ease-out`}>
-              <Link href={link.href}>{link.label}</Link>
+              <Link href={link.href} {...NAV_LINK_PREFETCH}>
+                {link.label}
+              </Link>
             </p>
           ))}
         </div>

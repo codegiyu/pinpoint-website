@@ -2,6 +2,9 @@ import { LangChangeLinkProps, NavLinkGroupProps } from '@/components/layout/Head
 import type { PublicService } from '@/lib/api/pinpoint-public-types';
 import capitalize from 'lodash/capitalize';
 
+/** Disable Next.js RSC prefetch on shell/nav links to avoid backend request storms. */
+export const NAV_LINK_PREFETCH = { prefetch: false } as const;
+
 export const langChangeOptions: LangChangeLinkProps[] = [
   { lang: 'fr', href: '/fr' },
   { lang: 'en', href: '/' },

@@ -12,6 +12,7 @@ import type { ContactsGroupProps } from '@/components/general/PinpointContactsTy
 import type { PinpointSocialApiItem } from '@/components/general/Socials';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { NAV_LINK_PREFETCH } from '@/lib/constants/routing';
 
 export interface HeaderProps {
   whiteTextStart?: boolean;
@@ -73,7 +74,9 @@ export const Header = memo(
               'wide-pinpoint-container flex items-center justify-between py-6 md:py-8 pointer-events-auto',
               menuOpen && 'bg-dark'
             )}>
-            <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
+            <GhostBtn
+              linkProps={{ href: '/', ...NAV_LINK_PREFETCH }}
+              className="pointer-events-auto">
               <div className="w-fit flex items-center text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]">
                 <PinpointFull className="pinpoint-logo" />
               </div>
@@ -145,7 +148,7 @@ export const Header = memo(
                     ))}
                   </nav>
                   <div className="flex lg:absolute lg:bottom-20 left-0 mt-14 lg:mt-0">
-                    <GhostBtn linkProps={{ href: '/privacy-policy' }}>
+                    <GhostBtn linkProps={{ href: '/privacy-policy', ...NAV_LINK_PREFETCH }}>
                       <span className="typo-caption-small uppercase text-white/70 opacity-100 hover:text-white">
                         Privacy Policy
                       </span>
@@ -174,7 +177,7 @@ export const LangChangeLink = ({ lang, isSelected, isLast }: LangChangeLinkProps
   return (
     <li className="">
       <GhostBtn
-        linkProps={{ href: '#', hrefLang: lang }}
+        linkProps={{ href: '#', ...NAV_LINK_PREFETCH }}
         className={`text-[9px] leading-[1.125rem] font-black pointer-events-auto
         ${isSelected ? 'text-white' : 'text-white/60 hover:text-white'}
         ${isLast ? '' : 'border-r border-white/40'}`}>
@@ -222,7 +225,7 @@ const NavLink = ({ text, href, isSelected, img, imgClass }: NavLinkProps) => {
   return (
     <li className="group">
       <GhostBtn
-        linkProps={{ href }}
+        linkProps={{ href, ...NAV_LINK_PREFETCH }}
         className={`justify-start text-[1rem] md:text-[1.3125rem] xl:text-[1.5rem] leading-[1] font-bold py-[5px]
         ${isSelected ? 'text-white' : 'text-white/60 hover:text-white'} relative`}
         wrapClassName="group peer relative z-[56]">
