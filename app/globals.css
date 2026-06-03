@@ -1,84 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
-@import 'swiper/css';
-@import 'swiper/css/pagination';
-@import 'swiper/css/navigation';
-@import 'swiper/css/mousewheel';
 
 @custom-variant dark (&:is(.dark *));
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-Light.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-Light.woff') format('woff');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-LightItalic.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-LightItalic.woff') format('woff');
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-Regular.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Italic.woff2') format('woff2'),
-      url('/fonts/rubik/Italic.woff') format('woff');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-Medium.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-Medium.woff') format('woff');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-MediumItalic.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-MediumItalic.woff') format('woff');
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-Bold.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Rubik';
-  src: url('/fonts/rubik/Rubik-BoldItalic.woff2') format('woff2'),
-      url('/fonts/rubik/Rubik-BoldItalic.woff') format('woff');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
 
 @theme inline {
   --color-background: var(--background);
@@ -233,13 +156,6 @@
     @apply py-[3.375rem] md:py-20 lg:py-[6.5rem];
   }
 
-  /* Swiper */
-  .mySwiper .swiper-wrapper {
-    @apply !w-[85.8vw] !max-w-[495px] md:!max-w-none md:!w-[595px] lg:!w-[828px] xl:!w-[1024px] 2xl:!w-[1200px] 3xl:!w-[1300px] !mx-auto;
-  }
-  /* .swiper-button-next,
-  .swiper-button-prev {} */
-
   body.load-animation-open #visible-header.blend-normal .pinpoint-logo path.coloured-text,
   body.load-animation-open #visible-header.blend-difference .pinpoint-logo path.coloured-text {
     fill: #fe7702 !important;
@@ -382,11 +298,11 @@
   }
 
   .cms-style {
-    width: var(--cms-base-width, initial);
-    max-height: var(--cms-base-max-height, initial);
-    display: var(--cms-base-display, initial);
+    width: var(--cms-base-width);
+    max-height: var(--cms-base-max-height);
+    display: var(--cms-base-, block);
     color: var(--cms-base-color, inherit);
-    background-color: var(--cms-base-background-color, transparent);
+    background: var(--cms-base-background-color);
     transform: rotate(var(--cms-base-rotate, 0deg));
     grid-column-start: var(--cms-base-grid-column-start, auto);
     grid-column-end: var(--cms-base-grid-column-end, auto);
@@ -400,11 +316,11 @@
 
   @media (min-width: 500px) {
     .cms-style {
-      width: var(--cms-sm-width, var(--cms-base-width, initial));
-      max-height: var(--cms-sm-max-height, var(--cms-base-max-height, initial));
-      display: var(--cms-sm-display, var(--cms-base-display, initial));
+      width: var(--cms-sm-width, var(--cms-base-width));
+      max-height: var(--cms-sm-max-height, var(--cms-base-max-height));
+      display: var(--cms-sm-display, var(--cms-base-, block));
       color: var(--cms-sm-color, var(--cms-base-color, inherit));
-      background-color: var(--cms-sm-background-color, var(--cms-base-background-color, transparent));
+      background: var(--cms-sm-background-color, var(--cms-base-background-color));
       transform: rotate(var(--cms-sm-rotate, var(--cms-base-rotate, 0deg)));
       grid-column-start: var(--cms-sm-grid-column-start, var(--cms-base-grid-column-start, auto));
       grid-column-end: var(--cms-sm-grid-column-end, var(--cms-base-grid-column-end, auto));
@@ -415,11 +331,11 @@
 
   @media (min-width: 768px) {
     .cms-style {
-      width: var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width, initial)));
-      max-height: var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height, initial)));
-      display: var(--cms-md-display, var(--cms-sm-display, var(--cms-base-display, initial)));
+      width: var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width)));
+      max-height: var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height)));
+      display: var(--cms-md-display, var(--cms-sm-display, var(--cms-base-, block)));
       color: var(--cms-md-color, var(--cms-sm-color, var(--cms-base-color, inherit)));
-      background-color: var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color, transparent)));
+      background: var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color)));
       transform: rotate(var(--cms-md-rotate, var(--cms-sm-rotate, var(--cms-base-rotate, 0deg))));
       grid-column-start: var(--cms-md-grid-column-start, var(--cms-sm-grid-column-start, var(--cms-base-grid-column-start, auto)));
       grid-column-end: var(--cms-md-grid-column-end, var(--cms-sm-grid-column-end, var(--cms-base-grid-column-end, auto)));
@@ -430,11 +346,11 @@
 
   @media (min-width: 1024px) {
     .cms-style {
-      width: var(--cms-lg-width, var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width, initial))));
-      max-height: var(--cms-lg-max-height, var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height, initial))));
-      display: var(--cms-lg-display, var(--cms-md-display, var(--cms-sm-display, var(--cms-base-display, initial))));
+      width: var(--cms-lg-width, var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width))));
+      max-height: var(--cms-lg-max-height, var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height))));
+      display: var(--cms-lg-display, var(--cms-md-display, var(--cms-sm-display, var(--cms-base-, block))));
       color: var(--cms-lg-color, var(--cms-md-color, var(--cms-sm-color, var(--cms-base-color, inherit))));
-      background-color: var(--cms-lg-background-color, var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color, transparent))));
+      background: var(--cms-lg-background-color, var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color))));
       transform: rotate(var(--cms-lg-rotate, var(--cms-md-rotate, var(--cms-sm-rotate, var(--cms-base-rotate, 0deg)))));
       grid-column-start: var(--cms-lg-grid-column-start, var(--cms-md-grid-column-start, var(--cms-sm-grid-column-start, var(--cms-base-grid-column-start, auto))));
       grid-column-end: var(--cms-lg-grid-column-end, var(--cms-md-grid-column-end, var(--cms-sm-grid-column-end, var(--cms-base-grid-column-end, auto))));
@@ -445,11 +361,11 @@
 
   @media (min-width: 1280px) {
     .cms-style {
-      width: var(--cms-xl-width, var(--cms-lg-width, var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width, initial)))));
-      max-height: var(--cms-xl-max-height, var(--cms-lg-max-height, var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height, initial)))));
-      display: var(--cms-xl-display, var(--cms-lg-display, var(--cms-md-display, var(--cms-sm-display, var(--cms-base-display, initial)))));
+      width: var(--cms-xl-width, var(--cms-lg-width, var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width)))));
+      max-height: var(--cms-xl-max-height, var(--cms-lg-max-height, var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height)))));
+      display: var(--cms-xl-display, var(--cms-lg-display, var(--cms-md-display, var(--cms-sm-display, var(--cms-base-, block)))));
       color: var(--cms-xl-color, var(--cms-lg-color, var(--cms-md-color, var(--cms-sm-color, var(--cms-base-color, inherit)))));
-      background-color: var(--cms-xl-background-color, var(--cms-lg-background-color, var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color, transparent)))));
+      background: var(--cms-xl-background-color, var(--cms-lg-background-color, var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color)))));
       transform: rotate(var(--cms-xl-rotate, var(--cms-lg-rotate, var(--cms-md-rotate, var(--cms-sm-rotate, var(--cms-base-rotate, 0deg))))));
       grid-column-start: var(--cms-xl-grid-column-start, var(--cms-lg-grid-column-start, var(--cms-md-grid-column-start, var(--cms-sm-grid-column-start, var(--cms-base-grid-column-start, auto)))));
       grid-column-end: var(--cms-xl-grid-column-end, var(--cms-lg-grid-column-end, var(--cms-md-grid-column-end, var(--cms-sm-grid-column-end, var(--cms-base-grid-column-end, auto)))));
@@ -460,11 +376,11 @@
 
   @media (min-width: 1536px) {
     .cms-style {
-      width: var(--cms-2xl-width, var(--cms-xl-width, var(--cms-lg-width, var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width, initial))))));
-      max-height: var(--cms-2xl-max-height, var(--cms-xl-max-height, var(--cms-lg-max-height, var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height, initial))))));
-      display: var(--cms-2xl-display, var(--cms-xl-display, var(--cms-lg-display, var(--cms-md-display, var(--cms-sm-display, var(--cms-base-display, initial))))));
+      width: var(--cms-2xl-width, var(--cms-xl-width, var(--cms-lg-width, var(--cms-md-width, var(--cms-sm-width, var(--cms-base-width))))));
+      max-height: var(--cms-2xl-max-height, var(--cms-xl-max-height, var(--cms-lg-max-height, var(--cms-md-max-height, var(--cms-sm-max-height, var(--cms-base-max-height))))));
+      display: var(--cms-2xl-display, var(--cms-xl-display, var(--cms-lg-display, var(--cms-md-display, var(--cms-sm-display, var(--cms-base-, block))))));
       color: var(--cms-2xl-color, var(--cms-xl-color, var(--cms-lg-color, var(--cms-md-color, var(--cms-sm-color, var(--cms-base-color, inherit))))));
-      background-color: var(--cms-2xl-background-color, var(--cms-xl-background-color, var(--cms-lg-background-color, var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color, transparent))))));
+      background: var(--cms-2xl-background-color, var(--cms-xl-background-color, var(--cms-lg-background-color, var(--cms-md-background-color, var(--cms-sm-background-color, var(--cms-base-background-color))))));
       transform: rotate(var(--cms-2xl-rotate, var(--cms-xl-rotate, var(--cms-lg-rotate, var(--cms-md-rotate, var(--cms-sm-rotate, var(--cms-base-rotate, 0deg)))))));
       grid-column-start: var(--cms-2xl-grid-column-start, var(--cms-xl-grid-column-start, var(--cms-lg-grid-column-start, var(--cms-md-grid-column-start, var(--cms-sm-grid-column-start, var(--cms-base-grid-column-start, auto))))));
       grid-column-end: var(--cms-2xl-grid-column-end, var(--cms-xl-grid-column-end, var(--cms-lg-grid-column-end, var(--cms-md-grid-column-end, var(--cms-sm-grid-column-end, var(--cms-base-grid-column-end, auto))))));

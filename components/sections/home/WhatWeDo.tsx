@@ -124,6 +124,8 @@ const ServiceCard = memo(
             src={videoUrl}
             poster={posterUrl}
             wrapClassName="h-full hidden md:block"
+            preload="none"
+            deferSrcUntilInView
             className={`scale-110 relative z-[4]
             ${
               !isLargeScreen || (isLargeScreen && cardHovered)

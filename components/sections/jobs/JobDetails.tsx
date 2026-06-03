@@ -39,7 +39,11 @@ export default function JobDetails({
         {jobDescription.length > 0 &&
           jobDescription.map((item, index) => <ParagraphUI {...item} key={index} />)}
 
-        <p className="typo-body-2 tracking-wide italic">{Ps}</p>
+        {Ps?.trim() ? (
+          <p className="typo-body-2 tracking-wide italic">
+            <strong>PS:</strong> {Ps.trim()}
+          </p>
+        ) : null}
       </motion.div>
     </section>
   );
@@ -48,24 +52,29 @@ export default function JobDetails({
 export const ListUI = ({ heading, list }: ListUIProps) => {
   return (
     <div>
-      <h2 className="typo-h4 pb-6">{heading}</h2>
-      <ul className="list-['-'] grid gap-6 typo-body-2 tracking-wide md:pl-4 ">
+      <h2 className="typo-h4 pb-4">{heading}</h2>
+      <ul className="list-disc grid gap-1 typo-body-2 tracking-wide pl-6 md:pl-8">
         {list.map((item, index) => (
-          <li key={index} className=" ">
-            {item}
-          </li>
+          <li key={index}>{item}</li>
         ))}
       </ul>
     </div>
   );
 };
 
+/** CMS textarea values may use real newlines or legacy literal `\n` sequences. */
+function formatCmsTextareaText(text: string): string {
+  return text.replace(/\\n/g, '\n');
+}
+
 export const ParagraphUI = ({ title, text }: ParagraphUI) => {
   return (
     <>
       <div className="grid gap-2">
         <h2 className="typo-h4 font-[600]">{title}</h2>
-        <p className="typo-body-2 tracking-wide">{text}</p>
+        <p className="typo-body-2 tracking-wide whitespace-pre-wrap">
+          {formatCmsTextareaText(text)}
+        </p>
       </div>
     </>
   );

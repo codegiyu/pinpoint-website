@@ -1,0 +1,42 @@
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+@import 'swiper/css/navigation';
+@import 'swiper/css/mousewheel';
+
+.mySwiper .swiper-wrapper {
+  width: 85.8vw !important;
+  max-width: 495px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media (min-width: 768px) {
+  .mySwiper .swiper-wrapper {
+    max-width: none !important;
+    width: 595px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mySwiper .swiper-wrapper {
+    width: 828px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .mySwiper .swiper-wrapper {
+    width: 1024px !important;
+  }
+}
+
+@media (min-width: 1536px) {
+  .mySwiper .swiper-wrapper {
+    width: 1200px !important;
+  }
+}
+
+@media (min-width: 1920px) {
+  .mySwiper .swiper-wrapper {
+    width: 1300px !important;
+  }
+}

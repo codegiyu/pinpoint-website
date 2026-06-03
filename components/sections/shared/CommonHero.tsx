@@ -59,6 +59,7 @@ export const CommonHero = ({
                   {...omit(imageProps, ['className'])}
                   className={cn('w-full h-full object-cover', imageProps.className)}
                   fill
+                  loading="eager"
                 />
               )}
 

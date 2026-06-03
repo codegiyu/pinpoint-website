@@ -39,7 +39,8 @@ export default async function AboutUsPage() {
 
   const servicesSummary = mapServicesToSummaryCards(services);
   const ourStoryTexts = aboutPage.content.ourStoryTexts ?? [];
-  const teamSlides = [...teamRes.team]
+  const teamSlides = teamRes.team
+    .filter(member => member.isFeatured === true)
     .sort((a, b) => a.order - b.order)
     .map(m => mapTeamMemberToSlide(m));
   const moreReferenceLogos = references.marquee.map(m => m.logo);

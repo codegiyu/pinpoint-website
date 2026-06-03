@@ -33,9 +33,16 @@ function getBackendBase(): string {
   return base;
 }
 
-async function pinpointGet<T>(path: string): Promise<T> {
+const DEFAULT_CMS_REVALIDATE_SECONDS = 60;
+
+async function pinpointGet<T>(path: string, options?: { tags?: string[] }): Promise<T> {
   const url = `${getBackendBase()}/api/v1/public/pinpoint-global${path}`;
-  const res = await fetch(url, { cache: 'no-store' });
+  const res = await fetch(url, {
+    next: {
+      revalidate: DEFAULT_CMS_REVALIDATE_SECONDS,
+      tags: options?.tags,
+    },
+  });
   let body: unknown;
   try {
     body = await res.json();
@@ -53,15 +60,17 @@ async function pinpointGet<T>(path: string): Promise<T> {
 }
 
 export const getGlobalConfig = cache(async (): Promise<GlobalConfigResponse> => {
-  return pinpointGet<GlobalConfigResponse>('/global-config');
+  return pinpointGet<GlobalConfigResponse>('/global-config', { tags: ['pg-global-config'] });
 });
 
 export const getPage = cache(async (pageKey: PageKey): Promise<PageResponse> => {
-  return pinpointGet<PageResponse>(`/pages/${pageKey}`);
+  return pinpointGet<PageResponse>(`/pages/${pageKey}`, { tags: [`pg-page:${pageKey}`] });
 });
 
 export const getProjectBySlug = cache(async (slug: string): Promise<PublicProject> => {
-  return pinpointGet<PublicProject>(`/projects/${encodeURIComponent(slug)}`);
+  return pinpointGet<PublicProject>(`/projects/${encodeURIComponent(slug)}`, {
+    tags: [`pg-project:${slug}`],
+  });
 });
 
 export async function getProjectBySlugOrNull(slug: string): Promise<PublicProject | null> {
@@ -72,6 +81,26 @@ export async function getProjectBySlugOrNull(slug: string): Promise<PublicProjec
     throw e;
   }
 }
+
+export const getProjectsBySlugs = cache(async (slugs: string[]): Promise<PublicProject[]> => {
+  const uniqueSlugs = [...new Set(slugs.filter(Boolean))];
+  if (uniqueSlugs.length === 0) return [];
+
+  const q = new URLSearchParams();
+  for (const slug of uniqueSlugs) {
+    q.append('slugs', slug);
+  }
+
+  const data = await pinpointGet<{ projects: PublicProject[] }>(`/projects?${q.toString()}`, {
+    tags: uniqueSlugs.map(slug => `pg-project:${slug}`),
+  });
+
+  const bySlug = new Map(data.projects.map(project => [project.slug, project]));
+
+  return uniqueSlugs
+    .map(slug => bySlug.get(slug))
+    .filter((project): project is PublicProject => project != null);
+});
 
 export const listProjects = cache(
   async (query: {
@@ -90,16 +119,20 @@ export const listProjects = cache(
       if (s) q.append('services', s);
     }
     const qs = q.toString();
-    return pinpointGet<ProjectsListResponse>(`/projects${qs ? `?${qs}` : ''}`);
+    return pinpointGet<ProjectsListResponse>(`/projects${qs ? `?${qs}` : ''}`, {
+      tags: ['pg-projects'],
+    });
   }
 );
 
 export const listServices = cache(async (): Promise<ServicesListResponse> => {
-  return pinpointGet<ServicesListResponse>('/services');
+  return pinpointGet<ServicesListResponse>('/services', { tags: ['pg-services'] });
 });
 
 export const getServiceBySlug = cache(async (slug: string): Promise<PublicServiceDetail> => {
-  return pinpointGet<PublicServiceDetail>(`/services/${encodeURIComponent(slug)}`);
+  return pinpointGet<PublicServiceDetail>(`/services/${encodeURIComponent(slug)}`, {
+    tags: [`pg-service:${slug}`],
+  });
 });
 
 export async function getServiceBySlugOrNull(slug: string): Promise<PublicServiceDetail | null> {
@@ -117,12 +150,14 @@ export const listJobs = cache(
     if (query.page != null) q.set('page', String(query.page));
     if (query.limit != null) q.set('limit', String(query.limit));
     const qs = q.toString();
-    return pinpointGet<JobsListResponse>(`/jobs${qs ? `?${qs}` : ''}`);
+    return pinpointGet<JobsListResponse>(`/jobs${qs ? `?${qs}` : ''}`, {
+      tags: ['pg-jobs'],
+    });
   }
 );
 
 export const getJobBySlug = cache(async (slug: string): Promise<PublicJob> => {
-  return pinpointGet<PublicJob>(`/jobs/${encodeURIComponent(slug)}`);
+  return pinpointGet<PublicJob>(`/jobs/${encodeURIComponent(slug)}`, { tags: [`pg-job:${slug}`] });
 });
 
 export async function getJobBySlugOrNull(slug: string): Promise<PublicJob | null> {
@@ -135,15 +170,15 @@ export async function getJobBySlugOrNull(slug: string): Promise<PublicJob | null
 }
 
 export const getTeam = cache(async (): Promise<TeamResponse> => {
-  return pinpointGet<TeamResponse>('/team');
+  return pinpointGet<TeamResponse>('/team', { tags: ['pg-team'] });
 });
 
 export const getReferences = cache(async (): Promise<ReferencesResponse> => {
-  return pinpointGet<ReferencesResponse>('/references');
+  return pinpointGet<ReferencesResponse>('/references', { tags: ['pg-references'] });
 });
 
 export const getAchievements = cache(async (): Promise<AchievementsResponse> => {
-  return pinpointGet<AchievementsResponse>('/achievements');
+  return pinpointGet<AchievementsResponse>('/achievements', { tags: ['pg-achievements'] });
 });
 
 /** Map global-config SEO to Next.js Metadata (root layout). */
@@ -182,11 +217,6 @@ export function globalSeoToMetadata(content: GlobalConfigResponse['content']): M
       card: 'summary_large_image',
       creator: '@TheLonerider20',
       images: [s.image],
-    },
-    other: {
-      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
-      Pragma: 'no-cache',
-      Expires: '0',
     },
   };
 }

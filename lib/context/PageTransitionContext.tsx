@@ -3,7 +3,6 @@
 
 import {
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -16,12 +15,14 @@ import { motion, useReducedMotion } from 'motion/react';
 import { PinpointFull } from '@/components/icons';
 import { useSiteLoading } from '@/lib/context/SiteLoadingContext';
 import { routeTransitionLabel } from '@/lib/utils/route-transition-label';
+import { shouldDisableHeavyRouteTransitions } from '@/lib/utils/lightweight-navigation';
 
 const COVER_DURATION = 1.1;
 const REVEAL_DURATION = 1.6;
 const TITLE_FADE_DELAY = 0.36;
 const TITLE_REVEAL_DURATION = 2;
 const ROUTE_READY_EXTRA_MS = 360;
+const READY_WAIT_TIMEOUT_MS = 6000;
 
 type Phase = 'idle' | 'covering' | 'awaitingRoute' | 'revealing';
 
@@ -37,6 +38,47 @@ function currentFullLocation(pathname: string, search: string): string {
 
 function isModifiedClick(e: MouseEvent) {
   return e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0;
+}
+
+function nextPaint(): Promise<void> {
+  return new Promise(resolve =>
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+  );
+}
+
+function timeout(ms: number): Promise<void> {
+  return new Promise(resolve => window.setTimeout(resolve, ms));
+}
+
+async function waitForImage(img: HTMLImageElement): Promise<void> {
+  if (img.complete && img.naturalWidth > 0) return;
+  await new Promise<void>(resolve => {
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      img.removeEventListener('load', finish);
+      img.removeEventListener('error', finish);
+      resolve();
+    };
+    img.addEventListener('load', finish, { once: true });
+    img.addEventListener('error', finish, { once: true });
+  });
+}
+
+async function waitForCriticalAssets(): Promise<void> {
+  const eagerImages = Array.from(
+    document.querySelectorAll('img[loading="eager"], img[data-page-transition-wait="true"]')
+  );
+  const imageWaits = eagerImages.map(img => waitForImage(img as HTMLImageElement));
+  const fontsReady =
+    'fonts' in document
+      ? (document as Document & { fonts: FontFaceSet }).fonts.ready
+      : Promise.resolve();
+  await Promise.race([
+    Promise.allSettled([...imageWaits, fontsReady]).then(() => undefined),
+    timeout(READY_WAIT_TIMEOUT_MS),
+  ]);
 }
 
 interface PageTransitionContextValue {
@@ -59,11 +101,19 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { siteLoading } = useSiteLoading();
-  const reduceMotion = useReducedMotion();
+  const reduceMotionPreference = useReducedMotion();
+  const [heavyTransitionsDisabled, setHeavyTransitionsDisabled] = useState(false);
+
+  useEffect(() => {
+    setHeavyTransitionsDisabled(shouldDisableHeavyRouteTransitions());
+  }, []);
+
+  const reduceMotion = reduceMotionPreference || heavyTransitionsDisabled;
 
   const [phase, setPhase] = useState<Phase>('idle');
   const [displayTitle, setDisplayTitle] = useState('');
   const targetRef = useRef<string | null>(null);
+  const routeReadyRunRef = useRef(0);
   const phaseRef = useRef<Phase>('idle');
   phaseRef.current = phase;
 
@@ -87,40 +137,85 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
     setPhase('covering');
   };
 
+  const onCoverComplete = () => {
+    if (phaseRef.current !== 'covering' || !targetRef.current) return;
+    const href = targetRef.current;
+    router.push(href.startsWith('/') ? href : `/${href}`);
+    setPhase('awaitingRoute');
+  };
+
+  const onRevealComplete = () => {
+    setPhase('idle');
+    targetRef.current = null;
+    setDisplayTitle('');
+  };
+
+  const showOverlay = phase !== 'idle' && !reduceMotion;
+  const panelActive = phase === 'covering' || phase === 'awaitingRoute';
+  const panelReveal = phase === 'revealing';
+
+  const value = useMemo(() => ({ navigateWithTransition }), []);
+
   useEffect(() => {
     if (phase !== 'awaitingRoute' || !targetRef.current) return;
+
     const current = currentFullLocation(pathname, search);
+
     if (current !== targetRef.current) return;
 
-    const t = window.setTimeout(() => {
+    let cancelled = false;
+    const runId = ++routeReadyRunRef.current;
+
+    const run = async () => {
+      await timeout(ROUTE_READY_EXTRA_MS);
+      await nextPaint();
+      await waitForCriticalAssets();
+
+      if (cancelled) return;
+
+      if (phaseRef.current !== 'awaitingRoute') return;
+
+      if (routeReadyRunRef.current !== runId) return;
+
       setPhase('revealing');
-    }, ROUTE_READY_EXTRA_MS);
-    return () => window.clearTimeout(t);
+    };
+
+    void run();
+
+    return () => {
+      cancelled = true;
+    };
   }, [phase, pathname, search]);
 
-  useEffect(() => {
-    if (phase !== 'awaitingRoute' || !targetRef.current) return;
-    const failSafe = window.setTimeout(() => {
-      if (phaseRef.current === 'awaitingRoute') {
-        setPhase('revealing');
-        targetRef.current = null;
-      }
-    }, 8000);
-    return () => window.clearTimeout(failSafe);
-  }, [phase]);
+  // useEffect(() => {
+  //   if (phase !== 'awaitingRoute' || !targetRef.current) return;
+  //   const failSafe = window.setTimeout(() => {
+  //     if (phaseRef.current === 'awaitingRoute') {
+  //       setPhase('revealing');
+  //       targetRef.current = null;
+  //     }
+  //   }, 8000);
+  //   return () => window.clearTimeout(failSafe);
+  // }, [phase]);
 
   useEffect(() => {
     if (siteLoading || reduceMotion) return;
 
     const onClickCapture = (e: MouseEvent) => {
       if (phaseRef.current !== 'idle') return;
+
       const el = (e.target as HTMLElement | null)?.closest?.('a');
+
       if (!el || !(el instanceof HTMLAnchorElement)) return;
+
       if (isModifiedClick(e)) return;
+
       if (el.getAttribute('data-no-page-transition') === 'true') return;
+
       if (el.target === '_blank' || el.hasAttribute('download')) return;
 
       const hrefAttr = el.getAttribute('href');
+
       if (
         !hrefAttr ||
         hrefAttr.startsWith('#') ||
@@ -131,6 +226,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       }
 
       let url: URL;
+
       try {
         url = new URL(hrefAttr, window.location.origin);
       } catch {
@@ -141,6 +237,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 
       const nextFull = `${url.pathname}${url.search}`;
       const curFull = currentFullLocation(pathname, search);
+
       if (nextFull === curFull) return;
 
       const dataTitle = el.getAttribute('data-page-transition-title');
@@ -154,27 +251,9 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
     };
 
     document.addEventListener('click', onClickCapture, true);
+
     return () => document.removeEventListener('click', onClickCapture, true);
   }, [pathname, reduceMotion, search, siteLoading]);
-
-  const onCoverComplete = useCallback(() => {
-    if (phaseRef.current !== 'covering' || !targetRef.current) return;
-    const href = targetRef.current;
-    router.push(href.startsWith('/') ? href : `/${href}`);
-    setPhase('awaitingRoute');
-  }, [router]);
-
-  const onRevealComplete = useCallback(() => {
-    setPhase('idle');
-    targetRef.current = null;
-    setDisplayTitle('');
-  }, []);
-
-  const value = useMemo(() => ({ navigateWithTransition }), []);
-
-  const showOverlay = phase !== 'idle' && !reduceMotion;
-  const panelActive = phase === 'covering' || phase === 'awaitingRoute';
-  const panelReveal = phase === 'revealing';
 
   return (
     <PageTransitionContext.Provider value={value}>

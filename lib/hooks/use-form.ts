@@ -187,7 +187,13 @@ export const useForm = <TSchema extends ZodType<any>>({
     const wasSubmittedSuccessfully = await onSubmit(formValues);
     setLoading(false);
     setSubmitted(wasSubmittedSuccessfully);
-    setErrorsVisible(true);
+    // Only surface field errors after a failed submit; success paths typically call resetForm()
+    // and must not leave errorsVisible true or empty fields will show validation errors.
+    if (!wasSubmittedSuccessfully) {
+      setErrorsVisible(true);
+    } else {
+      setErrorsVisible(false);
+    }
   };
 
   const resetForm = () => {
@@ -197,6 +203,7 @@ export const useForm = <TSchema extends ZodType<any>>({
       for (const key in defaultFormValues) initialErrors[key] = [];
       return initialErrors;
     });
+    setErrorsVisible(false);
     setSubmitted(false);
     firstFieldRef.current?.focus();
   };

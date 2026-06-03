@@ -25,24 +25,23 @@ export const ProjectIntroduction = ({
   descriptionBg,
   descriptionStyle,
   descriptionHighlightPhotos,
-  textColorClass,
-  textStyle,
+  // textColorClass,
+  // textStyle,
   serviceBreakdown,
   extraServices,
   createdWebsite,
 }: ProjectIntroductionProps) => {
-  const usesStructuredStyle = hasStructuredStyle(textStyle);
-  const textStyleVars = getStyleVars(textStyle);
+  // const textStyleVars = getStyleVars(textStyle);
   const descriptionStyleVars = getStyleVars(descriptionStyle);
 
   return (
     <section
       className={cn(
         'w-full relative z-[2] cms-style',
-        !hasStructuredStyle(descriptionStyle) && (descriptionBg || 'bg-gray-f2'),
-        !usesStructuredStyle && (textColorClass || 'text-dark')
+        !descriptionStyleVars && (descriptionBg || 'bg-gray-f2')
+        // !textStyleVars && (textColorClass || 'text-dark')
       )}
-      style={{ ...descriptionStyleVars, ...textStyleVars }}>
+      style={{ ...descriptionStyleVars }}>
       <div className="pinpoint-container py-[3.75rem] md:py-[6.75rem] lg:py-[8.375rem] xl:[9.375rem]">
         <div className="w-full grid lg:grid-cols-[1fr_auto] lg:gap-16">
           <div className="text-section xl:pl-24 2xl:pl-32 3xl:pl-40">

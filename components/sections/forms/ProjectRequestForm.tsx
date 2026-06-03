@@ -5,9 +5,20 @@ import { RegularInput, RegularInputProps } from '@/components/atoms/RegularInput
 import { RegularTextarea, RegularTextareaProps } from '@/components/atoms/RegularTextarea';
 import { toast } from '@/components/atoms/Toast';
 import { useForm } from '@/lib/hooks/use-form';
-import { ChangeEvent, Dispatch, memo, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { trackFormStart, trackFormSubmit } from '@/lib/telemetry/track-form';
+import {
+  ChangeEvent,
+  Dispatch,
+  memo,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { output, z, ZodArray, ZodEmail, ZodObject, ZodString } from 'zod';
 import FormAlert from './FormAlert';
+import { FormSubmissionProgress } from './FormSubmissionProgress';
 import { CheckCheck } from 'lucide-react';
 import { MultiSelect, MultiSelectProps } from '@/components/atoms/MultiSelect';
 import { generateOptionsFromArray } from '@/lib/utils/general';
@@ -17,6 +28,16 @@ import { SelectOption } from '@/lib/types/general';
 import { default as omit } from 'lodash/omit';
 import { RegularSelect, RegularSelectProps } from '@/components/atoms/RegularSelect';
 import { PackagedServiceId, REQUEST_FORMS } from './RequestForms';
+import {
+  submitPublicFormSubmission,
+  uploadAttachmentsToR2,
+} from '@/lib/api/public-form-submission';
+import {
+  buildProjectRequestSubmissionSteps,
+  completeStepActivateNext,
+  markActiveStepError,
+  type SubmissionStep,
+} from '@/lib/utils/form-submission-progress';
 
 export const ProjectRequestForm = ({
   servicesList,
@@ -187,6 +208,12 @@ export const RequestForm = memo(
       [isValid, files, filesRequired]
     );
 
+    const [submissionPanel, setSubmissionPanel] = useState<{
+      visible: boolean;
+      steps: SubmissionStep[];
+      uploadPercent: number | null;
+    }>({ visible: false, steps: [], uploadPercent: null });
+
     const generalValidation = () => {
       if (filesRequired && !files.length) {
         toast({ title: 'Please upload at least one file', variant: 'error' });
@@ -195,50 +222,162 @@ export const RequestForm = memo(
       return validateForm() && filesRequired ? !!files.length : true;
     };
 
+    const onFormEngage = useCallback(() => {
+      trackFormStart(formName, 'projectRequest');
+    }, [formName]);
+
+    const wrappedHandleInputChange = useCallback(
+      (
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        options?: { clearFields?: (keyof z.infer<TSchema>)[] }
+      ) => {
+        onFormEngage();
+        handleInputChange(e, options);
+      },
+      [handleInputChange, onFormEngage]
+    );
+
+    const wrappedOnChange = useCallback(
+      (
+        name: keyof z.infer<TSchema>,
+        value: string | string[] | number | boolean,
+        options?: { clearFields?: (keyof z.infer<TSchema>)[] }
+      ) => {
+        onFormEngage();
+        onChange(name, value, options);
+      },
+      [onChange, onFormEngage]
+    );
+
     async function onSubmit(values: z.infer<typeof formSchema>): Promise<boolean> {
       if (!generalValidation()) return false;
 
-      const formData = new FormData();
+      const hasAttachments = files.length > 0;
+      setSubmissionPanel({
+        visible: true,
+        steps: buildProjectRequestSubmissionSteps(hasAttachments),
+        uploadPercent: hasAttachments ? 0 : null,
+      });
 
-      formData.append('formName', formName);
-      Object.entries(values).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
-          value.forEach(val => formData.append(key, val));
-        } else {
-          formData.append(key, value);
+      let clearPanelAfterDelay = false;
+
+      try {
+        let attachments: Awaited<ReturnType<typeof uploadAttachmentsToR2>> = [];
+        if (hasAttachments) {
+          attachments = await uploadAttachmentsToR2(files, pct =>
+            setSubmissionPanel(p => ({ ...p, uploadPercent: pct }))
+          );
+          setSubmissionPanel(p => ({
+            ...p,
+            steps: completeStepActivateNext(p.steps, 'upload'),
+            uploadPercent: 100,
+          }));
         }
-      });
-      files.forEach(file => {
-        formData.append('files', file);
-      });
 
-      const res = await fetch('/api/send-company-mail', {
-        method: 'POST',
-        body: formData,
-      });
+        await submitPublicFormSubmission({
+          formType: 'projectRequest',
+          formName,
+          fields: Object.entries(values).reduce<Record<string, string | string[]>>(
+            (acc, [key, value]) => {
+              acc[key] = value;
+              return acc;
+            },
+            {}
+          ),
+          attachments,
+        });
 
-      const parsedRes = await res.json();
+        setSubmissionPanel(p => ({
+          ...p,
+          steps: completeStepActivateNext(p.steps, 'save'),
+        }));
 
-      toast({ title: parsedRes.message, variant: parsedRes.success ? 'success' : 'error' });
+        const mailBody = JSON.stringify({
+          formName,
+          ...values,
+          ...(attachments.length ? { attachments } : {}),
+        });
 
-      if (parsedRes.error) {
-        setFormErrors({ root: [String(parsedRes.error)] } as Partial<
-          Record<keyof output<TSchema> | 'root', string[] | undefined>
-        >);
-      }
+        setSubmissionPanel(p => ({
+          ...p,
+          steps: completeStepActivateNext(p.steps, 'compile'),
+        }));
 
-      if (parsedRes.success) {
+        const mailRes = await fetch('/api/send-company-mail', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: mailBody,
+        });
+
+        const parsedRes = await mailRes.json();
+
+        toast({ title: parsedRes.message, variant: parsedRes.success ? 'success' : 'error' });
+
+        if (!parsedRes.success) {
+          setSubmissionPanel(p => ({
+            ...p,
+            steps: p.steps.map(s =>
+              s.key === 'send' && s.status === 'active' ? { ...s, status: 'error' as const } : s
+            ),
+          }));
+
+          setFormErrors({ root: [String(parsedRes.error || parsedRes.message)] } as Partial<
+            Record<keyof output<TSchema> | 'root', string[] | undefined>
+          >);
+
+          window.setTimeout(
+            () => setSubmissionPanel({ visible: false, steps: [], uploadPercent: null }),
+            2800
+          );
+
+          return false;
+        }
+
+        setSubmissionPanel(p => ({
+          ...p,
+          steps: p.steps.map(s => (s.key === 'send' ? { ...s, status: 'done' as const } : s)),
+        }));
+
         resetForm();
         setFiles([]);
-        return true;
-      }
 
-      return false;
+        trackFormSubmit(formName, 'projectRequest');
+        clearPanelAfterDelay = true;
+
+        return true;
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Could not submit form';
+
+        toast({ title: message, variant: 'error' });
+
+        setSubmissionPanel(p => ({
+          ...p,
+          steps: markActiveStepError(p.steps),
+        }));
+
+        setFormErrors({ root: [message] } as Partial<
+          Record<keyof output<TSchema> | 'root', string[] | undefined>
+        >);
+
+        window.setTimeout(
+          () => setSubmissionPanel({ visible: false, steps: [], uploadPercent: null }),
+          2800
+        );
+
+        return false;
+      } finally {
+        if (clearPanelAfterDelay) {
+          await new Promise<void>(resolve => window.setTimeout(resolve, 900));
+          setSubmissionPanel({ visible: false, steps: [], uploadPercent: null });
+        }
+      }
     }
 
     useEffect(() => {
       if (!packageInURL) return;
+
       if (packageInURL.service !== serviceId) return;
+
       if (!('package' in defaultFormValues)) return;
 
       const packageInputData = formSections
@@ -289,23 +428,30 @@ export const RequestForm = memo(
                   serviceOptions,
                   formValues,
                   formErrors,
-                  handleInputChange,
-                  onChange,
+                  handleInputChange: wrappedHandleInputChange,
+                  onChange: wrappedOnChange,
                   errorsVisible,
                 }}
               />
             </div>
           ))}
-          <div className="w-full flex items-center justify-center pt-4 gap-2">
-            <PinpointBtn
-              text="Submit"
-              loading={loading}
-              disabled={!formValid}
-              onDisabledClick={generalValidation}
-              RightIcon={submitted ? CheckCheck : undefined}
-              rightIconProps={{ className: 'size-4 text-green-600' }}
+          <div className="w-full flex flex-col items-center pt-4 gap-2">
+            <div className="flex items-center justify-center gap-2">
+              <PinpointBtn
+                text="Submit"
+                loading={loading}
+                disabled={!formValid}
+                onDisabledClick={generalValidation}
+                RightIcon={submitted ? CheckCheck : undefined}
+                rightIconProps={{ className: 'size-4 text-green-600' }}
+              />
+              <FormAlert />
+            </div>
+            <FormSubmissionProgress
+              visible={submissionPanel.visible}
+              steps={submissionPanel.steps}
+              uploadAveragePercent={submissionPanel.uploadPercent}
             />
-            <FormAlert />
           </div>
         </motion.form>
       </section>

@@ -265,7 +265,7 @@ interface PinpointGlobalProjectContent {
 
 ### Public job shape (`GET …/jobs`, `…/jobs/:slug`)
 
-`PinpointGlobalJobContent & { _id: string; slug: string }` — `title`, `description`, `type` (`'list'` \| `'paragraphs'`), `profile`, `offer`, `Ps`, `jobDescription: { title: string; text: string }[]`, optional `seo`.
+`PinpointGlobalJobContent & { _id: string; slug: string }` — `title`, `description`, `type` (`'list'` \| `'paragraphs'`), optional `flyerImage`, optional `bannerImage`, `profile`, `offer`, `Ps`, `jobDescription: { title: string; text: string }[]`, optional `seo`.
 
 <a id="pg-team"></a>
 
@@ -545,7 +545,9 @@ If both `sectors` and `services` are provided, a project must match **both** gro
       "_id": "674a1b2c3d4e5f6789abcdef",
       "slug": "job-slug",
       "title": "string",
-      "description": "string"
+      "description": "string",
+      "flyerImage": "https://…",
+      "bannerImage": "https://…"
     }
   ],
   "pagination": {
@@ -664,9 +666,102 @@ The validated object is stored as **`payload`** on the document (same flat shape
 | **404** | Subsidiary `pinpoint-global` missing or inactive |
 | **429** | Form rate limit exceeded — body typically `{ "success": false, "message": "Too many form submissions, try again later." }` (via `express-rate-limit`) |
 
-#### File uploads (v1)
+### `POST /pinpoint-global/presigned-urls`
 
-Use **JSON** only. Upload files elsewhere (e.g. presigned URL), then send **URLs / metadata** in the **allowed optional string fields** listed above (extend `formPayload` / Zod if you add new safe fields).
+**Headers:** `Content-Type: application/json`
+
+**Purpose:** Generate R2 presigned upload URLs for public form flows (unauthenticated). Files are scoped to the `pinpoint-global` subsidiary and saved as `Document` records with `status: "pending"`.
+
+#### Request body (JSON)
+
+Use either single-file mode or batch mode:
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `intent` | string | Yes | One of: `site-content-form-submission`, `site-content-project`, `site-content-service`, `site-content-team-member`, `site-content-page`, `site-content-job`, `site-content-reference`, `site-content-achievement`, `site-content-global-config` |
+| `fileExtension` | string | Single mode | File extension without/with dot (e.g. `png`, `.pdf`) |
+| `contentType` | string | Single mode | MIME type (e.g. `image/png`, `application/pdf`) |
+| `files` | array | Batch mode | Up to **20** entries, each `{ "fileExtension": string, "contentType": string }` |
+
+Validation rules:
+- Provide **either** (`fileExtension` + `contentType`) **or** `files[]`, not both.
+- Empty/missing `intent` or unsupported intent returns **400**.
+- If `pinpoint-global` subsidiary is missing/inactive, returns **404**.
+
+Single-file request example:
+
+```json
+{
+  "intent": "site-content-page",
+  "fileExtension": "png",
+  "contentType": "image/png"
+}
+```
+
+Batch request example:
+
+```json
+{
+  "intent": "site-content-page",
+  "files": [
+    { "fileExtension": "png", "contentType": "image/png" },
+    { "fileExtension": "pdf", "contentType": "application/pdf" }
+  ]
+}
+```
+
+#### Success **200** (single)
+
+```json
+{
+  "success": true,
+  "data": {
+    "_id": "674a1b2c3d4e5f6789abcdef",
+    "uploadUrl": "https://...",
+    "key": "uploads/subsidiary/.../site-content-page/abc123.png",
+    "filename": "abc123.png",
+    "intent": "site-content-page",
+    "publicUrl": "https://cdn.example.com/uploads/subsidiary/.../site-content-page/abc123.png",
+    "expiresIn": 3600,
+    "expiresAt": "2026-04-24T13:00:00.000Z"
+  },
+  "responseCode": 200,
+  "message": "Presigned URL generated successfully"
+}
+```
+
+#### Success **200** (batch)
+
+```json
+{
+  "success": true,
+  "data": {
+    "uploads": [
+      {
+        "id": "674a1b2c3d4e5f6789abcdef",
+        "intent": "site-content-page",
+        "uploadUrl": "https://...",
+        "key": "uploads/subsidiary/.../site-content-page/abc123.png",
+        "filename": "abc123.png",
+        "publicUrl": "https://cdn.example.com/uploads/subsidiary/.../site-content-page/abc123.png",
+        "expiresIn": 3600,
+        "expiresAt": "2026-04-24T13:00:00.000Z"
+      }
+    ],
+    "count": 1
+  },
+  "responseCode": 200,
+  "message": "Presigned URLs generated successfully"
+}
+```
+
+#### Errors
+
+| HTTP | When |
+|------|------|
+| **400** | Invalid `intent`; invalid single/batch shape; missing required fields; more than 20 files |
+| **404** | `pinpoint-global` subsidiary missing/inactive |
+| **429** | Presigned URL rate limit exceeded |
 
 ---
 

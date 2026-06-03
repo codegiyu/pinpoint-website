@@ -1,5 +1,6 @@
 'use client';
 
+import '@/components/swiper/swiper-styles.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Manipulation, A11y, Pagination, Navigation, Mousewheel } from 'swiper/modules';
 import { SectionHeader } from '@/components/general/SectionHeader';
@@ -116,12 +117,19 @@ const TeamSlide = ({ name, title, mainImage, subImage }: TeamSlideProps) => {
     <div className="group w-full h-[clamp(425px,_133vw,_598px)] md:h-[480px] lg:h-[450px] 2xl:h-[500px] relative overflow-hidden">
       <h4 className="sr-only">{alt}</h4>
       <div className="w-full h-full scale-120 group-hover:scale-100 transition-all duration-700 ease-out relative z-[1]">
-        <Image src={mainImage} alt={alt} className="w-full h-full object-cover z-[3]" fill />
+        <Image
+          src={mainImage}
+          alt={alt}
+          className="w-full h-full object-cover z-[3]"
+          fill
+          sizes="(max-width: 768px) 85vw, 384px"
+        />
         <Image
           src={subImage}
           alt={alt}
           className="w-full h-full object-cover z-[2] group-hover:z-[4]"
           fill
+          sizes="(max-width: 768px) 85vw, 384px"
         />
       </div>
       <div

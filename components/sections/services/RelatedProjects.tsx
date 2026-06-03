@@ -1,5 +1,6 @@
 'use client';
 
+import '@/components/swiper/swiper-styles.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Manipulation, A11y, Pagination, Navigation, Mousewheel } from 'swiper/modules';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
@@ -101,6 +102,7 @@ export const ProjectSlide = ({ name, description, image, projectId }: RelatedPro
               alt=""
               className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
               fill
+              sizes="(max-width: 768px) 85vw, (max-width: 1280px) 410px, 528px"
             />
           </div>
         </div>

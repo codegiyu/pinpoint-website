@@ -4,7 +4,7 @@
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { SectionHeader } from '@/components/general/SectionHeader';
 import { MoveRight } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'motion/react';
 import { Accordion, AccordionContent, AccordionItem } from '@/components/ui/accordion';
 import { useMediaQuery } from '@/lib/hooks/use-media-query';
@@ -17,13 +17,21 @@ export const OurReferences = ({
   references: ReferenceProps[];
   moreReferences: string[];
 }) => {
-  const [moreVisible, setMoreVisible] = useState(false);
+  const [moreVisible, setMoreVisible] = useState(true);
   const isTabletScreenAndAbove = useMediaQuery('(min-width: 768px)');
 
   const moreReferencesRows = useMemo(
     () => splitArray(moreReferences, isTabletScreenAndAbove ? 5 : 9),
     [isTabletScreenAndAbove, moreReferences]
   );
+
+  useEffect(() => {
+    // This is a hack to show the more references section for a short time
+    // So the more references images will start loading
+    setTimeout(() => {
+      setMoreVisible(false);
+    }, 2500);
+  }, []);
 
   return (
     <section className="w-full bg-gray-f2 pt-[3.75rem] pb-11 md:py-0 relative z-[5]">

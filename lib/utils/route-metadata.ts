@@ -8,6 +8,7 @@ export function metadataFromRouteSeo(
   if (!seo) {
     return { title: fallbackTitle };
   }
+
   const base: Metadata = {
     title: seo.title,
     description: seo.description,
@@ -30,5 +31,6 @@ export function metadataFromRouteSeo(
       ...(seo.twitter.creator && { creator: seo.twitter.creator }),
     },
   };
+
   return base;
 }

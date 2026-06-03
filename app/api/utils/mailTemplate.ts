@@ -271,10 +271,10 @@ export const mailTemplate = ({ title, top, data, end }: MailTemplateProps) => {
                   <table width="640" cellpadding="0" cellspacing="0" border="0" class="wrapper" bgcolor="#FFFFFF">
                     <tr>
                       <td align="center" valign="top" style="padding: 20px 40px;">
-                        <a href="https://wwww.pinpoint.ng/" target="_blank">
+                        <a href="https://www.pinpoint.ng/" target="_blank">
                           <div class="logo-container" style="padding: 40px 20px 0px; width: fit-content;">
                             <img 
-                              src="https://i.postimg.cc/wM5b51gD/pinpoint-full.png"
+                              src="https://static.pinpoint.ng/pinpoint-full.png"
                               alt="Pinpoint Global logo"
                               style="height: 25px; margin: 0;"
                             />

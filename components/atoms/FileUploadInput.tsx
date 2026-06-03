@@ -11,8 +11,8 @@ import {
 import { toast } from './Toast';
 import { CheckCircle2, Upload, XCircle } from 'lucide-react';
 import { GhostBtn } from './GhostBtn';
-import { createFileList, formatFileSize } from '@/lib/utils/general';
-import { InputWrapper } from '../general/InputWrapper';
+import { formatFileSize } from '@/lib/utils/general';
+import { cn } from '@/lib/utils';
 
 export interface FileUploadInputProps {
   label?: string;
@@ -22,6 +22,7 @@ export interface FileUploadInputProps {
 }
 
 const MAX_FILESIZE = 5 * 1024 * 1024; // 5mb;
+const MAX_FILES = 10;
 
 export const FileUploadInput = ({
   label = 'Attach files',
@@ -35,79 +36,135 @@ export const FileUploadInput = ({
     return (inputProps?.accept ?? '').split(',').filter(item => !!item.trim());
   }, [inputProps]);
 
-  const onFileSelect = async (files: FileList | null) => {
-    if (!files) return;
-    const ACCEPTED_FILE_TYPES = new Set(acceptedFileTypesArr);
+  const mergeIncomingFiles = (prev: File[], incoming: File[]): File[] => {
+    if (!incoming.length) return prev;
 
-    for (const file of files) {
+    if (prev.length >= MAX_FILES) {
+      toast({ description: `You can attach at most ${MAX_FILES} files.`, variant: 'error' });
+      return prev;
+    }
+
+    const ACCEPTED_FILE_TYPES = new Set(acceptedFileTypesArr);
+    const next = [...prev];
+
+    for (let i = 0; i < incoming.length; i++) {
+      const file = incoming[i];
+
+      if (next.length >= MAX_FILES) {
+        if (i < incoming.length) {
+          toast({ description: `You can attach at most ${MAX_FILES} files.`, variant: 'error' });
+        }
+        break;
+      }
+
       const fileType = file?.type ?? '';
       const fileSize = file?.size ?? 0;
 
       if (fileSize > MAX_FILESIZE) {
-        toast({ description: 'File is greater than 5mb!', variant: 'error' });
-        return;
+        toast({ description: `${file.name}: file is greater than 5mb.`, variant: 'error' });
+        continue;
       }
 
       if (ACCEPTED_FILE_TYPES.size && !ACCEPTED_FILE_TYPES.has(fileType.toLowerCase())) {
-        toast({ description: 'Filetype ' + fileType + ' is not accepted!', variant: 'error' });
-        return;
+        toast({
+          description: `${file.name}: file type ${fileType || '(unknown)'} is not accepted.`,
+          variant: 'error',
+        });
+        continue;
       }
 
-      setFiles(prev => (prev ? [...prev, file] : [file]));
+      next.push(file);
     }
+
+    return next;
+  };
+
+  const onFileSelect = (fileList: FileList | null) => {
+    if (!fileList?.length) return;
+    const incoming = Array.from(fileList);
+    setFiles(prev => mergeIncomingFiles(prev, incoming));
+    if (inputRef.current) inputRef.current.value = '';
   };
 
   const removeFileFromList = (index: number) => {
     setFiles(prev => prev.filter((_, idx) => idx != index));
   };
 
-  // TODO: Please confirm that this works
-  // As in it triggers the onChange function
-  const handleFileDrop = (e: DragEvent<HTMLLabelElement>) => {
+  const handleFileDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const input = inputRef.current;
+    const dropped = Array.from(e.dataTransfer.files ?? []);
+    if (!dropped.length) return;
+    setFiles(prev => mergeIncomingFiles(prev, dropped));
+  };
 
-    // Optional: trigger file input change event manually if needed
-    if (input) {
-      const filesArray = [...Array.from(input.files ?? []), ...Array.from(e.dataTransfer.files)];
-      input.files = createFileList(filesArray);
+  const openFilePicker = () => {
+    if (files.length >= MAX_FILES) {
+      toast({ description: `You can attach at most ${MAX_FILES} files.`, variant: 'error' });
+      return;
     }
+    inputRef.current?.click();
   };
 
   return (
-    <InputWrapper
-      wrapClassName=""
-      label={label}
-      labelOnTop={!!files.length}
-      required={inputProps?.required}
-      otherLabelProps={{ onDrop: handleFileDrop }}>
-      <>
-        <div className="w-full grid grid-cols-[1fr_auto] gap-5 border border-dark/25 py-6 px-4">
-          <div className="w-full">
+    <div className="w-full">
+      {label ? (
+        <span
+          className={cn(
+            'text-[0.825rem] lg:text-[0.95rem] leading-[1.2] font-extralight text-gray-66 transition-all ease-linear duration-300 mb-2 block',
+            files.length
+              ? 'transform-y-0 transform-x-0 opacity-100'
+              : 'transform-y-2 transform-x-2 opacity-0'
+          )}>
+          {label}
+          {inputProps?.required ? ' *' : ''}
+        </span>
+      ) : null}
+      <div className="relative w-full">
+        <input
+          {...inputProps}
+          type="file"
+          multiple
+          tabIndex={-1}
+          className="sr-only"
+          ref={inputRef}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onFileSelect(e.target.files)}
+        />
+        <div
+          className="w-full grid grid-cols-[1fr_auto] gap-5 border border-dark/25 py-6 px-4"
+          onDragOver={e => e.preventDefault()}
+          onDrop={handleFileDrop}>
+          <div className="w-full min-w-0">
             {!files.length ? (
-              <span className="typo-body-4 text-gray-66">
+              <button
+                type="button"
+                className="typo-body-4 text-gray-66 text-left w-full"
+                onClick={openFilePicker}>
                 {label}
                 {inputProps?.required ? ' *' : ''}
-              </span>
+              </button>
             ) : (
               <div className="w-full grid gap-1">
                 {files.map((file, idx) => (
-                  <FileDisplay key={idx} file={file} removeFile={() => removeFileFromList(idx)} />
+                  <FileDisplay
+                    key={`${file.name}-${file.size}-${file.lastModified}-${idx}`}
+                    file={file}
+                    removeFile={() => removeFileFromList(idx)}
+                  />
                 ))}
               </div>
             )}
           </div>
-          <Upload className="size-6 text-dark/75 stroke-1" />
+          <button
+            type="button"
+            className="grid place-items-center shrink-0 text-dark/75 hover:text-dark transition-colors disabled:opacity-40 disabled:pointer-events-none"
+            aria-label="Add files"
+            disabled={files.length >= MAX_FILES}
+            onClick={openFilePicker}>
+            <Upload className="size-6 stroke-1" />
+          </button>
         </div>
-        <input
-          type="file"
-          className="w-[0.1px] h-[0.1px] absolute inset-0 z-[-1] overflow-hidden opacity-0"
-          ref={inputRef}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => onFileSelect(e.target.files)}
-          {...inputProps}
-        />
-      </>
-    </InputWrapper>
+      </div>
+    </div>
   );
 };
 
@@ -116,15 +173,19 @@ const FileDisplay = ({ file, removeFile }: { file: File; removeFile: () => void 
   const { filesize, unit } = formatFileSize(file.size);
 
   return (
-    <GhostBtn type="button" className="w-full" onClick={removeFile}>
-      <div className="w-full bg-gray-f2 grid items-center grid-cols-[auto_1fr_auto_auto] gap-4 border-b-2 border-dark px-2 py-2">
-        <CheckCircle2 className="size-4 text-dark" />
-        <p className="typo-body-4 text-gray-66 truncate text-start">{file.name}</p>
-        <p className="typo-body-4 text-gray-66">
-          <span className="font-medium text-dark">{filesize}</span> {unit}
-        </p>
-        <XCircle className="size-4 text-dark" />
-      </div>
-    </GhostBtn>
+    <div className="w-full bg-gray-f2 grid items-center grid-cols-[auto_1fr_auto_auto] gap-4 border-b-2 border-dark px-2 py-2">
+      <CheckCircle2 className="size-4 text-dark" />
+      <p className="typo-body-4 text-gray-66 truncate text-start">{file.name}</p>
+      <p className="typo-body-4 text-gray-66">
+        <span className="font-medium text-dark">{filesize}</span> {unit}
+      </p>
+      <GhostBtn
+        type="button"
+        className="w-full shrink-0"
+        LucideIcon={XCircle}
+        iconClass="size-4 text-dark"
+        onClick={removeFile}
+      />
+    </div>
   );
 };

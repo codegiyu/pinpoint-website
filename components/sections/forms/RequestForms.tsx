@@ -1,4 +1,6 @@
 import {
+  bagDesignRequestFormData,
+  boxDesignRequestFormData,
   brandingActivationRequestFormData,
   brandingRequestFormData,
   brandNamingRequestFormData,
@@ -6,10 +8,15 @@ import {
   customRequestFormData,
   digitalProductsRequestFormData,
   enquiryFormData,
+  flyerDesignRequestFormData,
   logoDesignRequestFormData,
+  packDesignRequestFormData,
+  pouchDesignRequestFormData,
   productDesignRequestFormData,
+  publicationDesignRequestFormData,
   rebrandingRequestFormData,
   socialMediaRequestFormData,
+  stationeryDesignRequestFormData,
   stickerRequestFormData,
 } from '@/lib/constants/forms';
 import type { PublicService } from '@/lib/api/pinpoint-public-types';
@@ -171,6 +178,24 @@ export const CampaignBrandingRequestForm = ({
   );
 };
 
+export const FlyerDesignRequestForm = ({
+  files,
+  setFiles,
+  serviceOptions,
+  packageInURL,
+  services,
+}: ProjectRequestFormWrapperProps) => {
+  return (
+    <RequestForm
+      {...flyerDesignRequestFormData(services)}
+      files={files}
+      setFiles={setFiles}
+      serviceOptions={serviceOptions}
+      packageInURL={packageInURL}
+    />
+  );
+};
+
 export const ProductDesignRequestForm = ({
   files,
   setFiles,
@@ -225,6 +250,102 @@ export const StickerRequestForm = ({
   );
 };
 
+export const PublicationDesignRequestForm = ({
+  files,
+  setFiles,
+  serviceOptions,
+  packageInURL,
+  services,
+}: ProjectRequestFormWrapperProps) => (
+  <RequestForm
+    {...publicationDesignRequestFormData(services)}
+    files={files}
+    setFiles={setFiles}
+    serviceOptions={serviceOptions}
+    packageInURL={packageInURL}
+  />
+);
+
+export const StationeryDesignRequestForm = ({
+  files,
+  setFiles,
+  serviceOptions,
+  packageInURL,
+  services,
+}: ProjectRequestFormWrapperProps) => (
+  <RequestForm
+    {...stationeryDesignRequestFormData(services)}
+    files={files}
+    setFiles={setFiles}
+    serviceOptions={serviceOptions}
+    packageInURL={packageInURL}
+  />
+);
+
+export const BagDesignRequestForm = ({
+  files,
+  setFiles,
+  serviceOptions,
+  packageInURL,
+  services,
+}: ProjectRequestFormWrapperProps) => (
+  <RequestForm
+    {...bagDesignRequestFormData(services)}
+    files={files}
+    setFiles={setFiles}
+    serviceOptions={serviceOptions}
+    packageInURL={packageInURL}
+  />
+);
+
+export const PouchDesignRequestForm = ({
+  files,
+  setFiles,
+  serviceOptions,
+  packageInURL,
+  services,
+}: ProjectRequestFormWrapperProps) => (
+  <RequestForm
+    {...pouchDesignRequestFormData(services)}
+    files={files}
+    setFiles={setFiles}
+    serviceOptions={serviceOptions}
+    packageInURL={packageInURL}
+  />
+);
+
+export const BoxDesignRequestForm = ({
+  files,
+  setFiles,
+  serviceOptions,
+  packageInURL,
+  services,
+}: ProjectRequestFormWrapperProps) => (
+  <RequestForm
+    {...boxDesignRequestFormData(services)}
+    files={files}
+    setFiles={setFiles}
+    serviceOptions={serviceOptions}
+    packageInURL={packageInURL}
+  />
+);
+
+export const PackDesignRequestForm = ({
+  files,
+  setFiles,
+  serviceOptions,
+  packageInURL,
+  services,
+}: ProjectRequestFormWrapperProps) => (
+  <RequestForm
+    {...packDesignRequestFormData(services)}
+    files={files}
+    setFiles={setFiles}
+    serviceOptions={serviceOptions}
+    packageInURL={packageInURL}
+  />
+);
+
 export const DigitalProductsRequestForm = ({
   files,
   setFiles,
@@ -254,6 +375,13 @@ export const REQUEST_FORMS: Partial<
   brand_activation: BrandActivationRequestForm,
   professional_logo_design: LogoDesignRequestForm,
   campaign_branding: CampaignBrandingRequestForm,
+  flyer_design: FlyerDesignRequestForm,
+  publication_design: PublicationDesignRequestForm,
+  stationery_design: StationeryDesignRequestForm,
+  bag_design: BagDesignRequestForm,
+  pouch_design: PouchDesignRequestForm,
+  box_design: BoxDesignRequestForm,
+  pack_design: PackDesignRequestForm,
   packaging_and_product_design: ProductDesignRequestForm,
   social_media_strategy: SocialMediaRequestForm,
   stickers: StickerRequestForm,

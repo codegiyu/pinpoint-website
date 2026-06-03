@@ -5,7 +5,11 @@ import { ProjectIntroduction } from '@/components/sections/works/ProjectIntroduc
 import { RelatedProjects } from '@/components/sections/works/RelatedProjects';
 import { RenderedService } from '@/components/sections/works/RenderedService';
 import { RelatedProjectSlideProps } from '@/components/sections/services/RelatedProjects';
-import { getProjectBySlugOrNull, listServices } from '@/lib/api/pinpoint-public';
+import {
+  getProjectBySlugOrNull,
+  getProjectsBySlugs,
+  listServices,
+} from '@/lib/api/pinpoint-public';
 import type { PublicStyleSpec } from '@/lib/api/pinpoint-public-types';
 import { ImageOrVideoURL } from '@/lib/types/general';
 import { formatSlugToText } from '@/lib/utils/general';
@@ -62,26 +66,34 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = (await params).projectId;
   const project = await getProjectBySlugOrNull(slug);
+
   if (!project) return {};
-  if (project.seo) {
-    return metadataFromRouteSeo(project.seo, `${project.name} | Our Works`);
-  }
+
+  const projectSEO = project.seo
+    ? metadataFromRouteSeo(project.seo, `${project.name} | Our Works`)
+    : null;
+
   return {
-    title: `${project.name} | Our Works`,
-    description: project.description.slice(0, 160),
-    keywords: [
-      project.name,
-      formatSlugToText(project.slug).toLowerCase(),
-      ...(project.keywords ?? []),
-      ...project.extraServices,
-      ...project.services.map(item => formatSlugToText(item).toLowerCase()),
-    ],
+    title: projectSEO?.title ?? `${project.name} | Our Works`,
+    description: projectSEO?.description ?? project.description.slice(0, 160),
+    keywords:
+      (projectSEO?.keywords ?? []).length > 0
+        ? projectSEO?.keywords
+        : [
+            project.name,
+            formatSlugToText(project.slug).toLowerCase(),
+            ...(project.keywords ?? []),
+            ...project.extraServices,
+            ...project.services.map(item => formatSlugToText(item).toLowerCase()),
+          ],
     openGraph: {
-      title: `${project.name} | Our Works`,
-      description: project.description,
+      title: projectSEO?.title ?? `${project.name} | Our Works`,
+      description: projectSEO?.description ?? project.description,
       images: [project.cardImage],
     },
     twitter: {
+      title: projectSEO?.title ?? `${project.name} | Our Works`,
+      description: projectSEO?.description ?? project.description,
       images: project.cardImage,
     },
   } satisfies Metadata;
@@ -96,18 +108,13 @@ export default async function ProjectPage({ params }: Props) {
   const lookup = buildServicesLookup(services);
   const breakdown = buildServiceBreakdown(project, lookup);
 
-  const relatedSlides: RelatedProjectSlideProps[] = [];
-  for (const relSlug of project.relatedProjects) {
-    const rel = await getProjectBySlugOrNull(relSlug);
-    if (rel) {
-      relatedSlides.push({
-        projectId: rel.slug,
-        name: rel.name,
-        image: rel.cardImage,
-        description: rel.pageTitle,
-      });
-    }
-  }
+  const relatedProjectDocs = await getProjectsBySlugs(project.relatedProjects);
+  const relatedSlides: RelatedProjectSlideProps[] = relatedProjectDocs.map(rel => ({
+    projectId: rel.slug,
+    name: rel.name,
+    image: rel.cardImage,
+    description: rel.pageTitle,
+  }));
 
   const projectData = mapPublicProjectToFullData(project, relatedSlides, breakdown);
 

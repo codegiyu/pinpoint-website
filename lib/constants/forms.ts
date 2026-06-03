@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   RequestFormProps,
   StringOrStringArraySchema,
@@ -6,7 +7,75 @@ import { z } from 'zod';
 import { default as pick } from 'lodash/pick';
 import { generateOptionsFromArray } from '../utils/general';
 import type { PublicService } from '@/lib/api/pinpoint-public-types';
-import { getPackageOptionsForServiceSync } from '../utils/cms-mappers';
+import {
+  getAllIndividualServicesFromCatalog,
+  getPackageOptionsForServiceSync,
+} from '../utils/cms-mappers';
+import {
+  bagIntakeDefaults,
+  bagIntakeFormSchema,
+  bagIntakeFormSections,
+  boxIntakeDefaults,
+  boxIntakeFormSchema,
+  boxIntakeFormSections,
+  eventCampaignBrandingIntakeFormSchema,
+  eventCampaignDefaultValues,
+  eventFlyerFormSections,
+  flyerDesignDefaultValues,
+  flyerDesignIntakeFormSchema,
+  logoBrandIdentityDefaultValues,
+  logoBrandIdentityFormSchema,
+  logoBrandIdentityFormSections,
+  rebrandingDefaultValues,
+  rebrandingIntakeFormSchema,
+  packIntakeDefaults,
+  packIntakeFormSchema,
+  packIntakeFormSections,
+  pouchIntakeDefaults,
+  pouchIntakeFormSchema,
+  pouchIntakeFormSections,
+  publicationIntakeDefaults,
+  publicationIntakeFormSchema,
+  publicationIntakeFormSections,
+  stationeryIntakeDefaults,
+  stationeryIntakeFormSchema,
+  stationeryIntakeFormSections,
+  stickerIntakeDefaultValues,
+  stickerIntakeFormSchema,
+  stickerIntakeFormSections,
+} from './design-intake-forms';
+
+const ENQUIRY_CATALOG_LINE = "I'm just making enquiries";
+
+/** Individual service ids offered in project-request multiselects (from CMS catalog). */
+function individualServiceSlugsFromCatalog(services: PublicService[]): string[] {
+  return getAllIndividualServicesFromCatalog(services).filter(
+    slug => slug !== ENQUIRY_CATALOG_LINE
+  );
+}
+
+function serviceSlugsListedUnderPackage(services: PublicService[], packageSlug: string): string[] {
+  const group = services.find(s => s.slug === packageSlug);
+  if (!group) return [];
+  return [...new Set(group.expertise.breakdown.flatMap(b => b.services))];
+}
+
+/**
+ * Pre-select a few services for smoother UX: prefer items listed under the primary service group,
+ * then fall back to any catalog offerings so `min(1)` validation still passes when CMS data exists.
+ */
+function defaultMultiselectServiceIds(
+  services: PublicService[],
+  primaryPackageSlug: string,
+  max = 3
+): string[] {
+  const allowed = new Set(individualServiceSlugsFromCatalog(services));
+  const preferred = serviceSlugsListedUnderPackage(services, primaryPackageSlug)
+    .filter(slug => allowed.has(slug))
+    .slice(0, max);
+  if (preferred.length) return preferred;
+  return Array.from(allowed).slice(0, Math.min(max, Math.max(1, allowed.size)));
+}
 
 const ALL_FIELDS_SCHEMA: Record<string, StringOrStringArraySchema> = {
   name: z.string().min(3, { error: 'Please enter at least 3 characters' }),
@@ -155,24 +224,8 @@ export const customFormSchema = z.object({
   services: ALL_FIELDS_SCHEMA.services,
   requestDetails: ALL_FIELDS_SCHEMA.requestDetails,
 });
-export const brandingFormSchema = z.object({
-  email: ALL_FIELDS_SCHEMA.email,
-  phone: ALL_FIELDS_SCHEMA.phone,
-  brandName: ALL_FIELDS_SCHEMA.brandName,
-  tagline: ALL_FIELDS_SCHEMA.tagline,
-  requireWebsite: ALL_FIELDS_SCHEMA.requireWebsite,
-  brandServices: ALL_FIELDS_SCHEMA.brandServices,
-  package: ALL_FIELDS_SCHEMA.package,
-  requestDetails: ALL_FIELDS_SCHEMA.requestDetails,
-});
-export const rebrandingFormSchema = z.object({
-  firstName: ALL_FIELDS_SCHEMA.firstName,
-  lastName: ALL_FIELDS_SCHEMA.lastName,
-  phone: ALL_FIELDS_SCHEMA.phone,
-  email: ALL_FIELDS_SCHEMA.email,
-  rebrandingServices: ALL_FIELDS_SCHEMA.rebrandingServices,
-  requestDetails: ALL_FIELDS_SCHEMA.requestDetails,
-});
+export const brandingFormSchema = logoBrandIdentityFormSchema;
+export const rebrandingFormSchema = rebrandingIntakeFormSchema;
 export const brandNamingFormSchema = z.object({
   company: ALL_FIELDS_SCHEMA.company,
   industryOrCategory: ALL_FIELDS_SCHEMA.industryOrCategory,
@@ -197,26 +250,9 @@ export const brandActivationFormSchema = z.object({
   services: ALL_FIELDS_SCHEMA.services,
   package: ALL_FIELDS_SCHEMA.package,
 });
-export const logoDesignFormSchema = z.object({
-  email: ALL_FIELDS_SCHEMA.email,
-  phone: ALL_FIELDS_SCHEMA.phone,
-  brandName: ALL_FIELDS_SCHEMA.brandName,
-  desiredLogoColors: ALL_FIELDS_SCHEMA.desiredLogoColors,
-  tagline: ALL_FIELDS_SCHEMA.tagline,
-  brandServices: ALL_FIELDS_SCHEMA.brandServices,
-  brandStory: ALL_FIELDS_SCHEMA.brandStory,
-  package: ALL_FIELDS_SCHEMA.package,
-  industryOrCategory: ALL_FIELDS_SCHEMA.industryOrCategory,
-  additionalInfo: ALL_FIELDS_SCHEMA.additionalInfo,
-});
-export const campaignBrandingFormSchema = z.object({
-  brandName: ALL_FIELDS_SCHEMA.brandName,
-  phone: ALL_FIELDS_SCHEMA.phone,
-  email: ALL_FIELDS_SCHEMA.email,
-  services: ALL_FIELDS_SCHEMA.services,
-  package: ALL_FIELDS_SCHEMA.package,
-  additionalInfo: ALL_FIELDS_SCHEMA.additionalInfo,
-});
+export const logoDesignFormSchema = logoBrandIdentityFormSchema;
+export const campaignBrandingFormSchema = eventCampaignBrandingIntakeFormSchema;
+export const flyerDesignFormSchema = flyerDesignIntakeFormSchema;
 export const productDesignFormSchema = z.object({
   company: ALL_FIELDS_SCHEMA.company,
   contactPerson: ALL_FIELDS_SCHEMA.contactPerson,
@@ -246,20 +282,13 @@ export const socialMediaFormSchema = z.object({
   package: ALL_FIELDS_SCHEMA.package,
   additionalInfo: ALL_FIELDS_SCHEMA.additionalInfo,
 });
-export const stickerFormSchema = z.object({
-  brandName: ALL_FIELDS_SCHEMA.brandName,
-  contactPerson: ALL_FIELDS_SCHEMA.contactPerson,
-  phone: ALL_FIELDS_SCHEMA.phone,
-  email: ALL_FIELDS_SCHEMA.email,
-  stickerShape: ALL_FIELDS_SCHEMA.stickerShape,
-  stickerType: ALL_FIELDS_SCHEMA.stickerType,
-  stickerQuantity: ALL_FIELDS_SCHEMA.stickerQuantity,
-  stickerDimensions: ALL_FIELDS_SCHEMA.stickerDimensions,
-  stickerDesignAlreadyOwned: ALL_FIELDS_SCHEMA.stickerDesignAlreadyOwned,
-  stickerApplicationType: ALL_FIELDS_SCHEMA.stickerApplicationType,
-  package: ALL_FIELDS_SCHEMA.package,
-  additionalInfo: ALL_FIELDS_SCHEMA.additionalInfo,
-});
+export const stickerFormSchema = stickerIntakeFormSchema;
+export const publicationDesignFormSchema = publicationIntakeFormSchema;
+export const stationeryDesignFormSchema = stationeryIntakeFormSchema;
+export const bagDesignFormSchema = bagIntakeFormSchema;
+export const pouchDesignFormSchema = pouchIntakeFormSchema;
+export const boxDesignFormSchema = boxIntakeFormSchema;
+export const packDesignFormSchema = packIntakeFormSchema;
 export const digitalProductsFormSchema = z.object({
   brandName: ALL_FIELDS_SCHEMA.brandName,
   contactPerson: ALL_FIELDS_SCHEMA.contactPerson,
@@ -286,21 +315,23 @@ export const digitalProductsFormSchema = z.object({
 });
 
 export const customRequestFormData = (
-  services: PublicService[]
+  _services: PublicService[]
 ): RequestFormProps<typeof customFormSchema> => {
-  void services;
   return {
     serviceId: 'make_a_custom_request',
     formName: 'Custom Project Request',
     formSchema: customFormSchema,
-    defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-      'name',
-      'email',
-      'phone',
-      'company',
-      'services',
-      'requestDetails',
-    ]),
+    defaultFormValues: {
+      ...pick(ALL_FIELDS_DEFAULT, [
+        'name',
+        'email',
+        'phone',
+        'company',
+        'services',
+        'requestDetails',
+      ]),
+      services: [ENQUIRY_CATALOG_LINE],
+    },
     formSections: [
       {
         inputsArr: [
@@ -369,6 +400,7 @@ export const customRequestFormData = (
     ],
   };
 };
+
 export const enquiryFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof customFormSchema> => ({
@@ -376,191 +408,32 @@ export const enquiryFormData = (
   serviceId: 'make_an_enquiry',
   formName: 'Enquiry',
 });
+
 export const brandingRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof brandingFormSchema> => ({
   serviceId: 'branding',
   formName: 'Branding Request',
   formSchema: brandingFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'email',
-    'phone',
-    'brandName',
-    'tagline',
-    'requireWebsite',
-    'brandServices',
-    'package',
-    'requestDetails',
-  ]),
-  formSections: [
-    {
-      inputsArr: [
-        [
-          {
-            name: 'email',
-            kind: 'input',
-            inputProps: {
-              label: 'Email',
-              type: 'email',
-              required: true,
-            },
-          },
-          {
-            name: 'phone',
-            kind: 'input',
-            inputProps: {
-              label: 'Phone Number',
-              required: true,
-            },
-          },
-        ],
-        [
-          {
-            name: 'brandName',
-            kind: 'input',
-            inputProps: {
-              label: 'What is your brand name?',
-              required: true,
-            },
-          },
-          {
-            name: 'tagline',
-            kind: 'input',
-            inputProps: {
-              label: 'Do you have a tagline?',
-              subtext: 'Please type it if your do',
-              required: false,
-            },
-          },
-        ],
-        [
-          {
-            name: 'requireWebsite',
-            kind: 'select',
-            selectProps: {
-              label: 'Do you need a website?',
-              options: generateOptionsFromArray({ arr: ['Yes', 'No'] }),
-              required: true,
-            },
-          },
-          {
-            name: 'package',
-            kind: 'select',
-            selectProps: {
-              label: 'Choose a package',
-              options: generateOptionsFromArray({
-                arr: getPackageOptionsForServiceSync(services, 'branding', 'branding_and_identity'),
-              }),
-              required: true,
-            },
-          },
-        ],
-        {
-          name: 'brandServices',
-          kind: 'input',
-          inputProps: {
-            label: 'What services does your brand offer?',
-            required: true,
-          },
-        },
-        {
-          kind: 'file',
-          fileProps: { inputProps: { required: false }, label: 'Select Files' },
-        },
-        {
-          name: 'requestDetails',
-          kind: 'textarea',
-          textareaProps: {
-            label: 'Request Details',
-            required: true,
-          },
-        },
-      ],
-    },
-  ],
+  defaultFormValues: logoBrandIdentityDefaultValues(),
+  formSections: logoBrandIdentityFormSections(services, 'branding', 'branding_and_identity'),
 });
+
 export const rebrandingRequestFormData = (
   services: PublicService[]
-): RequestFormProps<typeof rebrandingFormSchema> => {
-  void services;
-  return {
-    serviceId: 'rebranding',
-    formName: 'Rebranding Request',
-    formSchema: rebrandingFormSchema,
-    defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-      'firstName',
-      'lastName',
-      'phone',
-      'email',
-      'rebrandingServices',
-      'requestDetails',
-    ]),
-    formSections: [
-      {
-        inputsArr: [
-          [
-            {
-              name: 'firstName',
-              kind: 'input',
-              inputProps: {
-                label: 'First Name',
-                required: true,
-              },
-            },
-            {
-              name: 'lastName',
-              kind: 'input',
-              inputProps: {
-                label: 'Last Name',
-                required: true,
-              },
-            },
-          ],
-          [
-            {
-              name: 'phone',
-              kind: 'input',
-              inputProps: {
-                label: 'Phone Number',
-                required: true,
-              },
-            },
-            {
-              name: 'email',
-              kind: 'input',
-              inputProps: {
-                label: 'Email',
-                type: 'email',
-                required: true,
-              },
-            },
-          ],
-          {
-            name: 'rebrandingServices',
-            kind: 'multiselect',
-            multiSelectProps: {
-              options: [],
-              label: 'Please select services you may need',
-              useServiceOptions: true,
-            },
-          },
-          {
-            kind: 'file',
-            fileProps: { inputProps: { required: false }, label: 'Select Files' },
-          },
-          {
-            name: 'requestDetails',
-            kind: 'textarea',
-            textareaProps: {
-              label: 'Details and request',
-              required: true,
-            },
-          },
-        ],
-      },
-    ],
-  };
-};
+): RequestFormProps<typeof rebrandingFormSchema> => ({
+  serviceId: 'rebranding',
+  formName: 'Rebranding Request',
+  formSchema: rebrandingFormSchema,
+  defaultFormValues: rebrandingDefaultValues(),
+  formSections: logoBrandIdentityFormSections(
+    services,
+    'rebranding',
+    'branding_and_identity',
+    false
+  ),
+});
+
 export const brandNamingRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof brandNamingFormSchema> => ({
@@ -697,6 +570,7 @@ export const brandNamingRequestFormData = (
                 'brand_naming',
                 'branding_and_identity'
               ),
+              capitalize: false,
             }),
             required: true,
           },
@@ -713,20 +587,24 @@ export const brandNamingRequestFormData = (
     },
   ],
 });
+
 export const brandingActivationRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof brandActivationFormSchema> => ({
   serviceId: 'brand_activation',
   formName: 'Branding Activation Request',
   formSchema: brandActivationFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'company',
-    'email',
-    'phone',
-    'whatBrandAimsToAchieve',
-    'services',
-    'package',
-  ]),
+  defaultFormValues: {
+    ...pick(ALL_FIELDS_DEFAULT, [
+      'company',
+      'email',
+      'phone',
+      'whatBrandAimsToAchieve',
+      'services',
+      'package',
+    ]),
+    services: defaultMultiselectServiceIds(services, 'branding_and_identity', 3),
+  },
   formSections: [
     {
       inputsArr: [
@@ -783,6 +661,7 @@ export const brandingActivationRequestFormData = (
             label: 'Choose a package',
             options: generateOptionsFromArray({
               arr: getPackageOptionsForServiceSync(services, 'branding', 'branding_and_identity'),
+              capitalize: false,
             }),
             required: true,
           },
@@ -791,237 +670,71 @@ export const brandingActivationRequestFormData = (
     },
   ],
 });
+
 export const logoDesignRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof logoDesignFormSchema> => ({
   serviceId: 'professional_logo_design',
   formName: 'Logo Design Request',
   formSchema: logoDesignFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'email',
-    'phone',
-    'brandName',
-    'desiredLogoColors',
-    'tagline',
-    'brandServices',
-    'brandStory',
-    'package',
-    'industryOrCategory',
-    'additionalInfo',
-  ]),
-  formSections: [
-    {
-      inputsArr: [
-        [
-          {
-            name: 'brandName',
-            kind: 'input',
-            inputProps: {
-              label: 'Brand Name',
-              required: true,
-            },
-          },
-          {
-            name: 'industryOrCategory',
-            kind: 'input',
-            inputProps: {
-              label: 'Industry / Category',
-              required: true,
-            },
-          },
-        ],
-        [
-          {
-            name: 'email',
-            kind: 'input',
-            inputProps: {
-              label: 'Email',
-              type: 'email',
-              required: true,
-            },
-          },
-          {
-            name: 'phone',
-            kind: 'input',
-            inputProps: {
-              label: 'Phone Number',
-              required: true,
-            },
-          },
-        ],
-        {
-          name: 'tagline',
-          kind: 'input',
-          inputProps: {
-            label: 'Do you have a tagline?',
-            subtext: '(Type it if you do)',
-            required: false,
-          },
-        },
-        {
-          name: 'brandServices',
-          kind: 'input',
-          inputProps: {
-            label: 'What services does your brand offer?',
-            required: true,
-          },
-        },
-        {
-          name: 'desiredLogoColors',
-          kind: 'input',
-          inputProps: {
-            label: 'What color(s) do you want on your logo?',
-            required: true,
-          },
-        },
-        {
-          name: 'brandStory',
-          kind: 'textarea',
-          textareaProps: {
-            label: 'Kindly write your  brand story here',
-            required: true,
-          },
-        },
-        {
-          name: 'package',
-          kind: 'select',
-          selectProps: {
-            label: 'Choose a package',
-            options: generateOptionsFromArray({
-              arr: getPackageOptionsForServiceSync(
-                services,
-                'professional_logo_design',
-                'branding_and_identity'
-              ),
-            }),
-            required: true,
-          },
-        },
-        {
-          name: 'additionalInfo',
-          kind: 'textarea',
-          textareaProps: {
-            label: 'Additional Information',
-            required: false,
-          },
-        },
-      ],
-    },
-  ],
+  defaultFormValues: logoBrandIdentityDefaultValues(),
+  formSections: logoBrandIdentityFormSections(
+    services,
+    'professional_logo_design',
+    'branding_and_identity'
+  ),
 });
+
 export const campaignBrandingRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof campaignBrandingFormSchema> => ({
   serviceId: 'campaign_branding',
-  formName: 'Campaign Branding Request',
+  formName: 'Event and Campaign Branding Request',
   formSchema: campaignBrandingFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'brandName',
-    'email',
-    'phone',
-    'package',
-    'services',
-    'additionalInfo',
-  ]),
-  formSections: [
-    {
-      inputsArr: [
-        {
-          name: 'brandName',
-          kind: 'input',
-          inputProps: {
-            label: 'Brand Name',
-            required: true,
-          },
-        },
-        [
-          {
-            name: 'email',
-            kind: 'input',
-            inputProps: {
-              label: 'Email',
-              type: 'email',
-              required: true,
-            },
-          },
-          {
-            name: 'phone',
-            kind: 'input',
-            inputProps: {
-              label: 'Phone Number',
-              required: true,
-            },
-          },
-        ],
-        {
-          name: 'package',
-          kind: 'select',
-          selectProps: {
-            label: 'Choose a package',
-            options: generateOptionsFromArray({
-              arr: getPackageOptionsForServiceSync(
-                services,
-                'campaign_branding',
-                'marketing_and_media'
-              ),
-            }),
-            required: true,
-          },
-        },
-        {
-          name: 'services',
-          kind: 'multiselect',
-          multiSelectProps: {
-            label: 'Select all services you may require',
-            subtext: '(Select at least one)',
-            options: [],
-            useServiceOptions: true,
-            required: true,
-          },
-        },
-        {
-          kind: 'file',
-          fileProps: { inputProps: { required: false }, label: 'Select Files' },
-        },
-        {
-          name: 'additionalInfo',
-          kind: 'textarea',
-          textareaProps: {
-            label: 'Additional Info',
-            required: false,
-          },
-        },
-      ],
-    },
-  ],
+  defaultFormValues: eventCampaignDefaultValues(),
+  formSections: eventFlyerFormSections(services, true, 'campaign_branding', 'marketing_and_media'),
 });
+
+export const flyerDesignRequestFormData = (
+  services: PublicService[]
+): RequestFormProps<typeof flyerDesignFormSchema> => ({
+  serviceId: 'flyer_design',
+  formName: 'Flyer Design Request',
+  formSchema: flyerDesignFormSchema,
+  defaultFormValues: flyerDesignDefaultValues(),
+  formSections: eventFlyerFormSections(services, false, 'campaign_branding', 'marketing_and_media'),
+});
+
 export const productDesignRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof productDesignFormSchema> => ({
   serviceId: 'packaging_and_product_design',
   formName: 'Packaging & Product Design Request',
   formSchema: productDesignFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'company',
-    'contactPerson',
-    'phone',
-    'email',
-    'productName',
-    'productType',
-    'designProjectPurpose',
-    'designProjectMessage',
-    'targetAudience',
-    'targetAudienceValuesAndInterests',
-    'favouriteDesignStyles',
-    'designElementsInMind',
-    'designRequirements',
-    'existingBrandGuidelines',
-    'designFormatsNeeded',
-    'numberOfDesignConceptsExpected',
-    'package',
-    'services',
-    'additionalInfo',
-  ]),
+  defaultFormValues: {
+    ...pick(ALL_FIELDS_DEFAULT, [
+      'company',
+      'contactPerson',
+      'phone',
+      'email',
+      'productName',
+      'productType',
+      'designProjectPurpose',
+      'designProjectMessage',
+      'targetAudience',
+      'targetAudienceValuesAndInterests',
+      'favouriteDesignStyles',
+      'designElementsInMind',
+      'designRequirements',
+      'existingBrandGuidelines',
+      'designFormatsNeeded',
+      'numberOfDesignConceptsExpected',
+      'package',
+      'services',
+      'additionalInfo',
+    ]),
+    services: defaultMultiselectServiceIds(services, 'packaging_and_product_design', 3),
+  },
   formSections: [
     {
       inputsArr: [
@@ -1175,6 +888,7 @@ export const productDesignRequestFormData = (
                 'packaging_and_product_design',
                 'packaging_and_product_design'
               ),
+              capitalize: false,
             }),
             required: true,
           },
@@ -1206,20 +920,24 @@ export const productDesignRequestFormData = (
     },
   ],
 });
+
 export const socialMediaRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof socialMediaFormSchema> => ({
   serviceId: 'social_media_strategy',
   formName: 'Social Media Strategy Request',
   formSchema: socialMediaFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'brandName',
-    'email',
-    'phone',
-    'package',
-    'services',
-    'additionalInfo',
-  ]),
+  defaultFormValues: {
+    ...pick(ALL_FIELDS_DEFAULT, [
+      'brandName',
+      'email',
+      'phone',
+      'package',
+      'services',
+      'additionalInfo',
+    ]),
+    services: defaultMultiselectServiceIds(services, 'marketing_and_media', 3),
+  },
   formSections: [
     {
       inputsArr: [
@@ -1261,6 +979,7 @@ export const socialMediaRequestFormData = (
                 'social_media_strategy',
                 'marketing_and_media'
               ),
+              capitalize: false,
             }),
             required: true,
           },
@@ -1292,171 +1011,77 @@ export const socialMediaRequestFormData = (
     },
   ],
 });
+
 export const stickerRequestFormData = (
-  services: PublicService[]
+  _services: PublicService[]
 ): RequestFormProps<typeof stickerFormSchema> => ({
   serviceId: 'stickers',
   formName: 'Stickers Request',
   formSchema: stickerFormSchema,
-  defaultFormValues: pick(ALL_FIELDS_DEFAULT, [
-    'brandName',
-    'contactPerson',
-    'phone',
-    'email',
-    'stickerShape',
-    'stickerType',
-    'stickerQuantity',
-    'stickerDimensions',
-    'stickerDesignAlreadyOwned',
-    'stickerApplicationType',
-    'package',
-    'additionalInfo',
-  ]),
-  formSections: [
-    {
-      inputsArr: [
-        [
-          {
-            name: 'brandName',
-            kind: 'input',
-            inputProps: {
-              label: 'Brand Name',
-              required: true,
-            },
-          },
-          {
-            name: 'contactPerson',
-            kind: 'input',
-            inputProps: {
-              label: 'Contact Person',
-              required: true,
-            },
-          },
-        ],
-        [
-          {
-            name: 'email',
-            kind: 'input',
-            inputProps: {
-              label: 'Email',
-              type: 'email',
-              required: true,
-            },
-          },
-          {
-            name: 'phone',
-            kind: 'input',
-            inputProps: {
-              label: 'Phone Number',
-              required: true,
-            },
-          },
-        ],
-        [
-          {
-            name: 'stickerShape',
-            kind: 'select',
-            selectProps: {
-              label: 'Choose shape',
-              options: generateOptionsFromArray({
-                arr: [
-                  'Rectangle (round corner)',
-                  'Rectangle (square corner)',
-                  'Oval',
-                  'Circle',
-                  'Custom',
-                ],
-              }),
-              required: true,
-            },
-          },
-          {
-            name: 'stickerType',
-            kind: 'select',
-            selectProps: {
-              label: 'Type of sticker',
-              options: generateOptionsFromArray({
-                arr: ['Regular sticker', 'VIP sticker', 'Sticker with foil'],
-              }),
-              required: true,
-            },
-          },
-        ],
-        [
-          {
-            name: 'stickerQuantity',
-            kind: 'input',
-            inputProps: {
-              label: 'How many labels do you need?',
-              required: true,
-            },
-          },
-          {
-            name: 'stickerDimensions',
-            kind: 'input',
-            inputProps: {
-              label: 'Enter your dimensions',
-              subtext: '(inches)',
-              bottomText: 'Use the cost calculator to check costs by dimensions',
-              required: true,
-            },
-          },
-        ],
-        [
-          {
-            name: 'stickerDesignAlreadyOwned',
-            kind: 'select',
-            selectProps: {
-              label: 'Do you have your own label design to be applied?',
-              options: generateOptionsFromArray({
-                arr: ['Yes', 'No'],
-              }),
-              required: true,
-            },
-          },
-          {
-            name: 'stickerApplicationType',
-            kind: 'select',
-            selectProps: {
-              label: 'How do you want the label applied to your product?',
-              options: generateOptionsFromArray({
-                arr: ['Hand', 'Machine'],
-              }),
-              required: true,
-            },
-          },
-        ],
-        {
-          name: 'package',
-          kind: 'select',
-          selectProps: {
-            label: 'Choose a package',
-            options: generateOptionsFromArray({
-              arr: getPackageOptionsForServiceSync(
-                services,
-                'stickers',
-                'packaging_and_product_design'
-              ),
-            }),
-            required: true,
-          },
-        },
-        {
-          kind: 'file',
-          fileProps: { inputProps: { required: false }, label: 'Select Necessary Files' },
-        },
-        {
-          name: 'additionalInfo',
-          kind: 'textarea',
-          textareaProps: {
-            label: 'Additional Info',
-            required: false,
-          },
-        },
-      ],
-    },
-  ],
+  defaultFormValues: stickerIntakeDefaultValues(),
+  formSections: stickerIntakeFormSections(),
 });
+
+export const publicationDesignRequestFormData = (
+  _services: PublicService[]
+): RequestFormProps<typeof publicationDesignFormSchema> => ({
+  serviceId: 'publication_design',
+  formName: 'Publication Design Request',
+  formSchema: publicationDesignFormSchema,
+  defaultFormValues: publicationIntakeDefaults(),
+  formSections: publicationIntakeFormSections(),
+});
+
+export const stationeryDesignRequestFormData = (
+  _services: PublicService[]
+): RequestFormProps<typeof stationeryDesignFormSchema> => ({
+  serviceId: 'stationery_design',
+  formName: 'Stationery Design Request',
+  formSchema: stationeryDesignFormSchema,
+  defaultFormValues: stationeryIntakeDefaults(),
+  formSections: stationeryIntakeFormSections(),
+});
+
+export const bagDesignRequestFormData = (
+  _services: PublicService[]
+): RequestFormProps<typeof bagDesignFormSchema> => ({
+  serviceId: 'bag_design',
+  formName: 'Bag Design Request',
+  formSchema: bagDesignFormSchema,
+  defaultFormValues: bagIntakeDefaults(),
+  formSections: bagIntakeFormSections(),
+});
+
+export const pouchDesignRequestFormData = (
+  _services: PublicService[]
+): RequestFormProps<typeof pouchDesignFormSchema> => ({
+  serviceId: 'pouch_design',
+  formName: 'Pouch Design Request',
+  formSchema: pouchDesignFormSchema,
+  defaultFormValues: pouchIntakeDefaults(),
+  formSections: pouchIntakeFormSections(),
+});
+
+export const boxDesignRequestFormData = (
+  _services: PublicService[]
+): RequestFormProps<typeof boxDesignFormSchema> => ({
+  serviceId: 'box_design',
+  formName: 'Box Design Request',
+  formSchema: boxDesignFormSchema,
+  defaultFormValues: boxIntakeDefaults(),
+  formSections: boxIntakeFormSections(),
+});
+
+export const packDesignRequestFormData = (
+  _services: PublicService[]
+): RequestFormProps<typeof packDesignFormSchema> => ({
+  serviceId: 'pack_design',
+  formName: 'Pack Design Request',
+  formSchema: packDesignFormSchema,
+  defaultFormValues: packIntakeDefaults(),
+  formSections: packIntakeFormSections(),
+});
+
 export const digitalProductsRequestFormData = (
   services: PublicService[]
 ): RequestFormProps<typeof digitalProductsFormSchema> => ({
@@ -1773,6 +1398,7 @@ export const digitalProductsRequestFormData = (
                   'website_design_and_development',
                   'digital_products_creation'
                 ),
+                capitalize: false,
               }),
               required: true,
             },

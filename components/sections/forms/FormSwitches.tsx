@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import { PinpointBtn } from '@/components/atoms/PinpointBtn';
@@ -29,14 +30,13 @@ export const FormSwitches = ({
     if (!queries.service) {
       setQueries({ service: 'make_an_enquiry', package: '' }, { shallow: false });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queries.service]);
 
   useEffect(() => {
     if (queries.service && !allowedSet.has(queries.service)) {
       setQueries({ service: 'make_an_enquiry', package: '' }, { shallow: false });
     }
-  }, [allowedSet, queries.service, setQueries]);
+  }, [allowedSet, queries.service]);
 
   return (
     <section className="w-full bg-white pb-16">
