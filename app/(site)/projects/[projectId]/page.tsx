@@ -5,11 +5,8 @@ import { ProjectIntroduction } from '@/components/sections/works/ProjectIntroduc
 import { RelatedProjects } from '@/components/sections/works/RelatedProjects';
 import { RenderedService } from '@/components/sections/works/RenderedService';
 import { RelatedProjectSlideProps } from '@/components/sections/services/RelatedProjects';
-import {
-  getProjectBySlugOrNull,
-  getProjectsBySlugs,
-  listServices,
-} from '@/lib/api/pinpoint-public';
+import { getProjectBySlugOrNull, getProjectsBySlugs } from '@/lib/api/pinpoint-public';
+import { getSiteShellData } from '@/lib/site-shell';
 import type { PublicStyleSpec } from '@/lib/api/pinpoint-public-types';
 import { ImageOrVideoURL } from '@/lib/types/general';
 import { formatSlugToText } from '@/lib/utils/general';
@@ -101,7 +98,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectPage({ params }: Props) {
   const slug = (await params).projectId;
-  const [project, { services }] = await Promise.all([getProjectBySlugOrNull(slug), listServices()]);
+  const [project, { services }] = await Promise.all([
+    getProjectBySlugOrNull(slug),
+    getSiteShellData(),
+  ]);
 
   if (!project) return notFound();
 
@@ -158,7 +158,7 @@ export default async function ProjectPage({ params }: Props) {
           textStyle,
         }}
       />
-      {renderedServices.map((item, idx) => (
+      {renderedServices.map((item: RenderedServiceProps, idx: number) => (
         <RenderedService key={idx} {...item} index={String(idx + 1).padStart(2, '0')} />
       ))}
       <RelatedProjects projects={relatedProjects} />

@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { FullProjectData } from '@/app/projects/[projectId]/page';
+import { FullProjectData } from '@/app/(site)/projects/[projectId]/page';
 import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { cn } from '@/lib/utils';
 import { getStyleVars, hasStructuredStyle } from '@/lib/utils/public-style';
@@ -36,6 +36,7 @@ export const ProjectIntroduction = ({
 
   return (
     <section
+      data-header-zone={descriptionBg?.includes('bg-dark') ? 'dark' : undefined}
       className={cn(
         'w-full relative z-[2] cms-style',
         !descriptionStyleVars && (descriptionBg || 'bg-gray-f2')

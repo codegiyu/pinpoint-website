@@ -4,6 +4,7 @@ import { GhostBtn } from '@/components/atoms/GhostBtn';
 import { PinpointFull } from '@/components/icons';
 import { ContactsGroup, ContactsGroupProps } from '@/components/general/PinpointContacts';
 import { motion } from 'motion/react';
+import { NAV_LINK_PREFETCH } from '@/lib/constants/routing';
 
 export default function Footer({
   contactInformation,
@@ -26,7 +27,9 @@ export default function Footer({
         className="pinpoint-container-mobile-w-full md:bg-white md:py-14 lg:py-16 2xl:py-20">
         <div className="flex-none w-[85.8vw] max-w-[495px] md:w-[28.4375rem] md:max-w-none lg:w-[38.25rem] xl:w-[48.875rem] 2xl:w-[59.375rem] grid gap-6 mx-auto relative z-[3]">
           <div className="w-fit grid gap-5 pb-8">
-            <GhostBtn linkProps={{ href: '/' }} className="pointer-events-auto">
+            <GhostBtn
+              linkProps={{ href: '/', ...NAV_LINK_PREFETCH }}
+              className="pointer-events-auto">
               <div className="w-fit flex items-center text-[1.125rem] md:text-[1.5rem] xl:text-[clamp(24px,_2.463vw,_32px)]">
                 <PinpointFull id="footer-logo" className="logo" />
               </div>

@@ -1,6 +1,8 @@
 import { MainLayout } from '@/components/layout/MainLayout';
 import ContactPageContent from '@/components/sections/contact/ContactPageContent';
-import { getGlobalConfig, getPage } from '@/lib/api/pinpoint-public';
+import { getPage } from '@/lib/api/pinpoint-public';
+import { getSiteShellData } from '@/lib/site-shell';
+import { HEADER_CONTRAST_CONTACT } from '@/lib/constants/header-contrast';
 import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
 import { Metadata } from 'next';
 
@@ -14,14 +16,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
-  const [{ content }, contactPage] = await Promise.all([getGlobalConfig(), getPage('contact')]);
+  const [shell, contactPage] = await Promise.all([getSiteShellData(), getPage('contact')]);
+  const { content } = shell;
   const modifiers = contactPage.content.changingContactTitleModifiers ?? [];
 
   return (
     <MainLayout
       pageName="Contact"
       headerProps={{
-        whiteTextStart: true,
+        headerContrast: HEADER_CONTRAST_CONTACT,
       }}
       hideFooter>
       <ContactPageContent

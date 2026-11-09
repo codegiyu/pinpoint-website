@@ -1,4 +1,4 @@
-import { FullServiceData, ServiceExpertiseGroupProps } from '@/app/services/[service]/page';
+import { FullServiceData, ServiceExpertiseGroupProps } from '@/app/(site)/services/[service]/page';
 import { SectionHeader } from '@/components/general/SectionHeader';
 import { cn } from '@/lib/utils';
 import { getStyleVars, hasStructuredStyle } from '@/lib/utils/public-style';

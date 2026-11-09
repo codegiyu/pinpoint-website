@@ -17,6 +17,7 @@ interface BaseCommonHeroProps {
   imageProps?: Omit<ImageProps, 'fill'>;
   videoURL?: string;
   bottomStripBackground?: string; // className
+  heroMediaId?: string;
 }
 
 interface CommonHeroWithImageProps extends BaseCommonHeroProps {
@@ -38,6 +39,7 @@ export const CommonHero = ({
   imageProps,
   videoURL,
   bottomStripBackground,
+  heroMediaId,
 }: CommonHeroProps) => {
   return (
     <motion.section
@@ -49,6 +51,7 @@ export const CommonHero = ({
 
       {(imageProps || videoURL) && (
         <div
+          id={heroMediaId}
           className="img-container w-full md:w-[calc(595px_+_((100%_-_595px)_/_2))] 
     lg:w-[88vw] h-[30rem] lg:h-[clamp(500px,_65vh,_650px)] 
     xl:w-[88vw] xl:h-[75vh] xl:min-h-[40.625rem] md:ml-auto">

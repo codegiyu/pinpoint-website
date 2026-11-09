@@ -33,7 +33,7 @@ function getBackendBase(): string {
   return base;
 }
 
-const DEFAULT_CMS_REVALIDATE_SECONDS = 60;
+const DEFAULT_CMS_REVALIDATE_SECONDS = 600;
 
 async function pinpointGet<T>(path: string, options?: { tags?: string[] }): Promise<T> {
   const url = `${getBackendBase()}/api/v1/public/pinpoint-global${path}`;

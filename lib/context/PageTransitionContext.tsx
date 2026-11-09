@@ -290,7 +290,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
             </div>
             <div className="absolute inset-0 grid place-items-center pointer-events-none">
               <motion.p
-                className="typo-h3 text-center text-white/95 px-6 max-w-[90vw] font-medium tracking-wide"
+                className="typo-h3 text-center text-white/95 px-6 max-w-[90vw] tracking-wide"
                 initial={{ opacity: 0, y: 0, rotate: 8 }}
                 animate={
                   panelReveal

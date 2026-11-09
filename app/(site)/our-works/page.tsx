@@ -2,7 +2,8 @@ import { PageSideDecoration } from '@/components/general/PageSideDecoration';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { CommonHeroTextSection } from '@/components/sections/shared/CommonHero';
 import { WorksDisplay } from '@/components/sections/works/WorksDisplay';
-import { getGlobalConfig, getPage, listProjects, listServices } from '@/lib/api/pinpoint-public';
+import { getPage, listProjects } from '@/lib/api/pinpoint-public';
+import { getSiteShellData } from '@/lib/site-shell';
 import type { OurWorksPageResponse } from '@/lib/api/pinpoint-public-types';
 import { buildServicesLookup, mapPublicProjectToWorkCard } from '@/lib/utils/cms-mappers';
 import { formatSlugToText } from '@/lib/utils/general';
@@ -14,11 +15,8 @@ interface Props {
   searchParams: Promise<{
     sector?: string;
     service?: string;
-    limit?: string;
   }>;
 }
-
-export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -31,11 +29,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function OurWorksPage({ searchParams }: Props) {
   const search = await searchParams;
-  const [ourWorksPage, globalCfg, { services }] = await Promise.all([
-    getPage('our-works'),
-    getGlobalConfig(),
-    listServices(),
-  ]);
+  const [ourWorksPage, shell] = await Promise.all([getPage('our-works'), getSiteShellData()]);
+  const { content: globalContent, services } = shell;
 
   if (ourWorksPage.pageKey !== 'our-works') {
     throw new Error('Unexpected our-works page payload');
@@ -51,24 +46,18 @@ export default async function OurWorksPage({ searchParams }: Props) {
       label: lookup[slug] ?? formatSlugToText(slug),
     }));
 
-  const defaultDisplayed =
-    ow.content.DEFAULT_WORKS_DISPLAYED ?? globalCfg.content.DEFAULT_WORKS_DISPLAYED;
-  const limitNum =
-    search.limit != null && !Number.isNaN(Number(search.limit))
-      ? Number(search.limit)
-      : defaultDisplayed;
-
-  const sectorsQ = search.sector ? [search.sector] : [];
-  const servicesQ = search.service ? [search.service] : [];
+  const pageSize = ow.content.DEFAULT_WORKS_DISPLAYED ?? globalContent.DEFAULT_WORKS_DISPLAYED;
+  const initialSector = search.sector?.trim() ?? '';
+  const initialService = search.service?.trim() ?? '';
 
   const projectsRes = await listProjects({
     page: 1,
-    limit: limitNum,
-    sectors: sectorsQ,
-    services: servicesQ,
+    limit: pageSize,
+    sectors: initialSector ? [initialSector] : [],
+    services: initialService ? [initialService] : [],
   });
 
-  const projects = projectsRes.projects.map(p => mapPublicProjectToWorkCard(p, lookup));
+  const initialProjects = projectsRes.projects.map(p => mapPublicProjectToWorkCard(p, lookup));
   const provenSectors = ow.projectFilterOptions.sectors;
 
   return (
@@ -80,11 +69,12 @@ export default async function OurWorksPage({ searchParams }: Props) {
       />
       <Suspense fallback={null}>
         <WorksDisplay
-          projects={projects}
+          initialProjects={initialProjects}
+          initialPagination={projectsRes.pagination}
+          pageSize={pageSize}
           provenSectors={provenSectors}
           serviceFilterOptions={serviceFilterOptions}
-          defaultWorksDisplayed={defaultDisplayed}
-          defaultLimit={limitNum}
+          initialFilters={{ service: initialService, sector: initialSector }}
         />
       </Suspense>
       <PageSideDecoration caption="Our Case Studies" />

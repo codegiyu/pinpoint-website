@@ -5,9 +5,11 @@ import { HomeScrollManager } from '@/components/sections/home/HomeScrollManager'
 import { HomeHero } from '@/components/sections/home/Hero';
 import { CTA } from '@/components/sections/shared/Cta';
 import { WhatWeDo } from '@/components/sections/home/WhatWeDo';
-import { getPage, listServices } from '@/lib/api/pinpoint-public';
+import { getPage } from '@/lib/api/pinpoint-public';
+import { getSiteShellData } from '@/lib/site-shell';
 import type { HomePageResponse } from '@/lib/api/pinpoint-public-types';
 import { mapFeaturedToCaseStudies, mapServicesToSummaryCards } from '@/lib/utils/cms-mappers';
+import { HEADER_CONTRAST_HOME } from '@/lib/constants/header-contrast';
 import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
 import type { Metadata } from 'next';
 
@@ -22,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [home, { services }] = await Promise.all([getPage('home'), listServices()]);
+  const [home, { services }] = await Promise.all([getPage('home'), getSiteShellData()]);
   if (home.pageKey !== 'home') {
     throw new Error('Unexpected home page payload');
   }
@@ -35,7 +37,7 @@ export default async function Home() {
     <MainLayout
       pageName="Pinpoint Global"
       headerProps={{
-        whiteTextStart: true,
+        headerContrast: HEADER_CONTRAST_HOME,
       }}>
       <HomeHero changingHeroTitleModifiers={changingHeroTitleModifiers} />
       <GetToKnowUs />

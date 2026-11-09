@@ -4,7 +4,7 @@ import type { ServiceCardProps } from '@/components/sections/home/WhatWeDo';
 import type { WorkCardProps } from '@/components/sections/works/WorksDisplay';
 import type { JobsCTAProps } from '@/components/sections/jobs/JobsCTA';
 import type { RelatedProjectSlideProps } from '@/components/sections/services/RelatedProjects';
-import type { FullProjectData, RenderedServiceProps } from '@/app/projects/[projectId]/page';
+import type { FullProjectData, RenderedServiceProps } from '@/app/(site)/projects/[projectId]/page';
 import type { PublicProject, PublicService } from '@/lib/api/pinpoint-public-types';
 import { formatSlugToText } from '@/lib/utils/general';
 

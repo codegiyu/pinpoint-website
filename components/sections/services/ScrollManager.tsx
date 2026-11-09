@@ -8,15 +8,8 @@ export const ServiceScrollManager = memo(
   ({ observerTargetIds }: { observerTargetIds: string[] }) => {
     useEffect(() => {
       const scrollManager = () => {
-        const header = document.getElementById('visible-header');
         const pageSideCaption = document.querySelector('.page-side-caption');
         const observerTargets = observerTargetIds.map(id => document.getElementById(id));
-
-        if (intersectionExists(observerTargets, header)) {
-          header?.classList.replace('blend-difference', 'blend-normal');
-        } else {
-          header?.classList.replace('blend-normal', 'blend-difference');
-        }
 
         if (intersectionExists(observerTargets, pageSideCaption as HTMLElement | null)) {
           pageSideCaption?.classList.replace('mix-blend-difference', 'mix-blend-normal');

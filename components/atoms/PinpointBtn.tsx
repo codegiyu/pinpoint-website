@@ -32,8 +32,7 @@ export interface PinpointBtnProps
   onDisabledClick?: () => void;
   onClick?: (e?: MouseEvent<HTMLButtonElement>) => void;
   wrapClassName?: string;
-  linkProps?: Omit<ComponentPropsWithoutRef<'a'>, 'onClick' | 'className' | 'children' | 'href'> & {
-    href: string;
+  linkProps?: Omit<ComponentPropsWithoutRef<typeof Link>, 'onClick' | 'className' | 'children'> & {
     preventdefault?: string;
   };
   animate?:

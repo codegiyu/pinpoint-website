@@ -4,7 +4,8 @@ import { ProjectRequestForm } from '@/components/sections/forms/ProjectRequestFo
 import { FormPageHeadingSection } from '@/components/sections/shared/CommonHero';
 import { FormSwitches } from '@/components/sections/forms/FormSwitches';
 import { Suspense } from 'react';
-import { getPage, listServices } from '@/lib/api/pinpoint-public';
+import { getPage } from '@/lib/api/pinpoint-public';
+import { getSiteShellData } from '@/lib/site-shell';
 import {
   getAllIndividualServicesFromCatalog,
   getPackagedServicesListFromAllowed,
@@ -32,11 +33,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function StartingANewProject({ searchParams }: Props) {
-  const [{ services }, startPage] = await Promise.all([
-    listServices(),
+  const [shell, startPage] = await Promise.all([
+    getSiteShellData(),
     getPage('starting-a-new-project'),
   ]);
 
+  const { services } = shell;
   const servicesList = getAllIndividualServicesFromCatalog(services);
 
   const cmsPackaged = startPage.content.AVAILABLE_PACKAGED_SERVICE_IDS ?? [];
