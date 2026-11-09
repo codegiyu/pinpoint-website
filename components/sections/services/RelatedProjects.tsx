@@ -136,7 +136,9 @@ export const ProjectSlide = ({ name, description, image, projectId }: RelatedPro
 const DiscoverMoreSlide = () => {
   return (
     <GhostBtn linkProps={{ href: `/our-works` }} className="w-full" wrapClassName="group">
-      <div className="w-full xl:h-[clamp(354px,_26.418vw,_442px)] bg-dark text-white flex flex-col justify-between relative xl:p-[clamp(46px,_3.433vw,_58px)]">
+      <div
+        className="w-full xl:h-[clamp(354px,_26.418vw,_442px)] bg-dark text-white flex flex-col 
+        justify-between relative xl:p-[clamp(46px,_3.433vw,_58px)]">
         <div className="w-full h-[60vw] md:h-[200px] lg:h-[280px] xl:h-auto typo-body-6 text-start pt-10 px-6 xl:pt-0 xl:px-0">
           <p className="">Still hungry ?</p>
           <p className="text-wrap break-words">

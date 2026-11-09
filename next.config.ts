@@ -1,5 +1,4 @@
 import type { NextConfig } from 'next';
-import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const cmsImageHost = process.env.NEXT_PUBLIC_CMS_IMAGE_HOSTNAME;
 
@@ -66,4 +65,18 @@ const nextConfig: NextConfig = {
 
 // Optional: bundle analyzer for build-time inspection.
 // Usage: `ANALYZE=true npm run analyze`
-export default withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' })(nextConfig);
+// Loaded only when ANALYZE=true so production images without devDependencies can start.
+function withOptionalBundleAnalyzer(config: NextConfig): NextConfig {
+  if (process.env.ANALYZE !== 'true') {
+    return config;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: true,
+  });
+
+  return withBundleAnalyzer(config);
+}
+
+export default withOptionalBundleAnalyzer(nextConfig);

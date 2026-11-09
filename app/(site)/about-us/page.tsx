@@ -8,13 +8,8 @@ import { Services } from '@/components/sections/about/Services';
 import { Team } from '@/components/sections/about/Team';
 import { CommonHero } from '@/components/sections/shared/CommonHero';
 import { CTA } from '@/components/sections/shared/Cta';
-import {
-  getAchievements,
-  getPage,
-  getReferences,
-  getTeam,
-  listServices,
-} from '@/lib/api/pinpoint-public';
+import { getAchievements, getPage, getReferences, getTeam } from '@/lib/api/pinpoint-public';
+import { getSiteShellData } from '@/lib/site-shell';
 import { mapServicesToSummaryCards, mapTeamMemberToSlide } from '@/lib/utils/cms-mappers';
 import { metadataFromRouteSeo } from '@/lib/utils/route-metadata';
 import type { Metadata } from 'next';
@@ -34,7 +29,7 @@ export default async function AboutUsPage() {
     getTeam(),
     getReferences(),
     getAchievements(),
-    listServices(),
+    getSiteShellData(),
   ]);
 
   const servicesSummary = mapServicesToSummaryCards(services);

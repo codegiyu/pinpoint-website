@@ -6,7 +6,7 @@ import { HeroArrow } from '@/components/general/HeroArrow';
 import { SmartVideo } from '@/components/general/SmartVideo';
 import { MacaronTextEn, MacaronTextePlayEn } from '@/components/icons';
 import { motion } from 'motion/react';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 const HERO_POSTER = 'https://static.pinpoint.ng/images/video-posters/home-poster.png';
 const HERO_VIDEO = 'https://static.pinpoint.ng/videos/home-animation.mp4';
@@ -17,8 +17,11 @@ export const HomeHero = ({
   changingHeroTitleModifiers: string[];
 }) => {
   return (
-    <section id="hero" className="w-full h-screen bg-dark text-white relative overflow-hidden">
-      <Image
+    <section
+      id="hero"
+      data-header-zone="dark"
+      className="w-full h-screen bg-dark text-white relative overflow-hidden">
+      {/* <Image
         src={HERO_POSTER}
         alt=""
         fill
@@ -26,11 +29,11 @@ export const HomeHero = ({
         fetchPriority="high"
         sizes="100vw"
         className="object-cover md:hidden"
-      />
+      /> */}
       <SmartVideo
         src={HERO_VIDEO}
         poster={HERO_POSTER}
-        wrapClassName="hidden md:block h-full w-full"
+        wrapClassName="block h-full w-full"
         preload="none"
       />
       <div className="hero-content w-full h-full bg-black/15 absolute inset-0 touch-events-none">

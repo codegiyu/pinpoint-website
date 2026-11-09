@@ -1,5 +1,5 @@
 'use client';
-import { FullJobProps } from '@/app/jobs/[job]/page';
+import { FullJobProps } from '@/app/(site)/jobs/[job]/page';
 import { motion } from 'motion/react';
 
 type JobDetailsProps = Partial<Pick<FullJobProps, 'profile' | 'offer' | 'jobDescription' | 'Ps'>>;
